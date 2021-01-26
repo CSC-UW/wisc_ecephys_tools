@@ -1,3 +1,8 @@
+from ecephys.neuropixels import checkerboard_map, long_column_map
+
+CheckPat = checkerboard_map.get_user_order()
+LongCol = long_column_map.get_user_order()
+
 full = {
     "Segundo": LongCol,
     "Valentino": CheckPat,
