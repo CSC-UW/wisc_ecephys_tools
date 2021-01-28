@@ -4,7 +4,7 @@ Segundo:
   analysis-root: /Volumes/neuropixel/Data/CNPIX2-Segundo/
   recovery-sleep-circadian-match:
     - 1-21-2020_g0_t11.imec0
-  extended-wake:
+  extended-wake-6h:
     - 1-21-2020_g0_t20.imec0
     - 1-21-2020_g0_t21.imec0
     - 1-21-2020_g0_t22.imec0
@@ -26,7 +26,7 @@ Valentino:
   analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/
   recovery-sleep-circadian-match:
     - 2-19-2020_g1_t3.imec0
-  extended-wake:
+  extended-wake-6h:
     - 2-20-2020_g0_t0.imec0
     - 2-20-2020_g0_t1.imec0
     - 2-20-2020_g0_t2.imec0
@@ -84,7 +84,7 @@ Alessandro:
   recovery-sleep-circadian-match:
     - 8-24-2020_g0_t6.imec0
     - 8-24-2020_g0_t7.imec0
-  extended-wake:
+  extended-wake-6h:
     - 8-25-2020_SD_g0_t0.imec0
     - 8-25-2020_SD_g0_t1.imec0
     - 8-25-2020_SD_g0_t2.imec0
@@ -120,7 +120,7 @@ Eugene:
   recovery-sleep-circadian-match:
     - 9.24.2020_BL_24hs2_g0_t5.imec0
     - 9.24.2020_BL_24hs2_g0_t6.imec0
-  extended-wake:
+  extended-wake-6h:
     - 9.24.2020_SD_24hs_g0_t0.imec0
     - 9.24.2020_SD_24hs1_g0_t0.imec0
     - 9.24.2020_SD_24hs2_g0_t0.imec0
