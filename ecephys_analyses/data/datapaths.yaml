@@ -182,9 +182,34 @@ Alessandro:
 Eugene:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/raw/
   analysis-root: /Volumes/neuropixel/Data/CNPIX6-Eugene/
-  recovery-sleep-circadian-match:
+  extended-wake-6h-circadian-match:
+    - 9.24.2020_BL_24hs_g0_t0.imec0
+    - 9.24.2020_BL_24hs2_g0_t0.imec0
+    - 9.24.2020_BL_24hs2_g0_t1.imec0
+    - 9.24.2020_BL_24hs2_g0_t2.imec0
+    - 9.24.2020_BL_24hs2_g0_t3.imec0
+    - 9.24.2020_BL_24hs2_g0_t4.imec0
+  recovery-sleep-2h-circadian-match:
     - 9.24.2020_BL_24hs2_g0_t5.imec0
     - 9.24.2020_BL_24hs2_g0_t6.imec0
+  recovery-sleep-6h-circadian-match:
+    - 9.24.2020_BL_24hs2_g0_t5.imec0
+    - 9.24.2020_BL_24hs2_g0_t6.imec0
+    - 9.24.2020_BL_24hs3_g0_t0.imec0
+    - 9.24.2020_BL_24hs3_g0_t1.imec0
+    - 9.24.2020_BL_24hs5_g0_t0.imec0
+  sleep-deprivation-12h-circadian-match:
+    - 9.24.2020_BL_24hs_g0_t0.imec0
+    - 9.24.2020_BL_24hs2_g0_t0.imec0
+    - 9.24.2020_BL_24hs2_g0_t1.imec0
+    - 9.24.2020_BL_24hs2_g0_t2.imec0
+    - 9.24.2020_BL_24hs2_g0_t3.imec0
+    - 9.24.2020_BL_24hs2_g0_t4.imec0
+    - 9.24.2020_BL_24hs2_g0_t5.imec0
+    - 9.24.2020_BL_24hs2_g0_t6.imec0
+    - 9.24.2020_BL_24hs3_g0_t0.imec0
+    - 9.24.2020_BL_24hs3_g0_t1.imec0
+    - 9.24.2020_BL_24hs5_g0_t0.imec0
   extended-wake-6h:
     - 9.24.2020_SD_24hs_g0_t0.imec0
     - 9.24.2020_SD_24hs1_g0_t0.imec0
@@ -206,9 +231,6 @@ Eugene:
     - 9.24.2020_SR_24hs_g0_t2.imec0
     - 9.24.2020_SR_24hs_g0_t3.imec0
     - 9.24.2020_SR_24hs_g0_t4.imec0
-    - 9.24.2020_SR_24hs_g0_t5.imec0
-    - 9.24.2020_SR_24hs1_g0_t0.imec0
-  recovery-sleep-patch:
     - 9.24.2020_SR_24hs_g0_t5.imec0
     - 9.24.2020_SR_24hs1_g0_t0.imec0
   sleep-deprivation-12h:
