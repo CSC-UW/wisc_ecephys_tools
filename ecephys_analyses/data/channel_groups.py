@@ -57,6 +57,8 @@ stratum_radiatum_140um_to_200um = {
     "Eugene": [183, 185, 187, 189],
 }
 
+drift_tracking = {"Valentino": CheckPat[180:320]}
+
 # stratum_radiatum = {"Doppio": CheckPat[260:273]}  # LF137 through LF161
 # stratum_oriens_100um = {"Doppio": [177]}
 # ripple_detection = {

@@ -41,42 +41,37 @@ Segundo:
 Valentino:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/raw/
   analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/
-  extended-wake-6h-circadian-match:
+  extended-wake-6h-circadian-match: &Val-EW-6h-CM
     - 2-19-2020_g1_t0.imec0
     - 2-19-2020_g1_t1.imec0
     - 2-19-2020_g1_t2.imec0
-  recovery-sleep-2h-circadian-match:
-    - 2-19-2020_g0_t3.imec0
-  recovery-sleep-6h-circadian-match:
+  recovery-sleep-2h-circadian-match: &Val-RS-2h-CM
     - 2-19-2020_g1_t3.imec0
+  recovery-sleep-6h-circadian-match: &Val-RS-6h-CM
+    - *Val-RS-2h-CM
     - 2-19-2020_g1_t4.imec0
     - 2-19-2020_g1_t5.imec0
-  sleep-deprivation-12h-circadian-match:
-    - 2-19-2020_g1_t0.imec0
-    - 2-19-2020_g1_t1.imec0
-    - 2-19-2020_g1_t2.imec0
-    - 2-19-2020_g1_t3.imec0
-    - 2-19-2020_g1_t4.imec0
-    - 2-19-2020_g1_t5.imec0
+  sleep-deprivation-12h-circadian-match: &Val-SD-12h-CM
+    - *Val-EW-6h-CM
+    - *Val-RS-6h-CM
   dark-period-last-2h:
     - 2-19-2020_g1_t11.imec0
-  extended-wake-6h:
+  extended-wake-6h: &Val-EW-6h
     - 2-20-2020_g0_t0.imec0
     - 2-20-2020_g0_t1.imec0
     - 2-20-2020_g0_t2.imec0
-  recovery-sleep-2h:
+  recovery-sleep-2h: &Val-RS-2h
     - 2-20-2020_g0_t3.imec0
-  recovery-sleep-6h:
-    - 2-20-2020_g0_t3.imec0
+  recovery-sleep-6h: &Val-RS-6h
+    - *Val-RS-2h
     - 2-20-2020_g0_t4.imec0
     - 2-20-2020_g0_t5.imec0
-  sleep-deprivation-12h:
-    - 2-20-2020_g0_t0.imec0
-    - 2-20-2020_g0_t1.imec0
-    - 2-20-2020_g0_t2.imec0
-    - 2-20-2020_g0_t3.imec0
-    - 2-20-2020_g0_t4.imec0
-    - 2-20-2020_g0_t5.imec0
+  sleep-deprivation-12h: &Val-SD-12h
+    - *Val-EW-6h
+    - *Val-RS-6h
+  all:
+    - *Val-SD-12h-CM
+    - *Val-SD-12h
 Doppio:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/raw/
   analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/
@@ -210,6 +205,9 @@ Eugene:
     - 9.24.2020_BL_24hs3_g0_t0.imec0
     - 9.24.2020_BL_24hs3_g0_t1.imec0
     - 9.24.2020_BL_24hs5_g0_t0.imec0
+  dark-period-last-2h:
+    - 9.24.2020_BL_24hs10_g0_t0.imec0
+    - 9.24.2020_BL_24hs11_g0_t0.imec0
   extended-wake-6h:
     - 9.24.2020_SD_24hs_g0_t0.imec0
     - 9.24.2020_SD_24hs1_g0_t0.imec0
