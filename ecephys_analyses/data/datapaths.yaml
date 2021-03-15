@@ -1,6 +1,6 @@
 ---
 Segundo:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/raw/
+  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-21-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX2-Segundo/
   extended-wake-6h-circadian-match:
     - 1-21-2020_g0_t8.imec0
@@ -39,7 +39,7 @@ Segundo:
     - 1-21-2020_g0_t24.imec0
     - 1-21-2020_g0_t25.imec0
 Valentino:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/raw/
+  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/
   extended-wake-6h-circadian-match: &Val-EW-6h-CM
     - 2-19-2020_g1_t0.imec0
@@ -54,8 +54,15 @@ Valentino:
   sleep-deprivation-12h-circadian-match: &Val-SD-12h-CM
     - *Val-EW-6h-CM
     - *Val-RS-6h-CM
-  dark-period-last-2h:
+  dark-period-last-2h: &Val-Dark-L2h
     - 2-19-2020_g1_t11.imec0
+  dark-period-circadian-match: &Val-Dark-CM
+    - 2-19-2020_g1_t6.imec0
+    - 2-19-2020_g1_t7.imec0
+    - 2-19-2020_g1_t8.imec0
+    - 2-19-2020_g1_t9.imec0
+    - 2-19-2020_g1_t10.imec0
+    - *Val-Dark-L2h
   extended-wake-6h: &Val-EW-6h
     - 2-20-2020_g0_t0.imec0
     - 2-20-2020_g0_t1.imec0
@@ -69,50 +76,70 @@ Valentino:
   sleep-deprivation-12h: &Val-SD-12h
     - *Val-EW-6h
     - *Val-RS-6h
-  all:
+  dark-period: &Val-Dark
+    - 2-20-2020_g0_t6.imec0
+    - 2-20-2020_g0_t7.imec0
+    - 2-20-2020_g0_t8.imec0
+    - 2-20-2020_g0_t9.imec0
+    - 2-20-2020_g0_t10.imec0
+    - 2-20-2020_g0_t11.imec0
+  all-light-periods:
     - *Val-SD-12h-CM
     - *Val-SD-12h
+  all-dark-periods:
+    - *Val-Dark-CM
+    - *Val-Dark
 Doppio:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/raw/
+  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/
-  extended-wake-6h-circadian-match:
+  extended-wake-6h-circadian-match: &Dop-EW-6h-CM
     - 3-17-2020_g0_t0.imec0
     - 3-17-2020_g0_t1.imec0
     - 3-17-2020_g0_t2.imec0
-  recovery-sleep-2h-circadian-match:
+  recovery-sleep-2h-circadian-match: &Dop-RS-2h-CM
     - 3-17-2020_g0_t3.imec0
-  recovery-sleep-6h-circadian-match:
-    - 3-17-2020_g0_t3.imec0
+  recovery-sleep-6h-circadian-match: &Dop-RS-6h-CM
+    - *Dop-RS-2h-CM
     - 3-17-2020_g0_t4.imec0
     - 3-17-2020_g0_t5.imec0
-  sleep-deprivation-12h-circadian-match:
-    - 3-17-2020_g0_t0.imec0
-    - 3-17-2020_g0_t1.imec0
-    - 3-17-2020_g0_t2.imec0
-    - 3-17-2020_g0_t3.imec0
-    - 3-17-2020_g0_t4.imec0
-    - 3-17-2020_g0_t5.imec0
-  dark-period-last-2h:
+  sleep-deprivation-12h-circadian-match: &Dop-SD-12h-CM
+    - *Dop-EW-6h-CM
+    - *Dop-RS-6h-CM
+  dark-period-last-2h: &Dop-Dark-L2h
     - 3-17-2020_g0_t11.imec0
-  extended-wake-6h:
+  dark-period-circadian-match: &Dop-Dark-CM
+    - 3-17-2020_g0_t6.imec0
+    - 3-17-2020_g0_t7.imec0
+    - 3-17-2020_g0_t8.imec0
+    - 3-17-2020_g0_t9.imec0
+    - 3-17-2020_g0_t10.imec0
+    - *Dop-Dark-L2h
+  extended-wake-6h: &Dop-EW-6h
     - 3-18-2020_g0_t0.imec0
     - 3-18-2020_g0_t1.imec0
     - 3-18-2020_g0_t2.imec0
-  recovery-sleep-2h:
+  recovery-sleep-2h: &Dop-RS-2h
     - 3-18-2020_g0_t3.imec0
-  recovery-sleep-6h:
-    - 3-18-2020_g0_t3.imec0
+  recovery-sleep-6h: &Dop-RS-6h
+    - *Dop-RS-2h
     - 3-18-2020_g0_t4.imec0
     - 3-18-2020_g0_t5.imec0
-  sleep-deprivation-12h:
-    - 3-18-2020_g0_t0.imec0
-    - 3-18-2020_g0_t1.imec0
-    - 3-18-2020_g0_t2.imec0
-    - 3-18-2020_g0_t3.imec0
-    - 3-18-2020_g0_t4.imec0
-    - 3-18-2020_g0_t5.imec0
+  sleep-deprivation-12h: &Dop-SD-12h
+    - *Dop-EW-6h
+    - *Dop-RS-6h
+  dark-period: &Dop-Dark
+    - 3-18-2020_g0_t6.imec0
+    - 3-18-2020_g0_t7.imec0
+    - 3-18-2020_g0_t8.imec0
+    - 3-18-2020_g0_t9.imec0
+  all-light-periods:
+    - *Dop-SD-12h-CM
+    - *Dop-SD-12h
+  all-dark-periods:
+    - *Dop-Dark-CM
+    - *Dop-Dark
 Alessandro:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/raw/
+  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX5-Alessandro/
   extended-wake-6h-circadian-match:
     - 8-24-2020_g0_t0.imec0
@@ -175,7 +202,7 @@ Alessandro:
     - 8-25-2020_g0_t6.imec0
     - 8-25-2020_g0_t7.imec0
 Eugene:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/raw/
+  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX6-Eugene/
   extended-wake-6h-circadian-match:
     - 9.24.2020_BL_24hs_g0_t0.imec0
