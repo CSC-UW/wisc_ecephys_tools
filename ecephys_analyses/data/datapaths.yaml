@@ -38,15 +38,11 @@ Segundo:
     - 1-21-2020_g0_t29.imec0
     - 1-21-2020_g0_t30.imec0
     - 1-21-2020_g0_t31.imec0
-  circadian-match-day: &Seg-CM
+  all:
     - *Seg-Light-CM
     - *Seg-Dark-CM
-  experimental-day: &Seg-EXP
     - *Seg-Light
     - *Seg-Dark
-  all:
-    - *Seg-CM
-    - *Seg-EXP
 Valentino:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/
@@ -86,63 +82,52 @@ Valentino:
     - 2-20-2020_g0_t9.imec0
     - 2-20-2020_g0_t10.imec0
     - 2-20-2020_g0_t11.imec0
-  circadian-match-day: &Val-CM
+  all:
     - *Val-Light-CM
     - *Val-Dark-CM
-  experimental-day: &Val-EXP
     - *Val-Light
     - *Val-Dark
-  all:
-    - *Val-CM
-    - *Val-EXP
 Doppio:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/
-  extended-wake-6h-circadian-match: &Dop-EW-6h-CM
+  extended-wake-circadian-match: &Dop-EW-CM
     - 3-17-2020_g0_t0.imec0
     - 3-17-2020_g0_t1.imec0
     - 3-17-2020_g0_t2.imec0
-  recovery-sleep-2h-circadian-match: &Dop-RS-2h-CM
+  recovery-sleep-circadian-match: &Dop-RS-CM
     - 3-17-2020_g0_t3.imec0
-  recovery-sleep-6h-circadian-match: &Dop-RS-6h-CM
-    - *Dop-RS-2h-CM
     - 3-17-2020_g0_t4.imec0
     - 3-17-2020_g0_t5.imec0
-  sleep-deprivation-12h-circadian-match: &Dop-SD-12h-CM
-    - *Dop-EW-6h-CM
-    - *Dop-RS-6h-CM
-  dark-period-last-2h: &Dop-Dark-L2h
-    - 3-17-2020_g0_t11.imec0
+  light-period-circadian-match: &Dop-Light-CM
+    - *Dop-EW-CM
+    - *Dop-RS-CM
   dark-period-circadian-match: &Dop-Dark-CM
     - 3-17-2020_g0_t6.imec0
     - 3-17-2020_g0_t7.imec0
     - 3-17-2020_g0_t8.imec0
     - 3-17-2020_g0_t9.imec0
     - 3-17-2020_g0_t10.imec0
-    - *Dop-Dark-L2h
-  extended-wake-6h: &Dop-EW-6h
+    - 3-17-2020_g0_t11.imec0
+  extended-wake: &Dop-EW
     - 3-18-2020_g0_t0.imec0
     - 3-18-2020_g0_t1.imec0
     - 3-18-2020_g0_t2.imec0
-  recovery-sleep-2h: &Dop-RS-2h
+  recovery-sleep: &Dop-RS
     - 3-18-2020_g0_t3.imec0
-  recovery-sleep-6h: &Dop-RS-6h
-    - *Dop-RS-2h
     - 3-18-2020_g0_t4.imec0
     - 3-18-2020_g0_t5.imec0
-  sleep-deprivation-12h: &Dop-SD-12h
-    - *Dop-EW-6h
-    - *Dop-RS-6h
+  light-period: &Dop-Light
+    - *Dop-EW
+    - *Dop-RS
   dark-period: &Dop-Dark
     - 3-18-2020_g0_t6.imec0
     - 3-18-2020_g0_t7.imec0
     - 3-18-2020_g0_t8.imec0
     - 3-18-2020_g0_t9.imec0
-  all-light-periods:
-    - *Dop-SD-12h-CM
-    - *Dop-SD-12h
-  all-dark-periods:
+  all:
+    - *Dop-Light-CM
     - *Dop-Dark-CM
+    - *Dop-Light
     - *Dop-Dark
 Alessandro:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/
