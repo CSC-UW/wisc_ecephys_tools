@@ -132,66 +132,57 @@ Doppio:
 Alessandro:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX5-Alessandro/
-  extended-wake-6h-circadian-match:
+  extended-wake-circadian-match: &Ale-EW-CM
     - 8-24-2020_g0_t0.imec0
     - 8-24-2020_g0_t1.imec0
     - 8-24-2020_g0_t2.imec0
     - 8-24-2020_g0_t3.imec0
     - 8-24-2020_g0_t4.imec0
     - 8-24-2020_g0_t5.imec0
-  recovery-sleep-2h-circadian-match:
-    - 8-24-2020_g0_t6.imec0
-    - 8-24-2020_g0_t7.imec0
-  recovery-sleep-6h-circadian-match:
+  recovery-sleep-circadian-match: &Ale-RS-CM
     - 8-24-2020_g0_t6.imec0
     - 8-24-2020_g0_t7.imec0
     - 8-24-2020_g0_t8.imec0
     - 8-24-2020_g0_t9.imec0
     - 8-24-2020_g0_t10.imec0
     - 8-24-2020_g0_t11.imec0
-  sleep-deprivation-12h-circadian-match:
-    - 8-24-2020_g0_t0.imec0
-    - 8-24-2020_g0_t1.imec0
-    - 8-24-2020_g0_t2.imec0
-    - 8-24-2020_g0_t3.imec0
-    - 8-24-2020_g0_t4.imec0
-    - 8-24-2020_g0_t5.imec0
-    - 8-24-2020_g0_t6.imec0
-    - 8-24-2020_g0_t7.imec0
-    - 8-24-2020_g0_t8.imec0
-    - 8-24-2020_g0_t9.imec0
-    - 8-24-2020_g0_t10.imec0
-    - 8-24-2020_g0_t11.imec0
-  extended-wake-6h:
+  light-period-circadian-match: &Ale-Light-CM
+    - *Ale-EW-CM
+    - *Ale-RS-CM
+  dark-period-circadian-match: &Ale-Dark-CM
+    - 8-24-2020_g0_t12.imec0
+    - 8-24-2020_g0_t13.imec0
+    - 8-24-2020_g0_t14.imec0
+    - 8-24-2020_g0_t15.imec0
+    - 8-24-2020_g0_t16.imec0
+  extended-wake: &Ale-EW
     - 8-25-2020_SD_g0_t0.imec0
     - 8-25-2020_SD_g0_t1.imec0
     - 8-25-2020_SD_g0_t2.imec0
     - 8-25-2020_SD2_g0_t0.imec0
     - 8-25-2020_g0_t0.imec0
     - 8-25-2020_g0_t1.imec0
-  recovery-sleep-2h:
-    - 8-25-2020_g0_t2.imec0
-    - 8-25-2020_g0_t3.imec0
-  recovery-sleep-6h:
+  recovery-sleep: &Ale-RS
     - 8-25-2020_g0_t2.imec0
     - 8-25-2020_g0_t3.imec0
     - 8-25-2020_g0_t4.imec0
     - 8-25-2020_g0_t5.imec0
     - 8-25-2020_g0_t6.imec0
     - 8-25-2020_g0_t7.imec0
-  sleep-deprivation-12h:
-    - 8-25-2020_SD_g0_t0.imec0
-    - 8-25-2020_SD_g0_t1.imec0
-    - 8-25-2020_SD_g0_t2.imec0
-    - 8-25-2020_SD2_g0_t0.imec0
-    - 8-25-2020_g0_t0.imec0
-    - 8-25-2020_g0_t1.imec0
-    - 8-25-2020_g0_t2.imec0
-    - 8-25-2020_g0_t3.imec0
-    - 8-25-2020_g0_t4.imec0
-    - 8-25-2020_g0_t5.imec0
-    - 8-25-2020_g0_t6.imec0
-    - 8-25-2020_g0_t7.imec0
+  light-period: &Ale-Light
+    - *Ale-EW
+    - *Ale-RS
+  dark-period: &Ale-Dark
+    - 8-25-2020_g0_t8.imec0
+    - 8-25-2020_g0_t9.imec0
+    - 8-25-2020_g0_t10.imec0
+    - 8-25-2020_g0_t11.imec0
+    - 8-25-2020_g0_t12.imec0
+  all:
+    - *Ale-Light-CM
+    - *Ale-Dark-CM
+    - *Ale-Light
+    - *Ale-Dark
 Eugene:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX6-Eugene/
