@@ -186,38 +186,31 @@ Alessandro:
 Eugene:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX6-Eugene/
-  extended-wake-6h-circadian-match:
+  extended-wake-circadian-match: &Eug-EW-CM
     - 9.24.2020_BL_24hs_g0_t0.imec0
     - 9.24.2020_BL_24hs2_g0_t0.imec0
     - 9.24.2020_BL_24hs2_g0_t1.imec0
     - 9.24.2020_BL_24hs2_g0_t2.imec0
     - 9.24.2020_BL_24hs2_g0_t3.imec0
     - 9.24.2020_BL_24hs2_g0_t4.imec0
-  recovery-sleep-2h-circadian-match:
-    - 9.24.2020_BL_24hs2_g0_t5.imec0
-    - 9.24.2020_BL_24hs2_g0_t6.imec0
-  recovery-sleep-6h-circadian-match:
+  recovery-sleep-circadian-match: &Eug-RS-CM
     - 9.24.2020_BL_24hs2_g0_t5.imec0
     - 9.24.2020_BL_24hs2_g0_t6.imec0
     - 9.24.2020_BL_24hs3_g0_t0.imec0
     - 9.24.2020_BL_24hs3_g0_t1.imec0
     - 9.24.2020_BL_24hs5_g0_t0.imec0
-  sleep-deprivation-12h-circadian-match:
-    - 9.24.2020_BL_24hs_g0_t0.imec0
-    - 9.24.2020_BL_24hs2_g0_t0.imec0
-    - 9.24.2020_BL_24hs2_g0_t1.imec0
-    - 9.24.2020_BL_24hs2_g0_t2.imec0
-    - 9.24.2020_BL_24hs2_g0_t3.imec0
-    - 9.24.2020_BL_24hs2_g0_t4.imec0
-    - 9.24.2020_BL_24hs2_g0_t5.imec0
-    - 9.24.2020_BL_24hs2_g0_t6.imec0
-    - 9.24.2020_BL_24hs3_g0_t0.imec0
-    - 9.24.2020_BL_24hs3_g0_t1.imec0
-    - 9.24.2020_BL_24hs5_g0_t0.imec0
-  dark-period-last-2h:
+  light-period-circadian-match: &Eug-Light-CM
+    - *Eug-EW-CM
+    - *Eug-RS-CM
+  dark-period-circadian-match: &Eug-Dark-CM
+    - 9.24.2020_BL_24hs7_g0_t0.imec0
+    - 9.24.2020_BL_24hs8_g0_t0.imec0
+    - 9.24.2020_BL_24hs8_g0_t1.imec0
+    - 9.24.2020_BL_24hs8_g0_t2.imec0
+    - 9.24.2020_BL_24hs8_g0_t3.imec0
     - 9.24.2020_BL_24hs10_g0_t0.imec0
     - 9.24.2020_BL_24hs11_g0_t0.imec0
-  extended-wake-6h:
+  extended-wake: &Eug-EW
     - 9.24.2020_SD_24hs_g0_t0.imec0
     - 9.24.2020_SD_24hs1_g0_t0.imec0
     - 9.24.2020_SD_24hs2_g0_t0.imec0
@@ -229,10 +222,7 @@ Eugene:
     - 9.24.2020_SD_24hs7_g0_t0.imec0
     - 9.24.2020_SD_24hs8_g0_t0.imec0
     - 9.24.2020_SD_24hs8_g0_t1.imec0
-  recovery-sleep-2h:
-    - 9.24.2020_SR_24hs_g0_t0.imec0
-    - 9.24.2020_SR_24hs_g0_t1.imec0
-  recovery-sleep-6h:
+  recovery-sleep: &Eug-RS
     - 9.24.2020_SR_24hs_g0_t0.imec0
     - 9.24.2020_SR_24hs_g0_t1.imec0
     - 9.24.2020_SR_24hs_g0_t2.imec0
@@ -240,22 +230,17 @@ Eugene:
     - 9.24.2020_SR_24hs_g0_t4.imec0
     - 9.24.2020_SR_24hs_g0_t5.imec0
     - 9.24.2020_SR_24hs1_g0_t0.imec0
-  sleep-deprivation-12h:
-    - 9.24.2020_SD_24hs_g0_t0.imec0
-    - 9.24.2020_SD_24hs1_g0_t0.imec0
-    - 9.24.2020_SD_24hs2_g0_t0.imec0
-    - 9.24.2020_SD_24hs3_g0_t0.imec0
-    - 9.24.2020_SD_24hs3_g1_t0.imec0
-    - 9.24.2020_SD_24hs3_g1_t1.imec0
-    - 9.24.2020_SD_24hs4_g0_t0.imec0
-    - 9.24.2020_SD_24hs5_g0_t0.imec0
-    - 9.24.2020_SD_24hs7_g0_t0.imec0
-    - 9.24.2020_SD_24hs8_g0_t0.imec0
-    - 9.24.2020_SD_24hs8_g0_t1.imec0
-    - 9.24.2020_SR_24hs_g0_t0.imec0
-    - 9.24.2020_SR_24hs_g0_t1.imec0
-    - 9.24.2020_SR_24hs_g0_t2.imec0
-    - 9.24.2020_SR_24hs_g0_t3.imec0
-    - 9.24.2020_SR_24hs_g0_t4.imec0
-    - 9.24.2020_SR_24hs_g0_t5.imec0
-    - 9.24.2020_SR_24hs1_g0_t0.imec0
+  light-period: &Eug-Light
+    - *Eug-EW
+    - *Eug-RS
+  dark-period: &Eug-Dark
+    - 9.24.2020_SR_24hs3_g0_t0.imec0
+    - 9.24.2020_SR_24hs4_g0_t0.imec0
+    - 9.24.2020_SR_24hs5_g0_t0.imec0
+    - 9.24.2020_SR_24hs5_g0_t1.imec0
+    - 9.24.2020_SR_24hs5_g0_t2.imec0
+  all:
+    - *Eug-Light-CM
+    - *Eug-Dark-CM
+    - *Eug-Light
+    - *Eug-Dark
