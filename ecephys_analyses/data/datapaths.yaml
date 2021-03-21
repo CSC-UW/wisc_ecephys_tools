@@ -50,41 +50,35 @@ Segundo:
 Valentino:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/
-  extended-wake-6h-circadian-match: &Val-EW-6h-CM
+  extended-wake-circadian-match: &Val-EW-CM
     - 2-19-2020_g1_t0.imec0
     - 2-19-2020_g1_t1.imec0
     - 2-19-2020_g1_t2.imec0
-  recovery-sleep-2h-circadian-match: &Val-RS-2h-CM
+  recovery-sleep-6h-circadian-match: &Val-RS-CM
     - 2-19-2020_g1_t3.imec0
-  recovery-sleep-6h-circadian-match: &Val-RS-6h-CM
-    - *Val-RS-2h-CM
     - 2-19-2020_g1_t4.imec0
     - 2-19-2020_g1_t5.imec0
-  sleep-deprivation-12h-circadian-match: &Val-SD-12h-CM
-    - *Val-EW-6h-CM
-    - *Val-RS-6h-CM
-  dark-period-last-2h: &Val-Dark-L2h
-    - 2-19-2020_g1_t11.imec0
+  light-period-circadian-match: &Val-Light-CM
+    - *Val-EW-CM
+    - *Val-RS-CM
   dark-period-circadian-match: &Val-Dark-CM
     - 2-19-2020_g1_t6.imec0
     - 2-19-2020_g1_t7.imec0
     - 2-19-2020_g1_t8.imec0
     - 2-19-2020_g1_t9.imec0
     - 2-19-2020_g1_t10.imec0
-    - *Val-Dark-L2h
-  extended-wake-6h: &Val-EW-6h
+    - 2-19-2020_g1_t11.imec0
+  extended-wake: &Val-EW
     - 2-20-2020_g0_t0.imec0
     - 2-20-2020_g0_t1.imec0
     - 2-20-2020_g0_t2.imec0
-  recovery-sleep-2h: &Val-RS-2h
+  recovery-sleep-6h: &Val-RS
     - 2-20-2020_g0_t3.imec0
-  recovery-sleep-6h: &Val-RS-6h
-    - *Val-RS-2h
     - 2-20-2020_g0_t4.imec0
     - 2-20-2020_g0_t5.imec0
-  sleep-deprivation-12h: &Val-SD-12h
-    - *Val-EW-6h
-    - *Val-RS-6h
+  light-period-12h: &Val-Light
+    - *Val-EW
+    - *Val-RS
   dark-period: &Val-Dark
     - 2-20-2020_g0_t6.imec0
     - 2-20-2020_g0_t7.imec0
@@ -92,14 +86,14 @@ Valentino:
     - 2-20-2020_g0_t9.imec0
     - 2-20-2020_g0_t10.imec0
     - 2-20-2020_g0_t11.imec0
-  baseline-day: &Val-BSL
-    - *Val-SD-12h-CM
+  circadian-match-day: &Val-CM
+    - *Val-Light-CM
     - *Val-Dark-CM
   experimental-day: &Val-EXP
-    - *Val-SD-12h
+    - *Val-Light
     - *Val-Dark
   all:
-    - *Val-BSL
+    - *Val-CM
     - *Val-EXP
 Doppio:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/
