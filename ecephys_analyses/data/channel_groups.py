@@ -65,13 +65,3 @@ drift_tracking = {
     "Valentino": CheckPat[180:315],
     "Doppio": CheckPat[180:300],
 }
-
-# stratum_radiatum = {"Doppio": CheckPat[260:273]}  # LF137 through LF161
-# stratum_oriens_100um = {"Doppio": [177]}
-# ripple_detection = {
-#     "Segundo": [163, 165, 167, 169, 171, 173, 175, 177, 179, 181, 183],
-#     "Valentino": [162, 165, 166, 169, 170, 173, 174, 177, 178, 181, 182],
-#     "Doppio": [161, 162, 165, 166, 169, 170, 173, 174, 177, 178, 181],
-#     "Alessandro": [159, 161, 163, 165, 167, 169, 171, 173, 175, 177, 179],
-#     "Eugene": [193, 195, 197, 199, 201, 203, 205, 207, 209, 211],
-# }

@@ -29,8 +29,8 @@ Segundo:
     - 1-21-2020_g0_t24.imec0
     - 1-21-2020_g0_t25.imec0
   light-period: &Seg-Light
-    - *Seg-EW-6h
-    - *Seg-RS-6h
+    - *Seg-EW
+    - *Seg-RS
   dark-period: &Seg-Dark
     - 1-21-2020_g0_t26.imec0
     - 1-21-2020_g0_t27.imec0
