@@ -244,3 +244,78 @@ Eugene:
     - *Eug-Dark-CM
     - *Eug-Light
     - *Eug-Dark
+Allan:
+  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/
+  analysis-root: /Volumes/neuropixel/Data/CNPIX8-Allan/
+  extended-wake-circadian-match: &All-EW-CM
+    - 3-1-2021_g0_t0.imec1
+    - 3-1-2021-a_g0_t0.imec1
+    - 3-1-2021_A_g0_t0.imec1
+    - 3-1-2021_A_g1_t0.imec1
+    - 3-1-2021_A_g1_t1.imec1
+    - 3-1-2021_B_g0_t0.imec1
+    - 3-1-2021_C_g0_t0.imec1
+    - 3-1-2021_C_g0_t1.imec1
+  recovery-sleep-circadian-match: &All-RS-CM
+    - 3-1-2021_C_g0_t2.imec1
+    - 3-1-2021_C_g0_t3.imec1
+    - 3-1-2021_C_g0_t4.imec1
+    - 3-1-2021_C_g0_t5.imec1
+    - 3-1-2021_C_g0_t6.imec1
+    - 3-1-2021_C_g0_t7.imec1
+    - 3-1-2021_C_g0_t8.imec1
+  light-period-circadian-match: &All-Light-CM
+    - *All-EW-CM
+    - *All-RS-CM
+  dark-period-circadian-match: &All-Dark-CM
+    - 3-1-2021_D_g0_t0.imec1
+    - 3-1-2021_D_g0_t1.imec1
+    - 3-1-2021_D_g0_t2.imec1
+    - 3-1-2021_E_g0_t0.imec1
+    - 3-1-2021_E_g0_t1.imec1
+    - 3-1-2021_F_g0_t0.imec1
+    - 3-1-2021_G_g0_t0.imec1
+    - 3-1-2021_G_g0_t1.imec1
+    - 3-1-2021_H_g0_t0.imec1
+    - 3-1-2021_H_g0_t1.imec1
+    - 3-1-2021_H_g0_t2.imec1
+    - 3-1-2021_J_g0_t0.imec1
+  extended-wake: &All-EW
+    - 3-2-2021_A_g0_t0.imec1
+    - 3-2-2021_B_g0_t0.imec1
+    - 3-2-2021_B_g0_t1.imec1
+    - 3-2-2021_C_g0_t1.imec1
+    - 3-2-2021_D_g0_t0.imec1
+    - 3-2-2021_D_g0_t1.imec1
+    - 3-2-2021_D_g0_t2.imec1
+    - 3-2-2021_E_g0_t0.imec1
+  recovery-sleep: &All-RS
+    - 3-2-2021_F_g0_t0.imec1
+    - 3-2-2021_F_g0_t1.imec1
+    - 3-2-2021_F_g0_t2.imec1
+    - 3-2-2021_F_g0_t3.imec1
+    - 3-2-2021_F_g0_t4.imec1
+    - 3-2-2021_G_g0_t0.imec1
+  light-period: &All-Light
+    - *All-EW
+    - *All-RS
+  dark-period: &All-Dark
+    - 3-2-2021_G_g0_t1.imec1
+    - 3-2-2021_H_g0_t0.imec1
+    - 3-2-2021_I_g0_t0.imec1
+    - 3-2-2021_I_g0_t1.imec1
+    - 3-2-2021_J_g0_t0.imec1
+    - 3-2-2021_J_g0_t1.imec1
+    - 3-2-2021_K_g0_t0.imec1
+    - 3-2-2021_L_g0_t0.imec1
+    - 3-2-2021_M_g0_t0.imec1
+    - 3-2-2021_N_g0_t0.imec1
+    - 3-2-2021_O_g0_t0.imec1
+  all:
+    - *All-Light-CM
+    - *All-Dark-CM
+    - *All-Light
+    - *All-Dark
+
+
+
