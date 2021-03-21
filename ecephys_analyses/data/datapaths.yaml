@@ -2,42 +2,51 @@
 Segundo:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-21-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX2-Segundo/
-  extended-wake-6h-circadian-match:
+  extended-wake-circadian-match: &Seg-EW-CM
     - 1-21-2020_g0_t8.imec0
     - 1-21-2020_g0_t9.imec0
     - 1-21-2020_g0_t10.imec0
-  recovery-sleep-2h-circadian-match:
-    - 1-21-2020_g0_t11.imec0
-  recovery-sleep-6h-circadian-match:
+  recovery-sleep-circadian-match: &Seg-RS-CM
     - 1-21-2020_g0_t11.imec0
     - 1-21-2020_g0_t12.imec0
     - 1-21-2020_g0_t13.imec0
-  sleep-deprivation-12h-circadian-match:
-    - 1-21-2020_g0_t8.imec0
-    - 1-21-2020_g0_t9.imec0
-    - 1-21-2020_g0_t10.imec0
-    - 1-21-2020_g0_t11.imec0
-    - 1-21-2020_g0_t12.imec0
-    - 1-21-2020_g0_t13.imec0
-  dark-period-last-2h:
+  light-period-circadian-match: &Seg-Light-CM
+    - *Seg-EW-CM
+    - *Seg-RS-CM
+  dark-period-circadian-match: &Seg-Dark-CM
+    - 1-21-2020_g0_t14.imec0
+    - 1-21-2020_g0_t15.imec0
+    - 1-21-2020_g0_t16.imec0
+    - 1-21-2020_g0_t17.imec0
+    - 1-21-2020_g0_t18.imec0
     - 1-21-2020_g0_t19.imec0
-  extended-wake-6h:
+  extended-wake: &Seg-EW
     - 1-21-2020_g0_t20.imec0
     - 1-21-2020_g0_t21.imec0
     - 1-21-2020_g0_t22.imec0
-  recovery-sleep-2h:
-    - 1-21-2020_g0_t23.imec0
-  recovery-sleep-6h:
+  recovery-sleep-6h: &Seg-RS
     - 1-21-2020_g0_t23.imec0
     - 1-21-2020_g0_t24.imec0
     - 1-21-2020_g0_t25.imec0
-  sleep-deprivation-12h:
-    - 1-21-2020_g0_t20.imec0
-    - 1-21-2020_g0_t21.imec0
-    - 1-21-2020_g0_t22.imec0
-    - 1-21-2020_g0_t23.imec0
-    - 1-21-2020_g0_t24.imec0
-    - 1-21-2020_g0_t25.imec0
+  light-period: &Seg-Light
+    - *Seg-EW-6h
+    - *Seg-RS-6h
+  dark-period: &Seg-Dark
+    - 1-21-2020_g0_t26.imec0
+    - 1-21-2020_g0_t27.imec0
+    - 1-21-2020_g0_t28.imec0
+    - 1-21-2020_g0_t29.imec0
+    - 1-21-2020_g0_t30.imec0
+    - 1-21-2020_g0_t31.imec0
+  circadian-match-day: &Seg-CM
+    - *Seg-Light-CM
+    - *Seg-Dark-CM
+  experimental-day: &Seg-EXP
+    - *Seg-Light
+    - *Seg-Dark
+  all:
+    - *Seg-CM
+    - *Seg-EXP
 Valentino:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/
@@ -83,12 +92,15 @@ Valentino:
     - 2-20-2020_g0_t9.imec0
     - 2-20-2020_g0_t10.imec0
     - 2-20-2020_g0_t11.imec0
-  all-light-periods:
+  baseline-day: &Val-BSL
     - *Val-SD-12h-CM
-    - *Val-SD-12h
-  all-dark-periods:
     - *Val-Dark-CM
+  experimental-day: &Val-EXP
+    - *Val-SD-12h
     - *Val-Dark
+  all:
+    - *Val-BSL
+    - *Val-EXP
 Doppio:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/
   analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/
