@@ -64,4 +64,6 @@ drift_tracking = {
     "Segundo": LongCol[200:315],
     "Valentino": CheckPat[180:315],
     "Doppio": CheckPat[180:300],
+    "Alessandro": LongCol[180:300],
+    "Eugene": LongCol[230:320],
 }
