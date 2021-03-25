@@ -10,9 +10,11 @@ def get_datapath_from_csv(**kwargs):
     return paths.get_datapath_from_csv(CSV_PATH, **kwargs)
 
 
-def get_sglx_style_datapaths(subject, condition, ext):
-    return paths.get_sglx_style_datapaths(YAML_PATH, subject, condition, ext)
+def get_sglx_style_datapaths(subject, experiment, condition, ext):
+    return paths.get_sglx_style_datapaths(
+        YAML_PATH, subject, experiment, condition, ext
+    )
 
 
-def get_datapath(subject, condition, file):
-    return paths.get_datapath(YAML_PATH, subject, condition, file)
+def get_datapath(file, subject, experiment, condition=None):
+    return paths.get_datapath(YAML_PATH, file, subject, experiment, condition)

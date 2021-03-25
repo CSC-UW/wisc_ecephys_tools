@@ -17,9 +17,10 @@ bad = {"Segundo": [191]}
 emg = {
     "Segundo": LongCol[0:-1:191],  # "LF0;384", "LF382;766", "LF381;765"
     "Valentino": CheckPat[0:-1:191],  # "LF0;384", "LF383;767", "LF381;765"
-    "Doppio": CheckPat[0:-1:191],  # "LF0;384", "LF383;767", "LF381;765"
+    "Doppio": CheckPat[0:-1:191],  # "LF0;384", "LF383;767", "LF381;765" on imec0 (mpta)
     "Alessandro": LongCol[0:-1:191],  # "LF0;384", "LF382;766", "LF381;765"
     "Eugene": LongCol[0:-1:191],  # "LF0;384", "LF382;766", "LF381;765"
+    "Allan": [0, 328, 275],  # "LF0;384", "LF328;712", "LF275;659" on imec0 (frontal)
 }
 
 # Visually identified in the LFP during the first 2h of recovery sleep
