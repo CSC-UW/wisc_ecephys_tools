@@ -1,0 +1,77 @@
+ks_postprocessing:
+    postprocess_df:
+        # [<module_name>: <module_params_dict>]
+#         - kilosort_postprocessing: {}
+        - noise_templates:
+            noise_template_use_rf: False
+#         - mean_waveforms:
+#             c_Waves_snr_um: 160
+#         - quality_metrics:
+#             qm_isi_thresh: 0.0015  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
+
+sorting:
+    # Kilosort 1
+    ks1_base: &ks1_base
+        detect_threshold: 6
+        car: True
+        useGPU: True
+        freq_min: 300
+        freq_max: 6000
+        ntbuff: 64
+        Nfilt: null
+        NT: null
+    ks1_catgt_df:
+        - kilosort
+        -
+            <<: *ks1_base
+            car: False
+    # Kilosort 2.5
+    ks2_5_base: &ks2_5_base
+        detect_threshold: 6
+        projection_threshold: [10, 4]
+        preclust_threshold: 8
+        car: True
+        minFR: 0.1
+        minfr_goodchannels: 0.1
+        nblocks: 5
+        sig: 20
+        freq_min: 150
+        sigmaMask: 30
+        nPCs: 3
+        ntbuff: 64
+        nfilt_factor: 4
+        NT: null
+        keep_good_only: False
+        chunk_mb: 500
+        n_jobs_bin: 20
+    ks2_5_catgt_df:
+        - kilosort2_5
+        -
+            <<: *ks2_5_base
+            car: False
+    # Kilosort 3
+    ks3_base: &ks3_base
+        detect_threshold: 6
+        projection_threshold: [9, 9]
+        preclust_threshold: 8
+        car: True
+        minFR: 0.2
+        minfr_goodchannels: 0.2
+        nblocks: 5
+        sig: 20
+        freq_min: 300
+        sigmaMask: 30
+        nPCs: 3
+        ntbuff: 64
+        nfilt_factor: 4
+        NT: null
+        keep_good_only: False
+        chunk_mb: 500
+    ks3_catgt_df:
+        - kilosort3
+        -
+            <<: *ks3_base
+            car: False
+            
+        
+        

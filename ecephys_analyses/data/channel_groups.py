@@ -3,6 +3,12 @@ from ecephys.neuropixels import checkerboard_map, long_column_map
 CheckPat = checkerboard_map.get_user_order()
 LongCol = long_column_map.get_user_order()
 
+full_names = {
+    'Alessandro': 'CNPIX5-Alessandro',
+    'Allan': 'CNPIX8-Allan',
+    'Eugene': 'CNPIX6-Eugene',
+}
+
 full = {
     "Segundo": LongCol,
     "Valentino": CheckPat,
@@ -58,6 +64,26 @@ stratum_radiatum_140um_to_200um = {
 }
 
 drift_tracking = {"Valentino": CheckPat[180:320]}
+
+# Depths intervals for each area, MUST CORRESPOND TO DEPTHS IN PHY!
+depth_intervals = {
+    "Allan": {
+        # 3-5-2021 imec0
+        'g0-0': { 'cortex': [5980, 7480], },
+        'g2-0': { 'cortex': [5980, 7480], },
+        'g3-0': { 'cortex': [5980, 7480], },
+        'g4-0': { 'cortex': [5980, 7480], },
+        'g5-0': { 'cortex': [5980, 7480], },
+        'g6-0': { 'cortex': [5980, 7480], },
+        # 3-5-2021 imec1
+        'g0-1': { 'cortex': [7000, 8480], },
+        'g2-1': { 'cortex': [7000, 8480], },
+        'g3-1': { 'cortex': [7000, 8480], },
+        'g4-1': { 'cortex': [7000, 8480], },
+        'g5-1': { 'cortex': [7000, 8480], },
+        'g6-1': { 'cortex': [7000, 8480], },
+    }
+}
 
 # stratum_radiatum = {"Doppio": CheckPat[260:273]}  # LF137 through LF161
 # stratum_oriens_100um = {"Doppio": [177]}
