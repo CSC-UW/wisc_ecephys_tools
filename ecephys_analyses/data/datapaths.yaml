@@ -44,6 +44,8 @@ Segundo:
       - *Seg-Dark-CM
       - *Seg-Light
       - *Seg-Dark
+    spontaneous-wake:
+      - 1-21-2020_g0_t19.imec0
 Valentino:
   sleep-homeostasis:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/
@@ -70,11 +72,11 @@ Valentino:
       - 2-20-2020_g0_t0.imec0
       - 2-20-2020_g0_t1.imec0
       - 2-20-2020_g0_t2.imec0
-    recovery-sleep-6h: &Val-RS
+    recovery-sleep: &Val-RS
       - 2-20-2020_g0_t3.imec0
       - 2-20-2020_g0_t4.imec0
       - 2-20-2020_g0_t5.imec0
-    light-period-12h: &Val-Light
+    light-period: &Val-Light
       - *Val-EW
       - *Val-RS
     dark-period: &Val-Dark
@@ -89,6 +91,9 @@ Valentino:
       - *Val-Dark-CM
       - *Val-Light
       - *Val-Dark
+    spontaneous-wake:
+      - 2-19-2020_g1_t10.imec0
+      - 2-19-2020_g1_t11.imec0
 Doppio:
   sleep-homeostasis:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/
@@ -132,6 +137,9 @@ Doppio:
       - *Dop-Dark-CM
       - *Dop-Light
       - *Dop-Dark
+    spontaneous-wake:
+      - 3-17-2020_g0_t7.imec0
+      - 3-17-2020_g0_t8.imec0
 Alessandro:
   sleep-homeostasis:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/
@@ -187,6 +195,8 @@ Alessandro:
       - *Ale-Dark-CM
       - *Ale-Light
       - *Ale-Dark
+    spontaneous-wake:
+      - 8-24-2020_g0_t14.imec0
 Eugene:
   sleep-homeostasis:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/
@@ -249,6 +259,62 @@ Eugene:
       - *Eug-Dark-CM
       - *Eug-Light
       - *Eug-Dark
+    spontaneous-wake:
+      - 9.24.2020_SR_24hs3_g0_t0.imec0
+Giuseppe:
+  12-21-2020:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-21-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX7-Giuseppe/12-21-2020/
+    all:
+      - 12.21.2020 Stimulus threshold_g0_t0.imec0
+      - 12.21.2020 Stimulus threshold_g1_t0.imec0
+      - 12.21.2020 Stimulus threshold_g2_t0.imec0
+      - 12.21.2020 Stimulus threshold_g3_t0.imec0
+      - 12.21.2020 Stimulus threshold b_g0_t0.imec0
+      - 12.21.2020 Stimulus threshold c_g0_t0.imec0
+  12-23-2020:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-23-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX7-Giuseppe/12-23-2020/
+    all:
+      - 12.23.2020 Stimulus threshold_g0_t0.imec0
+      - 12.23.2020 Stimulus threshold_g1_t0.imec0
+      - 12.23.2020 Stimulus threshold_g2_t0.imec0
+      - 12.23.2020 Stimulus threshold_g3_t0.imec0
+      - 12.23.2020 Stimulus threshold_g4_t0.imec0
+      - 12.23.2020 Stimulus threshold_g5_t0.imec0
+      - 12.23.2020 Stimulus threshold_g6_t0.imec0
+  12-27-2020:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-27-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX7-Giuseppe/12-27-2020/
+    all:
+      - 12.27.2020 Stim (1-3)_g0_t0.imec0
+      - 12.27.2020 Stim (1-3)_g1_t0.imec0
+      - 12.27.2020 Stim (1-3)_g2_t0.imec0
+  1-7-2021:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/1-7-2021/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX7-Giuseppe/1-7-2021/
+    all:
+      - 1.7.2020 Stim(5-3)_g0_t0.imec0
+      - 1.7.2020 Stim(5-3)_g1_t0.imec0
+  1-14-2021:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/1-14-2021/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX7-Giuseppe/1-14-2021/
+    all:
+      - 1.14.2021 Stim (9-7)_g0_t0.imec0
+      - 1.14.2021 Stim (12-10)_g0_t0.imec0
+      - 1.14.2021 Stim (15-13)_g0_t0.imec0
+      - 1.14.2021 Stim (15-13)_g1_t0.imec0
+  1-21-2021:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/1-21-2021/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX7-Giuseppe/1-21-2021/
+    all:
+      - 1.21.2021_Amp_Change_g0_t0.imec0
+      - 1.21.2021_Amp_Change_g1_t0.imec0
+      - 1.21.2021_Amp_Change_g2_t0.imec0
+      - 1.21.2021_Amp_Change_g3_t0.imec0
+      - 1.21.2021_Amp_Change2_g0_t0.imec0
+      - 1.21.2021_Amp_Change3_g0_t0.imec0
+      - 1.21.2021_Amp_Change4_g0_t0.imec0
 Allan:
   sleep-homeostasis:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/
@@ -279,7 +345,6 @@ Allan:
       - 3-1-2021_D_g0_t2.imec1
       - 3-1-2021_E_g0_t0.imec1
       - 3-1-2021_E_g0_t1.imec1
-      - 3-1-2021_F_g0_t0.imec1
       - 3-1-2021_G_g0_t0.imec1
       - 3-1-2021_G_g0_t1.imec1
       - 3-1-2021_H_g0_t0.imec1
@@ -290,7 +355,7 @@ Allan:
       - 3-2-2021_A_g0_t0.imec1
       - 3-2-2021_B_g0_t0.imec1
       - 3-2-2021_B_g0_t1.imec1
-      - 3-2-2021_C_g0_t1.imec1
+      - 3-2-2021_C_g0_t0.imec1
       - 3-2-2021_D_g0_t0.imec1
       - 3-2-2021_D_g0_t1.imec1
       - 3-2-2021_D_g0_t2.imec1
@@ -322,6 +387,10 @@ Allan:
       - *All-Dark-CM
       - *All-Light
       - *All-Dark
+    spontaneous-wake:
+      - 3-1-2021_H_g0_t1.imec1
+      - 3-1-2021_H_g0_t2.imec1
+      - 3-1-2021_J_g0_t0.imec1
   3-5-2021:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/eStim/3-5-2021/
     analysis-root: /Volumes/neuropixel/Data/CNPIX8-Allan/3-5-2021/
