@@ -67,6 +67,10 @@ drift_tracking = {
     "Allan": full["Allan"][170:300],
 }
 
+white_matter = {
+    "Doppio": [206],  # 400um
+}
+
 # All channels 140um to 200um ventral to the CA1 stratum pyramidale inversion.
 # Based on a fixed offset relative to the stratum pyrmidale channels, identified
 # during the first 2h of recvoery sleep. Used for power calculation, not SPW
