@@ -50,7 +50,8 @@ superficial_ctx = {
 hippocampus = {
     "Segundo": LongCol[213:301],  # 4.25mm to 6.00mm from probe tip
     "Valentino": CheckPat[190:305],  # 3.8mm to 6.1mm from probe tip
-    "Doppio": CheckPat[190:291],  # 3.8mm to 5.8mm from probe tip
+    # "Doppio": CheckPat[190:291],  # 3.8mm to 5.8mm from probe tip, sleep
+    "Doppio": CheckPat[190:301],  # 3.8mm to 6mm from probe tip, dex
     "Alessandro": LongCol[190:291],  # 3.8mm to 5.8mm from probe tip
     "Eugene": LongCol[240:311],  # 4.8mm to 6.2mm from probe tip
     "Allan": full["Allan"][175:291],  # 3.5mm to 5.8mm from probe tip
@@ -67,8 +68,15 @@ drift_tracking = {
     "Allan": full["Allan"][170:300],
 }
 
+# Center of white matter should be ~400um from pyramidal layer, with lower and upper
+# limits of ~266um and ~533um from the pyramidal layer, respectively.
 white_matter = {
-    "Doppio": [206],  # 400um
+    "Segundo": [213],  # 380um from pyramidal inversion.
+    "Valentino": [225],  # 400um from pyramidal inversion.
+    "Doppio": [206],  # 400um from pyramidal inversion.
+    "Alessandro": [205],  # 400um from pyramidal inversion.
+    "Eugene": [243],  # 400um from pyramidal inversion.
+    "Allan": [271],  # 400um from pyramidal inversion.
 }
 
 # All channels 140um to 200um ventral to the CA1 stratum pyramidale inversion.
