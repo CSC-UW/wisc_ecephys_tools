@@ -78,16 +78,3 @@ white_matter = {
     "Eugene": [243],  # 400um from pyramidal inversion.
     "Allan": [271],  # 400um from pyramidal inversion.
 }
-
-# All channels 140um to 200um ventral to the CA1 stratum pyramidale inversion.
-# Based on a fixed offset relative to the stratum pyrmidale channels, identified
-# during the first 2h of recvoery sleep. Used for power calculation, not SPW
-# detection.
-stratum_radiatum_140um_to_200um = {
-    "Segundo": [155, 157, 159, 161],
-    "Valentino": [165, 166, 169, 170],
-    "Doppio": [146, 149, 150, 153],
-    "Alessandro": [145, 147, 149, 151],
-    "Eugene": [183, 185, 187, 189],
-    "Allan": [211, 213, 215, 217],
-}
