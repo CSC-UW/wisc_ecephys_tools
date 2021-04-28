@@ -20,25 +20,33 @@ def load_power(subject, experiment, condition, ext):
     power_paths = paths.get_sglx_style_datapaths(
         subject=subject, experiment=experiment, condition=condition, ext=ext
     )
-    powers = [xr.open_dataset(path) for path in power_paths]
+
+    powers = list()
+    for path in power_paths:
+        try:
+            powers.append(xr.open_dataset(path))
+        except FileNotFoundError:
+            pass
+
     for p in powers:
-        if 'file_start' in p.attrs:
+        if "file_start" in p.attrs:
             file_start = p.file_start
         else:
             file_starts = [da.file_start for (da_name, da) in p.items()]
             assert all_equal(file_starts), "Power series start times should match."
             file_start = file_starts[0]
-        p["time"] = pd.to_datetime(file_start) + pd.to_timedelta(
-            p.time.values, "s"
-        )
+        p["time"] = pd.to_datetime(file_start) + pd.to_timedelta(p.time.values, "s")
 
     return xr.concat(powers, dim="time")
+
 
 def load_bandpower(subject, experiment, condition):
     return load_power(subject, experiment, condition, "pow.nc")
 
+
 def load_spectrogram(subject, experiment, condition):
-    return load_power(subject, experiment, condition, "spg.nc")
+    return load_power(subject, experiment, condition, "spg2.nc")
+
 
 def load_hypnogram(subject, experiment, condition):
     hypnogram_paths = paths.get_sglx_style_datapaths(
