@@ -2,12 +2,7 @@ import os
 from ecephys.data import paths
 
 MODULE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-CSV_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.csv")
-YAML_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.yaml")
-
-
-def get_datapath_from_csv(**kwargs):
-    return paths.get_datapath_from_csv(CSV_PATH, **kwargs)
+YAML_PATH = os.path.join(MODULE_DIRECTORY, "paths.yaml")
 
 
 def get_sglx_style_datapaths(subject, experiment, condition, ext):
