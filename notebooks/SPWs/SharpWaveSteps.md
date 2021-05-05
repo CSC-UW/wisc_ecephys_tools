@@ -1,13 +1,14 @@
 SPW steps, for a subject that already exists:
-- Add experiment to datapaths.yaml
+- Add experiment to datapaths.yaml and channels.yaml
 - emg-from-lfp.ipynb
 - generate-empty-sr_chans-files.ipynb
 - generate-CSD-reports-for-manual-drift-tracking.ipynb
     - Requires sharp_wave_detection_params.json
-- identify-hippocampus-from-csd.ipynb, to check white matter channels. 
+- identify-hippocampus-from-csd.ipynb, to check hippocampal and white matter channels. 
 - sr_chans-to-datetime.ipynb
     - Requires identifying stratum radiatum channels for each recording.
 - spw-detection.ipynb
 - get-bandpower.ipynb
+    - get_spectrograms.ipynb may be more appropriate now. 
 - visbrain-hypnogram-to-datetime.ipynb
     - Requires scoring each recording. 

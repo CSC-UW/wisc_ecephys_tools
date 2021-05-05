@@ -4,7 +4,7 @@ from ast import literal_eval
 from ecephys.scoring import load_datetime_hypnogram
 from ecephys.utils import load_df_h5, all_equal
 
-from . import paths
+from .paths import get_sglx_style_datapaths
 
 
 def load_sr_chans(path):
@@ -17,7 +17,7 @@ def load_sr_chans(path):
 
 
 def load_power(subject, experiment, condition, ext):
-    power_paths = paths.get_sglx_style_datapaths(
+    power_paths = get_sglx_style_datapaths(
         subject=subject, experiment=experiment, condition=condition, ext=ext
     )
 
@@ -40,8 +40,8 @@ def load_power(subject, experiment, condition, ext):
     return xr.concat(powers, dim="time")
 
 
-def load_bandpower(subject, experiment, condition):
-    return load_power(subject, experiment, condition, "pow.nc")
+def load_bandpower(subject, experiment, condition, ext="bandpower.nc"):
+    return load_power(subject, experiment, condition, ext)
 
 
 def load_spectrogram(subject, experiment, condition):
@@ -49,7 +49,7 @@ def load_spectrogram(subject, experiment, condition):
 
 
 def load_hypnogram(subject, experiment, condition):
-    hypnogram_paths = paths.get_sglx_style_datapaths(
+    hypnogram_paths = get_sglx_style_datapaths(
         subject=subject, experiment=experiment, condition=condition, ext="hypnogram.tsv"
     )
     hypnograms = [load_datetime_hypnogram(path) for path in hypnogram_paths]
@@ -57,7 +57,7 @@ def load_hypnogram(subject, experiment, condition):
 
 
 def load_spws(subject, experiment, condition, condition_start_dt=None):
-    spw_paths = paths.get_sglx_style_datapaths(
+    spw_paths = get_sglx_style_datapaths(
         subject=subject, experiment=experiment, condition=condition, ext="spws.h5"
     )
     spws = [load_df_h5(path) for path in spw_paths]
