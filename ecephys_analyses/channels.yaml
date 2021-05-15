@@ -57,8 +57,9 @@ Segundo:
       ]
       emg_from_lfp: [0, 382, 381]
       superficial_ctx: [375, 377, 379, 381, 383]
-      white_matter: 213 # 380um from pyramidal inversion.
-      hippocampus: [
+      stratum_pyrimidale_inversion: [175] # Manually ID'd during recovery sleep
+      white_matter: [213] # 380um from pyramidal inversion.
+      hippocampus: &Seg-HC [
         43,  45,  47,  49,  51,  53,  55,  57,  59,  61,  63,  65,  67,
         69,  71,  73,  75,  77,  79,  81,  83,  85,  87,  89,  91,  93,
         95,  97,  99, 101, 103, 105, 107, 109, 111, 113, 115, 117, 119,
@@ -67,7 +68,7 @@ Segundo:
         173, 175, 177, 179, 181, 183, 185, 187, 189, 191, 193, 195, 197,
         199, 201, 203, 205, 207, 209, 211, 213, 215, 217
       ] # 4.25mm to 6.00mm from probe tip
-      drift_tracking: [
+      drift_tracking: &Seg-DT [
         17,  19,  21,  23,  25,  27,  29,  31,  33,  35,  37,  39,  41,
         43,  45,  47,  49,  51,  53,  55,  57,  59,  61,  63,  65,  67,
         69,  71,  73,  75,  77,  79,  81,  83,  85,  87,  89,  91,  93,
@@ -78,6 +79,15 @@ Segundo:
         199, 201, 203, 205, 207, 209, 211, 213, 215, 217, 219, 221, 223,
         225, 227, 229, 231, 233, 235, 237, 239, 241, 243, 245
       ]
+  isoflurane:
+    imec0:
+      all: *LongColumn
+      emg_from_lfp: [0, 382, 381]
+      superficial_ctx: [375, 377, 379, 381, 383]
+      stratum_pyrmidale_inversion: [175] # Manually ID'd
+      white_matter: [213] # 380um from pyrmidal inversion
+      hippocampus: *Seg-HC
+      drift_tracking: *Seg-DT
 Valentino:
   sleep-homeostasis:
     imec0:
@@ -115,8 +125,8 @@ Valentino:
       ]
       emg_from_lfp: [0, 383, 381]
       superficial_ctx: [374, 377, 378, 381, 382]
-      white_matter: 225 # 400um from pyramidal inversion
-      hippocampus: [
+      white_matter: [225] # 400um from pyramidal inversion
+      hippocampus: &Val-Sleep-Hippocampus [
         380, 383,   1,   2,   5,   6,   9,  10,  13,  14,  17,  18,  21,
         22,  25,  26,  29,  30,  33,  34,  37,  38,  41,  42,  45,  46,
         49,  50,  53,  54,  57,  58,  61,  62,  65,  66,  69,  70,  73,
@@ -145,6 +155,7 @@ Valentino:
       all: *Checkerboard
       emg_from_lfp: [0, 383, 381]
       superficial_ctx: [374, 377, 378, 381, 382]
+      stratum_pyramidale_inversion: [193] # Manually ID'd
       white_matter: [238] #460um from pyramidal inversion.
       hippocampus: [
         2,   5,   6,   9,  10,  13,  14,  17,  18,  21,  22,  25,  26,
@@ -157,6 +168,44 @@ Valentino:
         185, 186, 189, 190, 193, 194, 197, 198, 201, 202, 205, 206, 209,
         210, 213, 214, 217, 218, 221, 222, 225, 226, 229, 230
       ] # 3.846mm to 6.146mm from probe tip.
+      drift_tracking: *Val-Sleep-DriftTracking
+  ketamine-90mg:
+    imec0:
+      all: *Checkerboard
+      emg_from_lfp: [0, 383, 381]
+      superficial_ctx: [374, 377, 378, 381, 382]
+      stratum_pyramidale_inversion: [198] # Manually ID'd
+      white_matter: [245] #460um from pyramidal inversion.
+      hippocampus: [
+        2,   5,   6,   9,  10,  13,  14,  17,  18,  21,  22,  25,  26,
+        29,  30,  33,  34,  37,  38,  41,  42,  45,  46,  49,  50,  53,
+        54,  57,  58,  61,  62,  65,  66,  69,  70,  73,  74,  77,  78,
+        81,  82,  85,  86,  89,  90,  93,  94,  97,  98, 101, 102, 105,
+        106, 109, 110, 113, 114, 117, 118, 121, 122, 125, 126, 129, 130,
+        133, 134, 137, 138, 141, 142, 145, 146, 149, 150, 153, 154, 157,
+        158, 161, 162, 165, 166, 169, 170, 173, 174, 177, 178, 181, 182,
+        185, 186, 189, 190, 193, 194, 197, 198, 201, 202, 205, 206, 209,
+        210, 213, 214, 217, 218, 221, 222, 225, 226, 229, 230
+      ] # 3.856mm to 6.156mm from probe tip
+      drift_tracking: *Val-Sleep-DriftTracking
+  sevoflurane:
+    imec0:
+      all: *Checkerboard
+      emg_from_lfp: [0, 383, 381]
+      superficial_ctx: [374, 377, 378, 381, 382]
+      stratum_pyrmidale_inversion: [206] #Manually ID'd
+      white_matter: [253] # 460um from pyramidal inversion.
+      hippocampus: [
+        5,   6,   9,  10,  13,  14,  17,  18,  21,  22,  25,  26,  29,
+        30,  33,  34,  37,  38,  41,  42,  45,  46,  49,  50,  53,  54,
+        57,  58,  61,  62,  65,  66,  69,  70,  73,  74,  77,  78,  81,
+        82,  85,  86,  89,  90,  93,  94,  97,  98, 101, 102, 105, 106,
+        109, 110, 113, 114, 117, 118, 121, 122, 125, 126, 129, 130, 133,
+        134, 137, 138, 141, 142, 145, 146, 149, 150, 153, 154, 157, 158,
+        161, 162, 165, 166, 169, 170, 173, 174, 177, 178, 181, 182, 185,
+        186, 189, 190, 193, 194, 197, 198, 201, 202, 205, 206, 209, 210,
+        213, 214, 217, 218, 221, 222, 225, 226, 229, 230, 233
+      ] # 3.866mm to 6.166mm from probe tip.
       drift_tracking: *Val-Sleep-DriftTracking
   atropine:
     imec0:
@@ -177,14 +226,24 @@ Valentino:
         213, 214, 217, 218, 221, 222, 225, 226, 229, 230, 233
       ] # 3.866mm to 6.166mm from probe tip.
       drift_tracking: *Val-Sleep-DriftTracking
-Doppio:
-  sleep-homeostasis:
+  isoflurane:
     imec0:
       all: *Checkerboard
       emg_from_lfp: [0, 383, 381]
       superficial_ctx: [374, 377, 378, 381, 382]
-      white_matter: 206 # 400 um from pyrmidal inversion.
-      hippocampus: [
+      stratum_pyramidale_inversion: [189] # Manually ID'd
+      white_matter: [229] # 400um from pyramidal inversion
+      hippocampus: *Val-Sleep-Hippocampus
+      drift_tracking: *Val-Sleep-DriftTracking
+Doppio:
+  sleep-homeostasis: &Doppio-Sleep
+    imec0:
+      all: *Checkerboard
+      emg_from_lfp: [0, 383, 381]
+      superficial_ctx: [374, 377, 378, 381, 382]
+      stratum_pyrimidale_inversion: [166] # Manually ID'd
+      white_matter: [206] # 400 um from pyrmidal inversion.
+      hippocampus: &Doppio-Sleep-Hippocampus [
         380, 383,   1,   2,   5,   6,   9,  10,  13,  14,  17,  18,  21,
         22,  25,  26,  29,  30,  33,  34,  37,  38,  41,  42,  45,  46,
         49,  50,  53,  54,  57,  58,  61,  62,  65,  66,  69,  70,  73,
@@ -194,7 +253,7 @@ Doppio:
         153, 154, 157, 158, 161, 162, 165, 166, 169, 170, 173, 174, 177,
         178, 181, 182, 185, 186, 189, 190, 193, 194, 197
       ] # 3.8mm to 5.8mm from probe tip.
-      drift_tracking: [
+      drift_tracking: &Doppio-Sleep-DriftTracking [
         360, 363, 364, 367, 368, 371, 372, 375, 376, 379, 380, 383,   1,
         2,   5,   6,   9,  10,  13,  14,  17,  18,  21,  22,  25,  26,
         29,  30,  33,  34,  37,  38,  41,  42,  45,  46,  49,  50,  53,
@@ -206,12 +265,14 @@ Doppio:
         185, 186, 189, 190, 193, 194, 197, 198, 201, 202, 205, 206, 209,
         210, 213, 214
       ]
-  dexmedetomidine:
+  isoflurane: *Doppio-Sleep
+  sevoflurane: &Doppio-Sevoflurane
     imec0:
       all: *Checkerboard
       emg_from_lfp: [0, 383, 381]
       superficial_ctx: [374, 377, 378, 381, 382]
-      white_matter: 206 # 400 um from recovery sleep pyrmidal inversion.
+      stratum_pyrmidale_inversion: [170] # Manually ID'd
+      white_matter: [210] # 400 um from pyrmidal inversion
       hippocampus: [
         380, 383,   1,   2,   5,   6,   9,  10,  13,  14,  17,  18,  21,
         22,  25,  26,  29,  30,  33,  34,  37,  38,  41,  42,  45,  46,
@@ -235,6 +296,16 @@ Doppio:
         185, 186, 189, 190, 193, 194, 197, 198, 201, 202, 205, 206, 209,
         210, 213, 214
       ]
+  dexmedetomidine: *Doppio-Sevoflurane
+  atropine-10mg:
+    imec0:
+      all: *Checkerboard
+      emg_from_lfp: [0, 383, 381]
+      superficial_ctx: [374, 377, 378, 381, 382]
+      stratum_pyrmidale_inversion: [169] # Manually ID'd
+      white_matter: [209] # 400um from pyrmidale inversion.
+      hippocampus: *Doppio-Sleep-Hippocampus
+      drift_tracking: *Doppio-Sleep-DriftTracking
 Alessandro:
   sleep-homeostasis:
     imec0:
@@ -380,7 +451,7 @@ Allan:
         201, 203, 205, 207, 209, 211, 213, 215, 217, 219, 221, 223, 225,
         227, 229, 231, 233, 235, 237, 239
       ] # 3.2mm to 5.4mm from probe tip.
-  atropine:
+  atropine: &Allan-Atropine
     imec0:
       all: *Allan-LongColumn
       emg_from_lfp: [82, 75, 70]
@@ -411,3 +482,4 @@ Allan:
         201, 203, 205, 207, 209, 211, 213, 215, 217, 219, 221, 223, 225,
         227, 229, 231, 233, 235, 237, 239
       ] # 3.2mm to 5.4mm from probe tip.
+  ketamine: *Allan-Atropine

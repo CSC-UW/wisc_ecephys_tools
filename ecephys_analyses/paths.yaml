@@ -46,6 +46,11 @@ Segundo:
       - *Seg-Dark
     spontaneous-wake:
       - 1-21-2020_g0_t19.imec0
+  isoflurane:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-24-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX2-Segundo/1-24-2020/
+    all:
+      - 1-24-2020_g0_t0.imec0
 Valentino:
   sleep-homeostasis:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/
@@ -94,12 +99,30 @@ Valentino:
     spontaneous-wake:
       - 2-19-2020_g1_t10.imec0
       - 2-19-2020_g1_t11.imec0
+  isoflurane:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-21-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/2-21-2020/
+    all:
+      - 2-21-2020_g0_t0.imec0
   sevo-dex:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-25-2020/
     analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/2-25-2020/
     all:
       - 2-25-2020_g0_t0.imec0
       - 2-25-2020_g0_t1.imec0
+  ketamine-90mg:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-26-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/2-26-2020/
+    all:
+      - 2-26-2020_g0_t0.imec0
+      - 2-26-2020_2_g0_t0.imec0
+      - 2-26-2020_2_g0_t1.imec0
+  sevoflurane:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-27-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/2-27-2020/
+    all:
+      - 2-27-2020_g0_t0.imec0
+      - 2-27-2020_g0_t1.imec0
   atropine:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/3-2-2020/
     analysis-root: /Volumes/neuropixel/Data/CNPIX3-Valentino/3-2-2020/
@@ -152,12 +175,24 @@ Doppio:
     spontaneous-wake:
       - 3-17-2020_g0_t7.imec0
       - 3-17-2020_g0_t8.imec0
+  isoflurane:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-19-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/3-19-2020/
+    all:
+      - 3-19-2020_g0_t0.imec0
+      - 3-19-2020_g0_t1.imec0
   dexmedetomidine:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-21-2020/
     analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/3-21-2020/
     all:
       - 3-21-2020_g0_t0.imec0
       - 3-21-2020_g0_t1.imec0
+  sevoflurane:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-23-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/3-23-2020/
+    all:
+      - 3-23-2020_g0_t0.imec0
+      - 3-23-2020_g1_t0.imec0
   atropine-10mg:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-26-2020/
     analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/3-26-2020/
@@ -480,5 +515,13 @@ Allan:
       - 4.16.2021_g1_t0.imec0
       - 4.16.2021_g1_t1.imec0
       - 4.16.2021_g1_t2.imec0
+  ketamine:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/4-20-2021/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX8-Allan/4-20-2021/
+    all:
+      - 4.20.2021_g0_t0.imec0
+      - 4.20.2021_g1_t0.imec0
+      - 4.20.2021_g1_t1.imec0
+      - 4.20.2021_g1_t2.imec0
 
 
