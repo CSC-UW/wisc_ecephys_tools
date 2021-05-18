@@ -10,5 +10,6 @@ SPW steps, for a subject that already exists:
 - spw-detection.ipynb
 - get-bandpower.ipynb
     - get_spectrograms.ipynb may be more appropriate now. 
+- generate-sleepscoring-files.ipynb
 - visbrain-hypnogram-to-datetime.ipynb
     - Requires scoring each recording. 
