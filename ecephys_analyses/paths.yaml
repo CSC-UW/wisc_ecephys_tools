@@ -59,7 +59,7 @@ Valentino:
       - 2-19-2020_g1_t0.imec0
       - 2-19-2020_g1_t1.imec0
       - 2-19-2020_g1_t2.imec0
-    recovery-sleep-6h-circadian-match: &Val-RS-CM
+    recovery-sleep-circadian-match: &Val-RS-CM
       - 2-19-2020_g1_t3.imec0
       - 2-19-2020_g1_t4.imec0
       - 2-19-2020_g1_t5.imec0
@@ -212,6 +212,14 @@ Doppio:
       - 3-28-2020_4_g0_t1.imec0
       - 3-28-2020_4_g0_t2.imec0
       - 3-28-2020_4_g0_t3.imec0
+  ketamine-120mg:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/4-24-2020/
+    analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/4-24-2020/
+    all:
+      - 4-24-2020_g0_t0.imec1
+      - 4-24-2020_g0_t1.imec1
+      - 4-24-2020_g0_t2.imec1
+      - 4-24-2020_g0_t3.imec1
 Alessandro:
   sleep-homeostasis:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/

@@ -1,8 +1,9 @@
 import pandas as pd
 import xarray as xr
 from ast import literal_eval
-from ecephys.scoring import load_datetime_hypnogram
-from ecephys.utils import load_df_h5, all_equal
+from hypnogram import load_datetime_hypnogram
+from ecephys.utils import load_df_h5
+from ecephys.signal.xarray_utils import rebase_time
 
 from .paths import get_sglx_style_datapaths
 
@@ -24,20 +25,11 @@ def load_power(subject, experiment, condition, ext):
     powers = list()
     for path in power_paths:
         try:
-            powers.append(xr.open_dataset(path))
+            powers.append(xr.load_dataset(path))
         except FileNotFoundError:
             pass
 
-    for p in powers:
-        if "file_start" in p.attrs:
-            file_start = p.file_start
-        else:
-            file_starts = [da.file_start for (da_name, da) in p.items()]
-            assert all_equal(file_starts), "Power series start times should match."
-            file_start = file_starts[0]
-        p["time"] = pd.to_datetime(file_start) + pd.to_timedelta(p.time.values, "s")
-
-    return xr.concat(powers, dim="time")
+    return rebase_time(xr.concat(powers, dim="time"))
 
 
 def load_bandpower(subject, experiment, condition, ext="bandpower.nc"):
@@ -45,7 +37,7 @@ def load_bandpower(subject, experiment, condition, ext="bandpower.nc"):
 
 
 def load_spectrogram(subject, experiment, condition):
-    return load_power(subject, experiment, condition, "spg2.nc")
+    return load_power(subject, experiment, condition, "spg.nc")
 
 
 def load_hypnogram(subject, experiment, condition):
