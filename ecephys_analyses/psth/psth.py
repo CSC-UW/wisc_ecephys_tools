@@ -75,7 +75,7 @@ def get_all_psth_data(
     if region == 'all':
         depth_interval = None
     else:
-        depth_interval = channel_groups.depth_intervals[subject][condition][region]
+        depth_interval = channel_groups.region_depths[subject][condition][region]
     extr = ecephys.io.load.load_sorting_extractor(
         ks_dir,
         good_only=good_only,
@@ -125,10 +125,11 @@ def load_event_times(subject, condition, state=None, filename=None):
     if cond_path.exists():
         path = cond_path
     else:
+        print(f"No event file at {cond_path}..", end='')
         root = paths.get_sglx_style_datapaths(
             subject, condition, 'ap.bin',
         )[0].parents[1]
-        path = root/name
+        path = root/filename
     print(f"Load events at path")
     event_df = pd.read_csv(path)
     if state is None:
