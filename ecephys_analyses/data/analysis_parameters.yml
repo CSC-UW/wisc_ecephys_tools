@@ -1,13 +1,47 @@
 ks_postprocessing:
-    postprocess_df:
+    postpro_df:
         # [<module_name>: <module_params_dict>]
 #         - kilosort_postprocessing: {}
         - noise_templates:
             noise_template_use_rf: False
+            min_spread_threshold: 2
+            mid_spread_threshold: 16
+            max_spread_threshold: 25
+            min_wavelet_peak_height: 0.0
+            min_wavelet_peak_loc: 15
+            max_wavelet_peak_loc: 25
+            min_temporal_peak_location: 10
+            max_temporal_peak_location: 30
 #         - mean_waveforms:
 #             c_Waves_snr_um: 160
 #         - quality_metrics:
 #             qm_isi_thresh: 0.0015  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
+    postpro_1:
+        # [<module_name>: <module_params_dict>]
+#         - kilosort_postprocessing: {}
+        - noise_templates:
+            noise_template_use_rf: False
+            # Check template spread
+            min_spread_threshold: 2
+            mid_spread_threshold: 16
+            max_spread_threshold: 25
+            # Don't check abnormal shape
+            min_wavelet_peak_height: 0.0
+            min_wavelet_peak_loc: 0
+            max_wavelet_peak_loc: 50
+            # Extremely lenient on temporal peak location
+            min_temporal_peak_location: 2
+            max_temporal_peak_location: 50
+            # No spatial peak spread testing
+            peak_locs_std_thresh: 20
+#         - mean_waveforms:
+#             c_Waves_snr_um: 160
+#         - quality_metrics:
+#             qm_isi_thresh: 0.0015  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
+
+#####################################
+#####################################
+#####################################
 
 sorting:
     # Kilosort 1
@@ -25,6 +59,7 @@ sorting:
         -
             <<: *ks1_base
             car: False
+
     # Kilosort 2.5
     ks2_5_base: &ks2_5_base
         detect_threshold: 6
@@ -42,13 +77,20 @@ sorting:
         nfilt_factor: 4
         NT: null
         keep_good_only: False
-        chunk_mb: 500
-        n_jobs_bin: 20
+        chunk_mb: 200000
+        n_jobs_bin: 100
     ks2_5_catgt_df:
         - kilosort2_5
         -
             <<: *ks2_5_base
             car: False
+    ks2_5_raw_df:
+        - kilosort2_5
+        -
+            <<: *ks2_5_base
+            car: True
+
+
     # Kilosort 3
     ks3_base: &ks3_base
         detect_threshold: 6
@@ -73,5 +115,6 @@ sorting:
             <<: *ks3_base
             car: False
             
-        
-        
+#####################################
+#####################################
+#####################################

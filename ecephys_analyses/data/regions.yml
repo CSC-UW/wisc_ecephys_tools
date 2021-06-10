@@ -1,0 +1,106 @@
+# Depths of structures. Corresponding to depths in Phy.
+# WATCH OUT: 0 is tip of probe, not necessarily the deepest channel
+Alessandro: 
+    alessandro_imec0_base: &alessandro_imec0_base
+        hypothalamus: [0, 780]
+        thalamus: [780, 3880]
+        hippocampus: [3880, 5980]
+        cortex: [5980, 7660]
+    8-31-2020_REM_imec0: *alessandro_imec0_base
+    8-31-2020_REM2_imec0: *alessandro_imec0_base
+    8-31-2020_NREM_imec0: *alessandro_imec0_base
+    8-31-2020_Wake_imec0: *alessandro_imec0_base
+    9-8-2020_Sevo_imec0: *alessandro_imec0_base
+    9-2-2020_Dex_imec0: *alessandro_imec0_base
+    9-21-2020_Ket_imec0: *alessandro_imec0_base
+Allan: 
+#     # 3-5-2021 imec0
+#     3-5-2021_g0_imec0:  cortex: [5980, 7480]
+#     3-5-2021_g2_imec0:  cortex: [5980, 7480]
+#     3-5-2021_g3_imec0:  cortex: [5980, 7480]
+#     3-5-2021_g4_imec0:  cortex: [5980, 7480]
+#     3-5-2021_g5_imec0:  cortex: [5980, 7480]
+#     3-5-2021_g6_imec0:  cortex: [5980, 7480]
+#     # 3-5-2021 imec1
+#     3-5-2021_g0_imec1:  cortex: [7000, 8480]
+#     3-5-2021_g2_imec1:  cortex: [7000, 8480]
+#     3-5-2021_g3_imec1:  cortex: [7000, 8480]
+#     3-5-2021_g4_imec1:  cortex: [7000, 8480]
+#     3-5-2021_g5_imec1:  cortex: [7000, 8480]
+#     3-5-2021_g6_imec1:  cortex: [7000, 8480]
+Eugene: 
+    eugene_imec0_base: &eugene_imec0_base
+        hypothalamus: [0, 980]
+        thalamus: [980, 3980]
+        hippocampus: [3980, 6260]
+        cortex: [6260, 7660]
+    eugene_imec1_base: &eugene_imec1_base
+        entorhinal: [0, 1780]
+        subiculum: [1780, 4980]
+        cortex: [4980, 7660]
+    # imec 0
+    10-9-2020_NREM_depth1.5_imec0: *eugene_imec0_base
+    10-19-2020_NREM_depth1.5_imec0: *eugene_imec0_base
+    10-2-2020_NREM_depth1.4_imec0: *eugene_imec0_base
+    10-9-2020_NREM_depth1.2_imec0: *eugene_imec0_base
+    10-2-2020_NREM_depth1.1_imec0: *eugene_imec0_base
+    10-9-2020_NREM_depth0.9_imec0: *eugene_imec0_base
+    10-2-2020_NREM_depth0.8_imec0: *eugene_imec0_base
+    10-9-2020_NREM_depth0.6_imec0: *eugene_imec0_base
+    10-2-2020_NREM_depth0.5_imec0: *eugene_imec0_base
+    10-9-2020_NREM_depth0.3_imec0: *eugene_imec0_base
+    10-2-2020_NREM_depth0.2_imec0: *eugene_imec0_base
+    10-19-2020_REM_depth1.5_imec0: *eugene_imec0_base
+    10-2-2020_Wake_depth1.5_imec0: *eugene_imec0_base
+    10-9-2020_Wake_depth1.4_imec0: *eugene_imec0_base
+    10-2-2020_Wake_depth1.2_imec0: *eugene_imec0_base
+    10-9-2020_Wake_depth1.1_imec0: *eugene_imec0_base
+    10-2-2020_Wake_depth0.9_imec0: *eugene_imec0_base
+    10-9-2020_Wake_depth0.8_imec0: *eugene_imec0_base
+    10-2-2020_Wake_depth0.6_imec0: *eugene_imec0_base
+    10-9-2020_Wake_depth0.5_imec0: *eugene_imec0_base
+    10-2-2020_Wake_depth0.3_imec0: *eugene_imec0_base
+    10-9-2020_Wake_depth0.2_imec0: *eugene_imec0_base
+    10-2-2020_Sevo_depth1.5_imec0: *eugene_imec0_base
+    10-9-2020_Sevo_depth1.4_imec0: *eugene_imec0_base
+    10-2-2020_Sevo_depth1.2_imec0: *eugene_imec0_base
+    10-9-2020_Sevo_depth1.1_imec0: *eugene_imec0_base
+    10-2-2020_Sevo_depth0.9_imec0: *eugene_imec0_base
+    10-9-2020_Sevo_depth0.8_imec0: *eugene_imec0_base
+    10-2-2020_Sevo_depth0.6_imec0: *eugene_imec0_base
+    10-9-2020_Sevo_depth0.5_imec0: *eugene_imec0_base
+    10-2-2020_Sevo_depth0.3_imec0: *eugene_imec0_base
+    10-9-2020_Sevo_depth0.2_imec0: *eugene_imec0_base
+    # imec 1
+    10-9-2020_NREM_depth1.5_imec1: *eugene_imec1_base
+    10-19-2020_NREM_depth1.5_imec1: *eugene_imec1_base
+    10-2-2020_NREM_depth1.4_imec1: *eugene_imec1_base
+    10-9-2020_NREM_depth1.2_imec1: *eugene_imec1_base
+    10-2-2020_NREM_depth1.1_imec1: *eugene_imec1_base
+    10-9-2020_NREM_depth0.9_imec1: *eugene_imec1_base
+    10-2-2020_NREM_depth0.8_imec1: *eugene_imec1_base
+    10-9-2020_NREM_depth0.6_imec1: *eugene_imec1_base
+    10-2-2020_NREM_depth0.5_imec1: *eugene_imec1_base
+    10-9-2020_NREM_depth0.3_imec1: *eugene_imec1_base
+    10-2-2020_NREM_depth0.2_imec1: *eugene_imec1_base
+    10-19-2020_REM_depth1.5_imec1: *eugene_imec1_base
+    10-2-2020_Wake_depth1.5_imec1: *eugene_imec1_base
+    10-9-2020_Wake_depth1.4_imec1: *eugene_imec1_base
+    10-2-2020_Wake_depth1.2_imec1: *eugene_imec1_base
+    10-9-2020_Wake_depth1.1_imec1: *eugene_imec1_base
+    10-2-2020_Wake_depth0.9_imec1: *eugene_imec1_base
+    10-9-2020_Wake_depth0.8_imec1: *eugene_imec1_base
+    10-2-2020_Wake_depth0.6_imec1: *eugene_imec1_base
+    10-9-2020_Wake_depth0.5_imec1: *eugene_imec1_base
+    10-2-2020_Wake_depth0.3_imec1: *eugene_imec1_base
+    10-9-2020_Wake_depth0.2_imec1: *eugene_imec1_base
+    10-2-2020_Sevo_depth1.5_imec1: *eugene_imec1_base
+    10-9-2020_Sevo_depth1.4_imec1: *eugene_imec1_base
+    10-2-2020_Sevo_depth1.2_imec1: *eugene_imec1_base
+    10-9-2020_Sevo_depth1.1_imec1: *eugene_imec1_base
+    10-2-2020_Sevo_depth0.9_imec1: *eugene_imec1_base
+    10-9-2020_Sevo_depth0.8_imec1: *eugene_imec1_base
+    10-2-2020_Sevo_depth0.6_imec1: *eugene_imec1_base
+    10-9-2020_Sevo_depth0.5_imec1: *eugene_imec1_base
+    10-2-2020_Sevo_depth0.3_imec1: *eugene_imec1_base
+    10-9-2020_Sevo_depth0.2_imec1: *eugene_imec1_base

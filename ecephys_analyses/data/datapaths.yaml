@@ -10,9 +10,47 @@ Segundo:
     1-21-2020:
       - 1-21-2020_g0_t11.imec0
 
+Valentino:
+  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/
+#   analysis-root: /Volumes/neuropixel/Data/tom/raw/CNPIX3-Valentino/
+  analysis-root: /Volumes/scratch/neuropixels/data/tom/raw/CNPIX3-Valentino/
+  drift_test_01:
+    2-19-2020:
+      - 2-19-2020_g1_t4.imec0
+  drift_test_02:
+    2-19-2020:
+      - 2-19-2020_g1_t5.imec0
+  baseline_6h:
+    2-19-2020:
+      - 2-19-2020_g1_t1.imec0
+      - 2-19-2020_g1_t2.imec0
+      - 2-19-2020_g1_t3.imec0
+  baseline_12h:
+    2-19-2020:
+      - 2-19-2020_g1_t1.imec0
+      - 2-19-2020_g1_t2.imec0
+      - 2-19-2020_g1_t3.imec0
+      - 2-19-2020_g1_t4.imec0
+      - 2-19-2020_g1_t5.imec0
+      - 2-19-2020_g1_t6.imec0
+  baseline_24h:
+    2-19-2020:
+      - 2-19-2020_g1_t1.imec0
+      - 2-19-2020_g1_t2.imec0
+      - 2-19-2020_g1_t3.imec0
+      - 2-19-2020_g1_t4.imec0
+      - 2-19-2020_g1_t5.imec0
+      - 2-19-2020_g1_t6.imec0
+      - 2-19-2020_g1_t7.imec0
+      - 2-19-2020_g1_t8.imec0
+      - 2-19-2020_g1_t9.imec0
+      - 2-19-2020_g1_t10.imec0
+      - 2-19-2020_g1_t11.imec0
+      - 2-19-2020_g1_t12.imec0
+
 Doppio:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/
-  analysis-root: /Volumes/neuropixel/Data/CNPIX4-Doppio/
+  analysis-root: /Volumes/neuropixel/Data/tom/raw/CNPIX4-Doppio/
   extended-wake-6h-circadian-match:
     - 3-17-2020_g0_t0.imec0
     - 3-17-2020_g0_t1.imec0
@@ -53,6 +91,12 @@ Doppio:
   combined_1:
     - recovery-sleep-2h
     - sleep-deprivation-12h-circadian-match
+  drift_test_01:
+    3-17-2020:
+      - 3-17-2020_g0_t0.imec0
+  drift_test_02:
+    3-17-2020:
+      - 3-17-2020_g0_t5.imec0
 
 Alessandro:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/
@@ -138,6 +182,14 @@ Allan:
   3-8-2021_50uA_g2_imec1:
     3-8-2021:
       - 3-8-2021_g2_t0.imec1
+  # 3-1-2021
+  drift_test_01_imec0:
+    3-1-2021:
+      - 3-1-2021_A_g0_t0.imec0
+  drift_test_01_imec1:
+    3-1-2021:
+      - 3-1-2021_A_g0_t0.imec1
+
 
 Eugene:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/

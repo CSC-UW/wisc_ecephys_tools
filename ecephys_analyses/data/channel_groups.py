@@ -1,4 +1,10 @@
+import os.path
+
+import yaml
 from ecephys.neuropixels import checkerboard_map, long_column_map
+
+MODULE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+REGION_YAML_PATH = os.path.join(MODULE_DIRECTORY, "regions.yml")
 
 CheckPat = checkerboard_map.get_user_order()
 LongCol = long_column_map.get_user_order()
@@ -65,96 +71,11 @@ stratum_radiatum_140um_to_200um = {
 
 drift_tracking = {"Valentino": CheckPat[180:320]}
 
-# Depths intervals for each area, MUST CORRESPOND TO DEPTHS IN PHY!
-depth_intervals = {
-    "Alessandro": {
-    5880:7660  
-    },
-    "Allan": {
-        # 3-5-2021 imec0
-        '3-5-2021_g0_imec0': { 'cortex': [5980, 7480], },
-        '3-5-2021_g2_imec0': { 'cortex': [5980, 7480], },
-        '3-5-2021_g3_imec0': { 'cortex': [5980, 7480], },
-        '3-5-2021_g4_imec0': { 'cortex': [5980, 7480], },
-        '3-5-2021_g5_imec0': { 'cortex': [5980, 7480], },
-        '3-5-2021_g6_imec0': { 'cortex': [5980, 7480], },
-        # 3-5-2021 imec1
-        '3-5-2021_g0_imec1': { 'cortex': [7000, 8480], },
-        '3-5-2021_g2_imec1': { 'cortex': [7000, 8480], },
-        '3-5-2021_g3_imec1': { 'cortex': [7000, 8480], },
-        '3-5-2021_g4_imec1': { 'cortex': [7000, 8480], },
-        '3-5-2021_g5_imec1': { 'cortex': [7000, 8480], },
-        '3-5-2021_g6_imec1': { 'cortex': [7000, 8480], },
-    },
-    "Eugene": {
-        # imec 0
-        '10-9-2020_NREM_depth1.5_imec0': { 'cortex': [6380, 7660] },
-        '10-19-2020_NREM_depth1.5_imec0': { 'cortex': [6389, 7660] },
-        '10-2-2020_NREM_depth1.4_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_NREM_depth1.2_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_NREM_depth1.1_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_NREM_depth0.9_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_NREM_depth0.8_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_NREM_depth0.6_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_NREM_depth0.5_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_NREM_depth0.3_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_NREM_depth0.2_imec0': { 'cortex': [6380, 7660] },
-        '10-19-2020_REM_depth1.5_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Wake_depth1.5_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Wake_depth1.4_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Wake_depth1.2_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Wake_depth1.1_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Wake_depth0.9_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Wake_depth0.8_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Wake_depth0.6_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Wake_depth0.5_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Wake_depth0.3_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Wake_depth0.2_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Sevo_depth1.5_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Sevo_depth1.4_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Sevo_depth1.2_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Sevo_depth1.1_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Sevo_depth0.9_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Sevo_depth0.8_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Sevo_depth0.6_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Sevo_depth0.5_imec0': { 'cortex': [6380, 7660] },
-        '10-2-2020_Sevo_depth0.3_imec0': { 'cortex': [6380, 7660] },
-        '10-9-2020_Sevo_depth0.2_imec0': { 'cortex': [6380, 7660] },
-        # imec 1
-        '10-9-2020_NREM_depth1.5_imec1': { 'cortex': [5380, 7660] },
-        '10-19-2020_NREM_depth1.5_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_NREM_depth1.4_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_NREM_depth1.2_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_NREM_depth1.1_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_NREM_depth0.9_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_NREM_depth0.8_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_NREM_depth0.6_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_NREM_depth0.5_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_NREM_depth0.3_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_NREM_depth0.2_imec1': { 'cortex': [5380, 7660] },
-        '10-19-2020_REM_depth1.5_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Wake_depth1.5_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Wake_depth1.4_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Wake_depth1.2_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Wake_depth1.1_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Wake_depth0.9_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Wake_depth0.8_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Wake_depth0.6_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Wake_depth0.5_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Wake_depth0.3_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Wake_depth0.2_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Sevo_depth1.5_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Sevo_depth1.4_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Sevo_depth1.2_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Sevo_depth1.1_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Sevo_depth0.9_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Sevo_depth0.8_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Sevo_depth0.6_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Sevo_depth0.5_imec1': { 'cortex': [5380, 7660] },
-        '10-2-2020_Sevo_depth0.3_imec1': { 'cortex': [5380, 7660] },
-        '10-9-2020_Sevo_depth0.2_imec1': { 'cortex': [5380, 7660] },
-    },
-}
+# Depths intervals for each region,
+# NB: As in Phy, depth is ycoord measured from tip of probe,
+# so deepest channel may have depth > 0
+with open(REGION_YAML_PATH, 'r') as f:
+    region_depths = yaml.load(f, Loader=yaml.SafeLoader)
 
 # stratum_radiatum = {"Doppio": CheckPat[260:273]}  # LF137 through LF161
 # stratum_oriens_100um = {"Doppio": [177]}
