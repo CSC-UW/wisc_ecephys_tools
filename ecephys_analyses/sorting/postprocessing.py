@@ -13,6 +13,7 @@ def run_postprocessing(
     rerun_existing=True
 ):
     
+    print(f"Postprocessing: {subject} {condition} {sorting_condition} {postprocessing_condition}")
     # Modules and associated parameters
     modules = []
     params = []
@@ -35,7 +36,7 @@ def run_postprocessing(
     assert len(binpaths) == 1
     binpath = binpaths[0]
     metapath = binpath.parent/(binpath.stem + '.meta')
-    print(f"catGT preprocessed data: {binpath}\n")
+    print(f"catGT preprocessed data: {binpath}")
     
     # Src ks dir
     ks_dir_src = paths.get_datapath(
@@ -44,7 +45,7 @@ def run_postprocessing(
         sorting_condition,
     )
     assert ks_dir_src.exists()
-    print(f"Kilosort input results dir: {ks_dir_src}\n")
+    print(f"Kilosort input results dir: {ks_dir_src}")
 
     # Target
     ks_dir = paths.get_datapath(
@@ -52,6 +53,10 @@ def run_postprocessing(
         condition,
         sorting_condition + '_' + postprocessing_condition,
     )
+    if (ks_dir/'spike_amplitudes.npy').exists() and not rerun_existing:
+        print(f"Kilosort dir exists at {ks_dir}...\n Doing nothing.\n\n")
+        return
+    print(f"Postprocessing. Results at: {ks_dir}")
     copy_ks_dir(ks_dir_src, ks_dir)
     
     # Save config in ks dir
@@ -98,7 +103,7 @@ def run_postprocessing(
 
     end = datetime.now()
     print(f"{end.strftime('%H:%M:%S')}: Finished {subject}, {condition}, {sorting_condition}.")
-    print(f"Run time = {str(end - start)}\n")
+    print(f"Run time = {str(end - start)}\n\n")
 
     return 1
 
