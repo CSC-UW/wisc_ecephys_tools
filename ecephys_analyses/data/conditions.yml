@@ -2,7 +2,8 @@
 Alessandro:
   eStim:
     - 8-31-2020_REM_imec0
-#     - 8-31-2020_REM2_imec0
+    - 8-31-2020_REM2_imec0
+    - 8-31-2020_REMmerged_imec0
     - 8-31-2020_NREM_imec0
     - 8-31-2020_Wake_imec0
     - 9-8-2020_Sevo_imec0
@@ -95,3 +96,18 @@ Eugene:
     - 10-2-2020_Sevo_depth0.3_imec1
     - 10-9-2020_Sevo_depth0.2_imec0
     - 10-9-2020_Sevo_depth0.2_imec1
+
+
+Giuseppe:
+  eStim_catgt:
+    - 12-27-2020_g0_imec0
+    - 12-27-2020_g0_imec1
+    - 12-27-2020_g1_imec0
+    - 12-27-2020_g1_imec1
+    - 12-31-2020_Sevo_depth1.5_imec0
+    - 12-31-2020_Sevo_depth1.5_imec0
+  eStim:
+    - 12-27-2020_Wake_NREM_REM_depth1.5_imec0
+    - 12-27-2020_Wake_NREM_REM_depth1.5_imec1
+    - 12-31-2020_Sevo_depth1.5_imec0
+    - 12-31-2020_Sevo_depth1.5_imec1

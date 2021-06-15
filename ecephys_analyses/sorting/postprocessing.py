@@ -128,7 +128,8 @@ def copy_ks_dir(src, tgt):
             if file.name in IGNORE:
                 continue
             # Don't use copytree because chmod raises PermissionError on smb share
-            shutil.copyfile(file, copy_dir/file.name)
+            from ecephys.utils.utils import system_copy
+            system_copy(file, copy_dir/file.name)
 
 
 def get_ks_version(sorting_condition):

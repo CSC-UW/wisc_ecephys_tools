@@ -122,6 +122,9 @@ Alessandro:
   9-21-2020_Ket_imec0:
     9-21-2020:
       - 9-21-2020-Keta-Stim_g0_t0.imec0
+  8-31-2020_REMmerged_imec0:
+    - 8-31-2020_REM_imec0
+    - 8-31-2020_REM2_imec0
 
 Allan:
   raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/
@@ -386,3 +389,35 @@ Eugene:
   10-9-2020_Wake_depth1.4_imec1:
     10-9-2020-A:
     - 10.9.2020StimDepW_g1_t0.imec1
+
+Giuseppe:
+  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/
+  analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX7-Giuseppe/
+  # imec 0 
+  12-27-2020_g0_imec0:
+    12-27-2020:
+      - 12-27-2020_Stim1-3_g0_t0.imec0
+  12-27-2020_g0_imec1:
+    12-27-2020:
+      - 12-27-2020_Stim1-3_g0_t0.imec1
+  12-27-2020_g1_imec0:
+    12-27-2020:
+      - 12-27-2020_Stim1-3_g1_t0.imec0
+      - 12-27-2020_Stim1-3_g1_t1.imec0
+  12-27-2020_g1_imec1:
+    12-27-2020:
+      - 12-27-2020_Stim1-3_g1_t0.imec1
+      - 12-27-2020_Stim1-3_g1_t1.imec1
+  12-31-2020_Sevo_depth1.5_imec0:
+    12-31-2020:
+      - 12-31-2020_Stim_Sevo_g0_t0.imec0
+  12-31-2020_Sevo_depth1.5_imec1:
+    12-31-2020:
+      - 12-31-2020_Stim_Sevo_g0_t0.imec1
+  # Combined
+  12-27-2020_Wake_NREM_REM_depth1.5_imec0:
+    - 12-27-2020_g0_imec0
+    - 12-27-2020_g1_imec0
+  12-27-2020_Wake_NREM_REM_depth1.5_imec1:
+    - 12-27-2020_g0_imec1
+    - 12-27-2020_g1_imec1

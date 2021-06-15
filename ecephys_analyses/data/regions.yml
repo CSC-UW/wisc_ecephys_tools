@@ -1,5 +1,14 @@
 # Depths of structures. Corresponding to depths in Phy.
 # WATCH OUT: 0 is tip of probe, not necessarily the deepest channel
+Giuseppe: 
+    giuseppe_imec0_base: &giuseppe_imec0_base
+        cortex: [0, 7660]
+    giuseppe_imec1_base: &giuseppe_imec1_base
+        cortex: [0, 7660]
+    12-27-2020_depth1.5_imec0: *giuseppe_imec0_base
+    12-31-2020_Sevo_depth1.5_imec0: *giuseppe_imec0_base
+    12-27-2020_depth1.5_imec1: *giuseppe_imec1_base
+    12-31-2020_Sevo_depth1.5_imec1: *giuseppe_imec1_base
 Alessandro: 
     alessandro_imec0_base: &alessandro_imec0_base
         hypothalamus: [0, 780]
