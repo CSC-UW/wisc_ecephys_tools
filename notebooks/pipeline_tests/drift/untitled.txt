@@ -1,0 +1,28 @@
+Hi all,
+
+__In short__: I am attempting to sort in one go long recordings (12h or 24h) with very high amplitude slow drift (up to ~140um).
+Large amplitude non-rigid drift seems to be highly underestimated for at least two reasons:
+
+- Maximal y-direction shifts explored are hardcoded in kilosort and are insufficient in some cases (by default it is 75um of rigid drift and 25um of non-rigid drift in each direction for npx probes)
+
+- The target fingerprint to which each block’s fingerprint is aligned (non-rigidly) is computed by taking the average of fingerprints after __rigid__ drift only. 
+
+__Detailed__:
+Here is the drift map for my raw data, zoomed over two block of channels showing (resp) large amplitude and small amplitude drift:
+<img src=“https://user-images.githubusercontent.com/14128078/119702319-9ff40880-be55-11eb-8981-8e8e1f533159.png” width=“300" height=“200”>
+<img src=“https://user-images.githubusercontent.com/14128078/119703991-69b78880-be57-11eb-902a-44404c3ad7b1.png” width=“300” height=“200">
+
+Here is the drift map for the “drift-corrected” data used for sorting, with default parameters. The correction is satisfactory in the region with small amplitude drift but there is a lot (~80um) of remaining drift in the region showing large amplitude drift.
+<img src=“https://user-images.githubusercontent.com/14128078/119706239-fe22ea80-be59-11eb-9e7d-d5f4d74466ce.png” width=“300” height=“200">
+<img src=“https://user-images.githubusercontent.com/14128078/119705766-6fae6900-be59-11eb-9091-4c33bf2b2c1e.png” width=“300" height=“200”>
+
+1. __Hardcoded maximal drift in align_block2__
+I notice that the maximum possible drift for each block is hardcoded in align_block2 ( [here](https://github.com/MouseLand/Kilosort/blob/c31df11de9a4235c22a20909884f467c3813a2e4/preProcess/align_block2.m#L9) and [here](https://github.com/MouseLand/Kilosort/blob/c31df11de9a4235c22a20909884f467c3813a2e4/preProcess/align_block2.m#L68) ).
+This should probably be made an input parameter, at least so that users know there's such a hard-coded limit
+
+1. __Target fingerprint is obtained from rigid alignment__
+
+In align_block2, at each step of the main loop of rigid alignment, the template to which each batch's fingerprint is aligned is obtained by iteratively averaging the rigidly aligned fingerprints. There's then a final step which (non-rigidly) aligns each block*batch's fingerprint to the (rigid) template. Because the non-rigid alignment is not reflected in the template, the target fingerprint looks pretty bad in regions exhibiting large amplitude non-rigid (local) drift, which impairs the alignment of each block.
+
+
+In case anyone is interested, I ended up modifying the algorithm to add a loop of non-rigid alignment during which the target is updated as well. 

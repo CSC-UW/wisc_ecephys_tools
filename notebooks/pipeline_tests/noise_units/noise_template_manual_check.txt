@@ -1,0 +1,211 @@
+Checking spread...
+abnormal shape 17 F
+spread 33 63 32 F
+spread 34 28 22 T
+spread 36 3 1 T
+spread 37 3 1 T
+spread 44 3 1 T 
+spread 45 3 1 T
+spread 46 29 30 T
+spread 49 51 32  ?
+spread 61 3 1 OK
+spread 71 2 1  OK
+abnormal shape 86  T
+spread 133 3 1 F
+spread 144 54 32  T
+spread 161 37 29  T
+spread 167 50 32  T
+spread 182 41 29 T
+spread 189 0 0 T
+spread 194 1 1 F
+spread 208 0 0 T
+spread 253 42 32 T
+spread 254 54 32 T
+spread 258 47 32  ok
+abnormal shape 278  ?
+spread 300 51 32  T
+spread 312 43 31 T
+spread 326 59 32 T
+spread 327 62 32 T
+
+
+
+spread 18, c 35 F
+spread 18, c 38 ok
+spread 18, c 278 ok
+spread 19, c 86 
+spread 21, c 322
+spread 25, c 17
+spread 28, c 34
+spread 29, c 46
+spread 36 3 1
+spread 37 3 1
+spread 37, c 161
+spread 41, c 182
+spread 42, c 253
+spread 43, c 312
+spread 44 3 1
+spread 45 3 1
+spread 47, c 258
+spread 50, c 167
+spread 51, c 49
+spread 51, c 300
+spread 54, c 144
+spread 54, c 254
+spread 59, c 326
+spread 61 3 1
+spread 62, c 327
+spread 63, c 33
+spread 71 2 1
+spread 133 3 1
+spread 189 0 0
+spread 194 1 1
+spread 208 0 0
+
+
+ Total noise templates: 28
+ Spread noise ids: (array([ 17,  33,  34,  36,  37,  44,  45,  46,  49,  61,  71,  86, 133,
+       144, 161, 167, 182, 189, 194, 208, 253, 254, 258, 278, 300, 312,
+       326, 327]),)
+       
+       
+       
+Checking temporal peaks...
+
+24 7  T
+44 51  T
+48 51  T
+51 52 T
+58 32  T
+75 7 ?
+92 6 F
+115 7 F
+129 8 F
+161 7 T
+169 7  F
+174 33 F
+189 0 T
+200 5  F
+208 0
+217 5 F
+229 32  F
+243 7  T
+284 34  ?
+293 7 ?
+302 7 F
+303 8 F
+316 31 F
+322 34 T
+323 8 F
+ Total noise templates: 49
+ 
+ temporal peak noise ids: (array([ 24, 44,  48,  51,  58,  75,  92, 115, 129, 161, 169, 174, 189,
+       200, 208, 217, 229, 243, 284, 293, 302, 303, 316, 322, 323]),)
+
+
+
+Checking spatial peaks...
+ Total noise templates: 83
+ spatial peak noise ids: (array([ 
+7, 4.32 T
+10, 8.49 F
+25, 5.6 T
+33, 12.22 F
+34, 9.88, T
+35, 4.12, F
+38, 4.66,  ?
+43, 10.15, ok
+46, 9.41, T
+48, 12.14, TT
+49, 13.16, ?
+51, 8.0, TT
+62, 10.81 T
+70, 6.21 ok
+76, 7.79 ok
+80, 4.92 F
+85, 3.6 F
+86, 5.35 TT
+97, 6.85 F
+98, 5.49 F
+99, 5.47 ?
+102, 5.69 F
+104, 7.52 F
+112, 7.03 F
+115, 9.27 F
+120, 10.74 F
+125, 8.75 F
+127, 5.94 ok
+128, 3.6 F
+144, 12.93  T
+150, 8.08 F
+154, 3.82 T 
+161, 8.97 TT
+167, 11.36 T
+178, 4.8  F 
+182, 14.19 T
+186, 13.69 F
+188, 9.55 F
+199, 8.74 F
+200, 5.66 F
+202, 9.84 F
+205, 9.46
+209, 7.52
+253, 13.14  TT
+254, 13.23 F
+258, 13.22  ?
+263, 4.44 F
+278, 13.3 F
+284, 4.8 F
+288, 9.6 T
+300, 13.59 TT
+312, 14.04 TT
+322, 9.96 T
+325, 10.23 F
+326, 13.41  TT
+326, 13.41
+327, 13.09 TT
+331, 5.03 TT
+
+
+@@@@@@@@@@@@@@@
+depth 0.9
+
+
+
+ecephys spike sorting: noise templates module
+Checking spread...
+spread 26, c 193 T
+spread 27, c 217 T
+spread 27, c 305 T
+spread 33, c 68
+spread 40, c 265
+spread 44, c 42
+spread 44, c 254
+spread 46, c 307
+spread 50, c 32
+spread 50, c 48
+spread 50, c 59
+spread 50, c 283
+spread 54, c 271
+spread 56 2 1
+spread 56, c 58
+spread 56, c 294
+spread 56, c 310
+spread 56, c 312
+spread 57 3 1
+spread 63, c 40
+spread 63, c 43
+spread 63, c 47
+spread 63, c 251
+spread 71 3 1
+spread 78 2 1
+spread 144 1 1
+spread 205 0 0
+spread 210 3 1
+spread 253 2 1
+spread 262 3 1
+ Total noise templates: 30
+ Spread noise ids: (array([ 32,  40,  42,  43,  47,  48,  56,  57,  58,  59,  68,  71,  78,
+       144, 193, 205, 210, 217, 251, 253, 254, 262, 265, 271, 283, 294,
+       305, 307, 310, 312]),)
+Checking temporal peaks...
