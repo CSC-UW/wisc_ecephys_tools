@@ -66,8 +66,17 @@ def get_all_psth_data(
     subject, condition, sorting_condition,
     region='all',
     state=None,
+    window=None,
+    binsize=None,
     good_only=False,
 ):
+    # Params
+    if window is None:
+        window=PSTH_WINDOW_DF
+    if binsize is None:
+        binsize=BINSIZE_DF
+    print(f'Get all psth, window={window}, binsize={binsize}')
+
     # Path 
     ks_dir = paths.get_datapath(subject, condition, sorting_condition)
 
@@ -95,8 +104,8 @@ def get_all_psth_data(
     assert event_colname in event_df.columns
     
     all_psth = pop.get_all_psth(
-        event=event_colname, df=event_df, window=PSTH_WINDOW_DF,
-        binsize=BINSIZE_DF, plot=False
+        event=event_colname, df=event_df, window=window,
+        binsize=binsize, plot=False
     )
     return pop, all_psth, info, event_df
 
@@ -130,12 +139,13 @@ def load_event_times(subject, condition, state=None, filename=None):
             subject, condition, 'ap.bin',
         )[0].parents[1]
         path = root/filename
-    print(f"Load events at path")
+    print(f"Load events at {path}")
     event_df = pd.read_csv(path)
+    assert set(event_df.columns) == set(['stim_state', 'sglx_stim_time'])
     if state is None:
         res = event_df
     else:
         res = event_df[event_df['stim_state'] == state]
     if len(res) == 0:
-        raise ValueError("N=0 selected events for file at {path}")
+        raise ValueError(f"N=0 selected events for file at {path}")
     return res
