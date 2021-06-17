@@ -33,7 +33,10 @@ def run_postprocessing(
         'ap.bin',
         catgt_data=True,
     )
-    assert len(binpaths) == 1
+    # assert len(binpaths) == 1
+    if len(binpaths) > 1:
+        import warnings
+        warnings.warn("Multiple bin files. Recover metadata from first")
     binpath = binpaths[0]
     metapath = binpath.parent/(binpath.stem + '.meta')
     print(f"catGT preprocessed data: {binpath}")
@@ -53,7 +56,7 @@ def run_postprocessing(
         condition,
         sorting_condition + '_' + postprocessing_condition,
     )
-    if (ks_dir/'spike_amplitudes.npy').exists() and not rerun_existing:
+    if (ks_dir/'amplitudes.npy').exists() and not rerun_existing:
         print(f"Kilosort dir exists at {ks_dir}...\n Doing nothing.\n\n")
         return
     print(f"Postprocessing. Results at: {ks_dir}")
