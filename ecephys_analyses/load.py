@@ -7,6 +7,13 @@ from ecephys.signal.xarray_utils import rebase_time
 
 from .paths import get_sglx_style_datapaths
 
+SLEEP_HOMEOSTASIS = "sleep-homeostasis"
+NREM = ["N1", "N2"]
+LIGHTS_ON = "09:00:00"
+LIGHTS_OFF = "21:00:00"
+
+### Experiment-agnostic loading functions.
+
 
 def load_sr_chans(path):
     df = pd.read_csv(path)
@@ -48,7 +55,14 @@ def load_hypnogram(subject, experiment, condition):
     return pd.concat(hypnograms).reset_index(drop=True)
 
 
-def load_spws(subject, experiment, condition, condition_start_dt=None):
+def _get_abs_sink(spws):
+    _spws = spws.copy()
+    _spws["sink_amplitude"] = spws["sink_amplitude"].abs()
+    _spws["sink_integral"] = spws["sink_amplitude"].abs()
+    return _spws
+
+
+def load_spws(subject, experiment, condition, condition_start_dt=None, abs_sink=False):
     spw_paths = get_sglx_style_datapaths(
         subject=subject, experiment=experiment, condition=condition, ext="spws.h5"
     )
@@ -71,4 +85,79 @@ def load_spws(subject, experiment, condition, condition_start_dt=None):
             combined_spws["start_time"] - condition_start_dt
         )
 
+    if abs_sink:
+        combined_spws = _get_abs_sink(combined_spws)
+
     return combined_spws
+
+
+### Sleep-homeostasis experiment specific loading functions.
+
+
+def load_baseline_light_period_nrem(subject, abs_sink=False):
+    condition = "light-period-circadian-match"
+    hyp = load_hypnogram(subject, SLEEP_HOMEOSTASIS, condition)
+    hyp = hyp.keep_states(NREM).keep_between(LIGHTS_ON, LIGHTS_OFF)
+    spws = load_spws(subject, SLEEP_HOMEOSTASIS, condition, abs_sink=abs_sink)
+    spws = spws[hyp.covers_time(spws.start_time)]
+    return hyp, spws
+
+
+def load_early_recovery_nrem(subject, abs_sink=False):
+    condition = "recovery-sleep"
+    duration = "01:00:00"
+    hyp = load_hypnogram(subject, SLEEP_HOMEOSTASIS, condition)
+    hyp = hyp.keep_states(NREM).keep_first(duration)
+    spws = load_spws(subject, SLEEP_HOMEOSTASIS, condition, abs_sink=abs_sink)
+    spws = spws[hyp.covers_time(spws.start_time)]
+    return hyp, spws
+
+
+def load_late_recovery_nrem(subject, abs_sink=False):
+    condition = "recovery-sleep"
+    duration = "01:00:00"
+    hyp = load_hypnogram(subject, SLEEP_HOMEOSTASIS, condition)
+    hyp = hyp.keep_states(NREM).keep_last(duration)
+    spws = load_spws(subject, SLEEP_HOMEOSTASIS, condition, abs_sink=abs_sink)
+    spws = spws[hyp.covers_time(spws.start_time)]
+    return hyp, spws
+
+
+def load_first2h_recovery_nrem(subject, abs_sink=False):
+    condition = "recovery-sleep"
+    duration = "02:00:00"
+    hyp = load_hypnogram(subject, SLEEP_HOMEOSTASIS, condition)
+    hyp = hyp.keep_states(NREM).keep_first(duration)
+    spws = load_spws(subject, SLEEP_HOMEOSTASIS, condition, abs_sink=abs_sink)
+    spws = spws[hyp.covers_time(spws.start_time)]
+    return hyp, spws
+
+
+def load_first2h_recovery_match_nrem(subject, rec_hyp, abs_sink=False):
+    condition = "recovery-sleep-circadian-match"
+    duration = "02:00:00"
+    hyp = load_hypnogram(subject, SLEEP_HOMEOSTASIS, condition)
+    hyp = (
+        hyp.keep_states(NREM)
+        .keep_between(rec_hyp.start_time.min().strftime("%H:%M:%S"), LIGHTS_OFF)
+        .keep_first(duration)
+    )
+    spws = load_spws(subject, SLEEP_HOMEOSTASIS, condition, abs_sink=abs_sink)
+    spws = spws[hyp.covers_time(spws.start_time)]
+    return hyp, spws
+
+
+def load_recovery_nrem(subject, abs_sink=False):
+    condition = "recovery-sleep"
+    hyp = load_hypnogram(subject, SLEEP_HOMEOSTASIS, condition)
+    hyp = hyp.keep_states(NREM).keep_between(LIGHTS_ON, LIGHTS_OFF)
+    spws = load_spws(subject, SLEEP_HOMEOSTASIS, condition, abs_sink=abs_sink)
+    spws = spws[hyp.covers_time(spws.start_time)]
+    return hyp, spws
+
+
+def load_deprivation(subject, abs_sink=False):
+    condition = "extended-wake"
+    hyp = load_hypnogram(subject, SLEEP_HOMEOSTASIS, condition)
+    spws = load_spws(subject, SLEEP_HOMEOSTASIS, condition, abs_sink=abs_sink)
+    return hyp, spws
