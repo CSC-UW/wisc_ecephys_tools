@@ -1,4 +1,4 @@
-subject,condition,amplitude_sum,integral_sum,duration_sum
+subject,condition,amplitude,integral,duration
 Segundo,baseline-light-period-nrem,1.0,1.0,1.0
 Segundo,recovery-first2h-match,0.2595172128694974,0.2579777999708418,0.25681409322818477
 Segundo,recovery-first2h,0.39460908969620406,0.39791438485256536,0.37992578278250316

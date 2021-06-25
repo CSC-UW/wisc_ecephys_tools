@@ -58,7 +58,7 @@ def load_hypnogram(subject, experiment, condition):
 def _get_abs_sink(spws):
     _spws = spws.copy()
     _spws["sink_amplitude"] = spws["sink_amplitude"].abs()
-    _spws["sink_integral"] = spws["sink_amplitude"].abs()
+    _spws["sink_integral"] = spws["sink_integral"].abs()
     return _spws
 
 
