@@ -1,3 +1,3 @@
 from .channels import *
 from .paths import *
-from .load import *
+from . import load
