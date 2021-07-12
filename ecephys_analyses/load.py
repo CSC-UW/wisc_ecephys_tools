@@ -33,6 +33,7 @@ def load_power(subject, experiment, condition, ext):
     return rebase_time(xr.concat(powers, dim="time"))
 
 
+# TODO: Remove this function?
 def load_bandpower(subject, experiment, condition, ext="bandpower.nc"):
     return load_power(subject, experiment, condition, ext)
 
