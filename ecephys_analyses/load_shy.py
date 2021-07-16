@@ -1,9 +1,12 @@
+from collections import namedtuple
 from hypnogram.hypnogram import DatetimeHypnogram
 from .load import (
     load_hypnogram as _load_hypnogram,
     load_spws as _load_spws,
     load_spectrogram as _load_spectrogram,
 )
+
+ALL_SUBJECTS = ["Segundo", "Valentino", "Doppio", "Alessandro", "Eugene", "Allan"]
 
 SLEEP_HOMEOSTASIS = "sleep-homeostasis"
 NREM = ["N1", "N2"]
@@ -12,7 +15,12 @@ SPW_STATES = NREM + WAKE + ["Trans", "IS", "Arousal"]
 LIGHTS_ON = "09:00:00"
 LIGHTS_OFF = "21:00:00"
 
-DELTA = (0.5, 4)
+_SpectralBands = namedtuple(
+    "SpectralBands", ["low_delta", "delta", "theta", "fast_gamma"]
+)
+bands = _SpectralBands(
+    low_delta=(0, 1), delta=(0.5, 4), theta=(5, 10), fast_gamma=(60, 120)
+)
 
 
 def _get_recovery_sleep_start_time(subject):
@@ -93,7 +101,7 @@ _hypnogram_loaders = {
     "extended-wake": {
         "deprivation": _load_deprivation,
         "early-deprivation": _load_early_deprivation,
-        "late-deprviation": _load_late_deprivation,
+        "late-deprivation": _load_late_deprivation,
     },
 }
 
@@ -108,6 +116,13 @@ def _get_parent_condition(subcondition):
     for condition, subcondition_loaders in _hypnogram_loaders.items():
         if subcondition in subcondition_loaders:
             return condition
+
+
+def get_subconditions():
+    subconditions = list()
+    for condition, subcondition_loaders in _hypnogram_loaders.items():
+        subconditions += subcondition_loaders.keys()
+    return subconditions
 
 
 def load_hypnogram(subject, subcondition, **kwargs):
