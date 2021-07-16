@@ -1,0 +1,74 @@
+---
+subject: Allan
+raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/
+recording-sessions:
+  - &3-1-2021
+    directory: 3-1-2021
+    SpikeGLX-runs:
+      - 3-1-2021
+      - 3-1-2021-a
+      - 3-1-2021_A
+      - 3-1-2021_B
+      - 3-1-2021_C
+      - 3-1-2021_D
+      - 3-1-2021_E
+      - 3-1-2021_G
+      - 3-1-2021_H
+      - 3-1-2021_J
+  - &3-2-2021
+    directory: 3-2-2021
+    SpikeGLX-runs:
+      - 3-2-2021_A
+      - 3-2-2021_B
+      - 3-2-2021_C
+      - 3-2-2021_D
+      - 3-2-2021_E
+      - 3-2-2021_F
+      - 3-2-2021_G
+      - 3-2-2021_H
+      - 3-2-2021_I
+      - 3-2-2021_J
+      - 3-2-2021_K
+      - 3-2-2021_L
+      - 3-2-2021_M
+      - 3-2-2021_N
+      - 3-2-2021_O
+  - &4-13-2021
+    directory: 4-13-2021
+    SpikeGLX-runs:
+      - '4.13.2021'
+  - &4-16-2021
+    directory: 4-16-2021
+    SpikeGLX-runs:
+      - '4.16.2021'
+  - &4-20-2021
+    directory: 4-20-2021
+    SpikeGLX-runs:
+      - '4.20.2021'
+experiments:
+  sleep-homeostasis:
+    recording-sessions:
+      - *3-1-2021
+      - *3-2-2021
+    aliases:
+      light-period-circadian-match:
+        start_file: 3-1-2021_g0_t0
+        end_file: 3-1-2021_C_g0_t8
+      sleep-deprivation:
+        start_file: 3-2-2021_A_g0_t0
+        end_file: 3-2-2021_E_g0_t0
+      recovery-sleep:
+        start_file: 3-2-2021_F_g0_t0
+        end_file: 3-2-2021_G_g0_t0
+      light-period:
+        start_file: 3-2-2021_A_g0_t0
+        end_file: 3-2-2021_G_g0_t0
+  dexmedetomidine:
+    recording-sessions:
+      - *4-13-2021
+  atropine:
+    recording-sessions:
+      - *4-16-2021
+  ketamine:
+    recording-sessions:
+      - *4-20-2021
