@@ -1,14 +1,28 @@
 # Depths of structures. Corresponding to depths in Phy.
 # WATCH OUT: 0 is tip of probe, not necessarily the deepest channel
+
+Doppio: 
+    doppio_imec0_base: &doppio_imec0_base # Parietal
+        cortex: [5880, 7660]
+    doppio_imec1_base: &doppio_imec1_base # Frontal
+        cortex: [2500, 7660]  # TODO
+    baseline-sleep-2h-circadian-match_imec0: *doppio_imec0_base
+    recovery-sleep-2h_imec0: *doppio_imec0_base
+    sleep-homeostasis-2h_imec0: *doppio_imec0_base
+    baseline-sleep-2h-circadian-match_imec1: *doppio_imec1_base
+    recovery-sleep-2h_imec1: *doppio_imec1_base
+    sleep-homeostasis-2h_imec1: *doppio_imec1_base
+    
 Giuseppe: 
     giuseppe_imec0_base: &giuseppe_imec0_base
-        cortex: [0, 7660]
+        cortex: [4240, 6860]
     giuseppe_imec1_base: &giuseppe_imec1_base
-        cortex: [0, 7660]
-    12-27-2020_depth1.5_imec0: *giuseppe_imec0_base
+        cortex: [4960, 7660]
+    12-27-2020_Wake_NREM_REM_depth1.5_imec0: *giuseppe_imec0_base
     12-31-2020_Sevo_depth1.5_imec0: *giuseppe_imec0_base
-    12-27-2020_depth1.5_imec1: *giuseppe_imec1_base
+    12-27-2020_Wake_NREM_REM_depth1.5_imec1: *giuseppe_imec1_base
     12-31-2020_Sevo_depth1.5_imec1: *giuseppe_imec1_base
+
 Alessandro: 
     alessandro_imec0_base: &alessandro_imec0_base
         hypothalamus: [0, 780]
@@ -17,26 +31,28 @@ Alessandro:
         cortex: [5980, 7660]
     8-31-2020_REM_imec0: *alessandro_imec0_base
     8-31-2020_REM2_imec0: *alessandro_imec0_base
+    8-31-2020_REMmerged_imec0: *alessandro_imec0_base
     8-31-2020_NREM_imec0: *alessandro_imec0_base
     8-31-2020_Wake_imec0: *alessandro_imec0_base
     9-8-2020_Sevo_imec0: *alessandro_imec0_base
     9-2-2020_Dex_imec0: *alessandro_imec0_base
     9-21-2020_Ket_imec0: *alessandro_imec0_base
+
 Allan: 
-#     # 3-5-2021 imec0
-#     3-5-2021_g0_imec0:  cortex: [5980, 7480]
-#     3-5-2021_g2_imec0:  cortex: [5980, 7480]
-#     3-5-2021_g3_imec0:  cortex: [5980, 7480]
-#     3-5-2021_g4_imec0:  cortex: [5980, 7480]
-#     3-5-2021_g5_imec0:  cortex: [5980, 7480]
-#     3-5-2021_g6_imec0:  cortex: [5980, 7480]
-#     # 3-5-2021 imec1
-#     3-5-2021_g0_imec1:  cortex: [7000, 8480]
-#     3-5-2021_g2_imec1:  cortex: [7000, 8480]
-#     3-5-2021_g3_imec1:  cortex: [7000, 8480]
-#     3-5-2021_g4_imec1:  cortex: [7000, 8480]
-#     3-5-2021_g5_imec1:  cortex: [7000, 8480]
-#     3-5-2021_g6_imec1:  cortex: [7000, 8480]
+    allan_imec0_base: &allan_imec0_base # Frontal
+        neocortex: [2500, 7480]
+        olfactory_cortex: [0, 2500]
+    allan_imec1_base: &allan_imec1_base # parietal
+        cortex: [6620, 8480]
+        hippocampus: [4320.0, 6620.]
+        thal_hypothal: [820.0, 4320.0]  # TODO
+    baseline-sleep-2h-circadian-match_imec0: *allan_imec0_base
+    recovery-sleep-2h_imec0: *allan_imec0_base
+    baseline-sleep-2h-circadian-match_imec1: *allan_imec1_base
+    recovery-sleep-2h_imec1: *allan_imec1_base
+    3-5-2021_g2-3_imec0: *allan_imec0_base
+    3-5-2021_g2-3_imec1: *allan_imec1_base
+
 Eugene: 
     eugene_imec0_base: &eugene_imec0_base
         hypothalamus: [0, 980]
@@ -113,3 +129,9 @@ Eugene:
     10-9-2020_Sevo_depth0.5_imec1: *eugene_imec1_base
     10-2-2020_Sevo_depth0.3_imec1: *eugene_imec1_base
     10-9-2020_Sevo_depth0.2_imec1: *eugene_imec1_base
+
+Luigi: 
+    luigi_imec0_base: &luigi_imec0_base
+        cortex: [3340., 7640.]
+    baseline-sleep-2h-circadian-match_imec0: *luigi_imec0_base
+    recovery-sleep-2h_imec0: *luigi_imec0_base

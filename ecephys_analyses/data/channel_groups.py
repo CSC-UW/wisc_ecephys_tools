@@ -12,8 +12,10 @@ LongCol = long_column_map.get_user_order()
 full_names = {
     'Alessandro': 'CNPIX5-Alessandro',
     'Allan': 'CNPIX8-Allan',
+    'Doppio': 'CNPIX4-Doppio',
     'Eugene': 'CNPIX6-Eugene',
     'Giuseppe': 'CNPIX7-Giuseppe',
+    'Luigi': 'CNPIX9-Luigi',
 }
 
 full = {

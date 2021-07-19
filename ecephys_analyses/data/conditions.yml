@@ -1,101 +1,111 @@
 
 Alessandro:
   eStim:
-    - 8-31-2020_REM_imec0
-    - 8-31-2020_REM2_imec0
+    # - 8-31-2020_REM_imec0
+    # - 8-31-2020_REM2_imec0
     - 8-31-2020_REMmerged_imec0
     - 8-31-2020_NREM_imec0
     - 8-31-2020_Wake_imec0
-    - 9-8-2020_Sevo_imec0
-    - 9-2-2020_Dex_imec0
-    - 9-21-2020_Ket_imec0
+    # - 9-8-2020_Sevo_imec0
+    # - 9-2-2020_Dex_imec0
+    # - 9-21-2020_Ket_imec0
     
 Allan:
   eStim_3-5-2021:
-    - 3-5-2021_g0_imec0
-    - 3-5-2021_g0_imec1
-    - 3-5-2021_g2_imec0
-    - 3-5-2021_g2_imec1
-    - 3-5-2021_g3_imec0
-    - 3-5-2021_g3_imec1
-    - 3-5-2021_g4_imec0
-    - 3-5-2021_g4_imec1
-    - 3-5-2021_g5_imec0
-    - 3-5-2021_g5_imec1
-    - 3-5-2021_g6_imec0
-    - 3-5-2021_g6_imec1
+    - 3-5-2021_g2-3_imec0
+    - 3-5-2021_g2-3_imec1
+    # - 3-5-2021_g0_imec0
+    # - 3-5-2021_g0_imec1
+    # - 3-5-2021_g2_imec0
+    # - 3-5-2021_g2_imec1
+    # - 3-5-2021_g3_imec0
+    # - 3-5-2021_g3_imec1
+    # - 3-5-2021_g4_imec0
+    # - 3-5-2021_g4_imec1
+    # - 3-5-2021_g5_imec0
+    # - 3-5-2021_g5_imec1
+    # - 3-5-2021_g6_imec0
+    # - 3-5-2021_g6_imec1
   eStim_3-8-2021:
     - 3-8-2021_30uA_g0_imec0
     - 3-8-2021_30uA_g0_imec1
     - 3-8-2021_50uA_g2_imec0
     - 3-8-2021_50uA_g2_imec1
+  SD:
+    - sleep-homeostasis-2h_imec1
+    - sleep-homeostasis-2h_imec0
+  SD_catgt:
+    - baseline-sleep-2h-circadian-match_imec0
+    - baseline-sleep-2h-circadian-match_imec1
+    - recovery-sleep-2h_imec0
+    - recovery-sleep-2h_imec1
 
 Eugene:
   eStim:
     - 10-9-2020_NREM_depth1.5_imec0
-    - 10-9-2020_NREM_depth1.5_imec1
+    # - 10-9-2020_NREM_depth1.5_imec1
     - 10-19-2020_NREM_depth1.5_imec0
-    - 10-19-2020_NREM_depth1.5_imec1
-    - 10-2-2020_NREM_depth1.4_imec0
-    - 10-2-2020_NREM_depth1.4_imec1
+    # - 10-19-2020_NREM_depth1.5_imec1
+    - 10-2-2020_NREM_depth1.4_imec0 # TODO
+    # - 10-2-2020_NREM_depth1.4_imec1
     - 10-9-2020_NREM_depth1.2_imec0
-    - 10-9-2020_NREM_depth1.2_imec1
-    - 10-2-2020_NREM_depth1.1_imec0
-    - 10-2-2020_NREM_depth1.1_imec1
+    # - 10-9-2020_NREM_depth1.2_imec1
+    - 10-2-2020_NREM_depth1.1_imec0 # TODO
+    # - 10-2-2020_NREM_depth1.1_imec1
     - 10-9-2020_NREM_depth0.9_imec0
-    - 10-9-2020_NREM_depth0.9_imec1
+    # - 10-9-2020_NREM_depth0.9_imec1
     - 10-2-2020_NREM_depth0.8_imec0
-    - 10-2-2020_NREM_depth0.8_imec1
-    - 10-9-2020_NREM_depth0.6_imec0
-    - 10-9-2020_NREM_depth0.6_imec1
-    - 10-2-2020_NREM_depth0.5_imec0
-    - 10-2-2020_NREM_depth0.5_imec1
-    - 10-9-2020_NREM_depth0.3_imec0
-    - 10-9-2020_NREM_depth0.3_imec1
-    - 10-2-2020_NREM_depth0.2_imec0
-    - 10-2-2020_NREM_depth0.2_imec1
+    # - 10-2-2020_NREM_depth0.8_imec1
+    # - 10-9-2020_NREM_depth0.6_imec0
+    # - 10-9-2020_NREM_depth0.6_imec1
+    # - 10-2-2020_NREM_depth0.5_imec0
+    # - 10-2-2020_NREM_depth0.5_imec1
+    # - 10-9-2020_NREM_depth0.3_imec0
+    # - 10-9-2020_NREM_depth0.3_imec1
+    # - 10-2-2020_NREM_depth0.2_imec0
+    # - 10-2-2020_NREM_depth0.2_imec1
     - 10-19-2020_REM_depth1.5_imec0
-    - 10-19-2020_REM_depth1.5_imec1
+    # - 10-19-2020_REM_depth1.5_imec1
     - 10-2-2020_Wake_depth1.5_imec0
-    - 10-2-2020_Wake_depth1.5_imec1
+    # - 10-2-2020_Wake_depth1.5_imec1
     - 10-9-2020_Wake_depth1.4_imec0
-    - 10-9-2020_Wake_depth1.4_imec1
+    # - 10-9-2020_Wake_depth1.4_imec1
     - 10-2-2020_Wake_depth1.2_imec0
-    - 10-2-2020_Wake_depth1.2_imec1
+    # - 10-2-2020_Wake_depth1.2_imec1
     - 10-9-2020_Wake_depth1.1_imec0
-    - 10-9-2020_Wake_depth1.1_imec1
-    - 10-2-2020_Wake_depth0.9_imec0
-    - 10-2-2020_Wake_depth0.9_imec1
+    # - 10-9-2020_Wake_depth1.1_imec1
+    # - 10-2-2020_Wake_depth0.9_imec0
+    # - 10-2-2020_Wake_depth0.9_imec1
     - 10-9-2020_Wake_depth0.8_imec0
-    - 10-9-2020_Wake_depth0.8_imec1
-    - 10-2-2020_Wake_depth0.6_imec0
-    - 10-2-2020_Wake_depth0.6_imec1
-    - 10-9-2020_Wake_depth0.5_imec0
-    - 10-9-2020_Wake_depth0.5_imec1
-    - 10-2-2020_Wake_depth0.3_imec0
-    - 10-2-2020_Wake_depth0.3_imec1
-    - 10-9-2020_Wake_depth0.2_imec0
-    - 10-9-2020_Wake_depth0.2_imec1
-    - 10-2-2020_Sevo_depth1.5_imec0
-    - 10-2-2020_Sevo_depth1.5_imec1
-    - 10-9-2020_Sevo_depth1.4_imec0
-    - 10-9-2020_Sevo_depth1.4_imec1
-    - 10-2-2020_Sevo_depth1.2_imec0
-    - 10-2-2020_Sevo_depth1.2_imec1
-    - 10-9-2020_Sevo_depth1.1_imec0
-    - 10-9-2020_Sevo_depth1.1_imec1
-    - 10-2-2020_Sevo_depth0.9_imec0
-    - 10-2-2020_Sevo_depth0.9_imec1
-    - 10-9-2020_Sevo_depth0.8_imec0
-    - 10-9-2020_Sevo_depth0.8_imec1
-    - 10-2-2020_Sevo_depth0.6_imec0
-    - 10-2-2020_Sevo_depth0.6_imec1
-    - 10-9-2020_Sevo_depth0.5_imec0
-    - 10-9-2020_Sevo_depth0.5_imec1
-    - 10-2-2020_Sevo_depth0.3_imec0
-    - 10-2-2020_Sevo_depth0.3_imec1
-    - 10-9-2020_Sevo_depth0.2_imec0
-    - 10-9-2020_Sevo_depth0.2_imec1
+    # - 10-9-2020_Wake_depth0.8_imec1
+    # - 10-2-2020_Wake_depth0.6_imec0
+    # - 10-2-2020_Wake_depth0.6_imec1
+    # - 10-9-2020_Wake_depth0.5_imec0
+    # - 10-9-2020_Wake_depth0.5_imec1
+    # - 10-2-2020_Wake_depth0.3_imec0
+    # - 10-2-2020_Wake_depth0.3_imec1
+    # - 10-9-2020_Wake_depth0.2_imec0
+    # - 10-9-2020_Wake_depth0.2_imec1
+    # - 10-2-2020_Sevo_depth1.5_imec0
+    # - 10-2-2020_Sevo_depth1.5_imec1
+    # - 10-9-2020_Sevo_depth1.4_imec0
+    # - 10-9-2020_Sevo_depth1.4_imec1
+    # - 10-2-2020_Sevo_depth1.2_imec0
+    # - 10-2-2020_Sevo_depth1.2_imec1
+    # - 10-9-2020_Sevo_depth1.1_imec0
+    # - 10-9-2020_Sevo_depth1.1_imec1
+    # - 10-2-2020_Sevo_depth0.9_imec0
+    # - 10-2-2020_Sevo_depth0.9_imec1
+    # - 10-9-2020_Sevo_depth0.8_imec0
+    # - 10-9-2020_Sevo_depth0.8_imec1
+    # - 10-2-2020_Sevo_depth0.6_imec0
+    # - 10-2-2020_Sevo_depth0.6_imec1
+    # - 10-9-2020_Sevo_depth0.5_imec0
+    # - 10-9-2020_Sevo_depth0.5_imec1
+    # - 10-2-2020_Sevo_depth0.3_imec0
+    # - 10-2-2020_Sevo_depth0.3_imec1
+    # - 10-9-2020_Sevo_depth0.2_imec0
+    # - 10-9-2020_Sevo_depth0.2_imec1
 
 
 Giuseppe:
@@ -109,5 +119,24 @@ Giuseppe:
   eStim:
     - 12-27-2020_Wake_NREM_REM_depth1.5_imec0
     - 12-27-2020_Wake_NREM_REM_depth1.5_imec1
-    - 12-31-2020_Sevo_depth1.5_imec0
-    - 12-31-2020_Sevo_depth1.5_imec1
+    # - 12-31-2020_Sevo_depth1.5_imec0
+    # - 12-31-2020_Sevo_depth1.5_imec1
+
+
+Luigi:
+  SD:
+    - sleep-homeostasis-2h_imec0
+  SD_catgt:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
+
+
+Doppio:
+  SD:
+    - sleep-homeostasis-2h_imec1
+    - sleep-homeostasis-2h_imec0
+  SD_catgt:
+    - baseline-sleep-2h-circadian-match_imec0
+    - baseline-sleep-2h-circadian-match_imec1
+    - recovery-sleep-2h_imec0
+    - recovery-sleep-2h_imec1

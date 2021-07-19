@@ -1,3 +1,31 @@
+on_off_detection:
+    on_off_threshold_1:
+        method: threshold
+        sorting_condition: ks2_5_catgt_Th=12-10_lam=50_8s-batches_postpro_1
+        params:
+            binsize: 0.010
+            smooth_sd_counts: 3
+            binsize_smoothed_count_hist: 0.02 # 0.05
+            smooth_sd_smoothed_count_hist: 1 # Units of "binsize_smoothed_count_hist"
+            binsize_duration_hist: 0.01 # 
+            count_threshold: null
+            gap_threshold: null
+    on_off_threshold_single_unit_1:
+        method: threshold
+        sorting_condition: ks2_5_catgt_Th=12-10_lam=50_8s-batches_postpro_1
+        params:
+            binsize: 0.010
+            smooth_sd_counts: 1
+            binsize_smoothed_count_hist: 0.02
+            smooth_sd_smoothed_count_hist: null
+            binsize_duration_hist: 0.01
+            count_threshold: 0.0 # ON for all single spikes
+            gap_threshold: null
+
+#####################################
+#####################################
+#####################################
+
 ks_postprocessing:
     postpro_df:
         # [<module_name>: <module_params_dict>]
@@ -69,7 +97,9 @@ sorting:
         minFR: 0.1
         minfr_goodchannels: 0.1
         nblocks: 5
+        do_correction: True
         sig: 20
+        lam: 10
         freq_min: 150
         sigmaMask: 30
         nPCs: 3
@@ -78,10 +108,10 @@ sorting:
         NT: null
         keep_good_only: False
         chunk_mb: 200000
-        n_jobs_bin: 100
+        n_jobs_bin: 50 
     ks2_5_catgt_df:
         - kilosort2_5
-        -
+        - &catgt_df
             <<: *ks2_5_base
             car: False
     ks2_5_raw_df:
@@ -89,6 +119,20 @@ sorting:
         -
             <<: *ks2_5_base
             car: True
+    ks2_5_catgt_Th=12-10_lam=50_nodrift:
+        - kilosort2_5
+        -
+            <<: *catgt_df
+            do_correction: 0
+            projection_threshold: [12, 10]
+            lam: 50
+    ks2_5_catgt_Th=12-10_lam=50_8s-batches:
+        - kilosort2_5
+        -
+            <<: *catgt_df
+            projection_threshold: [12, 10]
+            lam: 50
+            NT: 262272
 
 
     # Kilosort 3
