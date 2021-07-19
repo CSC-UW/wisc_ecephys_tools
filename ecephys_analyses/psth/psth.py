@@ -1,16 +1,142 @@
 from pathlib import Path
 
+import ecephys.units
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import spikeextractors as se
+from ecephys.plot import plot_psth_heatmap
+from ecephys.units.psth import get_normed_data
 from ecephys_analyses.data import channel_groups, parameters, paths
 from spykes.plot.neurovis import NeuroVis
 from spykes.plot.popvis import PopVis
-import ecephys.io.load
-
 
 BINSIZE_DF = 15
 PSTH_WINDOW_DF = [-5000, 2000]
+
+
+def make_psth_figures(
+    subject, condition, sorting_condition,
+    good_only=False,
+    normalize='baseline_zscore', region='all',
+    binsize=None, norm_window=None, plot_window=None,
+    state=None, clim=None,
+    save=False, show=True, output_dir=None,
+    draw_region_limits=True,
+):
+    if output_dir is None:
+        # Save in condition dir
+        output_dir = paths.get_datapath(subject, condition, 'plots')/sorting_condition
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+
+    print(
+        f"\n\nGenerate figures for {subject} {condition}, {state}, "
+        f"{region}, good={good_only}, clim={clim}, output={output_dir}",
+    )
+    
+    # PSTH with "norm window" (longer baseline used for normalization)
+    pop, all_psth, info, event_df = get_all_psth_data(
+        subject, condition, sorting_condition,
+        region=region, state=state, good_only=good_only,
+        binsize=binsize, window=norm_window
+    )
+    print("Done getting psth data")
+    norm_window = all_psth['window']
+    binsize = all_psth['binsize']
+    
+    # Normalize psth
+    assert all_psth['conditions'] is None
+    psth_raw = all_psth['data'][0]
+    if not len(psth_raw):
+        print("No data in psth. Passing")
+        return
+    psth_unsorted = get_normed_data(
+        psth_raw, normalize=normalize,
+        window=norm_window, binsize=binsize
+    )
+    
+    # Order by depth (bottom is tip of probe)
+    unsorted_depths = list(info['depth'])
+    perm = sorted(range(len(unsorted_depths)), key=lambda k: unsorted_depths[k], reverse=True)
+    depths = np.array(unsorted_depths)[perm]
+    psth_array = psth_unsorted[perm,:]
+    
+    # Subwindow for plotting
+    if plot_window is None:
+        plot_window = norm_window
+    assert plot_window[0] >= norm_window[0]
+    assert plot_window[1] <= norm_window[1]
+    xvalues = np.arange(norm_window[0], norm_window[1], binsize)
+    plot_i = [i for i, x in enumerate(xvalues) if x >= plot_window[0] and x <= plot_window[1]]
+    psth_array = psth_array[:, plot_i]
+    window = plot_window
+    
+    # Get distance from surface of cortex
+    region_depths = channel_groups.region_depths[subject][condition]
+    if 'cortex' in region_depths:
+        surface_depth = max(region_depths['cortex'])
+    elif 'neocortex' in region_depths:
+        surface_depth = max(region_depths['neocortex'])
+    else:
+        surface_depth = 7660.0
+    print('Surface depth', surface_depth)
+    depths_from_surf = [
+        (surface_depth - d) / 1000 for d in depths
+    ] 
+
+    # Plot a certain number of labels overall
+    n_ticks = 10
+    n_clust = psth_array.shape[0]
+    tick_modulo = int(n_clust/n_ticks) + 1
+    ylabels = depths_from_surf
+    ylabels = np.array([
+        None if i % tick_modulo != 0 else lbl
+        for i, lbl in enumerate(ylabels[::-1])
+    ])[::-1]
+
+    fig, axes = plot_psth_heatmap(
+        psth_array, ylabels, window, binsize, clim=clim,
+        cbar_label='Average rate (Z-scored)'
+    )
+
+    if draw_region_limits and region=='all':
+        # Draw an horizontal line for each of the regions
+        from ecephys.utils import find_nearest
+        region_indices = {
+            region: [
+                find_nearest(depths, region_lims[0], tie_select='last'),
+                find_nearest(depths, region_lims[1], tie_select='first'),
+            ] for region, region_lims in region_depths.items()
+        }  # {'region': [cluster_id_start, cluster_id_end]}
+        for reg, (id_start, id_end) in region_indices.items():
+            # Pass regions out of range
+            if (id_start == id_end) and (id_start == 0 or id_start == n_clust):
+                pass
+            y1, y2 = id_start, id_end
+            x, h = 0, 5
+            plt.plot([x, x+h, x], [y1, (y1 + y2)/2, y2], c='k')
+            plt.text(x + h + 1, (y1 + y2)/2, reg, ha='left', va='center', c='k')
+    
+    # Title
+    title=f"PSTH: {subject}, {condition}\n"
+    if state is not None:
+        title+=f"State={state}; "
+    if region not in [None, 'all']:
+        title+=f'Region={region}; '
+    title += f'N={len(event_df)} pulses; N={psth_array.shape[0]} clusters'
+    plt.title(title)
+    plt.ylabel('Clusters\n(mm from surface)')
+    print("Done getting plot")
+    
+    if show:
+        plt.show()
+    
+    if save:
+        filename = f"psth_{subject}_{condition}_{state}_region={region}_goodonly={good_only}_norm={normalize}_clim={clim}"
+        print(f'save {filename}')
+        fig.savefig(Path(output_dir)/(filename + '.png'))
+    
+    return fig, axes
 
 
 def get_average_psth_data(
@@ -85,12 +211,12 @@ def get_all_psth_data(
         depth_interval = None
     else:
         depth_interval = channel_groups.region_depths[subject][condition][region]
-    extr = ecephys.io.load.load_sorting_extractor(
+    extr = ecephys.units.load_sorting_extractor(
         ks_dir,
         good_only=good_only,
         depth_interval=depth_interval,
     )
-    info_all =  ecephys.io.load.get_cluster_info(ks_dir)
+    info_all =  ecephys.units.get_cluster_info(ks_dir)
     info = info_all[info_all['cluster_id'].isin(extr.get_unit_ids())]
 
     # Create popVis
