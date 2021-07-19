@@ -47,7 +47,8 @@ def run_postprocessing(
         condition,
         sorting_condition,
     )
-    assert ks_dir_src.exists()
+    if not ks_dir_src.exists():
+        raise FileNotFoundError(ks_dir_src)
     print(f"Kilosort input results dir: {ks_dir_src}")
 
     # Target
