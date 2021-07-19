@@ -9,8 +9,8 @@ from spykes.plot.popvis import PopVis
 import ecephys.io.load
 
 
-BINSIZE_DF = 5
-PSTH_WINDOW_DF = [-500, 500]
+BINSIZE_DF = 15
+PSTH_WINDOW_DF = [-5000, 2000]
 
 
 def get_average_psth_data(
