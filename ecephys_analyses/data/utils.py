@@ -1,5 +1,5 @@
-from ecephys.sglx_utils import get_xy_coords
 import numpy as np
+from ecephys.sglx_utils import get_xy_coords
 
 
 def depth_from_channel(metapath, ch_indices):
@@ -15,4 +15,3 @@ def depth_from_channel(metapath, ch_indices):
         print(i + 1, d)
     assert all([i > 0 for i in ch_indices]), '1-indexed pls'
     return np.array(sorted_y)[np.array(ch_indices) - 1]
-    
