@@ -8,14 +8,14 @@ from .channel_groups import full_names
 
 
 MODULE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-CSV_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.csv")
-YAML_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.yml")
+DATAPATHS_CSV_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.csv")
+DATAPATHS_YAML_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.yml")
 
-HYPNO_ROOT = Path('/Volumes/neuropixel/Data/')
+ROOTS_YAML_PATH = os.path.join(MODULE_DIRECTORY, "roots.yml")
 
 
 def get_subconditions(subject, combined_condition):
-    with open(YAML_PATH, 'r') as f:
+    with open(DATAPATHS_YAML_PATH, 'r') as f:
         datapaths = yaml.safe_load(f)
     subconditions = datapaths[subject][combined_condition]
     if not is_combined_condition(subject, combined_condition):
@@ -26,7 +26,7 @@ def get_subconditions(subject, combined_condition):
 
 
 def is_combined_condition(subject, condition):
-    with open(YAML_PATH, 'r') as f:
+    with open(DATAPATHS_YAML_PATH, 'r') as f:
         datapaths = yaml.safe_load(f)
     subconditions = datapaths[subject][condition]
     return (
@@ -36,22 +36,57 @@ def is_combined_condition(subject, condition):
 
 
 def get_hypno_datapaths(subject, condition):
-    subject_root = HYPNO_ROOT/full_names[subject]
+    with open(ROOTS_YAML_PATH, 'r') as f:
+        roots = yaml.safe_load(f)
+    assert 'hypno' in roots
+    hypno_root = roots['hypno']
+    subject_root = hypno_root/full_names[subject]
     return paths.get_sglx_style_datapaths(
-        YAML_PATH, subject, condition, 'hypnogram.txt', data_root=subject_root,
+        DATAPATHS_YAML_PATH, subject, condition, 'hypnogram.txt', data_root=subject_root,
     )
 
 
+def get_subject_root(subject, root_key):
+    if root_key is None:
+        return None
+    with open( ROOTS_YAML_PATH, 'r' ) as f:
+        return Path(
+            yaml.load(f, Loader=yaml.SafeLoader)[root_key]
+        )/full_names[subject]
+
+
 def get_datapath_from_csv(**kwargs):
-    return paths.get_datapath_from_csv(CSV_PATH, **kwargs)
+    return paths.get_datapath_from_csv(DATAPATHS_CSV_PATH, **kwargs)
 
 
-def get_sglx_style_datapaths(subject, condition, ext, **kwargs):
-    return paths.get_sglx_style_datapaths(YAML_PATH, subject, condition, ext, **kwargs)
+def get_sglx_style_datapaths(subject, condition, ext, root_key=None, catgt_data=None, **kwargs):
+    if catgt_data:
+        assert root_key is None
+        root_key = 'catgt'
+    elif root_key == 'catgt':
+        assert catgt_data
+    data_root = get_subject_root(subject, root_key) if root_key is not None else None
+    return paths.get_sglx_style_datapaths(
+        DATAPATHS_YAML_PATH,
+        subject,
+        condition,
+        ext,
+        catgt_data=catgt_data,
+        data_root=data_root,
+        **kwargs
+    )
 
 
-def get_datapath(subject, condition, file, **kwargs):
-    return paths.get_datapath(YAML_PATH, subject, condition, file, **kwargs)
+def get_datapath(subject, condition, file, root_key=None, **kwargs):
+    data_root = get_subject_root(subject, root_key) if root_key is not None else None
+    return paths.get_datapath(
+        DATAPATHS_YAML_PATH,
+        subject,
+        condition,
+        file,
+        data_root=data_root,
+        **kwargs
+    )
 
 
 def get_bin_meta(subject, condition, catgt_data=False):
@@ -80,5 +115,5 @@ def get_conditions(subject, condition_group):
 
 
 def load_datapath_yaml():
-    with open( YAML_PATH, 'r' ) as f:
+    with open( DATAPATHS_YAML_PATH, 'r' ) as f:
         return yaml.load(f, Loader=yaml.SafeLoader)

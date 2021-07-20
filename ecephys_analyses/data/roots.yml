@@ -1,0 +1,14 @@
+# neuropixel_archive
+raw_chronic: /Volumes/neuropixel_archive/Data/chronic
+raw_acute: /Volumes/neuropixel_archive/Data/acute
+
+#
+hypno: /Volumes/neuropixel_analysis/Data
+
+#
+catgt: /Volumes/scratch/neuropixels/data/tom/catgt
+
+#
+eStim: /Volumes/neuropixel_analysis/Data
+sleep-homeostasis: /Volumes/scratch/neuropixels/data/tom/catgt
+tests: /Volumes/neuropixel_analysis/Data

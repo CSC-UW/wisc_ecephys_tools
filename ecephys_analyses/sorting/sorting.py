@@ -7,8 +7,8 @@ from ecephys_analyses.data import parameters, paths
 
 
 def run_sorting(subject, condition, sorting_condition,
-                catgt_data=True, bad_channels=None, rerun_existing=True,
-                dry_run=False, clean_dat_file=False):
+                catgt_data=True, tgt_root_key=None, bad_channels=None,
+                rerun_existing=True, dry_run=False, clean_dat_file=False):
     print(f"Run: {locals()}")
 
     # Output
@@ -16,6 +16,7 @@ def run_sorting(subject, condition, sorting_condition,
         subject,
         condition,
         sorting_condition,
+        root_key=tgt_root_key,
     )
     print(f"Saving sorting output at {output_dir}")
     
@@ -65,11 +66,17 @@ def run_sorting(subject, condition, sorting_condition,
 
 def prepare_data(subject, condition, catgt_data=True, bad_channels=None):
 
+    if catgt_data:
+        root_key = 'catgt'
+    else:
+        root_key = 'raw_chronic'
+
     binpaths = paths.get_sglx_style_datapaths(
         subject,
         condition,
         'ap.bin',
-        catgt_data=catgt_data
+        catgt_data=catgt_data,
+        root_key=root_key,
     )
     
     rec_extractors = [

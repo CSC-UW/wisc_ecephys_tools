@@ -1,7 +1,7 @@
 ---
 Segundo:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/
-  analysis-root: /Volumes/neuropixel/Data/CNPIX2-Segundo/
+  # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/
+  # analysis-root: /Volumes/neuropixel/Data/CNPIX2-Segundo/
   extended-wake-6h-circadian-match:
     - 1-21-2020_g0_t8.imec0
     - 1-21-2020_g0_t9.imec0
@@ -11,9 +11,8 @@ Segundo:
       - 1-21-2020_g0_t11.imec0
 
 Valentino:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/
-#   analysis-root: /Volumes/neuropixel/Data/tom/raw/CNPIX3-Valentino/
-  analysis-root: /Volumes/scratch/neuropixels/data/tom/raw/CNPIX3-Valentino/
+  # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/
+  # analysis-root: /Volumes/scratch/neuropixels/data/tom/raw/CNPIX3-Valentino/
   drift_test_01:
     2-19-2020:
       - 2-19-2020_g1_t4.imec0
@@ -49,8 +48,8 @@ Valentino:
       - 2-19-2020_g1_t12.imec0
 
 Doppio:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/
-  analysis-root: /Volumes/scratch/neuropixels/data/tom/catgt/CNPIX4-Doppio/
+  # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/
+  # analysis-root: /Volumes/scratch/neuropixels/data/tom/catgt/CNPIX4-Doppio/
   baseline-sleep-2h-circadian-match_imec0:
     3-17-2020:
       - 3-17-2020_g0_t3.imec0
@@ -116,8 +115,8 @@ Doppio:
       - 3-17-2020_g0_t5.imec0
 
 Alessandro:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/
-  analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX5-Alessandro
+  # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/
+  # analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX5-Alessandro
   8-31-2020_REM_imec0:
     8-31-2020:
       - 8-31-2020_REMStim_g0_t0.imec0
@@ -144,9 +143,8 @@ Alessandro:
     - 8-31-2020_REM2_imec0
 
 Allan:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/
-  # analysis-root: /Volumes/scratch/neuropixels/data/tom/catgt/CNPIX8-Allan/
-  analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX8-Allan/
+  # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/
+  # analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX8-Allan/
   # SD
   baseline-sleep-2h-circadian-match_imec0:
     3-1-2021:
@@ -238,8 +236,8 @@ Allan:
 
 
 Eugene:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/
-  analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX6-Eugene/
+  # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/
+  # analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX6-Eugene/
   10-19-2020_NREM_depth1.5_imec0:
     10-19-2020-B:
     - 10.19.2020_N_3-1_g0_t0.imec0
@@ -434,8 +432,8 @@ Eugene:
     - 10.9.2020StimDepW_g1_t0.imec1
 
 Giuseppe:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/
-  analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX7-Giuseppe/
+  # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/
+  # analysis-root: /Volumes/neuropixel/Data/tom/catgt/CNPIX7-Giuseppe/
   # imec 0 
   12-27-2020_g0_imec0:
     12-27-2020:
@@ -467,8 +465,8 @@ Giuseppe:
 
 
 Luigi:
-  raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/
-  analysis-root: /Volumes/scratch/neuropixels/data/tom/catgt/CNPIX9-Luigi/
+  # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/
+  # analysis-root: /Volumes/scratch/neuropixels/data/tom/catgt/CNPIX9-Luigi/
   # imec 0 
   6-20-2021_g0_imec0:
     6-20-2021:

@@ -10,6 +10,7 @@ def run_postprocessing(
     subject, condition,
     sorting_condition, postprocessing_condition,
     catgt_data=True,
+    root_key=None,
     rerun_existing=True
 ):
     
@@ -46,6 +47,7 @@ def run_postprocessing(
         subject,
         condition,
         sorting_condition,
+        root_key=root_key,
     )
     if not ks_dir_src.exists():
         raise FileNotFoundError(ks_dir_src)
@@ -56,6 +58,7 @@ def run_postprocessing(
         subject,
         condition,
         sorting_condition + '_' + postprocessing_condition,
+        root_key=root_key,
     )
     if (ks_dir/'amplitudes.npy').exists() and not rerun_existing:
         print(f"Kilosort dir exists at {ks_dir}...\n Doing nothing.\n\n")
