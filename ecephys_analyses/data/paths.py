@@ -9,7 +9,7 @@ from .channel_groups import full_names
 
 MODULE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.csv")
-YAML_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.yaml")
+YAML_PATH = os.path.join(MODULE_DIRECTORY, "datapaths.yml")
 
 HYPNO_ROOT = Path('/Volumes/neuropixel/Data/')
 
