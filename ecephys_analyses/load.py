@@ -4,7 +4,7 @@ import xarray as xr
 from ast import literal_eval
 from hypnogram import load_datetime_hypnogram
 from ecephys.utils import load_df_h5
-from ecephys.signal.xarray_utils import rebase_time
+from ecephys.xrsig import rebase_time
 
 from .paths import get_sglx_style_datapaths
 

@@ -3,6 +3,7 @@ SPW steps, for a subject that already exists:
 - identify-hippocampus-from-csd.ipynb, to check hippocampal and white matter channels. 
 - emg-from-lfp.ipynb
 - generate-scoring-edf.ipynb
+    - generate-sleepscoring-files.ipynb is NOT neccessary if you are using the Desktop launcher (.bat script). 
 - get_spw_detection_params.ipynb
 - generate-CSD-reports.ipynb
 - generate-empty-sr_chans-files.ipynb
