@@ -16,6 +16,7 @@ full_names = {
     'Eugene': 'CNPIX6-Eugene',
     'Giuseppe': 'CNPIX7-Giuseppe',
     'Luigi': 'CNPIX9-Luigi',
+    'Charles': 'CNPIX10-Charles',
 }
 
 full = {

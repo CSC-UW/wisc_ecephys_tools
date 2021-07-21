@@ -140,3 +140,11 @@ Doppio:
     - baseline-sleep-2h-circadian-match_imec1
     - recovery-sleep-2h_imec0
     - recovery-sleep-2h_imec1
+
+
+Charles:
+  SD:
+    - sleep-homeostasis-2h_imec0
+  SD_catgt:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
