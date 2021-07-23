@@ -511,6 +511,7 @@ Luigi:
   sleep-homeostasis:
     imec0:
       all: *LongColumn
+      internal_reference: [191]
       emg_from_lfp: [0, 382, 345]
       superficial_ctx: [337, 339, 341, 343, 345]
       stratum_pyramidale_inversion: [137] # Manually ID'd
