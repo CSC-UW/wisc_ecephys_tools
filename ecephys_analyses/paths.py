@@ -1,5 +1,5 @@
 import os
-from ecephys.data import paths
+from ecephys.data_mgmt import paths
 
 MODULE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 YAML_PATH = os.path.join(MODULE_DIRECTORY, "paths.yaml")
