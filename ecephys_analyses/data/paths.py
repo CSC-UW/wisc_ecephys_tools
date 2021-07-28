@@ -61,7 +61,7 @@ def get_datapath_from_csv(**kwargs):
 
 def get_sglx_style_datapaths(subject, condition, ext, root_key=None, catgt_data=None, **kwargs):
     if catgt_data:
-        assert root_key is None
+        assert root_key is None or root_key == 'catgt'
         root_key = 'catgt'
     elif root_key == 'catgt':
         assert catgt_data
