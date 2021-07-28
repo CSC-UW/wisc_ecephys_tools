@@ -22,6 +22,7 @@ def run_on_off_detection(
     good_only=False,
     pool=True,
     n_jobs=1,
+    root_key=None,
 ):
     # Detection condition
     p = parameters.get_analysis_params('on_off_detection', detection_condition)
@@ -33,7 +34,7 @@ def run_on_off_detection(
     print("Run on-off detection:", subject, condition, sorting_condition, state, good_only, pool, '\n')
 
     # Sorting info
-    ks_dir = paths.get_datapath(subject, condition, sorting_condition)
+    ks_dir = paths.get_datapath(subject, condition, sorting_condition, root_key=root_key)
     Tmax = ecephys.units.get_sorting_info(ks_dir)['duration']
 
     # Get depth intervals either from file ('region') or from kwargs
@@ -65,7 +66,7 @@ def run_on_off_detection(
 
     # Cut and concatenate bouts of interest
     hyp = pd.read_csv(
-        paths.get_datapath(subject, condition, 'hypnogram.csv')
+        paths.get_datapath(subject, condition, 'hypnogram.csv', root_key=root_key)
     )
     if state is not None:
         if not state in hyp.state.unique():
@@ -80,7 +81,7 @@ def run_on_off_detection(
         bouts_df = hyp
 
     # Output dir
-    output_dir = paths.get_datapath(subject, condition, detection_condition)
+    output_dir = paths.get_datapath(subject, condition, detection_condition, root_key=root_key)
     debug_plot_filename = f'on_off_summary_pool={pool}_region={region_name}_good={True}'
     output_dir.mkdir(exist_ok=True, parents=True)
 
