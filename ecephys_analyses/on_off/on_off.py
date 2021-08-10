@@ -69,6 +69,7 @@ def run_on_off_detection(
         paths.get_datapath(subject, condition, 'hypnogram.csv', root_key=root_key)
     )
     if state is not None:
+        print(f"Select bouts of interest (state={state})", end="")
         if not state in hyp.state.unique():
             raise Exception(f'No {state} bout in hyp ({hyp.state.unique()}')
         bouts_df = hyp[hyp['state'] == state].reset_index()
@@ -77,6 +78,8 @@ def run_on_off_detection(
             bouts_df
         )
         Tmax = bouts_df.duration.sum()
+        print(f"Subselect T={Tmax} seconds within state")
+        print(bouts_df.groupby('condition').sum()['duration'])
     else:
         bouts_df = hyp
 
