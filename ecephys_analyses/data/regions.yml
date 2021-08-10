@@ -135,3 +135,10 @@ Luigi:
         cortex: [3340., 7640.]
     baseline-sleep-2h-circadian-match_imec0: *luigi_imec0_base
     recovery-sleep-2h_imec0: *luigi_imec0_base
+
+Charles: 
+    charles_imec0_base: &charles_imec0_base # Frontal
+        cortex: [2500, 7660]  # TODO
+    baseline-sleep-2h-circadian-match_imec0: *charles_imec0_base
+    recovery-sleep-2h_imec0: *charles_imec0_base
+    sleep-homeostasis-2h_imec0: *charles_imec0_base
