@@ -145,6 +145,9 @@ Charles:
     baseline-sleep-2h-circadian-match_imec0: *charles_imec0_base
     recovery-sleep-2h_imec0: *charles_imec0_base
     sleep-homeostasis-2h_imec0: *charles_imec0_base
+    baseline-sleep-2h-circadian-match_imec1: *charles_imec1_base
+    recovery-sleep-2h_imec1: *charles_imec1_base
+    sleep-homeostasis-2h_imec1: *charles_imec1_base
     # eStim
     7-14-2021_imec0: *charles_imec0_base
     7-14-2021_imec1: *charles_imec1_base
