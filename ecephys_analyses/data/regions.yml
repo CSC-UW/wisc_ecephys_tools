@@ -139,6 +139,12 @@ Luigi:
 Charles: 
     charles_imec0_base: &charles_imec0_base # Frontal
         cortex: [2500, 7660]  # TODO
+    charles_imec1_base: &charles_imec1_base # Parietal
+        cortex: [5800, 7660]  # TODO
+    # Sleep homeostasis
     baseline-sleep-2h-circadian-match_imec0: *charles_imec0_base
     recovery-sleep-2h_imec0: *charles_imec0_base
     sleep-homeostasis-2h_imec0: *charles_imec0_base
+    # eStim
+    7-14-2021_imec0: *charles_imec0_base
+    7-14-2021_imec1: *charles_imec1_base

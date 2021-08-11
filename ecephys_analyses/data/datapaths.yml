@@ -481,6 +481,7 @@ Luigi:
 Charles:
   # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/
   # analysis-root: /Volumes/scratch/neuropixels/data/tom/catgt/CNPIX9-Luigi/
+  # Sleep homeostasis
   baseline-sleep-2h-circadian-match_imec0:
     7-10-2021:
       - 7-10-2021_g0_t3.imec0
@@ -491,3 +492,39 @@ Charles:
   sleep-homeostasis-2h_imec0:
     - baseline-sleep-2h-circadian-match_imec0
     - recovery-sleep-2h_imec0
+  # eStim
+  7-14-2021_g3_imec0:  # (Wake)
+    7-14-2021:
+    - 7-14-2021_g3_t0.imec0
+  7-14-2021_g3_imec1:  # (Wake)
+    7-14-2021:
+    - 7-14-2021_g3_t0.imec1
+  7-14-2021_g4_imec0:  # (NREM)
+    7-14-2021:
+    - 7-14-2021_g4_t0.imec0
+  7-14-2021_g4_imec1:  # (NREM, REM)
+    7-14-2021:
+    - 7-14-2021_g4_t0.imec1
+  7-14-2021_g5_imec0:  # (REM)
+    7-14-2021:
+    - 7-14-2021_g5_t0.imec0
+  7-14-2021_g5_imec1:  # (REM)
+    7-14-2021:
+    - 7-14-2021_g5_t0.imec1
+  7-14-2021_g6_imec0:  # (Sevo)
+    7-14-2021:
+    - 7-14-2021_g6_t0.imec0
+  7-14-2021_g6_imec1:  # (Sevo)
+    7-14-2021:
+    - 7-14-2021_g6_t0.imec1
+  # combined
+  7-14-2021_imec0:
+    - 7-14-2021_g3_imec0
+    - 7-14-2021_g4_imec0
+    - 7-14-2021_g5_imec0
+    - 7-14-2021_g6_imec0
+  7-14-2021_imec1:
+    - 7-14-2021_g3_imec1
+    - 7-14-2021_g4_imec1
+    - 7-14-2021_g5_imec1
+    - 7-14-2021_g6_imec1
