@@ -149,6 +149,8 @@ Charles:
   SD_catgt:
     - baseline-sleep-2h-circadian-match_imec0
     - recovery-sleep-2h_imec0
+    - baseline-sleep-2h-circadian-match_imec1
+    - recovery-sleep-2h_imec1
   eStim_catgt:
     - 7-14-2021_g3_imec0
     - 7-14-2021_g3_imec1

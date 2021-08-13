@@ -488,10 +488,19 @@ Charles:
   recovery-sleep-2h_imec0:
     7-11-2021:
       - 7-11-2021_g1_t0.imec0
+  baseline-sleep-2h-circadian-match_imec1:
+    7-10-2021:
+      - 7-10-2021_g0_t3.imec1
+  recovery-sleep-2h_imec1:
+    7-11-2021:
+      - 7-11-2021_g1_t0.imec1
   # combined
   sleep-homeostasis-2h_imec0:
     - baseline-sleep-2h-circadian-match_imec0
     - recovery-sleep-2h_imec0
+  sleep-homeostasis-2h_imec1:
+    - baseline-sleep-2h-circadian-match_imec1
+    - recovery-sleep-2h_imec1
   # eStim
   7-14-2021_g3_imec0:  # (Wake)
     7-14-2021:
