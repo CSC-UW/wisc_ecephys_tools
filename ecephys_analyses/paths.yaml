@@ -277,6 +277,13 @@ Alessandro:
       - *Ale-Dark
     spontaneous-wake:
       - 8-24-2020_g0_t14.imec0
+  dexmedetomidine-eStim:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/9-2-2020/
+    analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX5-Alessandro/9-2-2020/
+    all:
+      - 9-2-2020_Dex_g0_t0.imec0
+      - 9-2-2020_Dex_g1_t0.imec0
+
 Eugene:
   sleep-homeostasis:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/
@@ -576,5 +583,77 @@ Luigi:
       - *Luigi-Dark-CM
       - *Luigi-Light
       - *Luigi-Dark
+  dexmedetomidine:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/7-1-2021/
+    analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX9-Luigi/7-1-2021/
+    baseline: &Luigi-Dex-BSL
+      - 7-1-2021_g0_t0.imec0
+    experiment: &Luigi-Dex-EXP
+      - 7-1-2021_g1_t0.imec0
+      - 7-1-2021_g1_t1.imec0
+    all:
+      - *Luigi-Dex-BSL
+      - *Luigi-Dex-EXP
+Charles:
+  sleep-homeostasis:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/
+    analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX10-Charles/7-10-2021/
+    extended-wake-circadian-match: &Charles-EW-CM
+      - 7-10-2021_g0_t0.imec1
+      - 7-10-2021_g0_t1.imec1
+      - 7-10-2021_g0_t2.imec1
+    recovery-sleep-circadian-match: &Charles-RS-CM
+      - 7-10-2021_g0_t3.imec1
+      - 7-10-2021_g0_t4.imec1
+      - 7-10-2021_g0_t5.imec1
+    light-period-circadian-match: &Charles-Light-CM
+      - *Charles-EW-CM
+      - *Charles-RS-CM
+    dark-period-circadian-match: &Charles-Dark-CM
+      - 7-10-2021_g0_t6.imec1
+      - 7-10-2021_g0_t7.imec1
+      - 7-10-2021_g0_t8.imec1
+      - 7-10-2021_g0_t9.imec1
+      - 7-10-2021_g0_t10.imec1
+      - 7-10-2021_g0_t11.imec1
+    extended-wake: &Charles-EW
+      - 7-11-2021_g0_t0.imec1
+      - 7-11-2021_g0_t1.imec1
+      - 7-11-2021_g0_t2.imec1
+    recovery-sleep: &Charles-RS
+      - 7-11-2021_g1_t0.imec1
+      - 7-11-2021_g1_t1.imec1
+      - 7-11-2021_g1_t2.imec1
+    light-period: &Charles-Light
+      - *Charles-EW
+      - *Charles-RS
+    dark-period: &Charles-Dark
+      - 7-11-2021_g1_t3.imec1
+      - 7-11-2021_g1_t4.imec1
+      - 7-11-2021_g1_t5.imec1
+      - 7-11-2021_g1_t6.imec1
+      - 7-11-2021_g1_t7.imec1
+      - 7-11-2021_g1_t8.imec1
+    all:
+      - *Charles-Light-CM
+      - *Charles-Dark-CM
+      - *Charles-Light
+      - *Charles-Dark
+  dexmedetomidine:
+    raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-27-2021/
+    analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX10-Charles/7-27-2021/
+    baseline: &Charles-Dex-BSL
+      - 7-27-2021_g0_t0.imec1
+      - 7-27-2021_g0_t1.imec1
+      - 7-27-2021_g0_t2.imec1
+    experiment: &Charles-Dex-EXP
+      - 7-27-2021_g1_t0.imec1
+      - 7-27-2021_g1_t1.imec1
+      - 7-27-2021_g1_t2.imec1
+      - 7-27-2021_g1_t3.imec1
+    all:
+      - *Charles-Dex-BSL
+      - *Charles-Dex-EXP
+
 
 
