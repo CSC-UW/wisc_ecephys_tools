@@ -59,19 +59,33 @@ def get_datapath_from_csv(**kwargs):
     return paths.get_datapath_from_csv(DATAPATHS_CSV_PATH, **kwargs)
 
 
+def get_catgt_style_datapaths(subject, condition, ext, root_key=None, **kwargs):
+    assert root_key is None or root_key == 'catgt'
+    root_key = 'catgt'
+    data_root = get_subject_root(subject, root_key)
+    return paths.get_sglx_style_datapaths(
+        DATAPATHS_YAML_PATH,
+        subject,
+        condition,
+        ext,
+        catgt_data=True,
+        data_root=data_root,
+        **kwargs
+    )
+
+
 def get_sglx_style_datapaths(subject, condition, ext, root_key=None, catgt_data=None, **kwargs):
     if catgt_data:
-        assert root_key is None or root_key == 'catgt'
-        root_key = 'catgt'
-    elif root_key == 'catgt':
-        assert catgt_data
+        # Backwards compatibility
+        return get_catgt_style_datapaths(subject, condition, ext, root_key=root_key)
+    assert root_key != 'catgt'
     data_root = get_subject_root(subject, root_key) if root_key is not None else None
     return paths.get_sglx_style_datapaths(
         DATAPATHS_YAML_PATH,
         subject,
         condition,
         ext,
-        catgt_data=catgt_data,
+        catgt_data=False,
         data_root=data_root,
         **kwargs
     )

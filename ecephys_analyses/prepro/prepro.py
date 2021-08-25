@@ -32,12 +32,18 @@ TGT_ROOT_KEY_DF = 'catgt'
 
 
 def run_catgt(run_specs, dry_run=True, src_root_key=SRC_ROOT_KEY_DF, tgt_root_key=TGT_ROOT_KEY_DF):
-    subject, exp_id, run_id, catgt_cfg = run_specs
+    """
+    Args:
+        run_specs (list): List of (<subject>, <condition>, <exp_id>, <run_id>, <catgt_cfg>) tuples.
+            CatGT output is saved with probe-folder structure at roots_paths[<tgt_root_key>]/subject/condition/exp_id
+
+    """
+    subject, condition, exp_id, run_id, catgt_cfg = run_specs
     
     assert all([key in catgt_cfg for key in CATGT_CFG_MANDATORY_KEYS])
     
     src_dir = paths.get_subject_root(subject, src_root_key)/exp_id
-    dest_dir = paths.get_subject_root(subject, tgt_root_key)/exp_id
+    dest_dir = paths.get_subject_root(subject, tgt_root_key)/condition/exp_id
     
     cmd = get_catGT_command(
         catGT_path=CATGT_PATH,
@@ -66,7 +72,7 @@ def run_catgt(run_specs, dry_run=True, src_root_key=SRC_ROOT_KEY_DF, tgt_root_ke
 
 
 def get_run_specs(subject, condition_group, catgt_cfg=None, rerun_existing=True):
-    """Return list of (<subject>, <exp_id>, <run_id>, <catgt_cfg>) tuples.
+    """Return list of (<subject>, <condition>, <exp_id>, <run_id>, <catgt_cfg>) tuples.
 
     The following keys are added to catgt_cfg for each run: 't', 'g', 'prb', 
 
@@ -74,7 +80,7 @@ def get_run_specs(subject, condition_group, catgt_cfg=None, rerun_existing=True)
 
         >>> get_run_specs('Valentino', 'eStim')
         [
-            ('CNPIX3-Valentino', '2-19-2020', '2-19-2020',    {'g': '1', 'prb': '0', 't': '4,4',}), 
+            ('CNPIX3-Valentino', 'eStim_condition_1', '2-19-2020', '2-19-2020',    {'g': '1', 'prb': '0', 't': '4,4',}), 
         ]
     """
     if catgt_cfg is None:
@@ -117,7 +123,7 @@ def get_run_specs(subject, condition_group, catgt_cfg=None, rerun_existing=True)
         trg_str = ','.join([str(t) for t in sorted_trigs])  # "0,1,2,8" or "0"
         run, gate, trig, probe = parse_sglx_stem(stems[0])
         all_run_specs.append(
-            tuple([subject, exp, run, {
+            tuple([subject, cond, exp, run, {
                 'g': gate.split('g')[1],
                 'prb': probe.split('imec')[1],
                 't': trg_str,
