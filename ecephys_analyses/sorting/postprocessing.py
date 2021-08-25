@@ -140,15 +140,25 @@ def copy_ks_dir(src, tgt):
 
 
 def get_ks_version(sorting_condition):
-    sorter_name, _ = parameters.get_analysis_params(
-        'sorting',
-        sorting_condition 
-    )
-    if sorter_name == 'kilosort2_5':
-        return '2.5'
-    elif sorter_name == 'kilosort2':
-        return '2.0'
-    elif sorter_name == 'kilosort3':
-        return '3.0'
-    else:
-        assert False
+    try:
+        sorter_name, _ = parameters.get_analysis_params(
+            'sorting',
+            sorting_condition 
+        )
+        if sorter_name == 'kilosort2_5':
+            return '2.5'
+        elif sorter_name == 'kilosort2':
+            return '2.0'
+        elif sorter_name == 'kilosort3':
+            return '3.0'
+        else:
+            assert False
+    except KeyError:
+        if 'ks2_5' in sorting_condition:
+            return '2.5'
+        elif 'ks3_' in sorting_condition:
+            return '3.0'
+        elif 'ks2_' in sorting_condition:
+            return '2.0'
+        else:
+            assert False
