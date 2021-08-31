@@ -1,5 +1,6 @@
 import os.path
 
+import numpy as np
 import yaml
 from ecephys.neuropixels import checkerboard_map, long_column_map
 
@@ -81,6 +82,15 @@ drift_tracking = {"Valentino": CheckPat[180:320]}
 # so deepest channel may have depth > 0
 with open(REGION_YAML_PATH, 'r') as f:
     region_depths = yaml.load(f, Loader=yaml.SafeLoader)
+
+def get_regions(subject, condition, regions_list, depths_list):
+    regions_dict = region_depths[subject][condition]
+    # TODO: Check that no overlapping regions
+    res = np.array([None for _ in depths_list])
+    for region, depths in {r: regions_dict.get(r, [-999, -999]) for r in regions_list}.items():
+        idx = [d >= depths[0] and d <= depths[1] for d in depths_list]
+        res[idx] = region
+    return res
 
 # stratum_radiatum = {"Doppio": CheckPat[260:273]}  # LF137 through LF161
 # stratum_oriens_100um = {"Doppio": [177]}

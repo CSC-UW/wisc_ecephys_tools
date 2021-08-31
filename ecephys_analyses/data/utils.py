@@ -14,4 +14,6 @@ def depth_from_channel(metapath, ch_indices):
     for i, d in enumerate(sorted_y):
         print(i + 1, d)
     assert all([i > 0 for i in ch_indices]), '1-indexed pls'
-    return np.array(sorted_y)[np.array(ch_indices) - 1]
+    return [
+        (idx, np.array(sorted_y)[idx - 1]) for idx in ch_indices
+    ]

@@ -39,7 +39,7 @@ def get_hypno_datapaths(subject, condition):
     with open(ROOTS_YAML_PATH, 'r') as f:
         roots = yaml.safe_load(f)
     assert 'hypno' in roots
-    hypno_root = roots['hypno']
+    hypno_root = Path(roots['hypno'])
     subject_root = hypno_root/full_names[subject]
     return paths.get_sglx_style_datapaths(
         DATAPATHS_YAML_PATH, subject, condition, 'hypnogram.txt', data_root=subject_root,
