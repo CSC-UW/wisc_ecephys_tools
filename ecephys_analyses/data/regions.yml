@@ -50,8 +50,16 @@ Allan:
     recovery-sleep-2h_imec0: *allan_imec0_base
     baseline-sleep-2h-circadian-match_imec1: *allan_imec1_base
     recovery-sleep-2h_imec1: *allan_imec1_base
+    sleep-homeostasis-2h_imec0: *allan_imec0_base
+    sleep-homeostasis-2h_imec1: *allan_imec1_base
     3-5-2021_g2-3_imec0: *allan_imec0_base
     3-5-2021_g2-3_imec1: *allan_imec1_base
+
+Segundo: 
+    segundo_imec0_base: &segundo_imec0_base # parietal
+    baseline-sleep-2h-circadian-match_imec0: *segundo_imec0_base
+    recovery-sleep-2h_imec0: *segundo_imec0_base
+    sleep-homeostasis-2h_imec0: *segundo_imec0_base
 
 Eugene: 
     eugene_imec0_base: &eugene_imec0_base

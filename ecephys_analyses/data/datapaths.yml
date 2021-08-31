@@ -9,6 +9,15 @@ Segundo:
   recovery-sleep-2h-circadian-match:
     1-21-2020:
       - 1-21-2020_g0_t11.imec0
+  baseline-sleep-2h-circadian-match_imec0:
+    1-21-2020:
+      - 1-21-2020_g0_t11.imec0
+  recovery-sleep-2h_imec0:
+    1-21-2020:
+      - 1-21-2020_g0_t23.imec0
+  sleep-homeostasis-2h_imec0:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
 
 Valentino:
   # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/
