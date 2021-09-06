@@ -150,6 +150,18 @@ Alessandro:
   8-31-2020_REMmerged_imec0:
     - 8-31-2020_REM_imec0
     - 8-31-2020_REM2_imec0
+  baseline-sleep-2h-circadian-match_imec0:
+    8-24-2020:
+     - 8-24-2020_g0_t6.imec0
+     - 8-24-2020_g0_t7.imec0
+  recovery-sleep-2h_imec0:
+    8-24-2020:
+    - 8-25-2020_g0_t2.imec0
+    - 8-25-2020_g0_t3.imec0
+  # combined
+  sleep-homeostasis-2h_imec0:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
 
 Allan:
   # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/

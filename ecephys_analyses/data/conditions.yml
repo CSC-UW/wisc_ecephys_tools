@@ -9,6 +9,11 @@ Alessandro:
     # - 9-8-2020_Sevo_imec0
     # - 9-2-2020_Dex_imec0
     # - 9-21-2020_Ket_imec0
+  SD:
+    - sleep-homeostasis-2h_imec0
+  SD_catgt:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
     
 Allan:
   eStim_3-5-2021:

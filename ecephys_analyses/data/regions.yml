@@ -40,7 +40,7 @@ Giuseppe:
     12-31-2020_Sevo_depth1.5_imec1: *giuseppe_imec1_base
 
 Alessandro: 
-    alessandro_imec0_base: &alessandro_imec0_base
+    alessandro_imec0_base: &alessandro_imec0_base  #TODO
         hypothalamus: [0, 780]
         thalamus: [780, 3880]
         hippocampus: [3880, 5980]
@@ -53,6 +53,9 @@ Alessandro:
     9-8-2020_Sevo_imec0: *alessandro_imec0_base
     9-2-2020_Dex_imec0: *alessandro_imec0_base
     9-21-2020_Ket_imec0: *alessandro_imec0_base
+    baseline-sleep-2h-circadian-match_imec0: *alessandro_imec0_base
+    recovery-sleep-2h_imec0: *alessandro_imec0_base
+    sleep-homeostasis-2h_imec0: *alessandro_imec0_base
 
 Allan: 
     allan_imec0_base: &allan_imec0_base # Frontal
