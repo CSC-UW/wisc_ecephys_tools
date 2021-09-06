@@ -60,6 +60,7 @@ Alessandro:
 Allan: 
     allan_imec0_base: &allan_imec0_base # Frontal
         neocortex: [2500, 7480]
+        cortex: [2500, 7480]
         olfactory_cortex: [0, 2500]
     allan_imec1_base: &allan_imec1_base # parietal
         # Cortex
