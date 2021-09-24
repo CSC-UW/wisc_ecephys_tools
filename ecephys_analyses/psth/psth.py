@@ -21,12 +21,18 @@ def make_psth_figures(
     normalize='baseline_zscore', region='all',
     binsize=None, norm_window=None, plot_window=None,
     state=None, clim=None,
+    root_key=None,
     save=False, show=True, output_dir=None,
     draw_region_limits=True,
 ):
     if output_dir is None:
         # Save in condition dir
-        output_dir = paths.get_datapath(subject, condition, 'plots')/sorting_condition
+        output_dir = paths.get_datapath(
+            subject,
+            condition,
+            'plots',
+            root_key=root_key
+        )/sorting_condition
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     print(
@@ -38,7 +44,8 @@ def make_psth_figures(
     pop, all_psth, info, event_df = get_all_psth_data(
         subject, condition, sorting_condition,
         region=region, state=state, good_only=good_only,
-        binsize=binsize, window=norm_window
+        binsize=binsize, window=norm_window,
+        root_key=root_key,
     )
     print("Done getting psth data")
     norm_window = all_psth['window']
@@ -195,6 +202,7 @@ def get_all_psth_data(
     window=None,
     binsize=None,
     good_only=False,
+    root_key=None,
 ):
     # Params
     if window is None:
@@ -204,7 +212,12 @@ def get_all_psth_data(
     print(f'Get all psth, window={window}, binsize={binsize}')
 
     # Path 
-    ks_dir = paths.get_datapath(subject, condition, sorting_condition)
+    ks_dir = paths.get_datapath(
+        subject,
+        condition,
+        sorting_condition,
+        root_key=root_key,
+    )
 
     # Get clusters
     if region == 'all':
@@ -224,7 +237,7 @@ def get_all_psth_data(
     pop = PopVis(neuron_list)
     
     # event df
-    event_df = load_event_times(subject, condition, state=state)
+    event_df = load_event_times(subject, condition, state=state, root_key=root_key)
     print(f'N events = {len(event_df)}')
     event_colname = 'sglx_stim_time'
     assert event_colname in event_df.columns
@@ -250,19 +263,19 @@ def initiate_neurons(extractor):
 
     return neuron_list
 
-def load_event_times(subject, condition, state=None, filename=None):
+def load_event_times(subject, condition, state=None, filename=None, root_key=None,):
     if filename is None:
         filename='stim_times.csv'
     # Search in condition dir
     cond_path = paths.get_datapath(
-        subject, condition, filename
+        subject, condition, filename, root_key=root_key,
     )
     if cond_path.exists():
         path = cond_path
     else:
         print(f"No event file at {cond_path}..", end='')
         root = paths.get_sglx_style_datapaths(
-            subject, condition, 'ap.bin',
+            subject, condition, 'ap.bin', root_key=root_key,
         )[0].parents[1]
         path = root/filename
     print(f"Load events at {path}")
@@ -273,5 +286,5 @@ def load_event_times(subject, condition, state=None, filename=None):
     else:
         res = event_df[event_df['stim_state'] == state]
     if len(res) == 0:
-        raise ValueError(f"N=0 selected events for file at {path}")
+        raise ValueError(f"N=0 selected events for state={state} in file at {path}")
     return res
