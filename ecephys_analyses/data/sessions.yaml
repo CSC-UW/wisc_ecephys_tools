@@ -1,0 +1,44 @@
+---
+subject: Adrian
+raw_data_directory: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/
+recording_sessions:
+  - 8-27-2021
+  - 8-28-2021
+  - 8-30-2021
+  - 8-31-2021
+experiments:
+  conveyor_over_water:
+    recording_sessions:
+      - 8-27-2021
+      - 8-28-2021
+    aliases:
+      light_period_circadian_match:
+        start_file: 8-27-2021_g2_t0
+        end_file: 8-27-2021_g2_t5
+      sleep_deprivation:
+        start_file: 8-28-2021_g0_t0
+        end_file: 8-28-2021_g0_t2
+      recovery_sleep:
+        start_file: 8-28-2021_g0_t3
+        end_file: 8-28-2021_g0_t5
+      light_period:
+        start_file: 8-28-2021_g0_t0
+        end_file: 8-28-2021_g0_t5
+  sleep_homeostasis:
+    recording_sessions:
+      - 8-30-2021
+      - 8-31-2021
+    aliases:
+      light_period_circadian_match:
+        start_file: 8-30-2021_g0_t0
+        end_file: 8-30-2021_g0_t5
+      sleep_deprivation:
+        start_file: 8-31-2021_g0_t0
+        end_file: 8-31-2021_g0_t2
+      recovery_sleep:
+        start_file: 8-31-2021_g0_t3
+        end_file: 8-31-2021_g0_t5
+      light_period:
+        start_file: 8-31-2021_g0_t0
+        end_file: 8-31-2021_g0_t5
+...
