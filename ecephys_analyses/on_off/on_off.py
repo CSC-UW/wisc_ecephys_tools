@@ -85,7 +85,7 @@ def run_on_off_detection(
 
     # Output dir
     output_dir = paths.get_datapath(subject, condition, detection_condition, root_key=root_key)
-    debug_plot_filename = f'on_off_summary_pool={pool}_region={region_name}_good={True}'
+    debug_plot_filename = f'on_off_summary_pool={pool}_region={region_name}_good={good_only}_state={state}_sorting={sorting_condition}'
     output_dir.mkdir(exist_ok=True, parents=True)
 
     if not len(cluster_ids):
@@ -112,29 +112,29 @@ def run_on_off_detection(
         )
         on_off_df = on_off_model.run()
     
-    # Add hypnogram info for computed on_off periods
-    # - Condition from original hypnogram
-    # - Mark on/off periods that span non-consecutive bouts
-    on_off_df['condition'] = 'interbout'
-    bout_start_T = 0
-    bout_start_T = 0
-    for i, row in bouts_df.iterrows():
-        bout_end_T = bout_start_T + row['duration']
-        bout_on_off = (
-            (on_off_df['start_time'] >= bout_start_T)
-            & (on_off_df['end_time'] <= bout_end_T)
-        )
-        bout_cond = row['condition'] if 'condition' in bouts_df.columns else 'intrabout'
-        on_off_df.loc[bout_on_off, 'condition'] = bout_cond
-        on_off_df.loc[bout_on_off, 'orig_hyp_bout_idx'] = row['index']
-        bout_start_T = bout_end_T
-    # Total state time per condition
-    for cond in bouts_df['condition'].unique():
-        total_cond_time = bouts_df[bouts_df['condition'] == cond].duration.sum()
-        on_off_df.loc[on_off_df['condition'] == cond, 'condition_state_time'] = total_cond_time
+        # Add hypnogram info for computed on_off periods
+        # - Condition from original hypnogram
+        # - Mark on/off periods that span non-consecutive bouts
+        on_off_df['condition'] = 'interbout'
+        bout_start_T = 0
+        bout_start_T = 0
+        for i, row in bouts_df.iterrows():
+            bout_end_T = bout_start_T + row['duration']
+            bout_on_off = (
+                (on_off_df['start_time'] >= bout_start_T)
+                & (on_off_df['end_time'] <= bout_end_T)
+            )
+            bout_cond = row['condition'] if 'condition' in bouts_df.columns else 'intrabout'
+            on_off_df.loc[bout_on_off, 'condition'] = bout_cond
+            on_off_df.loc[bout_on_off, 'orig_hyp_bout_idx'] = row['index']
+            bout_start_T = bout_end_T
+        # Total state time per condition
+        for cond in bouts_df['condition'].unique():
+            total_cond_time = bouts_df[bouts_df['condition'] == cond].duration.sum()
+            on_off_df.loc[on_off_df['condition'] == cond, 'condition_state_time'] = total_cond_time
 
     on_off_filename = get_on_off_df_filename(
-        region=region_name, good_only=good_only, pool=pool,
+        region=region_name, good_only=good_only, pool=pool, sorting_condition=sorting_condition, state=state,
     )
     print(f"Save on_off_df at {output_dir/on_off_filename}")
     on_off_df.to_csv(output_dir/(on_off_filename+'.csv'), index=False)
@@ -143,6 +143,6 @@ def run_on_off_detection(
 
 
 def get_on_off_df_filename(
-    region=None, good_only=False, pool=True,
+    region=None, good_only=False, pool=True, sorting_condition=None, state=None,
 ):
-    return f'on_off_df_pool={pool}_region={region}_good={good_only}'
+    return f'on_off_df_pool={pool}_region={region}_good={good_only}_state={state}_sorting={sorting_condition}'
