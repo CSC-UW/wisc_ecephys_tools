@@ -5,6 +5,7 @@ import pandas as pd
 import spikeextractors as se
 from ecephys_analyses.data import channel_groups, parameters, paths
 import ecephys.units
+from ecephys.units.select import get_selection_intervals_str
 
 from on_off_detection import OnOffModel
 
@@ -15,15 +16,32 @@ def run_on_off_detection(
     detection_condition,
     sorting_condition=None,
     region=None,
-    region_name=None,
-    depth_interval=None,
-    FR_interval=None,
-    state=None,
     good_only=False,
-    pool=True,
+    selection_intervals=None,
+    state=None,
+    pool=False,
     n_jobs=1,
     root_key=None,
 ):
+    """Run on-off periods detection.
+
+    Args:
+        subject, condition (str): Subject and condition of interest.
+        detection_condition (str): Key for `on_off_detection` parameters in `analysis_parameters.yml`
+    
+    Kwargs:
+        sorting_condition (str or None): Name of KS output directory. Overrides 'on_off_detection` param if provided.
+        region (str or None): used to get depth interval from `regions.yml`
+        good_only (bool): Subselect `cluster_group == 'good'`.
+            We use KSLabel assignment when curated `group` is None or 'unscored'
+        selection_intervals (dict): Dictionary of {<col_name>: (<value_min>, <value_max>)} used
+            to subset clusters based on depth, firing rate, metrics value, etc
+            All keys should be columns of `cluster_info.tsv` or `metrics.csv`, and the values should be numrical.
+        state (str): Run only on this state. Should be present in hypnogram.
+        pool (bool): Pool all selected units within region for on_off detection? Otherwise compute on_off for each unit separately
+        n_jobs (int): Parallelize over units if pool==False
+        root_key : Root for all data. Passed to all `paths` methods.
+    """
     # Detection condition
     p = parameters.get_analysis_params('on_off_detection', detection_condition)
     method = p['method']
@@ -37,24 +55,27 @@ def run_on_off_detection(
     ks_dir = paths.get_datapath(subject, condition, sorting_condition, root_key=root_key)
     Tmax = ecephys.units.get_sorting_info(ks_dir)['duration']
 
-    # Get depth intervals either from file ('region') or from kwargs
+    # Get depth intervals either from file ('region') or from `selection_intervals` kwargs
     if region is None:
-        assert region_name and depth_interval
+        assert 'depth' in selection_intervals.keys()
     if region is not None:
-        assert not region_name and not depth_interval
-        region_name = region
+        assert 'depth' not in selection_intervals.keys()
         if region == 'all':
-            depth_interval = None
+            depth_interval = (0.0, float('Inf'))
         else:
             depth_interval = channel_groups.region_depths[subject][condition][region]
-    print(f"Region: {region_name}, {depth_interval}")
+        selection_intervals = {
+            'depth': depth_interval,
+            **selection_intervals
+        }
+    print(f"Region: {region}, {selection_intervals['depth']}")
 
     # Get clusters
     extr = ecephys.units.load_sorting_extractor(
         ks_dir,
+        drop_noise=True,
         good_only=good_only,
-        depth_interval=depth_interval,
-        FR_interval=FR_interval,
+        selection_intervals=selection_intervals,
     )
     cluster_ids = extr.get_unit_ids()
     info_all =  ecephys.units.get_cluster_info(ks_dir)
@@ -85,7 +106,7 @@ def run_on_off_detection(
 
     # Output dir
     output_dir = paths.get_datapath(subject, condition, detection_condition, root_key=root_key)
-    debug_plot_filename = f'on_off_summary_pool={pool}_region={region_name}_good={good_only}_state={state}_sorting={sorting_condition}'
+    debug_plot_filename = f'on_off_summary_pool={pool}_region={region}_good={good_only}_state={state}_sorting={sorting_condition}_intervals={get_selection_intervals_str(selection_intervals)}'
     output_dir.mkdir(exist_ok=True, parents=True)
 
     if not len(cluster_ids):
@@ -134,7 +155,12 @@ def run_on_off_detection(
             on_off_df.loc[on_off_df['condition'] == cond, 'condition_state_time'] = total_cond_time
 
     on_off_filename = get_on_off_df_filename(
-        region=region_name, good_only=good_only, pool=pool, sorting_condition=sorting_condition, state=state,
+        region=region,
+        good_only=good_only,
+        pool=pool,
+        sorting_condition=sorting_condition,
+        state=state,
+        selection_intervals=selection_intervals,
     )
     print(f"Save on_off_df at {output_dir/on_off_filename}")
     on_off_df.to_csv(output_dir/(on_off_filename+'.csv'), index=False)
@@ -143,6 +169,11 @@ def run_on_off_detection(
 
 
 def get_on_off_df_filename(
-    region=None, good_only=False, pool=True, sorting_condition=None, state=None,
+    region=None,
+    good_only=None,
+    pool=None,
+    sorting_condition=None,
+    state=None,
+    selection_intervals=None,
 ):
-    return f'on_off_df_pool={pool}_region={region}_good={good_only}_state={state}_sorting={sorting_condition}'
+    return f'on_off_df_pool={pool}_region={region}_good={good_only}_state={state}_sorting={sorting_condition}_intervals={get_selection_intervals_str(selection_intervals)}'

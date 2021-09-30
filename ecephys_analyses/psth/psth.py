@@ -7,6 +7,7 @@ import pandas as pd
 import spikeextractors as se
 from ecephys.plot import plot_psth_heatmap
 from ecephys.units.psth import get_normed_data
+from ecephys.units import get_selection_intervals_str
 from ecephys_analyses.data import channel_groups, parameters, paths
 from spykes.plot.neurovis import NeuroVis
 from spykes.plot.popvis import PopVis
@@ -17,8 +18,8 @@ PSTH_WINDOW_DF = [-5000, 2000]
 
 def make_psth_figures(
     subject, condition, sorting_condition,
-    good_only=False,
-    normalize='baseline_zscore', region='all',
+    good_only=False, region='all', selection_intervals=None,
+    normalize='baseline_zscore', 
     binsize=None, norm_window=None, plot_window=None,
     state=None, clim=None,
     root_key=None,
@@ -43,7 +44,8 @@ def make_psth_figures(
     # PSTH with "norm window" (longer baseline used for normalization)
     pop, all_psth, info, event_df = get_all_psth_data(
         subject, condition, sorting_condition,
-        region=region, state=state, good_only=good_only,
+        region=region, good_only=good_only,
+        selection_intervals=selection_intervals, state=state, 
         binsize=binsize, window=norm_window,
         root_key=root_key,
     )
@@ -139,7 +141,7 @@ def make_psth_figures(
         plt.show()
     
     if save:
-        filename = f"psth_{subject}_{condition}_{state}_region={region}_goodonly={good_only}_norm={normalize}_clim={clim}"
+        filename = f"psth_{subject}_{condition}_{state}_region={region}_goodonly={good_only}_norm={normalize}_clim={clim}_select={get_selection_intervals_str(selection_intervals)}"
         print(f'save {filename}')
         fig.savefig(Path(output_dir)/(filename + '.png'))
     
@@ -201,10 +203,13 @@ def get_all_psth_data(
     state=None,
     window=None,
     binsize=None,
+    selection_intervals=None,
     good_only=False,
     root_key=None,
 ):
     # Params
+    if selection_intervals is None:
+        selection_intervals = {}
     if window is None:
         window=PSTH_WINDOW_DF
     if binsize is None:
@@ -219,15 +224,25 @@ def get_all_psth_data(
         root_key=root_key,
     )
 
+    # Get depth intervals either from file ('region') or from `selection_intervals` kwargs
+    if region is None:
+        assert 'depth' in selection_intervals.keys()
+    if region is not None:
+        assert 'depth' not in selection_intervals.keys()
+        if region == 'all':
+            depth_interval = (0.0, float('Inf'))
+        else:
+            depth_interval = channel_groups.region_depths[subject][condition][region]
+        selection_intervals = {
+            'depth': depth_interval,
+            **selection_intervals
+        }
+
     # Get clusters
-    if region == 'all':
-        depth_interval = None
-    else:
-        depth_interval = channel_groups.region_depths[subject][condition][region]
     extr = ecephys.units.load_sorting_extractor(
         ks_dir,
         good_only=good_only,
-        depth_interval=depth_interval,
+        selection_intervals=selection_intervals,
     )
     info_all =  ecephys.units.get_cluster_info(ks_dir)
     info = info_all[info_all['cluster_id'].isin(extr.get_unit_ids())]
@@ -248,6 +263,7 @@ def get_all_psth_data(
     )
     return pop, all_psth, info, event_df
 
+
 def initiate_neurons(extractor):
     
     # Add neurons ordered by depth
@@ -262,6 +278,7 @@ def initiate_neurons(extractor):
         neuron_list.append(neuron)
 
     return neuron_list
+
 
 def load_event_times(subject, condition, state=None, filename=None, root_key=None,):
     if filename is None:
