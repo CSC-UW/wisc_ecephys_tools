@@ -6,6 +6,7 @@ import spikeextractors as se
 from ecephys_analyses.data import channel_groups, parameters, paths
 import ecephys.units
 from ecephys.units.select import get_selection_intervals_str
+import ecephys_analyses.units
 
 from on_off_detection import OnOffModel
 
@@ -55,35 +56,20 @@ def run_on_off_detection(
     ks_dir = paths.get_datapath(subject, condition, sorting_condition, root_key=root_key)
     Tmax = ecephys.units.get_sorting_info(ks_dir)['duration']
 
-    # Get depth intervals either from file ('region') or from `selection_intervals` kwargs
-    if region is None:
-        assert 'depth' in selection_intervals.keys()
-    if region is not None:
-        assert 'depth' not in selection_intervals.keys()
-        if region == 'all':
-            depth_interval = (0.0, float('Inf'))
-        else:
-            depth_interval = channel_groups.region_depths[subject][condition][region]
-        selection_intervals = {
-            'depth': depth_interval,
-            **selection_intervals
-        }
-    print(f"Region: {region}, {selection_intervals['depth']}")
-
-    # Get clusters
-    extr = ecephys.units.load_sorting_extractor(
-        ks_dir,
-        drop_noise=True,
-        good_only=good_only,
+    # Get spike trains of interest
+    extr, info = ecephys.units.get_sorting_extractor(
+        subject,
+        condition,
+        sorting_condition,
+        region=region,
         selection_intervals=selection_intervals,
+        good_only=good_only,
+        root_key=root_key,
     )
-    cluster_ids = extr.get_unit_ids()
-    info_all =  ecephys.units.get_cluster_info(ks_dir)
-    info = info_all[info_all['cluster_id'].isin(cluster_ids)]
-    spike_trains_list = [
-        extr.get_unit_spike_train(cluster_i) / extr.get_sampling_frequency()
-        for cluster_i in cluster_ids
-    ]
+    cluster_ids = sorted(extr.get_unit_ids())
+    spike_trains_list = ecephys.units.get_spike_trains_list(
+        extr
+    )
 
     # Cut and concatenate bouts of interest
     hyp = pd.read_csv(

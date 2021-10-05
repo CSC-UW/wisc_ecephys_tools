@@ -6,9 +6,10 @@ import numpy as np
 import pandas as pd
 import spikeextractors as se
 from ecephys.plot import plot_psth_heatmap
-from ecephys.units.psth import get_normed_data
 from ecephys.units import get_selection_intervals_str
+from ecephys.units.psth import get_normed_data
 from ecephys_analyses.data import channel_groups, parameters, paths
+from ecephys_analyses.units import get_sorting_extractor
 from spykes.plot.neurovis import NeuroVis
 from spykes.plot.popvis import PopVis
 
@@ -216,36 +217,15 @@ def get_all_psth_data(
         binsize=BINSIZE_DF
     print(f'Get all psth, window={window}, binsize={binsize}')
 
-    # Path 
-    ks_dir = paths.get_datapath(
+    extr, info = get_sorting_extractor(
         subject,
         condition,
         sorting_condition,
+        region=region,
+        selection_intervals=selection_intervals,
+        good_only=good_only,
         root_key=root_key,
     )
-
-    # Get depth intervals either from file ('region') or from `selection_intervals` kwargs
-    if region is None:
-        assert 'depth' in selection_intervals.keys()
-    if region is not None:
-        assert 'depth' not in selection_intervals.keys()
-        if region == 'all':
-            depth_interval = (0.0, float('Inf'))
-        else:
-            depth_interval = channel_groups.region_depths[subject][condition][region]
-        selection_intervals = {
-            'depth': depth_interval,
-            **selection_intervals
-        }
-
-    # Get clusters
-    extr = ecephys.units.load_sorting_extractor(
-        ks_dir,
-        good_only=good_only,
-        selection_intervals=selection_intervals,
-    )
-    info_all =  ecephys.units.get_cluster_info(ks_dir)
-    info = info_all[info_all['cluster_id'].isin(extr.get_unit_ids())]
 
     # Create popVis
     neuron_list = initiate_neurons(extr)
