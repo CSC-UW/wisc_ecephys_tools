@@ -16,14 +16,13 @@ def package_datapath(filename):
     return os.path.join(PACKAGE_DATA_DIRECTORY, filename)
 
 
+##### RAW DATA PATH FUNCTIONS #####
+
+# TODO: Retire this function
 def get_sglx_style_datapaths(subject, experiment, condition, ext):
     return paths.get_sglx_style_datapaths(
         YAML_PATH, subject, experiment, condition, ext
     )
-
-
-def get_datapath(file, subject, experiment, condition=None):
-    return paths.get_datapath(YAML_PATH, file, subject, experiment, condition)
 
 
 def get_raw_files(subject, experiment, alias=None, **kwargs):
@@ -41,11 +40,56 @@ def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
     )
 
 
-def get_subject_analysis_dir(subject):
+##### ANALYSIS PATH FUNCTIONS #####
+# These functions all assume the same analysis, i.e. 1 yaml doc
+
+# TODO: Retire this function
+def get_datapath(file, subject, experiment, condition=None):
+    return paths.get_datapath(YAML_PATH, file, subject, experiment, condition)
+
+
+def get_analysis_yaml_doc():
     yaml_path = package_datapath("analysis_paths.yaml")
     with open(yaml_path) as fp:
         yaml_doc = yaml.safe_load(fp)
-    return Path(yaml_doc[subject])
+    return yaml_doc
+
+
+def get_subject_dirname(subject):
+    doc = get_analysis_yaml_doc()
+    return doc["subject_directories"][subject]
+
+
+def _get_project_dir():
+    doc = get_analysis_yaml_doc()
+    return Path(doc["project_directory"])
+
+
+def get_project_dir(subject=None):
+    subject_dirname = get_subject_dirname(subject) if subject else ""
+    return _get_project_dir() / subject_dirname
+
+
+def get_experiment_dir(experiment, subject=None):
+    subject_dirname = get_subject_dirname(subject) if subject else ""
+    return get_project_dir() / experiment / subject_dirname
+
+
+def get_alias_dir(experiment, alias, subject=None):
+    subject_dirname = get_subject_dirname(subject) if subject else ""
+    return get_experiment_dir(experiment) / alias / subject_dirname
+
+
+def get_project_file(fname, subject=None):
+    return get_project_dir(subject) / fname
+
+
+def get_experiment_file(fname, experiment, subject=None):
+    return get_experiment_dir(experiment, subject) / fname
+
+
+def get_alias_file(fname, experiment, alias, subject=None):
+    return get_alias_dir(experiment, alias, subject) / fname
 
 
 def _get_analysis_counterpart(path, extension, analysis_subject_dir):
@@ -69,14 +113,12 @@ def _get_analysis_counterpart(path, extension, analysis_subject_dir):
     )
 
 
-def _get_analysis_counterparts(paths, extension, subject_analysis_dir):
+def _get_analysis_counterparts(paths, extension, analysis_subject_dir):
     counterparts = [
-        _get_analysis_counterpart(p, extension, subject_analysis_dir) for p in paths
+        _get_analysis_counterpart(p, extension, analysis_subject_dir) for p in paths
     ]
     return list(dict.fromkeys(counterparts))
 
 
 def get_analysis_counterparts(paths, extension, subject):
-    return _get_analysis_counterparts(
-        paths, extension, get_subject_analysis_dir(subject)
-    )
+    return _get_analysis_counterparts(paths, extension, get_project_dir(subject))

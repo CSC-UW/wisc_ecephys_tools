@@ -1,3 +1,5 @@
 ---
-Adrian: /Volumes/neuropixel_analysis/Data/SPWRs/CNPIX11-Adrian/
+project_directory: /Volumes/neuropixel_analysis/Data/SPWRs/
+subject_directories:
+  Adrian: CNPIX11-Adrian
 ...
