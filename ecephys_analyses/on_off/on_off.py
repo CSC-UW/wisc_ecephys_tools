@@ -57,7 +57,7 @@ def run_on_off_detection(
     Tmax = ecephys.units.get_sorting_info(ks_dir)['duration']
 
     # Get spike trains of interest
-    extr, info = ecephys.units.get_sorting_extractor(
+    extr, info = ecephys.units.get_sorting_data(
         subject,
         condition,
         sorting_condition,

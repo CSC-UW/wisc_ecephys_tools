@@ -4,7 +4,7 @@ import ecephys.units
 from ecephys_analyses.data import channel_groups, paths
 
 
-def get_sorting_extractor(
+def get_sorting_data(
     subject, condition, sorting_condition,
     region='all',
     selection_intervals=None,

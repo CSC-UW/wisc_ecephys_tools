@@ -9,7 +9,7 @@ from ecephys.plot import plot_psth_heatmap
 from ecephys.units import get_selection_intervals_str
 from ecephys.units.psth import get_normed_data
 from ecephys_analyses.data import channel_groups, parameters, paths
-from ecephys_analyses.units import get_sorting_extractor
+from ecephys_analyses.units import get_sorting_data
 from spykes.plot.neurovis import NeuroVis
 from spykes.plot.popvis import PopVis
 
@@ -217,7 +217,7 @@ def get_all_psth_data(
         binsize=BINSIZE_DF
     print(f'Get all psth, window={window}, binsize={binsize}')
 
-    extr, info = get_sorting_extractor(
+    extr, info = get_sorting_data(
         subject,
         condition,
         sorting_condition,
