@@ -8,6 +8,7 @@ def get_sorting_extractor(
     subject, condition, sorting_condition,
     region='all',
     selection_intervals=None,
+    assign_regions=True,
     good_only=False,
     root_key=None,
 ):
@@ -26,11 +27,11 @@ def get_sorting_extractor(
     )
 
     # Get depth intervals either from file ('region') or from `selection_intervals` kwargs
-    if region is None:
-        assert 'depth' in selection_intervals.keys()
-    if region is not None:
-        assert 'depth' not in selection_intervals.keys()
-        if region == 'all':
+    if region is None and 'depth' in selection_intervals.keys():
+        pass
+    else:
+        if region is None or region == 'all':
+            assert 'depth' not in selection_intervals.keys()
             depth_interval = (0.0, float('Inf'))
         else:
             depth_interval = channel_groups.region_depths[subject][condition][region]
@@ -46,6 +47,12 @@ def get_sorting_extractor(
         selection_intervals=selection_intervals,
     )
     info_all =  ecephys.units.get_cluster_info(ks_dir)
-    info = info_all[info_all['cluster_id'].isin(extr.get_unit_ids())]
+    info = info_all[info_all['cluster_id'].isin(extr.get_unit_ids())].copy()
+
+    # Add boolean column for each region
+    if assign_regions:
+        regions = channel_groups.region_depths[subject][condition]
+        for region, region_depths in regions.items():
+            info[region] = info['depth'].between(*region_depths)
 
     return extr, info
