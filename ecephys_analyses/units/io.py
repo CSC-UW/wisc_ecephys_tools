@@ -16,7 +16,7 @@ def get_sorting_data(
     # Params
     if selection_intervals is None:
         selection_intervals = {}
-    print(f'Get sorting extractor, region={region}, selection_intervals={selection_intervals}, good_only={good_only}, root_key={root_key}')
+    print(f'Get sorting extractor, subj={subject}, condition={condition}, sorting={sorting_condition}, region={region}, selection_intervals={selection_intervals}, good_only={good_only}, root_key={root_key}')
 
     # Path 
     ks_dir = paths.get_datapath(
