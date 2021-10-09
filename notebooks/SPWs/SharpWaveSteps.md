@@ -4,10 +4,14 @@ SPW steps, for sleep homeostasis expeirments:
 - emg-from-lfp.ipynb
 - generate-scoring-edf.ipynb
     - generate-sleepscoring-files.ipynb is NOT neccessary if you are using the Desktop launcher (.bat script). 
+- Score recovery sleep. 
 - get_spw_detection_params.ipynb
     - You only need to have scored recovery sleep in order to begin this step 
 - generate-CSD-reports.ipynb
+    - Requires sharp_wave_detection_params.json
+- Begin scoring the rest of the subject's sleep, starting with the light periods
 - generate-empty-sr_chans-files.ipynb
+- Identify startum radiatum channels for each recording, for manual drift tracking. 
 - sr_chans-to-datetime.ipynb
     - Requires identifying stratum radiatum channels for each recording.
 - get_spws.ipynb
