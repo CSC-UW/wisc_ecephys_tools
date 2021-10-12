@@ -3,6 +3,7 @@ from pathlib import Path
 
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
+from ecephys import sglx_utils
 from ecephys_analyses.data import parameters, paths
 
 
@@ -78,11 +79,15 @@ def prepare_data(subject, condition, catgt_data=True, bad_channels=None):
         catgt_data=catgt_data,
         root_key=root_key,
     )
+    for p in binpaths:
+        # Check that catgt finished
+        assert sglx_utils.get_meta_path(p).exists()
     
     rec_extractors = [
         se.SpikeGLXRecordingExtractor(binpath)
         for binpath in binpaths
     ]
+
     if len(rec_extractors) == 1:
         recording = rec_extractors[0]
     else:    

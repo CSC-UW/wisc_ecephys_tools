@@ -99,18 +99,23 @@ ks_postprocessing:
 #             c_Waves_snr_um: 160
 #         - quality_metrics:
 #             qm_isi_thresh: 0.0015  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
-    metrics_1:
+    metrics_isi=1:
         # [<module_name>: <module_params_dict>]
         - quality_metrics:
             qm_isi_thresh: 0.0010  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
-    metrics_1_5:
+    metrics_isi=1_5:
         # [<module_name>: <module_params_dict>]
         - quality_metrics:
             qm_isi_thresh: 0.0015  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
-    metrics_2:
+    metrics_isi=2:
         # [<module_name>: <module_params_dict>]
         - quality_metrics:
             qm_isi_thresh: 0.0020  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
+    metrics_all_isi:
+        # [<module_name>: <module_params_dict>]
+        - quality_metrics:
+            qm_isi_thresh: [0.0020, 0.0015, 0.001]  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
+            tbin_sec: 0.0005  # Refractory period threshold in sec (to assess contamination). Allen default is 2.0msec for cortex and 1.0msec for thalamus
 
 #####################################
 #####################################

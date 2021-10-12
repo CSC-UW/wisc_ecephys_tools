@@ -9,7 +9,6 @@ from ecephys_analyses.data import channel_groups, paths, parameters
 def run_postprocessing(
     subject, condition,
     sorting_condition, postprocessing_condition,
-    catgt_data=True,
     root_key=None,
     rerun_existing=True
 ):
@@ -27,20 +26,7 @@ def run_postprocessing(
         params += d.values()
     
     # Data
-    assert catgt_data
-    binpaths = paths.get_sglx_style_datapaths(
-        subject, 
-        condition,
-        'ap.bin',
-        catgt_data=True,
-    )
-    # assert len(binpaths) == 1
-    if len(binpaths) > 1:
-        import warnings
-        warnings.warn("Multiple bin files. Recover metadata from first")
-    binpath = binpaths[0]
-    metapath = binpath.parent/(binpath.stem + '.meta')
-    print(f"catGT preprocessed data: {binpath}")
+    binpath, metapath = get_bin_meta(subject, condition)
     
     # Src ks dir
     ks_dir_src = paths.get_datapath(
@@ -89,11 +75,6 @@ def run_postprocessing(
         **kwargs_dict
    )   
 
-#     # rerun existing
-#     if (output_dir/'spike_times.npy').exists() and not rerun_existing:
-#         print(f'Passing: output directory is done: {output_dir}\n\n')
-#         return
-
     print('running')
     start = datetime.now()
     
@@ -113,6 +94,46 @@ def run_postprocessing(
     print(f"Run time = {str(end - start)}\n\n")
 
     return 1
+
+
+def get_bin_meta(subject, condition):
+    """Return original bin & meta paths, either catgt or raw """
+    # Try catgt data
+    binpaths = paths.get_sglx_style_datapaths(
+        subject, 
+        condition,
+        'ap.bin',
+        catgt_data=True,
+        root_key='catgt'
+    )
+    # assert len(binpaths) == 1
+    binpath = binpaths[0]
+    metapath = binpath.parent/(binpath.stem + '.meta')
+    if metapath.exists():
+        if len(binpaths) > 1:
+            import warnings
+            warnings.warn("Multiple bin files. Recover metadata from first")
+        print(f"Recover metadata from catGT processed data at: {binpath}")
+        return binpath, metapath
+    import warnings
+    warnings.warn("Could not find catgt-processed data! Try with raw data")
+    # Otherwise we go back to using the raw data
+    binpaths = paths.get_sglx_style_datapaths(
+        subject, 
+        condition,
+        'ap.bin',
+        catgt_data=False,
+        root_key='raw_chronic'
+    )
+    binpath = binpaths[0]
+    metapath = binpath.parent/(binpath.stem + '.meta')
+    if metapath.exists():
+        if len(binpaths) > 1:
+            import warnings
+            warnings.warn("Multiple bin files. Recover metadata from first")
+        print(f"Recover metadata from raw data data at: {binpath}")
+        return binpath, metapath
+    raise Exception("Could not find catgt or raw data for {subject} condition{}}")
 
 
 def copy_ks_dir(src, tgt):
