@@ -2,4 +2,5 @@
 project_directory: /Volumes/neuropixel_analysis/Data/SPWRs/
 subject_directories:
   Adrian: CNPIX11-Adrian
+  Charles: CNPIX10-Charles
 ...

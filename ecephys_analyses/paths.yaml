@@ -616,6 +616,9 @@ Charles:
       - 7-10-2021_g0_t9.imec1
       - 7-10-2021_g0_t10.imec1
       - 7-10-2021_g0_t11.imec1
+    circadian-match:
+      - *Charles-Light-CM
+      - *Charles-Dark-CM
     extended-wake: &Charles-EW
       - 7-11-2021_g0_t0.imec1
       - 7-11-2021_g0_t1.imec1
