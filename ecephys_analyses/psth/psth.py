@@ -19,7 +19,7 @@ PSTH_WINDOW_DF = [-5000, 2000]
 
 def get_data(
     subject, condition, sorting_condition,
-    good_only=False, region='all', selection_intervals=None,
+    selected_groups=None, region='all', selection_intervals=None,
     state=None,
     root_key=None,
 ):
@@ -30,7 +30,7 @@ def get_data(
         sorting_condition,
         region=region,
         selection_intervals=selection_intervals,
-        good_only=good_only,
+        selected_groups=selected_groups,
         root_key=root_key,
     )
     cluster_ids = extr.get_unit_ids()
@@ -53,12 +53,11 @@ def get_output_dir(subject, condition, sorting_condition, root_key=None):
 
 
 def make_pooled_psth_hist(
-    subject, condition, sorting_condition,
-    good_only=False, region='all', selection_intervals=None,
-    normalize='baseline_zscore', 
-    binsize=None, norm_window=None, plot_window=None,
-    state=None, ylim=None,
-    root_key=None,
+    subject, condition, sorting_condition, root_key=None,
+    state=None, region='all', 
+    selected_groups=None, selection_intervals=None,
+    normalize='baseline_zscore', binsize=None, norm_window=None,
+    plot_window=None, ylim=None,
     save=False, show=True, output_dir=None,
 ):
     if output_dir is None:
@@ -66,13 +65,13 @@ def make_pooled_psth_hist(
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     print(
-        f"\n\nGenerate figures for {subject} {condition}, {state}, "
-        f"{region}, good={good_only}, ylim={ylim}, output={output_dir}",
+        f"\n\nGenerate psth hists for {subject} {condition}, {state}, "
+        f"{region}, groups={selected_groups}, ylim={ylim}, output={output_dir}",
     )
     
     spike_times_list, _, info, event_df = get_data(
         subject, condition, sorting_condition,
-        good_only=good_only, region=region, selection_intervals=selection_intervals,
+        selected_groups=selected_groups, region=region, selection_intervals=selection_intervals,
         state=state,
         root_key=root_key,
     )
@@ -132,7 +131,7 @@ def make_pooled_psth_hist(
         title+=f"State={state}; "
     if region not in [None, 'all']:
         title+=f'Region={region}; '
-    title += f'N={len(event_df)} pulses; N={psth_array.shape[0]} clusters'
+    title += f'N={len(event_df)} pulses; N={len(info)} clusters'
     plt.title(title)
     #
 
@@ -148,7 +147,7 @@ def make_pooled_psth_hist(
         plt.show()
     
     if save:
-        filename = f"psth_heatmap_{subject}_{condition}_{state}_region={region}_goodonly={good_only}_norm={normalize}_ylim={ylim}_select={get_selection_intervals_str(selection_intervals)}"
+        filename = f"psth_hist_{subject}_{condition}_{state}_region={region}_groups={selected_groups}_select={get_selection_intervals_str(selection_intervals)}_norm={normalize}_ylim={ylim}"
         print(f'save at {Path(output_dir)/filename}')
         fig.savefig(Path(output_dir)/(filename + '.png'))
         fig.savefig(Path(output_dir)/(filename + '.svg'))
@@ -157,27 +156,33 @@ def make_pooled_psth_hist(
 
 
 def make_psth_heatmap(
-    subject, condition, sorting_condition,
-    good_only=False, region='all', selection_intervals=None,
-    normalize='baseline_zscore', 
-    binsize=None, norm_window=None, plot_window=None,
-    state=None, clim=None,
-    root_key=None,
-    save=False, show=True, output_dir=None,
-    draw_region_limits=True, draw_region_suffix=None,
+    subject, condition, sorting_condition, root_key=None,
+    state=None, region='all',
+    selected_groups=None, selection_intervals=None,
+    normalize='baseline_zscore', binsize=None, norm_window=None,
+    plot_window=None, clim=None,
+    draw_regions_list=None, region_suffixes_to_clip=None,
+    save=False, show=True, output_dir=None, extensions=None,
 ):
     if output_dir is None:
         output_dir = get_output_dir(subject, condition, sorting_condition, root_key=root_key)
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
+    if draw_regions_list is None:
+        draw_regions_list = []
+    if region_suffixes_to_clip is None:
+        region_suffixes_to_clip = []
+    if extensions is None:
+        extensions = ['.png', '.svg']
+
     print(
-        f"\n\nGenerate figures for {subject} {condition}, {state}, "
-        f"{region}, good={good_only}, clim={clim}, output={output_dir}",
+        f"\n\nGenerate psth heatmaps for {subject} {condition}, {state}, "
+        f"{region}, groups={selected_groups}, clim={clim}, output={output_dir}",
     )
     
     spike_times_list, cluster_ids, info, event_df = get_data(
         subject, condition, sorting_condition,
-        good_only=good_only, region=region, selection_intervals=selection_intervals,
+        selected_groups=selected_groups, region=region, selection_intervals=selection_intervals,
         state=state,
         root_key=root_key,
     )
@@ -262,44 +267,51 @@ def make_psth_heatmap(
         cbar_label=cbar_label
     )
 
-    if draw_region_limits and region=='all':
-        # Draw an horizontal line for each of the regions ending with draw_region_suffix
-        from ecephys.utils import find_nearest
-        region_indices = {
-            region: [
-                find_nearest(depths, region_lims[0], tie_select='last'),
-                find_nearest(depths, region_lims[1], tie_select='first'),
-            ] for region, region_lims in region_depths.items()
-            if draw_region_suffix is None or region.endswith(draw_region_suffix)
-        }  # {'region': [cluster_id_start, cluster_id_end]}
-        for reg, (id_start, id_end) in region_indices.items():
-            # Pass regions out of range
-            if (id_start == id_end) and (id_start == 0 or id_start == n_clust):
-                pass
-            y1, y2 = id_start, id_end
-            x, h = 0, 5
-            plt.plot([x, x+h, x], [y1, (y1 + y2)/2, y2], c='k')
-            plt.text(x + h + 1, (y1 + y2)/2, reg, ha='left', va='center', c='k')
-    
     # Title
     title=f"PSTH: {subject}, {condition}\n"
     if state is not None:
         title+=f"State={state}; "
     if region not in [None, 'all']:
         title+=f'Region={region}; '
-    title += f'N={len(event_df)} pulses; N={psth_array.shape[0]} clusters'
+    title += f'N={len(event_df)} pulses; N={len(cluster_ids)} clusters'
     plt.title(title)
-    plt.ylabel('Clusters\n(mm from surface)')
+    plt.ylabel('Clusters (mm from surface)')
+    plt.xlabel('Time to pulse (msec)')
     print("Done getting plot")
+
+    # Draw an horizontal line for each of the regions ending with draw_region_suffix. We remove the suffix.
+    from ecephys.utils import find_nearest
+    from functools import reduce
+    drawable_region_depths = {
+        reduce(lambda region, suffix: region.replace(suffix, ''), region_suffixes_to_clip, region): depths  # One liner to remove all substrings like a boss
+        for region, depths in region_depths.items()
+        if region in draw_regions_list
+    }
+    drawable_region_indices = {
+        region: [
+            find_nearest(depths, region_lims[0], tie_select='first'),  # Depths are descending here
+            find_nearest(depths, region_lims[1], tie_select='last'),  # Depths are descending here
+        ] for region, region_lims in drawable_region_depths.items()
+    }  # {'region': [cluster_id_start, cluster_id_end]}
+    for reg, (id_end, id_start) in drawable_region_indices.items():
+        # Pass regions out of range
+        if (id_start == id_end) and (id_start == 0 or id_start == n_clust - 1):
+            print(f"Out of range: not drawing region {reg}")
+            continue
+        y1, y2 = id_start + 0.5, id_end + 0.5
+        # x, h, ha, text_gap = 0, 5, 'left', +1  # Inside axis, left
+        x, h, ha, text_gap = -20, -5, 'right', -1  # Left of y axis
+        plt.plot([x, x+h, x], [y1, (y1 + y2)/2, y2], c='k', clip_on=False)
+        plt.text(x + h + text_gap, (y1 + y2)/2, reg, ha=ha, va='center', c='k', clip_on=False)
     
     if show:
         plt.show()
     
     if save:
-        filename = f"psth_heatmap_{subject}_{condition}_{state}_region={region}_goodonly={good_only}_norm={normalize}_clim={clim}_select={get_selection_intervals_str(selection_intervals)}"
-        print(f'save {filename}')
-        fig.savefig(Path(output_dir)/(filename + '.png'))
-        fig.savefig(Path(output_dir)/(filename + '.svg'))
+        filename = f"psth_heatmap_{subject}_{condition}_{state}_region={region}_groups={selected_groups}_select={get_selection_intervals_str(selection_intervals)}_norm={normalize}_clim={clim}"
+        print(f'save at {Path(output_dir)/filename}')
+        for ext in extensions:
+            fig.savefig(Path(output_dir)/(filename + ext), bbox_inches='tight')
     
     return fig, axes
 
