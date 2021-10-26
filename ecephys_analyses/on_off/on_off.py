@@ -67,7 +67,7 @@ def run_on_off_detection(
         root_key=root_key,
     )
     cluster_ids = sorted(extr.get_unit_ids())
-    spike_trains_list = ecephys.units.get_spike_trains_list(
+    spike_times_list = ecephys.units.get_spike_times_list(
         extr
     )
 
@@ -80,8 +80,8 @@ def run_on_off_detection(
         if not state in hyp.state.unique():
             raise Exception(f'No {state} bout in hyp ({hyp.state.unique()}')
         bouts_df = hyp[hyp['state'] == state].reset_index()
-        spike_trains_list = ecephys.units.subset_spike_times_list(
-            spike_trains_list,
+        spike_times_list = ecephys.units.subset_spike_times_list(
+            spike_times_list,
             bouts_df
         )
         Tmax = bouts_df.duration.sum()
@@ -99,14 +99,14 @@ def run_on_off_detection(
         import warnings
         warnings.warn("No cluster in region. Passing")
         on_off_df = pd.DataFrame()
-    elif all(len(train) == 0 for train in spike_trains_list):
+    elif all(len(train) == 0 for train in spike_times_list):
         import warnings
         warnings.warn("No spikes in bouts. Passing")
         on_off_df = pd.DataFrame()
     else:
         # Compute
         on_off_model = OnOffModel(
-            spike_trains_list,
+            spike_times_list,
             cluster_ids=cluster_ids,
             pooled_detection=pool,
             params=params,
