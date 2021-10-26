@@ -43,6 +43,7 @@ def run_on_off_detection(
         n_jobs (int): Parallelize over units if pool==False
         root_key : Root for all data. Passed to all `paths` methods.
     """
+
     # Detection condition
     p = parameters.get_analysis_params('on_off_detection', detection_condition)
     method = p['method']
@@ -59,11 +60,11 @@ def run_on_off_detection(
     # Get spike trains of interest
     extr, info = ecephys_analyses.units.get_sorting_data(
          subject, condition, sorting_condition,
-         region='all',
-         selection_intervals=None,
+         region,
+         selection_intervals,
          assign_regions=True,
-         selected_groups=None,
-         root_key=None
+         selected_groups=selected_groups,
+         root_key = root_key
     )
     cluster_ids = sorted(extr.get_unit_ids())
     spike_trains_list = ecephys.units.get_spike_trains_list(
