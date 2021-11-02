@@ -558,3 +558,24 @@ Charles:
     - 7-14-2021_g4_imec1
     - 7-14-2021_g5_imec1
     - 7-14-2021_g6_imec1
+    
+Adrian:
+  baseline-sleep-2h-circadian-match_imec0:
+    8-30-2021:
+      - 8-30-2021_g0_t3.imec0
+  recovery-sleep-2h_imec0:
+    8-31-2021:
+      - 8-31-2021_g0_t3.imec0
+  baseline-sleep-2h-circadian-match_imec1:
+    8-30-2021:
+      - 8-30-2021_g0_t3.imec1
+  recovery-sleep-2h_imec1:
+    8-31-2021:
+      - 8-31-2021_g0_t3.imec1
+  # combined
+  sleep-homeostasis-2h_imec0:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
+  sleep-homeostasis-2h_imec1:
+    - baseline-sleep-2h-circadian-match_imec1
+    - recovery-sleep-2h_imec1
