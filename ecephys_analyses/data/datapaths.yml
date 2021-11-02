@@ -483,6 +483,30 @@ Giuseppe:
   12-27-2020_Wake_NREM_REM_depth1.5_imec1:
     - 12-27-2020_g0_imec1
     - 12-27-2020_g1_imec1
+  # SD
+  baseline-sleep-2h-circadian-match_imec0:
+    12-12-2020:
+      - 12-12-2020_BL_24hs_g0_t6.imec0
+      - 12-12-2020_BL_24hs_g0_t7.imec0
+  baseline-sleep-2h-circadian-match_imec1:
+    12-12-2020:
+      - 12-12-2020_BL_24hs_g0_t6.imec1
+      - 12-12-2020_BL_24hs_g0_t7.imec1
+  recovery-sleep-2h_imec0:
+    12-12-2020:
+      - 12-13-2020_SR_18hs_g0_t0.imec0
+      - 12-13-2020_SR_18hs_g0_t1.imec0
+  recovery-sleep-2h_imec1:
+    12-12-2020:
+      - 12-13-2020_SR_18hs_g0_t0.imec1
+      - 12-13-2020_SR_18hs_g0_t1.imec1
+  # combined
+  sleep-homeostasis-2h_imec0:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
+  sleep-homeostasis-2h_imec1:
+    - baseline-sleep-2h-circadian-match_imec1
+    - recovery-sleep-2h_imec1
 
 
 Luigi:
