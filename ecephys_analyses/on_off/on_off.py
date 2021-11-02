@@ -60,8 +60,8 @@ def run_on_off_detection(
     # Get spike trains of interest
     extr, info = ecephys_analyses.units.get_sorting_data(
          subject, condition, sorting_condition,
-         region,
-         selection_intervals,
+         region=region,
+         selection_intervals=selection_intervals,
          assign_regions=True,
          selected_groups=selected_groups,
          root_key = root_key
@@ -92,7 +92,7 @@ def run_on_off_detection(
 
     # Output dir
     output_dir = paths.get_datapath(subject, condition, detection_condition, root_key=root_key)
-    debug_plot_filename = f'on_off_summary_pool={pool}_region={region}_state={state}_sorting={sorting_condition}_selected={selected_groups}_intervals={get_selection_intervals_str(selection_intervals)}'
+    debug_plot_filename = f'on_off_df_pool={pool}_state={state}_region={region}_selected={"-".join(selected_groups)}_intervals={get_selection_intervals_str(selection_intervals)}_sorting={sorting_condition}'
     output_dir.mkdir(exist_ok=True, parents=True)
 
     if not len(cluster_ids):
@@ -142,7 +142,7 @@ def run_on_off_detection(
 
     on_off_filename = get_on_off_df_filename(
         region=region,
-        selected_groups=None,
+        selected_groups=selected_groups,
         pool=pool,
         sorting_condition=sorting_condition,
         state=state,
@@ -162,4 +162,5 @@ def get_on_off_df_filename(
     state=None,
     selection_intervals=None,
 ):
-    return f'on_off_df_pool={pool}_region={region}_state={state}_sorting={sorting_condition}_selected={selected_groups}_intervals={get_selection_intervals_str(selection_intervals)}'
+
+    return f'on_off_df_pool={pool}_state={state}_region={region}_selected={"-".join(selected_groups)}_intervals={get_selection_intervals_str(selection_intervals)}_sorting={sorting_condition}'
