@@ -176,8 +176,16 @@ Charles:
   eStim:
     - 7-14-2021_imec0
     - 7-14-2021_imec1
-
+    
+    
 Segundo:
+  SD:
+    - sleep-homeostasis-2h_imec0
+  SD_catgt:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0  
+
+Valentino:
   SD:
     - sleep-homeostasis-2h_imec0
   SD_catgt:
