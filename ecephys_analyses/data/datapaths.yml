@@ -477,10 +477,10 @@ Giuseppe:
     12-31-2020:
       - 12-31-2020_Stim_Sevo_g0_t0.imec1
   # Combined
-  12-27-2020_Wake_NREM_REM_depth1.5_imec0:
+  12-27-2020_imec0:
     - 12-27-2020_g0_imec0
     - 12-27-2020_g1_imec0
-  12-27-2020_Wake_NREM_REM_depth1.5_imec1:
+  12-27-2020_imec1:
     - 12-27-2020_g0_imec1
     - 12-27-2020_g1_imec1
 
@@ -529,7 +529,7 @@ Charles:
   7-14-2021_g3_imec1:  # (Wake)
     7-14-2021:
     - 7-14-2021_g3_t0.imec1
-  7-14-2021_g4_imec0:  # (NREM)
+  7-14-2021_g4_imec0:  # (NREM, REM)
     7-14-2021:
     - 7-14-2021_g4_t0.imec0
   7-14-2021_g4_imec1:  # (NREM, REM)
@@ -558,8 +558,12 @@ Charles:
     - 7-14-2021_g4_imec1
     - 7-14-2021_g5_imec1
     - 7-14-2021_g6_imec1
-    
+
+
 Adrian:
+  # raw-data-root: 
+  # analysis-root: 
+  # SD
   baseline-sleep-2h-circadian-match_imec0:
     8-30-2021:
       - 8-30-2021_g0_t3.imec0
@@ -579,3 +583,43 @@ Adrian:
   sleep-homeostasis-2h_imec1:
     - baseline-sleep-2h-circadian-match_imec1
     - recovery-sleep-2h_imec1
+  # eStim
+  9-1-2021_g0_imec0:  # (Wake, NREM, REM), 1.1mm
+    9-1-2021:
+    - 9-1-2021_g0_t0.imec0
+    - 9-1-2021_g0_t1.imec0
+  9-1-2021_g0_imec1:  # (Wake, NREM, REM), 1.1mm
+    9-1-2021:
+    - 9-1-2021_g0_t0.imec1
+    - 9-1-2021_g0_t1.imec1
+  9-1-2021_g2_g0_imec0:  # Sevo, 1.1mm
+    9-1-2021:
+    - 9-1-2021_g2_g0_t0.imec0
+  9-3-2021_g1_imec0:  # (Wake, NREM, REM), 1.5mm
+    9-3-2021:
+    - 9-3-2021_g1_t0.imec0
+    - 9-3-2021_g1_t1.imec0
+  9-3-2021_g1_imec1:  # (Wake, NREM, REM), 1.5mm
+    9-3-2021:
+    - 9-3-2021_g1_t0.imec1
+    - 9-3-2021_g1_t1.imec1
+  9-3-2021_g2_imec0:  # Sevo, 1.5mm
+    9-3-2021:
+    - 9-3-2021_g2_t0.imec0
+  9-3-2021_g2_imec1:  # Sevo, 1.5mm
+    9-3-2021:
+    - 9-3-2021_g2_t0.imec1
+  9-7-2021_g1_imec1:  # (Wake, NREM, REM), 0.3mm
+    9-7-2021:
+    - 9-7-2021_g1_t0.imec1
+    - 9-7-2021_g1_t1.imec1
+  9-7-2021_g2_imec1:  # Sevo, 0.3mm
+    9-7-2021:
+    - 9-7-2021_g2_t0.imec1
+  9-13-2021_g1_imec1:  # (Wake, NREM, REM), 0.7mm
+    9-13-2021:
+    - 9-13-2021_g1_t0.imec1
+    - 9-13-2021_g1_t1.imec1
+  9-13-2021_g2_imec1:  # Sevo, 0.7mm
+    9-13-2021:
+    - 9-13-2021_g2_t0.imec1
