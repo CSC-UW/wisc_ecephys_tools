@@ -17,7 +17,7 @@ def run_on_off_detection(
     detection_condition,
     sorting_condition=None,
     region=None,
-    good_only=False,
+    selected_groups=None,
     selection_intervals=None,
     state=None,
     pool=False,
@@ -33,7 +33,7 @@ def run_on_off_detection(
     Kwargs:
         sorting_condition (str or None): Name of KS output directory. Overrides 'on_off_detection` param if provided.
         region (str or None): used to get depth interval from `regions.yml`
-        good_only (bool): Subselect `cluster_group == 'good'`.
+        selected_groups (list or None): List of subselected cluster groups. Affected by `drop_noise` and `good_only` overrides.
             We use KSLabel assignment when curated `group` is None or 'unscored'
         selection_intervals (dict): Dictionary of {<col_name>: (<value_min>, <value_max>)} used
             to subset clusters based on depth, firing rate, metrics value, etc
@@ -43,6 +43,7 @@ def run_on_off_detection(
         n_jobs (int): Parallelize over units if pool==False
         root_key : Root for all data. Passed to all `paths` methods.
     """
+
     # Detection condition
     p = parameters.get_analysis_params('on_off_detection', detection_condition)
     method = p['method']
@@ -50,7 +51,7 @@ def run_on_off_detection(
     if sorting_condition is None:
         sorting_condition = p['sorting_condition']
 
-    print("Run on-off detection:", subject, condition, sorting_condition, state, good_only, pool, '\n')
+    print("Run on-off detection:", subject, condition, sorting_condition, state, selected_groups, pool, '\n')
 
     # Sorting info
     ks_dir = paths.get_datapath(subject, condition, sorting_condition, root_key=root_key)
@@ -58,13 +59,12 @@ def run_on_off_detection(
 
     # Get spike trains of interest
     extr, info = ecephys_analyses.units.get_sorting_data(
-        subject,
-        condition,
-        sorting_condition,
-        region=region,
-        selection_intervals=selection_intervals,
-        good_only=good_only,
-        root_key=root_key,
+         subject, condition, sorting_condition,
+         region=region,
+         selection_intervals=selection_intervals,
+         assign_regions=True,
+         selected_groups=selected_groups,
+         root_key = root_key
     )
     cluster_ids = sorted(extr.get_unit_ids())
     spike_times_list = ecephys.units.get_spike_times_list(
@@ -92,7 +92,7 @@ def run_on_off_detection(
 
     # Output dir
     output_dir = paths.get_datapath(subject, condition, detection_condition, root_key=root_key)
-    debug_plot_filename = f'on_off_summary_pool={pool}_region={region}_good={good_only}_state={state}_sorting={sorting_condition}_intervals={get_selection_intervals_str(selection_intervals)}'
+    debug_plot_filename = f'on_off_summary_pool={pool}_region={region}_state={state}_sorting={sorting_condition}_selected={selected_groups}_intervals={get_selection_intervals_str(selection_intervals)}'
     output_dir.mkdir(exist_ok=True, parents=True)
 
     if not len(cluster_ids):
@@ -142,7 +142,7 @@ def run_on_off_detection(
 
     on_off_filename = get_on_off_df_filename(
         region=region,
-        good_only=good_only,
+        selected_groups=None,
         pool=pool,
         sorting_condition=sorting_condition,
         state=state,
@@ -156,10 +156,10 @@ def run_on_off_detection(
 
 def get_on_off_df_filename(
     region=None,
-    good_only=None,
+    selected_groups=None,
     pool=None,
     sorting_condition=None,
     state=None,
     selection_intervals=None,
 ):
-    return f'on_off_df_pool={pool}_region={region}_good={good_only}_state={state}_sorting={sorting_condition}_intervals={get_selection_intervals_str(selection_intervals)}'
+    return f'on_off_df_pool={pool}_region={region}_state={state}_sorting={sorting_condition}_selected={selected_groups}_intervals={get_selection_intervals_str(selection_intervals)}'
