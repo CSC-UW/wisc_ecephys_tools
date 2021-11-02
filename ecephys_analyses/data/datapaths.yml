@@ -55,6 +55,17 @@ Valentino:
       - 2-19-2020_g1_t10.imec0
       - 2-19-2020_g1_t11.imec0
       - 2-19-2020_g1_t12.imec0
+  # SD
+  baseline-sleep-2h-circadian-match_imec0:
+    2-19-2020:
+      - 2-19-2020_g1_t3.imec0
+  recovery-sleep-2h_imec0:
+    2-19-2020:
+      - 2-20-2020_g0_t3.imec0
+  sleep-homeostasis-2h_imec0:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
+
 
 Doppio:
   # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/
