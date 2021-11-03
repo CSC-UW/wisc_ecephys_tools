@@ -126,6 +126,14 @@ Giuseppe:
     - 12-27-2020_Wake_NREM_REM_depth1.5_imec1
     # - 12-31-2020_Sevo_depth1.5_imec0
     # - 12-31-2020_Sevo_depth1.5_imec1
+  SD:
+    - sleep-homeostasis-2h_imec0
+    - sleep-homeostasis-2h_imec1
+  SD_catgt:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
+    - baseline-sleep-2h-circadian-match_imec1
+    - recovery-sleep-2h_imec1
 
 
 Luigi:
@@ -168,8 +176,16 @@ Charles:
   eStim:
     - 7-14-2021_imec0
     - 7-14-2021_imec1
-
+    
+    
 Segundo:
+  SD:
+    - sleep-homeostasis-2h_imec0
+  SD_catgt:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0  
+
+Valentino:
   SD:
     - sleep-homeostasis-2h_imec0
   SD_catgt:
