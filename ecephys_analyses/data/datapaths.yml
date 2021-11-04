@@ -533,6 +533,9 @@ Luigi:
   recovery-sleep-2h_imec0:
     6-20-2021:
       - 6-21-2021_g1_t0.imec0
+  sleep-homeostasis-2h_imec0:
+    - baseline-sleep-2h-circadian-match_imec0
+    - recovery-sleep-2h_imec0
 
 Charles:
   # raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/
