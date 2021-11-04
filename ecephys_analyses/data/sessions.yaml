@@ -34,10 +34,10 @@ experiments:
         end_file: 8-30-2021_g0_t5
       dark_period_circadian_match:
         start_file: 8-30-2021_g0_t6
-        end_file: 8-30-2021_g0_t11
+        end_file: 8-30-2021_g1_t0
       circadian_match:
         start_file: 8-30-2021_g0_t0
-        end_file: 8-30-2021_g0_t11
+        end_file: 8-30-2021_g1_t0
       sleep_deprivation:
         start_file: 8-31-2021_g0_t0
         end_file: 8-31-2021_g0_t2
@@ -49,7 +49,13 @@ experiments:
         end_file: 8-31-2021_g0_t5
       dark_period:
         start_file: 8-31-2021_g0_t6
-        end_file: 8-31-2021_g0_t11
+        end_file: 8-31-2021_g1_t0
+      full_experimental_day:
+        start_file: 8-31-2021_g0_t0
+        end_file: 8-31-2021_g1_t0
+      all:
+        start_file: 8-30-2021_g0_t0
+        end_file: 8-31-2021_g1_t0
 ...
 ---
 subject: Charles
@@ -84,4 +90,41 @@ experiments:
       dark-period:
         start_file: 7-11-2021_g1_t3
         end_file: 7-11-2021_g1_t8
+...
+---
+subject: Giuseppe
+raw_data_directory: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/
+recording_sessions:
+  - 12-12-2020
+  - 12-13-2020
+experiments:
+  novel_objects_deprivation:
+    recording_sessions:
+      - 12-12-2020
+      - 12-13-2020
+    aliases:
+      light_period_circadian_match:
+        start_file: 12-12-2020_BL_24hs_g0_t0
+        end_file: 12-12-2020_BL_24hs_g0_t10
+      dark-period-circadian-match:
+        start_file: 12-12-2020_BL_24hs b_g0_t0
+        end_file: 12-12-2020_BL_24hs b_g0_t1
+      circadian_match:
+        start_file: 12-12-2020_BL_24hs_g0_t0
+        end_file: 12-12-2020_BL_24hs b_g0_t1
+      sleep_deprivation:
+        start_file: 12.12.2020 SD 6hs_g0_t0
+        end_file: 12.13.2020 SD 6hs (restart_2)_g2_t2
+      recovery_sleep:
+        start_file: 12-13-2020_SR_18hs_g0_t0
+        end_file: 12-13-2020_SR_18hs_g0_t5
+      light-period:
+        start_file: 12.12.2020 SD 6hs_g0_t0
+        end_file: 12-13-2020_SR_18hs_g0_t5
+      dark-period:
+        start_file: 12-13-2020_SR_18hs_g0_t6
+        end_file: 12-13-2020_SR_18hs_g0_t6
+      all:
+        start_file: 12-12-2020_BL_24hs_g0_t0
+        end_file: 12-13-2020_SR_18hs_g0_t6
 ...

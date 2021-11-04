@@ -1,9 +1,8 @@
 from collections import namedtuple
 from hypnogram.hypnogram import DatetimeHypnogram
 from .load import (
-    load_hypnogram as _load_hypnogram,
-    load_spws as _load_spws,
-    load_spectrogram as _load_spectrogram,
+    load_and_concatenate_hypnograms as _load_hypnogram,
+    load_and_concatenate_spws as _load_spws,
 )
 
 ALL_SUBJECTS = ["Segundo", "Valentino", "Doppio", "Alessandro", "Eugene", "Allan"]

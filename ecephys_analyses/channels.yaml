@@ -423,6 +423,18 @@ Eugene:
         207, 209, 211, 213, 215, 217, 219, 221, 223, 225, 227, 229, 231,
         233, 235, 237, 239, 241, 243, 245, 247, 249, 251, 253, 255
       ]
+Giuseppe:
+  novel_objects_deprivation:
+    imec0: # Probably the frontal probe
+      all: *LongColumn
+      internal_reference: [191]
+      emg_from_lfp: [10, 382, 289]
+      scoring: [274, 320, 137, 233]
+    imec1: # Probably the posterior probe
+      all: *LongColumn
+      internal_reference: [191]
+      emg_from_lfp: [0, 382, 301]
+      scoring: [159, 263, 309]
 Allan:
   sleep-homeostasis:
     imec1:
@@ -613,7 +625,7 @@ Luigi:
         145, 147, 149, 151
       ] # HPC +/- 100um
 Charles:
-  sleep-homeostasis:
+  sleep_homeostasis:
     imec1:
       all: *LongColumn
       internal_reference: [191]

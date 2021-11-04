@@ -1,6 +1,7 @@
 # Experiment-agnostic loading functions.
 # TODO: Separate functions into those that only require a path
 # from those that fetch paths.
+from numpy import load
 import pandas as pd
 import xarray as xr
 from ast import literal_eval
@@ -23,13 +24,6 @@ def load_sr_chans(path):
     return df
 
 
-def load_hypnogram(subject, experiment, alias, probe):
-    bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    hypnogram_paths = get_analysis_counterparts(bin_paths, "hypnogram.tsv", subject)
-    hypnograms = [load_datetime_hypnogram(path) for path in hypnogram_paths]
-    return pd.concat(hypnograms).reset_index(drop=True)
-
-
 def _get_abs_sink(spws):
     _spws = spws.copy()
     _spws["sink_amplitude"] = spws["sink_amplitude"].abs()
@@ -37,7 +31,7 @@ def _get_abs_sink(spws):
     return _spws
 
 
-def load_spws(subject, experiment, alias, probe, abs_sink=False):
+def load_and_concatenate_spws(subject, experiment, alias, probe, abs_sink=False):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
     spw_paths = get_analysis_counterparts(bin_paths, "spws.h5", subject)
     spws = [load_df_h5(path) for path in spw_paths]
@@ -60,24 +54,31 @@ def load_spws(subject, experiment, alias, probe, abs_sink=False):
     return combined_spws
 
 
-def load_power(subject, experiment, alias, probe, ext):
+def load_and_concatenate_hypnograms(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    power_paths = get_analysis_counterparts(bin_paths, ext, subject)
+    hypnogram_paths = get_analysis_counterparts(bin_paths, "hypnogram.tsv", subject)
+    hypnograms = [load_datetime_hypnogram(path) for path in hypnogram_paths]
+    return pd.concat(hypnograms).reset_index(drop=True)
 
-    powers = list()
-    for path in power_paths:
+
+def load_and_concatenate_datasets(paths):
+    datasets = list()
+    for path in paths:
         try:
-            powers.append(xr.load_dataset(path))
+            datasets.append(xr.load_dataset(path))
         except FileNotFoundError:
             pass
 
-    return rebase_time(xr.concat(powers, dim="time"))
+    return rebase_time(xr.concat(datasets, dim="time"))
 
 
-def load_spectrogram(subject, experiment, alias, probe):
-    return load_power(subject, experiment, alias, probe, "spg.nc")
+def load_and_concatenate_spectrograms(subject, experiment, alias, probe):
+    bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
+    dataset_paths = get_analysis_counterparts(bin_paths, "spg.nc", subject)
+    return load_and_concatenate_datasets(dataset_paths)
 
 
-# TODO Retire in favor of spectrograms.
-def load_bandpower(subject, experiment, alias, probe):
-    return load_power(subject, experiment, alias, probe, "bandpower.nc")
+def load_and_concatenate_bandpowers(subject, experiment, alias, probe):
+    bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
+    dataset_paths = get_analysis_counterparts(bin_paths, "bandpower.nc", subject)
+    return load_and_concatenate_datasets(dataset_paths)
