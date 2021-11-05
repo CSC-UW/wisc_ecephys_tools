@@ -62,6 +62,13 @@ Giuseppe:
     12-31-2020_Sevo_depth1.5_imec1: *giuseppe_imec1_base
     12-27-2020_imec0: *giuseppe_imec0_base
     12-27-2020_imec1: *giuseppe_imec1_base
+    # SD
+    baseline-sleep-2h-circadian-match_imec0: *giuseppe_imec0_base
+    recovery-sleep-2h_imec0: *giuseppe_imec0_base
+    baseline-sleep-2h-circadian-match_imec1: *giuseppe_imec1_base
+    recovery-sleep-2h_imec1: *giuseppe_imec1_base
+    sleep-homeostasis-2h_imec0: *giuseppe_imec0_base
+    sleep-homeostasis-2h_imec1: *giuseppe_imec1_base
 
 Alessandro: 
     alessandro_imec0_base: &alessandro_imec0_base  #TODO # Parietal  # Different implantation
@@ -295,6 +302,13 @@ Adrian:
     #     hypothalamus_inner: [0, 800]  # Accounts for 200um error.
     #     hypothalamus_base: [0, 1000]  # 200um error from these values.
     #     ZI_base: [0, 1000]  # Zona Incerta. ZI (from tip) = 1: 51. 200um error from these values
+    # SD
+    baseline-sleep-2h-circadian-match_imec0: *adrian_imec0_base
+    recovery-sleep-2h_imec0: *adrian_imec0_base
+    sleep-homeostasis-2h_imec0: *adrian_imec0_base
+    baseline-sleep-2h-circadian-match_imec1: *adrian_imec1_base
+    recovery-sleep-2h_imec1: *adrian_imec1_base
+    sleep-homeostasis-2h_imec1: *adrian_imec1_base
     # eStim
     9-1-2021_imec0: *adrian_imec0_base
     9-1-2021_imec1: *adrian_imec1_base
