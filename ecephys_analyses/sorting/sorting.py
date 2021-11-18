@@ -3,7 +3,7 @@ from pathlib import Path
 
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
-from ecephys import sglx_utils
+from ecephys import sglx
 from ecephys_analyses.data import parameters, paths
 
 
@@ -81,7 +81,7 @@ def prepare_data(subject, condition, catgt_data=True, bad_channels=None):
     )
     for p in binpaths:
         # Check that catgt finished
-        assert sglx_utils.get_meta_path(p).exists()
+        assert sglx.get_meta_path(p).exists()
     
     rec_extractors = [
         se.SpikeGLXRecordingExtractor(binpath)
@@ -111,7 +111,7 @@ def prepare_data(subject, condition, catgt_data=True, bad_channels=None):
 
 
 def assign_locations(recording, binpath, plot=False):
-    from ecephys.sglx_utils import get_xy_coords
+    from ecephys.sglx import get_xy_coords
     idx, x, y = get_xy_coords(binpath)
     recording.set_channel_locations(
         [(x[i], y[i]) for i in range(len(idx))],

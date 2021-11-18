@@ -5,7 +5,7 @@ from ecephys_analyses.data import paths
 from ecephys_analyses.data.channel_groups import full_names
 from ecephys.data.paths import parse_sglx_stem
 
-from ecephys.sglx_utils.cat_gt import get_catGT_command
+from ecephys.sglx.cat_gt import get_catGT_command
 
 
 CATGT_PATH = "/Volumes/scratch/neuropixels/bin/CatGT-linux/runit.sh"

@@ -2,7 +2,7 @@ import os.path
 
 import numpy as np
 import yaml
-from ecephys.sglx_utils import get_xy_coords
+from ecephys.sglx import get_xy_coords
 
 MODULE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 NOISE_CONTAM_PATH = os.path.join(MODULE_DIRECTORY, "noise_contaminated.yml")
