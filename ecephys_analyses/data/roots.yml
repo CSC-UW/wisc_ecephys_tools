@@ -9,7 +9,8 @@ hypno: /Volumes/neuropixel_analysis/Data
 catgt: /Volumes/scratch/neuropixels/data/tom/catgt
 
 #
-eStim: /Volumes/scratch/neuropixels/data/tom/catgt
+# eStim: /Volumes/scratch/neuropixels/data/tom/catgt
+eStim: /Volumes/neuropixel_analysis/Data/tom/catgt
 sleep-homeostasis: /Volumes/scratch/neuropixels/data/tom/catgt
 SD: /Volumes/scratch/neuropixels/data/tom/catgt
 tests: /Volumes/neuropixel_analysis/Data
