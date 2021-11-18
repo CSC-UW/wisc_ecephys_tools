@@ -216,3 +216,21 @@ Adrian:
     - 9-3-2021_g2_imec1
     - 9-7-2021_g2_imec1
     - 9-13-2021_g2_imec1
+
+Santiago:
+  eStim_catgt:
+    # Wake/NREM/REM
+    - 11-7-2021_g1_imec0
+    - 11-7-2021_g1_imec1
+    - 11-7-2021_g2_imec0
+    - 11-7-2021_g2_imec1
+    # Sevo
+    - 11-7-2021_g3_imec0
+    - 11-7-2021_g3_imec1
+  eStim:
+    # Wake/NREM/REM
+    - 11-7-2021_g1-g2_imec0
+    - 11-7-2021_g1-g2_imec1
+    # Sevo
+    - 11-7-2021_g3_imec0
+    - 11-7-2021_g3_imec1

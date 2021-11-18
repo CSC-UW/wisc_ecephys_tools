@@ -302,3 +302,22 @@ Adrian:
     9-3-2021_g1_imec1: *adrian_imec1_base
     9-3-2021_g2_imec0: *adrian_imec0_base
     9-3-2021_g2_imec1: *adrian_imec1_base
+
+Santiago:
+    santiago_imec0_base: &santiago_imec0_base  # TODO
+        cortex_base: [2500, 7660]  # TODO
+    santiago_imec1_base: &santiago_imec1_base # TODO
+        # Cortex
+        cortex_base: [6100.0, 7660]
+        # Hippocampus
+        hippocampus_base: [4160, 6080]
+        # thal
+        thalamus_base: [1000, 4140]
+        # hypo thalamus
+        hypothalamus_base: [0, 980]
+        ZI_base: [0, 980]
+    # eStim
+    11-7-2021_g1-g2_imec0: *santiago_imec0_base
+    11-7-2021_g1-g2_imec1: *santiago_imec1_base
+    11-7-2021_g3_imec0: *santiago_imec0_base
+    11-7-2021_g3_imec1: *santiago_imec1_base

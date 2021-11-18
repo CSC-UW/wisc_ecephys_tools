@@ -21,6 +21,7 @@ full_names = {
     'Segundo': 'CNPIX2-Segundo',
     'Valentino': 'CNPIX3-Valentino',
     'Adrian': 'CNPIX11-Adrian',
+    'Santiago': 'CNPIX12-Santiago',
 }
 
 full = {

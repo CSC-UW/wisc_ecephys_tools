@@ -661,3 +661,35 @@ Adrian:
   9-13-2021_g2_imec1:  # Sevo, 0.7mm
     9-13-2021:
     - 9-13-2021_g2_t0.imec1
+
+
+Santiago:
+  # raw-data-root: 
+  # analysis-root: 
+  # eStim
+  11-7-2021_g1_imec0:  # Wake (g1), 1.5mm
+    11-7-2021:
+      - 11-7-2021_g1_t0.imec0
+  11-7-2021_g1_imec1:  # Wake (g1), 1.5mm
+    11-7-2021:
+      - 11-7-2021_g1_t0.imec1
+  11-7-2021_g2_imec0:  # Wake NREM REM (g2), 1.5mm
+    11-7-2021:
+      - 11-7-2021_g2_t0.imec0
+      - 11-7-2021_g2_t1.imec0
+  11-7-2021_g2_imec1:  # Wake NREM REM (g2), 1.5mm
+    11-7-2021:
+      - 11-7-2021_g2_t0.imec1
+      - 11-7-2021_g2_t1.imec1
+  11-7-2021_g1-g2_imec0:  # Wake (g1), Wake NREM REM (g2), 1.5mm
+    - 11-7-2021_g1_imec0
+    - 11-7-2021_g2_imec0
+  11-7-2021_g1-g2_imec1:  # Wake (g1), Wake NREM REM (g2), 1.5mm
+    - 11-7-2021_g1_imec1
+    - 11-7-2021_g2_imec1
+  11-7-2021_g3_imec0:  # Sevo, 1.5mm
+    11-7-2021:
+      - 11-7-2021_g3_t0.imec0
+  11-7-2021_g3_imec1:  # Sevo, 1.5mm
+    11-7-2021:
+      - 11-7-2021_g3_t0.imec1
