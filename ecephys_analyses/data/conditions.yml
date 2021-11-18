@@ -16,21 +16,14 @@ Alessandro:
     - recovery-sleep-2h_imec0
     
 Allan:
-  eStim_3-5-2021:
+  eStim_catgt:
+    - 3-5-2021_g2_imec0
+    - 3-5-2021_g3_imec0
+    - 3-5-2021_g2_imec1
+    - 3-5-2021_g3_imec1
+  eStim:
     - 3-5-2021_g2-3_imec0
     - 3-5-2021_g2-3_imec1
-    # - 3-5-2021_g0_imec0
-    # - 3-5-2021_g0_imec1
-    # - 3-5-2021_g2_imec0
-    # - 3-5-2021_g2_imec1
-    # - 3-5-2021_g3_imec0
-    # - 3-5-2021_g3_imec1
-    # - 3-5-2021_g4_imec0
-    # - 3-5-2021_g4_imec1
-    # - 3-5-2021_g5_imec0
-    # - 3-5-2021_g5_imec1
-    # - 3-5-2021_g6_imec0
-    # - 3-5-2021_g6_imec1
   eStim_3-8-2021:
     - 3-8-2021_30uA_g0_imec0
     - 3-8-2021_30uA_g0_imec1
@@ -122,10 +115,10 @@ Giuseppe:
     - 12-31-2020_Sevo_depth1.5_imec0
     - 12-31-2020_Sevo_depth1.5_imec0
   eStim:
-    - 12-27-2020_Wake_NREM_REM_depth1.5_imec0
-    - 12-27-2020_Wake_NREM_REM_depth1.5_imec1
-    # - 12-31-2020_Sevo_depth1.5_imec0
-    # - 12-31-2020_Sevo_depth1.5_imec1
+    - 12-27-2020_imec1
+    - 12-27-2020_imec0
+    - 12-31-2020_Sevo_depth1.5_imec0
+    - 12-31-2020_Sevo_depth1.5_imec1
   SD:
     - sleep-homeostasis-2h_imec0
     - sleep-homeostasis-2h_imec1
@@ -201,3 +194,25 @@ Adrian:
     - baseline-sleep-2h-circadian-match_imec1
     - recovery-sleep-2h_imec0
     - recovery-sleep-2h_imec1
+  eStim_catgt:
+    # Wake/NREM/REM
+    - 9-1-2021_g0_imec1
+    - 9-3-2021_g1_imec1
+    - 9-7-2021_g1_imec1
+    - 9-13-2021_g1_imec1
+    # Sevo
+    - 9-1-2021_g2_g0_imec1
+    - 9-3-2021_g2_imec1
+    - 9-7-2021_g2_imec1
+    - 9-13-2021_g2_imec1
+  eStim:
+    # Wake/NREM/REM
+    - 9-1-2021_g0_imec1
+    - 9-3-2021_g1_imec1
+    - 9-7-2021_g1_imec1
+    - 9-13-2021_g1_imec1
+    # Sevo
+    - 9-1-2021_g2_g0_imec1
+    - 9-3-2021_g2_imec1
+    - 9-7-2021_g2_imec1
+    - 9-13-2021_g2_imec1
