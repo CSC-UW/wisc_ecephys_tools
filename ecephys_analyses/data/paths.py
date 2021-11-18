@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 import yaml
-from ecephys.data import paths
+from ecephys.data_mgmt import paths
 
 from .channel_groups import full_names
 

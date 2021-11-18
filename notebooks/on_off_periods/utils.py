@@ -1,5 +1,5 @@
 from ecephys_analyses.on_off import run_on_off_detection, get_on_off_df_filename
-from ecephys_analyses.data.paths import get_datapath
+from ecephys_analyses.data_mgmt.paths import get_datapath
 import pandas as pd
 
 from ecephys_analyses.data.channel_groups import region_depths
