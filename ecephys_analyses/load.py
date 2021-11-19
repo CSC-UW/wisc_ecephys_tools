@@ -1,7 +1,6 @@
 # Experiment-agnostic loading functions.
 # TODO: Separate functions into those that only require a path
 # from those that fetch paths.
-from numpy import load
 import pandas as pd
 import xarray as xr
 from ast import literal_eval
