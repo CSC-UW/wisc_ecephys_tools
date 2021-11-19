@@ -34,7 +34,7 @@ Template:
       hippocampus: [] # X mm to Y mm from probe tip.
       drift_tracking: [] # Hippocampus +/- 100um
 Segundo:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     imec0:
       all: &LongColumn [
         0,   2,   4,   6,   8,  10,  12,  14,  16,  18,  20,  22,  24,
@@ -102,7 +102,7 @@ Segundo:
       hippocampus: *Seg-HC
       drift_tracking: *Seg-DT
 Valentino:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     imec0:
       all: &Checkerboard [
         0,   3,   4,   7,   8,  11,  12,  15,  16,  19,  20,  23,  24,
@@ -249,7 +249,7 @@ Valentino:
       hippocampus: *Val-Sleep-Hippocampus
       drift_tracking: *Val-Sleep-DriftTracking
 Doppio:
-  sleep-homeostasis: &Doppio-Sleep
+  novel_objects_deprivation: &Doppio-Sleep
     imec0:
       all: *Checkerboard
       emg_from_lfp: [0, 383, 381]
@@ -340,7 +340,7 @@ Doppio:
         ]
         drift_tracking: *Doppio-Ket120-HC
 Alessandro:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     imec0:
       all: *LongColumn
       emg_from_lfp: [0, 382, 381]
@@ -400,7 +400,7 @@ Alessandro:
         215, 217, 219, 221, 223, 225, 227, 229, 231
       ] # Hippocampus +/- 100um
 Eugene:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     imec0:
       all: *LongColumn
       emg_from_lfp: [0, 382, 381]
@@ -436,7 +436,7 @@ Giuseppe:
       emg_from_lfp: [0, 382, 301]
       scoring: [159, 263, 309]
 Allan:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     imec1:
       all: &Allan-LongColumn [
         82,  84,  86,  88,  90,  92,  94,  96,  98, 100, 102, 104, 106,
@@ -564,7 +564,7 @@ Allan:
       ] # 3.2mm to 5.4mm from probe tip.
   ketamine: *Allan-Atropine
 Luigi:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     imec0:
       all: *LongColumn
       internal_reference: [191]
@@ -625,7 +625,7 @@ Luigi:
         145, 147, 149, 151
       ] # HPC +/- 100um
 Charles:
-  sleep_homeostasis:
+  novel_objects_deprivation:
     imec1:
       all: *LongColumn
       internal_reference: [191]
@@ -718,7 +718,7 @@ Adrian:
         211, 213, 215, 217, 219, 221, 223, 225, 227, 229, 231, 233, 235,
         237, 239, 241, 243, 245, 247, 249, 251
       ] # HPC +/- 100um
-  sleep_homeostasis:
+  novel_objects_deprivation:
     imec1:
       all: *LongColumn
       internal_reference: [191]

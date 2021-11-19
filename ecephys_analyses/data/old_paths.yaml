@@ -1,6 +1,6 @@
 ---
 Segundo:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-21-2020/
     analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX2-Segundo/1-21-2020/
     extended-wake-circadian-match: &Seg-EW-CM
@@ -52,7 +52,7 @@ Segundo:
     all:
       - 1-24-2020_g0_t0.imec0
 Valentino:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/
     analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX3-Valentino/2-19-2020/
     extended-wake-circadian-match: &Val-EW-CM
@@ -130,7 +130,7 @@ Valentino:
       - 3-2-2020_g1_t0.imec0
       - 3-2-2020_g1_t1.imec0
 Doppio:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/
     analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX4-Doppio/3-17-2020/
     extended-wake-circadian-match: &Dop-EW-CM
@@ -221,7 +221,7 @@ Doppio:
       - 4-24-2020_g0_t2.imec1
       - 4-24-2020_g0_t3.imec1
 Alessandro:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/
     analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX5-Alessandro/8-24-2020/
     extended-wake-circadian-match: &Ale-EW-CM
@@ -285,7 +285,7 @@ Alessandro:
       - 9-2-2020_Dex_g1_t0.imec0
 
 Eugene:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/
     analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX6-Eugene/9-24-2020/
     extended-wake-circadian-match: &Eug-EW-CM
@@ -403,7 +403,7 @@ Giuseppe:
       - 1.21.2021_Amp_Change3_g0_t0.imec0
       - 1.21.2021_Amp_Change4_g0_t0.imec0
 Allan:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/
     analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX8-Allan/3-1-2021/
     extended-wake-circadian-match: &All-EW-CM
@@ -539,7 +539,7 @@ Allan:
       - 4.20.2021_g1_t1.imec0
       - 4.20.2021_g1_t2.imec0
 Luigi:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-20-2021/
     analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX9-Luigi/6-20-2021/
     extended-wake-circadian-match: &Luigi-EW-CM
@@ -595,7 +595,7 @@ Luigi:
       - *Luigi-Dex-BSL
       - *Luigi-Dex-EXP
 Charles:
-  sleep-homeostasis:
+  novel_objects_deprivation:
     raw-data-root: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/
     analysis-root: /Volumes/neuropixel_analysis/Data/CNPIX10-Charles/7-10-2021/
     extended-wake-circadian-match: &Charles-EW-CM

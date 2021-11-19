@@ -24,7 +24,7 @@ experiments:
       light_period:
         start_file: 8-28-2021_g0_t0
         end_file: 8-28-2021_g0_t5
-  sleep_homeostasis:
+  novel_objects_deprivation:
     recording_sessions:
       - 8-30-2021
       - 8-31-2021
@@ -64,7 +64,7 @@ recording_sessions:
   - 7-10-2021
   - 7-11-2021
 experiments:
-  sleep_homeostasis:
+  novel_objects_deprivation:
     recording_sessions:
       - 7-10-2021
       - 7-11-2021

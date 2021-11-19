@@ -7,7 +7,7 @@ from .load import (
 
 ALL_SUBJECTS = ["Segundo", "Valentino", "Doppio", "Alessandro", "Eugene", "Allan"]
 
-SLEEP_HOMEOSTASIS = "sleep-homeostasis"
+NOVEL_OBJECTS_DEPRIVATION = "novel_objects_deprivation"
 NREM = ["N1", "N2"]
 WAKE = ["Wake", "aWk", "qWk"]
 SPW_STATES = NREM + WAKE + ["Trans", "IS", "Arousal"]
@@ -24,7 +24,7 @@ bands = _SpectralBands(
 
 def _get_recovery_sleep_start_time(subject):
     recovery = (
-        _load_hypnogram(subject, SLEEP_HOMEOSTASIS, "recovery-sleep")
+        _load_hypnogram(subject, NOVEL_OBJECTS_DEPRIVATION, "recovery-sleep")
         .keep_states(NREM)
         .keep_between(LIGHTS_ON, LIGHTS_OFF)
     )
@@ -35,7 +35,7 @@ def _get_recovery_sleep_start_time(subject):
 def _load_recovery(subject, keep_states=SPW_STATES):
     recovery_start = _get_recovery_sleep_start_time(subject)
     return (
-        _load_hypnogram(subject, SLEEP_HOMEOSTASIS, "recovery-sleep")
+        _load_hypnogram(subject, NOVEL_OBJECTS_DEPRIVATION, "recovery-sleep")
         .keep_states(keep_states)
         .keep_between(recovery_start, LIGHTS_OFF)
     )
@@ -58,7 +58,9 @@ def _load_first2h_recovery(subject, keep_states=SPW_STATES):
 
 def _load_baseline_light_period(subject, keep_states=SPW_STATES):
     return (
-        _load_hypnogram(subject, SLEEP_HOMEOSTASIS, "light-period-circadian-match")
+        _load_hypnogram(
+            subject, NOVEL_OBJECTS_DEPRIVATION, "light-period-circadian-match"
+        )
         .keep_states(keep_states)
         .keep_between(LIGHTS_ON, LIGHTS_OFF)
     )
@@ -72,7 +74,7 @@ def _load_first2h_recovery_match(subject, keep_states=SPW_STATES):
 
 def _load_deprivation(subject, keep_states=WAKE):
     return (
-        _load_hypnogram(subject, SLEEP_HOMEOSTASIS, "extended-wake")
+        _load_hypnogram(subject, NOVEL_OBJECTS_DEPRIVATION, "extended-wake")
         .keep_states(keep_states)
         .keep_between(LIGHTS_ON, LIGHTS_OFF)
     )
@@ -131,14 +133,17 @@ def load_hypnogram(subject, subcondition, **kwargs):
 
 def load_spws(subject, subcondition, hypnogram, **kwargs):
     spws = _load_spws(
-        subject, SLEEP_HOMEOSTASIS, _get_parent_condition(subcondition), **kwargs
+        subject,
+        NOVEL_OBJECTS_DEPRIVATION,
+        _get_parent_condition(subcondition),
+        **kwargs
     )
     return spws[hypnogram.covers_time(spws.start_time)]
 
 
 def load_spectrogram(subject, subcondition, hypnogram):
     spg = _load_spectrogram(
-        subject, SLEEP_HOMEOSTASIS, _get_parent_condition(subcondition)
+        subject, NOVEL_OBJECTS_DEPRIVATION, _get_parent_condition(subcondition)
     )
     assert isinstance(hypnogram, DatetimeHypnogram)
     return (
