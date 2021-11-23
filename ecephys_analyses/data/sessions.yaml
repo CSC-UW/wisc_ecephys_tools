@@ -143,7 +143,7 @@ experiments:
       light_period_circadian_match:
         start_file: 10-31-2021_g0_t0
         end_file: 10-31-2021_g0_t5
-      dark-period-circadian-match:
+      dark_period_circadian-match:
         start_file: 10-31-2021_g0_t6
         end_file: 10-31-2021_g0_t11
       circadian_match:
@@ -155,10 +155,10 @@ experiments:
       recovery_sleep:
         start_file: 11-1-2021_g1_t0
         end_file: 11-1-2021_g1_t2
-      light-period:
+      light_period:
         start_file: 11-1-2021_g0_t0
         end_file: 11-1-2021_g1_t2
-      dark-period:
+      dark_period:
         start_file: 11-1-2021_g1_t4
         end_file: 11-1-2021_g1_t8
       all:
