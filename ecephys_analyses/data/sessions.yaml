@@ -164,6 +164,35 @@ experiments:
       all:
         start_file: 10-31-2021_g0_t0
         end_file: 11-1-2021_g1_t8
+  conveyor_over_water:
+    recording_sessions:
+      - 11-3-2021
+      - 11-4-2021
+    aliases:
+      light_period_circadian_match:
+        start_file: 11-3-2021_g0_t0
+        end_file: 11-3-2021_g0_t5
+      dark_period_circadian-match:
+        start_file: 11-3-2021_g0_t6
+        end_file: 11-3-2021_g0_t11
+      circadian_match:
+        start_file: 11-3-2021_g0_t0
+        end_file: 11-3-2021_g0_t11
+      sleep_deprivation:
+        start_file: 11-4-2021_g0_t0
+        end_file: 11-4-2021_g0_t2
+      recovery_sleep:
+        start_file: 11-4-2021_g0_t3
+        end_file: 11-4-2021_g0_t5
+      light_period:
+        start_file: 11-4-2021_g0_t0
+        end_file: 11-4-2021_g0_t5
+      dark_period:
+        start_file: 11-4-2021_g0_t6
+        end_file: 11-4-2021_g0_t11
+      all:
+        start_file: 11-3-2021_g0_t0
+        end_file: 11-4-2021_g0_t11
 ...
 
 
