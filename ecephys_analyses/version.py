@@ -48,7 +48,7 @@ MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
 PACKAGE_DATA = {"ecephys_analyses": [pjoin("static", "*")]}
-REQUIRES = [
+INSTALL_REQUIRES = [
     "ecephys",
     "jupyter",
     "numpy",
