@@ -1,134 +1,14 @@
-appdirs==1.4.4
-argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1602546578258/work
-async-generator==1.10
-attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1599308529326/work
-backports.functools-lru-cache==1.6.1
-black==20.8b1
-bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1600454382015/work
-bokeh @ file:///home/conda/feedstock_root/build_artifacts/bokeh_1606141204355/work
-Bottleneck @ file:///home/conda/feedstock_root/build_artifacts/bottleneck_1602497275686/work
-brotlipy==0.7.0
-certifi==2020.12.5
-cffi @ file:///tmp/build/80754af9/cffi_1600699180754/work
-cftime @ file:///home/conda/feedstock_root/build_artifacts/cftime_1605566717222/work
-chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1602255309768/work
-click==7.1.2
-cloudpickle @ file:///home/conda/feedstock_root/build_artifacts/cloudpickle_1598400192773/work
-cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1604179075887/work
-cycler==0.10.0
-cytoolz==0.11.0
-dask @ file:///home/conda/feedstock_root/build_artifacts/dask-core_1607657054678/work
-decorator==4.4.2
-defusedxml==0.6.0
-distributed @ file:///home/conda/feedstock_root/build_artifacts/distributed_1607663941138/work
-docopt==0.6.2
--e git+https://github.com/CSC-UW/ecephys.git@14d7750ab3bf34bb1c173d720bf0a0bd3a45ef48#egg=ecephys
--e git+https://github.com/grahamfindlay/ecephys_analyses.git@32b4941e551d992c2c9b04fc454923a777e823e6#egg=ecephys_analyses
-emg-from-lfp @ git+https://github.com/CSC-UW/emg_from_lfp@5ffcad3a93e7a7aabab822139aea75a07882bfe9
-entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1602701733603/work/dist/entrypoints-0.3-py2.py3-none-any.whl
-freetype-py==2.2.0
-fsspec @ file:///home/conda/feedstock_root/build_artifacts/fsspec_1608050797851/work
-future==0.18.2
-h5py==2.10.0
-HeapDict==1.0.1
-hmmlearn==0.2.4
-idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
-importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1602263269022/work
-ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1602682802500/work/dist/ipykernel-5.3.4-py3-none-any.whl
-ipympl @ file:///home/conda/feedstock_root/build_artifacts/ipympl_1599815557260/work
-ipython==5.8.0
-ipython-genutils==0.2.0
-ipywidgets @ file:///home/conda/feedstock_root/build_artifacts/ipywidgets_1599554010055/work
-isort @ file:///tmp/build/80754af9/isort_1602603989581/work
-Jinja2==2.11.2
-joblib==0.17.0
-json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
-jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema_1602551949684/work
-jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1598486169312/work
-jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1602537277085/work
-jupyterlab==2.2.9
-jupyterlab-code-formatter @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_code_formatter_1605655141696/work
-jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
-jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1593951277307/work
-kcsd @ git+https://github.com/Neuroinflab/kCSD-python@4dd0015e9c5598e7eceeeb25668e696e495b2026
-kiwisolver @ file:///home/conda/feedstock_root/build_artifacts/kiwisolver_1604322297326/work
-locket==0.2.0
-MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1602267316845/work
-matplotlib @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-suite_1604870960407/work
-mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1602381812692/work
-mock==4.0.2
-msgpack @ file:///tmp/build/80754af9/msgpack-python_1607965762326/work
-mypy-extensions==0.4.3
-nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1602859080374/work
-nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert_1603792521655/work
-nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1602732862338/work
-nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1604290829246/work
-netCDF4==1.5.3
-neurodsp @ file:///home/conda/feedstock_root/build_artifacts/neurodsp_1595896122104/work
-notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1602720128568/work
-numexpr==2.7.1
-numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1604945996409/work
-olefile @ file:///home/conda/feedstock_root/build_artifacts/olefile_1602866521163/work
-packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1589925210001/work
-pandas @ file:///tmp/build/80754af9/pandas_1602088128026/work
-pandocfilters==1.4.2
-partd==1.1.0
-pathlib==1.0.1
-pathspec==0.8.1
-patsy==0.5.1
-pexpect @ file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
-pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
-Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1604748693076/work
-prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1590412252446/work
-prompt-toolkit==1.0.15
-psutil==5.4.8
-ptyprocess==0.6.0
-pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
-Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1603558917696/work
-PyOpenGL==3.1.5
-pyOpenSSL==19.1.0
-pyparsing==2.4.7
-PyQt5==5.15.2
-PyQt5-sip==12.8.1
-pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1602259985647/work
-PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1602326924965/work
-python-dateutil==2.8.1
-pytz==2020.1
-PyYAML==5.3.1
-pyzmq==19.0.2
-regex==2020.11.13
-requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1592425495151/work
-ripple-detection @ file:///Users/edeno/miniconda3/conda-bld/ripple_detection_1602976310441/work
-rope @ file:///tmp/build/80754af9/rope_1602264064449/work
-scikit-learn==0.23.2
-scipy==1.5.4
-seaborn @ file:///tmp/build/80754af9/seaborn_1600553570093/work
-Send2Trash==1.5.0
-simplegeneric==0.8.1
-six @ file:///home/conda/feedstock_root/build_artifacts/six_1590081179328/work
-sortedcontainers @ file:///home/conda/feedstock_root/build_artifacts/sortedcontainers_1605110889605/work
-spectral-connectivity==0.2.5.dev0
-spindle-detector==0.1.0.dev0
-statsmodels @ file:///home/conda/feedstock_root/build_artifacts/statsmodels_1604226971477/work
-tables==3.6.1
-tblib==1.6.0
-tdt==0.3.9
-terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1602679584439/work
-testpath==0.4.4
-threadpoolctl==2.1.0
-toml==0.10.2
-toolz @ file:///home/conda/feedstock_root/build_artifacts/toolz_1600973991856/work
-tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1604105014127/work
-tqdm==4.54.1
-traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1602771532708/work
-typed-ast==1.4.1
-typing-extensions @ file:///tmp/build/80754af9/typing_extensions_1598376058250/work
-urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1603125704209/work
-visbrain==0.4.5
-vispy==0.6.6
-wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
-webencodings==0.5.1
-widgetsnbextension @ file:///home/conda/feedstock_root/build_artifacts/widgetsnbextension_1603129364725/work
-xarray @ file:///home/conda/feedstock_root/build_artifacts/xarray_1606798576866/work
-zict==2.0.0
-zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1603668650351/work
+# Per https://stackoverflow.com/questions/43658870/requirements-txt-vs-setup-py
+
+# If ecephys exists as a sibling folder, and you wish to satisfy
+# the dependency on ecephys using this local, editable copy of the source,
+# you can uncomment the line below.
+# -e ../ecephys
+
+# installs dependencies from ./setup.py, and the package itself,
+# in editable mode
+-e .
+
+# (the -e above is optional). you could also just install the package
+# normally with just the line below (after uncommenting)
+# .
