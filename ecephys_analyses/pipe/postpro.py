@@ -3,7 +3,6 @@ from datetime import datetime
 import subprocess
 
 from ecephys_spike_sorting.scripts.create_input_json import createInputJson
-from ecephys_analyses.data import channel_groups, paths, parameters
 
 
 def run_postprocessing(

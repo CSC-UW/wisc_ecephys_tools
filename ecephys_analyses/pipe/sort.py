@@ -4,7 +4,6 @@ from pathlib import Path
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 from ecephys import sglx
-from ecephys_analyses.data import parameters, paths
 
 
 def run_sorting(subject, condition, sorting_condition,
