@@ -78,7 +78,8 @@ def get_alias_file(fname, experiment, alias, subject=None):
 
 def _get_analysis_counterpart(path, extension, analysis_subject_dir):
     (
-        subject_dir,
+        root_dir,
+        subject_dirname,
         session_dirname,
         session_sglx_dirname,
         gate_dirname,
