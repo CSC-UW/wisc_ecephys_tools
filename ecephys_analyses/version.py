@@ -48,5 +48,13 @@ MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
 PACKAGE_DATA = {"ecephys_analyses": [pjoin("static", "*")]}
-REQUIRES = []
+REQUIRES = [
+    "ecephys",
+    "jupyter",
+    "numpy",
+    "pyyaml",
+    "pandas",
+    "xarray",
+    "hypnogram @ git+https://github.com/CSC-UW/hypnogram.git@master#egg=hypnogram",
+]
 PYTHON_REQUIRES = ">= 3.7"

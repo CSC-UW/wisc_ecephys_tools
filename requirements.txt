@@ -3,7 +3,7 @@
 # If ecephys exists as a sibling folder, and you wish to satisfy
 # the dependency on ecephys using this local, editable copy of the source,
 # you can uncomment the line below.
-# -e ../ecephys
+-e ../ecephys
 
 # installs dependencies from ./setup.py, and the package itself,
 # in editable mode
