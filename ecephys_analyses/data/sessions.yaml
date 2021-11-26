@@ -1,14 +1,15 @@
 ---
 subject: Adrian
-raw_data_directory: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/
 recording_sessions:
-  - 8-27-2021
-  - 8-28-2021
-  - 8-30-2021
-  - 8-31-2021
+  - id: 8-27-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/
+  - id: 8-28-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/
 experiments:
   example_experiment:
-    recording_sessions:
+    recording_sessions_ids:
       - 8-27-2021
       - 8-28-2021
     aliases:
@@ -16,4 +17,3 @@ experiments:
         start_file: 8-27-2021_g2_t0
         end_file: 8-27-2021_g2_t1
 ...
-
