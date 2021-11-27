@@ -19,7 +19,7 @@ def _load_yaml_stream(yaml_path):
 
 ##### RAW DATA PATH FUNCTIONS #####
 def get_sglx_files(subject, experiment, alias=None, **kwargs):
-    sessions_stream = _load_yaml_stream(package_datapath("recording_sessions.yaml"))
+    sessions_stream = _load_yaml_stream(package_datapath("sglx_sessions.yaml"))
     experiments_stream = _load_yaml_stream(package_datapath("experiments_and_aliases.yaml"))
     return get_files(sessions_stream, experiments_stream, subject, experiment, alias, **kwargs)
 
