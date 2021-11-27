@@ -1,6 +1,6 @@
 import os
 import yaml
-from ecephys.sglx.session_org_utils import get_files, _get_session_style_path_parts
+from ecephys.sglx.session_org_utils import get_files, get_subject_document, _get_session_style_path_parts
 from ecephys.sglx.file_mgmt import parse_sglx_fname
 from pathlib import Path
 
@@ -11,18 +11,21 @@ PACKAGE_DATA_DIRECTORY = os.path.join(PACKAGE_DIRECTORY, "data")
 def package_datapath(filename):
     return os.path.join(PACKAGE_DATA_DIRECTORY, filename)
 
-
-##### RAW DATA PATH FUNCTIONS #####
-def get_raw_files(subject, experiment, alias=None, **kwargs):
-    yaml_path = package_datapath("sessions.yaml")
+def _load_yaml_stream(yaml_path):
     with open(yaml_path) as fp:
         yaml_stream = list(yaml.safe_load_all(fp))
-    return get_files(yaml_stream, subject, experiment, alias, **kwargs)
+    return yaml_stream
+
+##### RAW DATA PATH FUNCTIONS #####
+def get_sglx_files(subject, experiment, alias=None, **kwargs):
+    sessions_stream = _load_yaml_stream(package_datapath("recording_sessions.yaml"))
+    experiments_stream = _load_yaml_stream(package_datapath("experiments_and_aliases.yaml"))
+    return get_files(sessions_stream, experiments_stream, subject, experiment, alias, **kwargs)
 
 
 def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
     return (
-        get_raw_files(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
+        get_sglx_files(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
         .sort_values("fileCreateTime", ascending=True)
         .path.values
     )
