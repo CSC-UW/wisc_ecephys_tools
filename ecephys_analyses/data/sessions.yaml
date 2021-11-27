@@ -19,7 +19,7 @@ experiments:
         start_file:
         end_file:
       light_period:
-      all:
+      full_48h:
 ...
 ---
 subject: Segundo
@@ -47,7 +47,7 @@ experiments:
       light_period:
         start_file: 1-21-2020_g0_t20
         end_file: 1-21-2020_g0_t25
-      all:
+      full_48h:
         start_file: 1-21-2020_g0_t8
         end_file: 1-21-2020_g0_t31
 ...
@@ -78,7 +78,7 @@ experiments:
       light_period:
         start_file: 2-20-2020_g0_t0
         end_file: 2-20-2020_g0_t5
-      all:
+      full_48h:
         start_file: 2-19-2020_g1_t0
         end_file: 2-20-2020_g0_t11
 ...
@@ -109,7 +109,7 @@ experiments:
       light_period:
         start_file: 3-18-2020_g0_t0
         end_file: 3-18-2020_g0_t5
-      all:
+      full_48h:
         start_file: 3-17-2020_g0_t0
         end_file: 3-18-2020_g0_t9
 ...
@@ -140,7 +140,7 @@ experiments:
       light_period:
         start_file: 8-25-2020_SD_g0_t0
         end_file: 8-25-2020_g0_t7
-      all:
+      full_48h:
         start_file: 8-24-2020_g0_t0
         end_file: 8-25-2020_g0_t12
 ...
@@ -167,7 +167,7 @@ experiments:
       light_period:
         start_file: 9.24.2020_SD_24hs_g0_t0
         end_file: 9.24.2020_SR_24hs1_g0_t0
-      all:
+      full_48h:
         start_file: 9.24.2020_BL_24hs_g0_t0
         end_file: 9.24.2020_SR_24hs5_g0_t2
 ...
@@ -198,7 +198,7 @@ experiments:
       light-period:
         start_file: 12.12.2020 SD 6hs_g0_t0
         end_file: 12-13-2020_SR_18hs_g0_t5
-      all:
+      full_48h:
         start_file: 12-12-2020_BL_24hs_g0_t0
         end_file: 12-13-2020_SR_18hs_g0_t6
 ...
@@ -225,7 +225,7 @@ experiments:
       light_period:
         start_file: 3-2-2021_A_g0_t0
         end_file: 3-2-2021_G_g0_t0
-      all:
+      full_48h:
         start_file: 3-1-2021_g0_t0
         end_file: 3-2-2021_O_g0_t0
 ...
@@ -256,7 +256,7 @@ experiments:
       light_period:
         start_file: 6-21-2021_g0_t0
         end_file: 6-21-2021_g1_t2
-      all:
+      full_48h:
         start_file: 6-20-2021_g0_t0
         end_file: 6-21-2021_g1_t8
 ...
@@ -287,7 +287,7 @@ experiments:
       light-period:
         start_file: 7-11-2021_g0_t0
         end_file: 7-11-2021_g1_t2
-      all:
+      full_48h:
         start_file: 7-10-2021_g0_t0
         end_file: 7-11-2021_g1_t8
 ...
@@ -324,7 +324,7 @@ experiments:
       light_period:
         start_file: 8-28-2021_g0_t0
         end_file: 8-28-2021_g0_t5
-      all:
+      full_48h:
         start_file: 8-27-2021_g2_t0
         end_file: 8-28-2021_g0_t11
   novel_objects_deprivation:
@@ -344,7 +344,7 @@ experiments:
       light_period:
         start_file: 8-31-2021_g0_t0
         end_file: 8-31-2021_g0_t5
-      all:
+      full_48h:
         start_file: 8-30-2021_g0_t0
         end_file: 8-31-2021_g1_t0
 ...
@@ -381,7 +381,7 @@ experiments:
       light_period:
         start_file: 11-1-2021_g0_t0
         end_file: 11-1-2021_g1_t2
-      all:
+      full_48h:
         start_file: 10-31-2021_g0_t0
         end_file: 11-1-2021_g1_t8
   conveyor_over_water:
@@ -401,7 +401,7 @@ experiments:
       light_period:
         start_file: 11-4-2021_g0_t0
         end_file: 11-4-2021_g0_t5
-      all:
+      full_48h:
         start_file: 11-3-2021_g0_t0
         end_file: 11-4-2021_g0_t11
 ...
