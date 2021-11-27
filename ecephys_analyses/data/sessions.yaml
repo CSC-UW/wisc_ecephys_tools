@@ -1,27 +1,4 @@
 ---
-subject:
-recording_sessions:
-  - id:
-    ap:
-    lf:
-experiments:
-  novel_objects_deprivation:
-    recording_session_ids:
-      -
-    aliases:
-      light_period_circadian_match:
-        start_file:
-        end_file:
-      sleep_deprivation:
-        start_file:
-        end_file:
-      recovery_sleep:
-        start_file:
-        end_file:
-      light_period:
-      full_48h:
-...
----
 subject: Segundo
 recording_sessions:
   - id: 1-21-2020
