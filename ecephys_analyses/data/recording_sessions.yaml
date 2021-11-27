@@ -13,13 +13,4 @@ recording_sessions:
   - id: 8-31-2021
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-31-2021/SpikeGLX/
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-31-2021/SpikeGLX/
-experiments:
-  example_experiment:
-    recording_sessions_ids:
-      - 8-27-2021
-      - 8-28-2021
-    aliases:
-      example_alias:
-        start_file: 8-27-2021_g2_t0
-        end_file: 8-27-2021_g2_t1
 ...

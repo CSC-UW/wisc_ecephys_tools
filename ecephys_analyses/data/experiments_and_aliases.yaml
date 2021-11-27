@@ -1,0 +1,12 @@
+---
+subject: Adrian
+experiments:
+  example_experiment:
+    recording_sessions_ids:
+      - 8-27-2021
+      - 8-28-2021
+    aliases:
+      example_alias:
+        start_file: 8-27-2021_g2_t0
+        end_file: 8-27-2021_g2_t1
+...
