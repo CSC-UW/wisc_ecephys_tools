@@ -1,4 +1,297 @@
 ---
+subject:
+recording_sessions:
+  - id:
+    ap:
+    lf:
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      -
+    aliases:
+      light_period_circadian_match:
+        start_file:
+        end_file:
+      sleep_deprivation:
+        start_file:
+        end_file:
+      recovery_sleep:
+        start_file:
+        end_file:
+      light_period:
+      all:
+...
+---
+subject: Segundo
+recording_sessions:
+  - id: 1-21-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-21-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-21-2020/SpikeGLX/
+  - id: 1-24-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-24-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-24-2020/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 1-21-2020
+    aliases:
+      light_period_circadian_match:
+        start_file: 1-21-2020_g0_t8
+        end_file: 1-21-2020_g0_t13
+      sleep_deprivation:
+        start_file: 1-21-2020_g0_t20
+        end_file: 1-21-2020_g0_t22
+      recovery_sleep:
+        start_file: 1-21-2020_g0_t23
+        end_file: 1-21-2020_g0_t25
+      light_period:
+        start_file: 1-21-2020_g0_t20
+        end_file: 1-21-2020_g0_t25
+      all:
+        start_file: 1-21-2020_g0_t8
+        end_file: 1-21-2020_g0_t31
+...
+---
+subject: Valentino
+recording_sessions:
+  - id: 2-19-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/SpikeGLX/
+  - id: 2-20-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-20-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-20-2020/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 2-19-2020
+      - 2-20-2020
+    aliases:
+      light_period_circadian_match:
+        start_file: 2-19-2020_g1_t0
+        end_file: 2-19-2020_g1_t5
+      sleep_deprivation:
+        start_file: 2-20-2020_g0_t0
+        end_file: 2-20-2020_g0_t2
+      recovery_sleep:
+        start_file: 2-20-2020_g0_t3
+        end_file: 2-20-2020_g0_t5
+      light_period:
+        start_file: 2-20-2020_g0_t0
+        end_file: 2-20-2020_g0_t5
+      all:
+        start_file: 2-19-2020_g1_t0
+        end_file: 2-20-2020_g0_t11
+...
+---
+subject: Doppio
+recording_sessions:
+  - id: 3-17-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/SpikeGLX/
+  - id: 3-18-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-18-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-18-2020/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 3-17-2020
+      - 3-18-2020
+    aliases:
+      light_period_circadian_match:
+        start_file: 3-17-2020_g0_t0
+        end_file: 3-17-2020_g0_t5
+      sleep_deprivation:
+        start_file: 3-18-2020_g0_t0
+        end_file: 3-18-2020_g0_t2
+      recovery_sleep:
+        start_file: 3-18-2020_g0_t3
+        end_file: 3-18-2020_g0_t5
+      light_period:
+        start_file: 3-18-2020_g0_t0
+        end_file: 3-18-2020_g0_t5
+      all:
+        start_file: 3-17-2020_g0_t0
+        end_file: 3-18-2020_g0_t9
+...
+---
+subject: Alessandro
+recording_sessions:
+  - id: 8-24-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/SpikeGLX/
+  - id: 8-25-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-25-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-25-2020/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 8-24-2020
+      - 8-25-2020
+    aliases:
+      light_period_circadian_match:
+        start_file: 8-24-2020_g0_t0
+        end_file: 8-24-2020_g0_t11
+      sleep_deprivation:
+        start_file: 8-25-2020_SD_g0_t0
+        end_file: 8-25-2020_g0_t1
+      recovery_sleep:
+        start_file: 8-25-2020_g0_t2
+        end_file: 8-25-2020_g0_t7
+      light_period:
+        start_file: 8-25-2020_SD_g0_t0
+        end_file: 8-25-2020_g0_t7
+      all:
+        start_file: 8-24-2020_g0_t0
+        end_file: 8-25-2020_g0_t12
+...
+---
+subject: Eugene
+recording_sessions:
+  - id: 9-24-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 9-24-2020
+    aliases:
+      light_period_circadian_match:
+        start_file: 9.24.2020_BL_24hs_g0_t0
+        end_file: 9.24.2020_BL_24hs5_g0_t0
+      sleep_deprivation:
+        start_file: 9.24.2020_SD_24hs_g0_t0
+        end_file: 9.24.2020_SD_24hs8_g0_t1
+      recovery_sleep:
+        start_file: 9.24.2020_SR_24hs_g0_t0
+        end_file: 9.24.2020_SR_24hs1_g0_t0
+      light_period:
+        start_file: 9.24.2020_SD_24hs_g0_t0
+        end_file: 9.24.2020_SR_24hs1_g0_t0
+      all:
+        start_file: 9.24.2020_BL_24hs_g0_t0
+        end_file: 9.24.2020_SR_24hs5_g0_t2
+...
+---
+subject: Giuseppe
+recording_sessions:
+  - id: 12-12-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-12-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-12-2020/SpikeGLX/
+  - id: 12-13-2020
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-13-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-13-2020/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 12-12-2020
+      - 12-13-2020
+    aliases:
+      light_period_circadian_match:
+        start_file: 12-12-2020_BL_24hs_g0_t0
+        end_file: 12-12-2020_BL_24hs_g0_t10
+      sleep_deprivation:
+        start_file: 12.12.2020 SD 6hs_g0_t0
+        end_file: 12.13.2020 SD 6hs (restart_2)_g2_t2
+      recovery_sleep:
+        start_file: 12-13-2020_SR_18hs_g0_t0
+        end_file: 12-13-2020_SR_18hs_g0_t5
+      light-period:
+        start_file: 12.12.2020 SD 6hs_g0_t0
+        end_file: 12-13-2020_SR_18hs_g0_t5
+      all:
+        start_file: 12-12-2020_BL_24hs_g0_t0
+        end_file: 12-13-2020_SR_18hs_g0_t6
+...
+---
+subject: Allan
+recording_sessions:
+  - id: 3-1-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 3-1-2021
+    aliases:
+      light_period_circadian_match:
+        start_file: 3-1-2021_g0_t0
+        end_file: 3-1-2021_C_g0_t8
+      sleep_deprivation:
+        start_file: 3-2-2021_A_g0_t0
+        end_file: 3-2-2021_E_g0_t0
+      recovery_sleep:
+        start_file: 3-2-2021_F_g0_t0
+        end_file: 3-2-2021_G_g0_t0
+      light_period:
+        start_file: 3-2-2021_A_g0_t0
+        end_file: 3-2-2021_G_g0_t0
+      all:
+        start_file: 3-1-2021_g0_t0
+        end_file: 3-2-2021_O_g0_t0
+...
+---
+subject: Luigi
+recording_sessions:
+  - id: 6-20-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-20-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-20-2021/SpikeGLX/
+  - id: 6-21-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-21-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-21-2021/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 6-20-2021
+      - 6-21-2021
+    aliases:
+      light_period_circadian_match:
+        start_file: 6-20-2021_g0_t0
+        end_file: 6-20-2021_g0_t5
+      sleep_deprivation:
+        start_file: 6-21-2021_g0_t0
+        end_file: 6-21-2021_g0_t2
+      recovery_sleep:
+        start_file: 6-21-2021_g1_t0
+        end_file: 6-21-2021_g1_t2
+      light_period:
+        start_file: 6-21-2021_g0_t0
+        end_file: 6-21-2021_g1_t2
+      all:
+        start_file: 6-20-2021_g0_t0
+        end_file: 6-21-2021_g1_t8
+...
+---
+subject: Charles
+recording_sessions:
+  - id: 7-10-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/SpikeGLX/
+  - id: 7-11-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-11-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-11-2021/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 7-10-2021
+      - 7-11-2021
+    aliases:
+      light_period_circadian_match:
+        start_file: 7-10-2021_g0_t0
+        end_file: 7-10-2021_g0_t5
+      sleep_deprivation:
+        start_file: 7-11-2021_g0_t0
+        end_file: 7-11-2021_g0_t2
+      recovery_sleep:
+        start_file: 7-11-2021_g1_t0
+        end_file: 7-11-2021_g1_t2
+      light-period:
+        start_file: 7-11-2021_g0_t0
+        end_file: 7-11-2021_g1_t2
+      all:
+        start_file: 7-10-2021_g0_t0
+        end_file: 7-11-2021_g1_t8
+...
+---
 subject: Adrian
 recording_sessions:
   - id: 8-27-2021
@@ -31,6 +324,9 @@ experiments:
       light_period:
         start_file: 8-28-2021_g0_t0
         end_file: 8-28-2021_g0_t5
+      all:
+        start_file: 8-27-2021_g2_t0
+        end_file: 8-28-2021_g0_t11
   novel_objects_deprivation:
     recording_session_ids:
       - 8-30-2021
@@ -39,12 +335,6 @@ experiments:
       light_period_circadian_match:
         start_file: 8-30-2021_g0_t0
         end_file: 8-30-2021_g0_t5
-      dark_period_circadian_match:
-        start_file: 8-30-2021_g0_t6
-        end_file: 8-30-2021_g1_t0
-      circadian_match:
-        start_file: 8-30-2021_g0_t0
-        end_file: 8-30-2021_g1_t0
       sleep_deprivation:
         start_file: 8-31-2021_g0_t0
         end_file: 8-31-2021_g0_t2
@@ -54,92 +344,9 @@ experiments:
       light_period:
         start_file: 8-31-2021_g0_t0
         end_file: 8-31-2021_g0_t5
-      dark_period:
-        start_file: 8-31-2021_g0_t6
-        end_file: 8-31-2021_g1_t0
-      full_experimental_day:
-        start_file: 8-31-2021_g0_t0
-        end_file: 8-31-2021_g1_t0
       all:
         start_file: 8-30-2021_g0_t0
         end_file: 8-31-2021_g1_t0
-...
----
-subject: Charles
-recording_sessions:
-  - id: 7-10-2021
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/SpikeGLX/
-  - id: 7-11-2021
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-11-2021/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-11-2021/SpikeGLX/
-experiments:
-  novel_objects_deprivation:
-    recording_session_ids:
-      - 7-10-2021
-      - 7-11-2021
-    aliases:
-      light_period_circadian_match:
-        start_file: 7-10-2021_g0_t0
-        end_file: 7-10-2021_g0_t5
-      dark-period-circadian-match:
-        start_file: 7-10-2021_g0_t6
-        end_file: 7-10-2021_g0_t11
-      circadian_match:
-        start_file: 7-10-2021_g0_t0
-        end_file: 7-10-2021_g0_t11
-      sleep_deprivation:
-        start_file: 7-11-2021_g0_t0
-        end_file: 7-11-2021_g0_t2
-      recovery_sleep:
-        start_file: 7-11-2021_g1_t0
-        end_file: 7-11-2021_g1_t2
-      light-period:
-        start_file: 7-11-2021_g0_t0
-        end_file: 7-11-2021_g1_t2
-      dark-period:
-        start_file: 7-11-2021_g1_t3
-        end_file: 7-11-2021_g1_t8
-...
----
-subject: Giuseppe
-recording_sessions:
-  - id: 12-12-2020
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-12-2020/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-12-2020/SpikeGLX/
-  - id: 12-13-2020
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-13-2020/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-13-2020/SpikeGLX/
-experiments:
-  novel_objects_deprivation:
-    recording_session_ids:
-      - 12-12-2020
-      - 12-13-2020
-    aliases:
-      light_period_circadian_match:
-        start_file: 12-12-2020_BL_24hs_g0_t0
-        end_file: 12-12-2020_BL_24hs_g0_t10
-      dark-period-circadian-match:
-        start_file: 12-12-2020_BL_24hs b_g0_t0
-        end_file: 12-12-2020_BL_24hs b_g0_t1
-      circadian_match:
-        start_file: 12-12-2020_BL_24hs_g0_t0
-        end_file: 12-12-2020_BL_24hs b_g0_t1
-      sleep_deprivation:
-        start_file: 12.12.2020 SD 6hs_g0_t0
-        end_file: 12.13.2020 SD 6hs (restart_2)_g2_t2
-      recovery_sleep:
-        start_file: 12-13-2020_SR_18hs_g0_t0
-        end_file: 12-13-2020_SR_18hs_g0_t5
-      light-period:
-        start_file: 12.12.2020 SD 6hs_g0_t0
-        end_file: 12-13-2020_SR_18hs_g0_t5
-      dark-period:
-        start_file: 12-13-2020_SR_18hs_g0_t6
-        end_file: 12-13-2020_SR_18hs_g0_t6
-      all:
-        start_file: 12-12-2020_BL_24hs_g0_t0
-        end_file: 12-13-2020_SR_18hs_g0_t6
 ...
 ---
 subject: Santiago
@@ -165,12 +372,6 @@ experiments:
       light_period_circadian_match:
         start_file: 10-31-2021_g0_t0
         end_file: 10-31-2021_g0_t5
-      dark_period_circadian-match:
-        start_file: 10-31-2021_g0_t6
-        end_file: 10-31-2021_g0_t11
-      circadian_match:
-        start_file: 10-31-2021_g0_t0
-        end_file: 10-31-2021_g0_t11
       sleep_deprivation:
         start_file: 11-1-2021_g0_t0
         end_file: 11-1-2021_g0_t2
@@ -180,9 +381,6 @@ experiments:
       light_period:
         start_file: 11-1-2021_g0_t0
         end_file: 11-1-2021_g1_t2
-      dark_period:
-        start_file: 11-1-2021_g1_t4
-        end_file: 11-1-2021_g1_t8
       all:
         start_file: 10-31-2021_g0_t0
         end_file: 11-1-2021_g1_t8
@@ -194,12 +392,6 @@ experiments:
       light_period_circadian_match:
         start_file: 11-3-2021_g0_t0
         end_file: 11-3-2021_g0_t5
-      dark_period_circadian-match:
-        start_file: 11-3-2021_g0_t6
-        end_file: 11-3-2021_g0_t11
-      circadian_match:
-        start_file: 11-3-2021_g0_t0
-        end_file: 11-3-2021_g0_t11
       sleep_deprivation:
         start_file: 11-4-2021_g0_t0
         end_file: 11-4-2021_g0_t2
@@ -209,9 +401,6 @@ experiments:
       light_period:
         start_file: 11-4-2021_g0_t0
         end_file: 11-4-2021_g0_t5
-      dark_period:
-        start_file: 11-4-2021_g0_t6
-        end_file: 11-4-2021_g0_t11
       all:
         start_file: 11-3-2021_g0_t0
         end_file: 11-4-2021_g0_t11
