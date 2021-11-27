@@ -1,6 +1,6 @@
 import os
 import yaml
-from ecephys.sglx.session_org_utils import get_files, get_subject_document, _get_session_style_path_parts
+from ecephys.sglx.session_org_utils import get_files, _get_session_style_path_parts
 from ecephys.sglx.file_mgmt import parse_sglx_fname
 from pathlib import Path
 
