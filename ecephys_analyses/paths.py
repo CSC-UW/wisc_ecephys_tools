@@ -1,8 +1,9 @@
 import os
 import yaml
-from ecephys.sglx.session_org_utils import get_files, _get_session_style_path_parts
-from ecephys.sglx.file_mgmt import parse_sglx_fname
 from pathlib import Path
+from ecephys.sglx.file_mgmt import parse_sglx_fname
+
+from .session_org_utils import get_files, _get_session_style_path_parts
 
 PACKAGE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 PACKAGE_DATA_DIRECTORY = os.path.join(PACKAGE_DIRECTORY, "data")
