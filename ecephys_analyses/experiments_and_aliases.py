@@ -68,7 +68,7 @@ def get_experiment_sessions(sessions, experiment):
     ]
 
 
-def _get_experiment_files(sessions, experiment):
+def get_experiment_files(sessions, experiment):
     """Get all SpikeGLX files belonging to a single experiment.
 
     Parameters:
@@ -82,16 +82,13 @@ def _get_experiment_files(sessions, experiment):
     --------
     list of pathlib.Path
     """
-    return list(
+    files = list(
         chain.from_iterable(
             get_session_files_from_multiple_locations(session)
             for session in get_experiment_sessions(sessions, experiment)
         )
     )
-
-
-def get_experiment_files(sessions, experiment):
-    return filelist_to_frame(_get_experiment_files(sessions, experiment))
+    return filelist_to_frame(files)
 
 
 def get_alias_files(sessions, experiment, alias):
@@ -121,7 +118,13 @@ def get_alias_files(sessions, experiment, alias):
 
 
 def get_subject_document(yaml_stream, subject_name):
-    """Get a subject's YAML document from a YAML stream."""
+    """Get a subject's YAML document from a YAML stream.
+
+    YAML documents must contain a 'subject' field:
+    ---
+    subject: subject_name
+    ...
+    """
     matches = [doc for doc in yaml_stream if doc["subject"] == subject_name]
     assert len(matches) == 1, f"Exactly 1 YAML document should match {subject_name}"
     return matches[0]
@@ -135,7 +138,23 @@ def get_files(
     alias_name=None,
     **kwargs,
 ):
-    """Get all SpikeGLX files matching selection criteria."""
+    """Get all SpikeGLX files matching selection criteria.
+
+    Parameters:
+    -----------
+    sessions_stream: list of dict
+        The YAML specification of sessions for each subject.
+    experiments_stream: list of dict
+        The YAML specification of experiments and aliases for each subject.
+    subject_name: string
+    experiment_name: string
+    alias_name: string (default: None)
+
+    Returns:
+    --------
+    pd.DataFrame:
+        All requested files in sorted order.
+    """
     sessions_doc = get_subject_document(sessions_stream, subject_name)
     experiments_doc = get_subject_document(experiments_stream, subject_name)
 
