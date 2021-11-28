@@ -1,3 +1,13 @@
+"""
+These functions resolve paths to SpikeGLX data, assuming that the data
+are described according to the experiments_and_aliases.yaml format.
+The data must also be organized and described 'session-style' -- for
+more information, see sglx_sessions.py.
+
+The experiments_and_aliases.yaml format allows you to define experiments
+in terms of SpikeGLX recording sessions, and to refer to subsets of this
+data using 'aliases'.
+"""
 import re
 from itertools import chain
 
