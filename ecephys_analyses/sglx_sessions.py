@@ -32,6 +32,10 @@ Note that the AP and LFP data, as well as data from different sessions, can be d
 across different locations (e.g. different NAS devices). This is because the the sheer volume
 of AP data often requires specialized storage.
 """
+# TODO: It would probably be better to define a location priority list, rather than to
+#       explicitly define AP and LF data locations as we do currently. This could be less
+#       verbose and also allow splitting of data across locations based on factors other
+#       than stream type.
 import re
 from itertools import chain
 from pathlib import Path
