@@ -33,7 +33,7 @@ Template:
       scoring: []
       hippocampus: [] # X mm to Y mm from probe tip.
       drift_tracking: [] # Hippocampus +/- 100um
-Adrian:
+CNPIX11-Adrian:
   example_experiment:
     imec1:
       all: *LongColumn
