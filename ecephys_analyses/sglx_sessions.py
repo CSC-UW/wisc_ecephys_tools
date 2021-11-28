@@ -9,6 +9,7 @@ Session style organization looks like this:
             - gate_dir/ (example: 8-27-2021_g0/)
             ...
             - gate_dir/ (example: 8-27-2021_Z_g0)
+              - Folder-per-probe organization (see SpikeGLX docs)
 
 * A subject directory is not strictly necessary, but is typical.
 
@@ -47,21 +48,6 @@ from ecephys.sglx.file_mgmt import (
     get_gate_files,
     filelist_to_frame,
 )
-
-
-def get_session_style_path_parts(path):
-    gate_dir, probe_dirname, fname = validate_sglx_path(path)
-    session_sglx_dir = gate_dir.parent
-    session_dir = session_sglx_dir.parent
-    subject_dir = session_dir.parent
-    return (
-        subject_dir,
-        session_dir.name,
-        session_sglx_dir.name,
-        gate_dir.name,
-        probe_dirname,
-        fname,
-    )
 
 
 def get_gate_directories(session_sglx_dir):
@@ -167,3 +153,27 @@ def get_yamlstream_files_as_frame(stream):
         for doc in stream
     }
     return pd.concat(d.values(), keys=d.keys(), names=["subject"], sort=True)
+
+
+def get_filepath_relative_to_session_directory_parent(path):
+    """Get only the path parts after and including a
+    session directory, discarding path parts that precede
+    the session directory.
+
+    In other words, given a path to a SpikeGLX file under
+    session-style organization, return only the path parts
+    which fall under the purview of that specification.
+
+    Parameters:
+    -----------
+    path: pathlib.Path
+        Must be a file (e.g. run0_g0_t0.lf.bin), not a directory.
+
+    Returns:
+    --------
+    pathlib.Path
+    """
+    gate_dir, probe_dirname, fname = validate_sglx_path(path)
+    session_sglx_dir = gate_dir.parent
+    session_dir = session_sglx_dir.parent
+    return path.relative_to(session_dir.parent)
