@@ -26,14 +26,14 @@ def get_sglx_files(subject, experiment, alias=None, **kwargs):
 
 def get_lfp_bin_files(subject, experiment, alias=None, **kwargs):
     return (
-        get_raw_files(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
+        get_sglx_files(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
         .sort_values("fileCreateTime", ascending=True)
     )
 
 
 def get_ap_bin_files(subject, experiment, alias=None, **kwargs):
     return (
-        get_raw_files(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
+        get_sglx_files(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
         .sort_values("fileCreateTime", ascending=True)
     )
 
@@ -48,7 +48,7 @@ def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
 
 def get_ap_bin_paths(subject, experiment, alias=None, **kwargs):
     return (
-        get_raw_files(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
+        get_sglx_files(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
         .sort_values("fileCreateTime", ascending=True)
         .path.values
     )
