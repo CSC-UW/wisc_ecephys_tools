@@ -6,7 +6,7 @@ from ecephys.sglx.file_mgmt import parse_sglx_fname
 from .sglx_sessions import get_files, get_session_style_path_parts
 
 PACKAGE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-PACKAGE_DATA_DIRECTORY = os.path.join(PACKAGE_DIRECTORY, "data")
+PACKAGE_DATA_DIRECTORY = os.path.join(PACKAGE_DIRECTORY, "package_data")
 
 
 def package_datapath(filename):
