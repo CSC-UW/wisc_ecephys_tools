@@ -9,10 +9,36 @@ from ecephys.sglx.file_mgmt import (
 
 from .sglx_sessions import get_session_files_from_multiple_locations
 
-# This function seems like it belongs in file_mgmt.py, since it does not
-# rely on sessions.yaml or experiments_and_aliases.yaml, but it actually does.
-# The trigger stem really on exists in the context of the e&a file.
+
 def parse_trigger_stem(stem):
+    """Parse recording identifiers from a SpikeGLX style filename stem.
+    Because this stem ends with the trigger identifier, we call it a
+    'trigger stem'.
+
+    Although this function may seem like it belongs in ecephys.sglx.file_mgmt,
+    it really belongs here. This is because the concept of a trigger stem is
+    not really used in SpikeGLX, but is used in experiments_and_aliases.yaml
+    as a convenient way of specifying file ranges.
+
+    Parameters
+    ---------
+    stem: str
+        The filename stem to parse, e.g. "my-run-name_g0_t1"
+
+    Returns
+    -------
+    run: str
+        The run name, e.g. "my-run-name".
+    gate: str
+        The gate identifier, e.g. "g0".
+    trigger: str
+        The trigger identifier, e.g. "t1".
+
+    Examples
+    --------
+    >>> parse_trigger_stem('3-1-2021_A_g1_t0')
+    ('3-1-2021_A', 'g1', 't0')
+    """
     x = re.search(r"_g\d+_t\d+\Z", stem)  # \Z forces match at string end.
     run = stem[: x.span()[0]]  # The run name is everything before the match
     gate = re.search(r"g\d+", x.group()).group()
