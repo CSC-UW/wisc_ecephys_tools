@@ -8,10 +8,8 @@ from hypnogram import load_datetime_hypnogram
 from ecephys.utils import load_df_h5
 from ecephys.xrsig import rebase_time
 
-from .paths import (
-    get_lfp_bin_paths,
-    get_analysis_counterparts,
-)
+from .paths import get_lfp_bin_paths
+from .projects import get_project_counterparts
 
 
 def load_sr_chans(path):
@@ -32,7 +30,7 @@ def _get_abs_sink(spws):
 
 def load_and_concatenate_spws(subject, experiment, alias, probe, abs_sink=False):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    spw_paths = get_analysis_counterparts(bin_paths, "spws.h5", subject)
+    spw_paths = get_project_counterparts("SPWRs", subject, bin_paths, "spws.h5")
     spws = [load_df_h5(path) for path in spw_paths]
 
     for _spws in spws:
@@ -55,7 +53,9 @@ def load_and_concatenate_spws(subject, experiment, alias, probe, abs_sink=False)
 
 def load_and_concatenate_hypnograms(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    hypnogram_paths = get_analysis_counterparts(bin_paths, "hypnogram.tsv", subject)
+    hypnogram_paths = get_project_counterparts(
+        "SPWRs", subject, bin_paths, "hypnogram.tsv"
+    )
     hypnograms = [load_datetime_hypnogram(path) for path in hypnogram_paths]
     return pd.concat(hypnograms).reset_index(drop=True)
 
@@ -73,11 +73,11 @@ def load_and_concatenate_datasets(paths):
 
 def load_and_concatenate_spectrograms(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    dataset_paths = get_analysis_counterparts(bin_paths, "spg.nc", subject)
+    dataset_paths = get_project_counterparts("SPWRs", subject, bin_paths, "spg.nc")
     return load_and_concatenate_datasets(dataset_paths)
 
 
 def load_and_concatenate_bandpowers(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    dataset_paths = get_analysis_counterparts(bin_paths, "bandpower.nc", subject)
+    dataset_paths = get_project_counterparts("SPWRs", subject, bin_paths, "bandpower.nc")
     return load_and_concatenate_datasets(dataset_paths)
