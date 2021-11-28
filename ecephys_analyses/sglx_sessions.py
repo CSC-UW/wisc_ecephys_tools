@@ -1,20 +1,36 @@
 """
-These functions assume session-style experiment specification and organization of SpikeGLX data.
-
-Functions beginning with underscores generally return lists and dictionaries,
-while functions without are generally wrappers that return DataFrames.
+These functions resolve paths to SpikeGLX data, assuming that the data are
+organized 'session-style' and described using the sglx_sessions.yaml format.
 
 Session style organization looks like this:
-- subject_dir/ (e.g. ANPIX11-Adrian/)
+- subject_dir/ (e.g. ANPIX11-Adrian/)*
     - session_dir/ (e.g. 8-27-2021/)
         - SpikeGLX/ (aka "session_sglx_dir")
             - gate_dir/ (example: 8-27-2021_g0/)
             ...
             - gate_dir/ (example: 8-27-2021_Z_g0)
 
+* A subject directory is not strictly necessary, but is typical.
 
-Later, it might make sense to add a layer to this hierarchy, such that it goes
-subject_dir > session_dir > SpikeGLX > run_dir > gate_dir.
+The sglx_sessions.yaml consists of several 'YAML documents' (collectively
+called a 'YAML stream'), each of which describes whee the data for one
+subject can be found. One of these YAML documents might look like this:
+
+---
+subject: Adrian
+recording_sessions:
+  - id: 8-27-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-27-2021/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS2/data1/CNPIX11-Adrian/8-27-2021/SpikeGLX/
+  ...
+  - id: 8-31-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-31-2021/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS1/data/CNPIX11-Adrian/8-31-2021/SpikeGLX/
+...
+
+Note that the AP and LFP data, as well as data from different sessions, can be distributed
+across different locations (e.g. different NAS devices). This is because the the sheer volume
+of AP data often requires specialized storage.
 """
 import re
 from itertools import chain
