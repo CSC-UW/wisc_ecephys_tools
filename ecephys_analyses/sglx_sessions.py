@@ -29,7 +29,7 @@ from ecephys.sglx.file_mgmt import (
 )
 
 
-def _get_session_style_path_parts(path):
+def get_session_style_path_parts(path):
     gate_dir, probe_dirname, fname = validate_sglx_path(path)
     session_sglx_dir = gate_dir.parent
     session_dir = session_sglx_dir.parent
@@ -44,7 +44,7 @@ def _get_session_style_path_parts(path):
     )
 
 
-def _get_gate_directories(session_sglx_dir):
+def get_gate_directories(session_sglx_dir):
     """Get all gate directories belonging to a single session.
 
     Parameters:
@@ -63,7 +63,7 @@ def _get_gate_directories(session_sglx_dir):
     return sorted(matches)
 
 
-def _get_session_files_from_single_location(session_sglx_dir):
+def get_session_files_from_single_location(session_sglx_dir):
     """Get all SpikeGLX files belonging to a single session directory.
 
     Parameters:
@@ -77,16 +77,12 @@ def _get_session_files_from_single_location(session_sglx_dir):
     return list(
         chain.from_iterable(
             get_gate_files(gate_dir)
-            for gate_dir in _get_gate_directories(session_sglx_dir)
+            for gate_dir in get_gate_directories(session_sglx_dir)
         )
     )
 
 
-def get_session_files_from_single_location(session_sglx_dir):
-    return filelist_to_frame(_get_session_files_from_single_location(session_sglx_dir))
-
-
-def _get_session_files_from_multiple_locations(session):
+def get_session_files_from_multiple_locations(session):
     """Get all SpikeGLX files belonging to a single session.
     The AP and LF files may be stored in separate locations.
 
@@ -100,19 +96,15 @@ def _get_session_files_from_multiple_locations(session):
     list of pathlib.Path
     """
     ap_files = filter_files(
-        _get_session_files_from_single_location(Path(session["ap"])), stream="ap"
+        get_session_files_from_single_location(Path(session["ap"])), stream="ap"
     )
     lf_files = filter_files(
-        _get_session_files_from_single_location(Path(session["lf"])), stream="lf"
+        get_session_files_from_single_location(Path(session["lf"])), stream="lf"
     )
     return ap_files + lf_files
 
 
-def get_session_files_from_multiple_locations(session):
-    return filelist_to_frame(_get_session_files_from_multiple_locations(session))
-
-
-def _get_subject_files(sessions):
+def get_subject_files(sessions):
     """Get all SpikeGLX files belonging to a single subject's YAML document.
 
     Parameters:
@@ -126,16 +118,12 @@ def _get_subject_files(sessions):
     """
     return list(
         chain.from_iterable(
-            _get_session_files_from_multiple_locations(session) for session in sessions
+            get_session_files_from_multiple_locations(session) for session in sessions
         )
     )
 
 
-def get_subject_files(sessions):
-    return filelist_to_frame(_get_subject_files(sessions))
-
-
-def _get_sessions_yamlstream_files(stream):
+def get_yamlstream_files(stream):
     """Get SpikeGLX files of belonging to all YAML documents in a YAML stream.
 
     Parameters:
@@ -148,17 +136,14 @@ def _get_sessions_yamlstream_files(stream):
     dict of list of pathlib.Path, keyed by subject.
     """
     return {
-        doc["subject"]: _get_subject_files(doc["recording_sessions"]) for doc in stream
+        doc["subject"]: get_subject_files(doc["recording_sessions"]) for doc in stream
     }
 
 
-def get_yamlstream_files(stream):
-    d = {doc["subject"]: get_subject_files(doc["recording_sessions"]) for doc in stream}
+def get_yamlstream_files_as_frame(stream):
+    """Get SpikeGLX files of belonging to all YAML documents in a YAML stream."""
+    d = {
+        doc["subject"]: filelist_to_frame(get_subject_files(doc["recording_sessions"]))
+        for doc in stream
+    }
     return pd.concat(d.values(), keys=d.keys(), names=["subject"], sort=True)
-
-
-def get_subject_document(yaml_stream, subject_name):
-    """Get a subject's YAML document from a YAML stream."""
-    matches = [doc for doc in yaml_stream if doc["subject"] == subject_name]
-    assert len(matches) == 1, f"Exactly 1 YAML document should match {subject_name}"
-    return matches[0]
