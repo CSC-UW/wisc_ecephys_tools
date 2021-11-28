@@ -1,12 +1,10 @@
-import yaml
 import numpy as np
-from .paths import package_datapath
+
+from .package_data import package_datapath
+from .utils import load_yaml_doc
 
 
 def get_channels(subject, experiment, probe, group, asarray=True):
-    yaml_path = package_datapath("channels.yaml")
-    with open(yaml_path) as fp:
-        yaml_data = yaml.safe_load(fp)
-
-    chans = yaml_data[subject][experiment][probe][group]
+    doc = load_yaml_doc(package_datapath("channels.yaml"))
+    chans = doc[subject][experiment][probe][group]
     return np.asarray(chans) if asarray else chans

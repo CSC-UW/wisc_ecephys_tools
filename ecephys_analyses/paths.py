@@ -1,28 +1,15 @@
-import os
-import yaml
 from pathlib import Path
 from ecephys.sglx.file_mgmt import parse_sglx_fname
 
+from .package_data import package_datapath
+from .utils import load_yaml_stream, load_yaml_doc
 from .sglx_sessions import get_files, get_session_style_path_parts
-
-PACKAGE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-PACKAGE_DATA_DIRECTORY = os.path.join(PACKAGE_DIRECTORY, "package_data")
-
-
-def package_datapath(filename):
-    return os.path.join(PACKAGE_DATA_DIRECTORY, filename)
-
-
-def _load_yaml_stream(yaml_path):
-    with open(yaml_path) as fp:
-        yaml_stream = list(yaml.safe_load_all(fp))
-    return yaml_stream
 
 
 ##### RAW DATA PATH FUNCTIONS #####
 def get_sglx_files(subject, experiment, alias=None, **kwargs):
-    sessions_stream = _load_yaml_stream(package_datapath("sglx_sessions.yaml"))
-    experiments_stream = _load_yaml_stream(
+    sessions_stream = load_yaml_stream(package_datapath("sglx_sessions.yaml"))
+    experiments_stream = load_yaml_stream(
         package_datapath("experiments_and_aliases.yaml")
     )
     return get_files(
@@ -42,20 +29,13 @@ def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
 # These functions all assume the same analysis, i.e. 1 yaml doc
 
 
-def get_analysis_yaml_doc():
-    yaml_path = package_datapath("analysis_paths.yaml")
-    with open(yaml_path) as fp:
-        yaml_doc = yaml.safe_load(fp)
-    return yaml_doc
-
-
 def get_subject_dirname(subject):
-    doc = get_analysis_yaml_doc()
+    doc = load_yaml_doc(package_datapath("analysis_paths.yaml"))
     return doc["subject_directories"][subject]
 
 
 def _get_project_dir():
-    doc = get_analysis_yaml_doc()
+    doc = load_yaml_doc(package_datapath("analysis_paths.yaml"))
     return Path(doc["project_directory"])
 
 
