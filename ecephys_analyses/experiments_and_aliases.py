@@ -7,10 +7,7 @@ from ecephys.sglx.file_mgmt import (
     set_index,
 )
 
-from .sglx_sessions import (
-    get_subject_document,
-    _get_session_files_from_multiple_locations,
-)
+from .sglx_sessions import get_session_files_from_multiple_locations
 
 # This function seems like it belongs in file_mgmt.py, since it does not
 # rely on sessions.yaml or experiments_and_aliases.yaml, but it actually does.
@@ -61,7 +58,7 @@ def _get_experiment_files(sessions, experiment):
     """
     return list(
         chain.from_iterable(
-            _get_session_files_from_multiple_locations(session)
+            get_session_files_from_multiple_locations(session)
             for session in get_experiment_sessions(sessions, experiment)
         )
     )
@@ -97,13 +94,20 @@ def get_alias_files(sessions, experiment, alias):
     ].reset_index()
 
 
+def get_subject_document(yaml_stream, subject_name):
+    """Get a subject's YAML document from a YAML stream."""
+    matches = [doc for doc in yaml_stream if doc["subject"] == subject_name]
+    assert len(matches) == 1, f"Exactly 1 YAML document should match {subject_name}"
+    return matches[0]
+
+
 def get_files(
     sessions_stream,
     experiments_stream,
     subject_name,
     experiment_name,
     alias_name=None,
-    **kwargs
+    **kwargs,
 ):
     """Get all SpikeGLX files matching selection criteria."""
     sessions_doc = get_subject_document(sessions_stream, subject_name)

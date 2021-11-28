@@ -3,7 +3,7 @@ import yaml
 from pathlib import Path
 from ecephys.sglx.file_mgmt import parse_sglx_fname
 
-from .sglx_sessions import get_files, _get_session_style_path_parts
+from .sglx_sessions import get_files, get_session_style_path_parts
 
 PACKAGE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 PACKAGE_DATA_DIRECTORY = os.path.join(PACKAGE_DIRECTORY, "data")
@@ -12,16 +12,22 @@ PACKAGE_DATA_DIRECTORY = os.path.join(PACKAGE_DIRECTORY, "data")
 def package_datapath(filename):
     return os.path.join(PACKAGE_DATA_DIRECTORY, filename)
 
+
 def _load_yaml_stream(yaml_path):
     with open(yaml_path) as fp:
         yaml_stream = list(yaml.safe_load_all(fp))
     return yaml_stream
 
+
 ##### RAW DATA PATH FUNCTIONS #####
 def get_sglx_files(subject, experiment, alias=None, **kwargs):
     sessions_stream = _load_yaml_stream(package_datapath("sglx_sessions.yaml"))
-    experiments_stream = _load_yaml_stream(package_datapath("experiments_and_aliases.yaml"))
-    return get_files(sessions_stream, experiments_stream, subject, experiment, alias, **kwargs)
+    experiments_stream = _load_yaml_stream(
+        package_datapath("experiments_and_aliases.yaml")
+    )
+    return get_files(
+        sessions_stream, experiments_stream, subject, experiment, alias, **kwargs
+    )
 
 
 def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
@@ -88,7 +94,7 @@ def _get_analysis_counterpart(path, extension, analysis_subject_dir):
         gate_dirname,
         probe_dirname,
         fname,
-    ) = _get_session_style_path_parts(path)
+    ) = get_session_style_path_parts(path)
     (run, gate, trigger, probe, stream, ftype) = parse_sglx_fname(fname)
     new_fname = f"{run}_{gate}_{trigger}.{probe}.{extension}"
     return (
