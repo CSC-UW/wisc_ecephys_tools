@@ -1,5 +1,5 @@
 ---
-subject: Segundo
+subject: CNPIX2-Segundo
 recording_sessions:
   - id: 1-21-2020
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-21-2020/SpikeGLX/
@@ -9,7 +9,7 @@ recording_sessions:
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX2-Segundo/1-24-2020/SpikeGLX/
 ...
 ---
-subject: Valentino
+subject: CNPIX3-Valentino
 recording_sessions:
   - id: 2-19-2020
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-19-2020/SpikeGLX/
@@ -19,7 +19,7 @@ recording_sessions:
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX3-Valentino/2-20-2020/SpikeGLX/
 ...
 ---
-subject: Doppio
+subject: CNPIX4-Doppio
 recording_sessions:
   - id: 3-17-2020
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/SpikeGLX/
@@ -29,7 +29,7 @@ recording_sessions:
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-18-2020/SpikeGLX/
 ...
 ---
-subject: Alessandro
+subject: CNPIX5-Alessandro
 recording_sessions:
   - id: 8-24-2020
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-24-2020/SpikeGLX/
@@ -39,14 +39,14 @@ recording_sessions:
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX5-Alessandro/8-25-2020/SpikeGLX/
 ...
 ---
-subject: Eugene
+subject: CNPIX6-Eugene
 recording_sessions:
   - id: 9-24-2020
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/SpikeGLX/
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/SpikeGLX/
 ...
 ---
-subject: Giuseppe
+subject: CNPIX7-Giuseppe
 recording_sessions:
   - id: 12-12-2020
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-12-2020/SpikeGLX/
@@ -56,14 +56,14 @@ recording_sessions:
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX7-Giuseppe/12-13-2020/SpikeGLX/
 ...
 ---
-subject: Allan
+subject: CNPIX8-Allan
 recording_sessions:
   - id: 3-1-2021
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/SpikeGLX/
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/SpikeGLX/
 ...
 ---
-subject: Luigi
+subject: CNPIX9-Luigi
 recording_sessions:
   - id: 6-20-2021
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-20-2021/SpikeGLX/
@@ -73,7 +73,7 @@ recording_sessions:
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-21-2021/SpikeGLX/
 ...
 ---
-subject: Charles
+subject: CNPIX10-Charles
 recording_sessions:
   - id: 7-10-2021
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/SpikeGLX/
@@ -83,7 +83,7 @@ recording_sessions:
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-11-2021/SpikeGLX/
 ...
 ---
-subject: Adrian
+subject: CNPIX11-Adrian
 recording_sessions:
   - id: 8-27-2021
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-27-2021/SpikeGLX/
@@ -99,7 +99,7 @@ recording_sessions:
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-31-2021/SpikeGLX/
 ...
 ---
-subject: Santiago
+subject: CNPIX12-Santiago
 recording_sessions:
   - id: 10-31-2021
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/10-31-2021/SpikeGLX/

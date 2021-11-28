@@ -1,5 +1,5 @@
 ---
-subject: Segundo
+subject: CNPIX2-Segundo
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -22,7 +22,7 @@ experiments:
         end_file: 1-21-2020_g0_t31
 ...
 ---
-subject: Valentino
+subject: CNPIX3-Valentino
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -46,7 +46,7 @@ experiments:
         end_file: 2-20-2020_g0_t11
 ...
 ---
-subject: Doppio
+subject: CNPIX4-Doppio
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -70,7 +70,7 @@ experiments:
         end_file: 3-18-2020_g0_t9
 ...
 ---
-subject: Alessandro
+subject: CNPIX5-Alessandro
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -94,7 +94,7 @@ experiments:
         end_file: 8-25-2020_g0_t12
 ...
 ---
-subject: Eugene
+subject: CNPIX6-Eugene
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -117,7 +117,7 @@ experiments:
         end_file: 9.24.2020_SR_24hs5_g0_t2
 ...
 ---
-subject: Giuseppe
+subject: CNPIX7-Giuseppe
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -141,7 +141,7 @@ experiments:
         end_file: 12-13-2020_SR_18hs_g0_t6
 ...
 ---
-subject: Allan
+subject: CNPIX8-Allan
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -164,7 +164,7 @@ experiments:
         end_file: 3-2-2021_O_g0_t0
 ...
 ---
-subject: Luigi
+subject: CNPIX9-Luigi
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -188,7 +188,7 @@ experiments:
         end_file: 6-21-2021_g1_t8
 ...
 ---
-subject: Charles
+subject: CNPIX10-Charles
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -212,7 +212,7 @@ experiments:
         end_file: 7-11-2021_g1_t8
 ...
 ---
-subject: Adrian
+subject: CNPIX11-Adrian
 experiments:
   conveyor_over_water:
     recording_session_ids:
@@ -256,7 +256,7 @@ experiments:
         end_file: 8-31-2021_g1_t0
 ...
 ---
-subject: Santiago
+subject: CNPIX12-Santiago
 experiments:
   novel_objects_deprivation:
     recording_session_ids:

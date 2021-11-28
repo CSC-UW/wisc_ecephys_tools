@@ -33,7 +33,7 @@ Template:
       scoring: []
       hippocampus: [] # X mm to Y mm from probe tip.
       drift_tracking: [] # Hippocampus +/- 100um
-Segundo:
+CNPIX2-Segundo:
   novel_objects_deprivation:
     imec0:
       all: &LongColumn [
@@ -101,7 +101,7 @@ Segundo:
       white_matter: [213] # 380um from pyrmidal inversion
       hippocampus: *Seg-HC
       drift_tracking: *Seg-DT
-Valentino:
+CNPIX3-Valentino:
   novel_objects_deprivation:
     imec0:
       all: &Checkerboard [
@@ -248,7 +248,7 @@ Valentino:
       white_matter: [229] # 400um from pyramidal inversion
       hippocampus: *Val-Sleep-Hippocampus
       drift_tracking: *Val-Sleep-DriftTracking
-Doppio:
+CNPIX4-Doppio:
   novel_objects_deprivation: &Doppio-Sleep
     imec0:
       all: *Checkerboard
@@ -339,7 +339,7 @@ Doppio:
           102, 105, 106, 109, 110, 113, 114, 117, 118, 121, 122
         ]
         drift_tracking: *Doppio-Ket120-HC
-Alessandro:
+CNPIX5-Alessandro:
   novel_objects_deprivation:
     imec0:
       all: *LongColumn
@@ -399,7 +399,7 @@ Alessandro:
         189, 191, 193, 195, 197, 199, 201, 203, 205, 207, 209, 211, 213,
         215, 217, 219, 221, 223, 225, 227, 229, 231
       ] # Hippocampus +/- 100um
-Eugene:
+CNPIX6-Eugene:
   novel_objects_deprivation:
     imec0:
       all: *LongColumn
@@ -423,7 +423,7 @@ Eugene:
         207, 209, 211, 213, 215, 217, 219, 221, 223, 225, 227, 229, 231,
         233, 235, 237, 239, 241, 243, 245, 247, 249, 251, 253, 255
       ]
-Giuseppe:
+CNPIX7-Giuseppe:
   novel_objects_deprivation:
     imec0: # Probably the frontal probe
       all: *LongColumn
@@ -435,7 +435,7 @@ Giuseppe:
       internal_reference: [191]
       emg_from_lfp: [0, 382, 301]
       scoring: [159, 263, 309]
-Allan:
+CNPIX8-Allan:
   novel_objects_deprivation:
     imec1:
       all: &Allan-LongColumn [
@@ -563,7 +563,7 @@ Allan:
         227, 229, 231, 233, 235, 237, 239
       ] # 3.2mm to 5.4mm from probe tip.
   ketamine: *Allan-Atropine
-Luigi:
+CNPIX9-Luigi:
   novel_objects_deprivation:
     imec0:
       all: *LongColumn
@@ -624,7 +624,7 @@ Luigi:
         119, 121, 123, 125, 127, 129, 131, 133, 135, 137, 139, 141, 143,
         145, 147, 149, 151
       ] # HPC +/- 100um
-Charles:
+CNPIX10-Charles:
   novel_objects_deprivation:
     imec1:
       all: *LongColumn
@@ -686,7 +686,7 @@ Charles:
         159, 161, 163, 165, 167, 169, 171, 173, 175, 177, 179, 181, 183,
         185
       ] # HPC +/- 100um
-Adrian:
+CNPIX11-Adrian:
   conveyor_over_water:
     imec1:
       all: *LongColumn
@@ -749,7 +749,7 @@ Adrian:
         211, 213, 215, 217, 219, 221, 223, 225, 227, 229, 231, 233, 235,
         237, 239, 241, 243, 245, 247, 249, 251
       ] # HPC +/- 100um
-Santiago:
+CNPIX12-Santiago:
   novel_objects_deprivation:
     imec1:
       all: *LongColumn
