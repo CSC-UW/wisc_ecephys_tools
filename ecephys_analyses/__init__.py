@@ -1,4 +1,9 @@
 from .channels import *
+from .experiments_and_aliases import *
 from .paths import *
 from .sglx_sessions import *
-from . import load, load_shy
+from .projects import *
+from .load import *
+from .package_data import *
+from .utils import *
+from . import load_shy
