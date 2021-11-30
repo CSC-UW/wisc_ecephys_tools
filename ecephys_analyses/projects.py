@@ -115,17 +115,31 @@ def mirror_raw_data_paths(mirror_parent, paths):
     return [mirror_raw_data_path(mirror_parent, p) for p in paths]
 
 
-def mirror_raw_data_paths_at_subject_directory(project_name, subject_name, paths):
-    mirror_parent = get_subject_directory(project_name, subject_name)
-    return mirror_raw_data_paths(mirror_parent, paths)
-
-
 ##### Functions for getting project counterparts
 
 
-def get_project_counterparts(project_name, subject_name, paths, extension):
-    mirrors = mirror_raw_data_paths_at_subject_directory(
-        project_name, subject_name, paths
-    )
-    counterparts = [p.with_suffix(extension) for p in mirrors]
+def replace_ftype(path, extension, remove_probe=False, remove_stream=False):
+    run, gate, trigger, probe, stream, ftype = parse_sglx_fname(path.name)
+
+    name = path.with_suffix(extension).name
+    name = name.replace(f".{probe}", "") if remove_probe else name
+    name = name.replace(f".{stream}", "") if remove_stream else name
+
+    return path.with_name(name)
+
+
+def get_project_counterparts(
+    project_name,
+    subject_name,
+    paths,
+    extension,
+    remove_probe=False,
+    remove_stream=False,
+):
+    counterparts = mirror_raw_data_paths(
+        get_subject_directory(project_name, subject_name), paths
+    )  # Mirror paths at the project's subject directory
+    counterparts = [
+        replace_ftype(p, extension, remove_probe, remove_stream) for p in counterparts
+    ]
     return remove_duplicates(counterparts)
