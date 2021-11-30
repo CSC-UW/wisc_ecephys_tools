@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-from .paths import package_datapath
+from .package_data import package_datapath
 
 YAML_FILENAME = "analysis_cfg.yaml"
 

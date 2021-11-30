@@ -12,11 +12,11 @@ ANALYSIS_TYPE = 'preprocessing'  # Relevant analysis type in analysis_cfg.yaml
 
 
 def get_catgt_output_paths(
+    project=CATGT_PROJECT_NAME,
     subject=None,
     experiment=None,
     alias=None,
     probe=None,
-    project=CATGT_PROJECT_NAME,
 ):
     """Return catgt output paths: (metapath, binpath)."""
     assert all(
@@ -71,11 +71,11 @@ def get_catgt_output_paths(
 
 
 def clear_catgt_output_files(
+    project=CATGT_PROJECT_NAME,
     subject=None,
     experiment=None,
     alias=None,
     probe=None,
-    project=CATGT_PROJECT_NAME,
 ):
     print("Removing bin and meta catGT output files.")
     output_metapath, output_binpath = get_catgt_output_paths(
@@ -92,19 +92,19 @@ def clear_catgt_output_files(
 
 
 def run_preprocessing(
+    project=CATGT_PROJECT_NAME,
     subject=None,
     experiment=None,
     alias=None,
     probe=None,
     analysis_name=None,
-    project=CATGT_PROJECT_NAME,
     rerun_existing=False,
     dry_run=True
 ):
     """Run CatGT. Return 1 if the command finished running."""
     assert all(
         [arg is not None
-        for arg in [subject, experiment, alias, probe, analysis_name]]
+        for arg in [project, subject, experiment, alias, probe, analysis_name]]
     )
 
     analysis_params = get_analysis_params('preprocessing', analysis_name)
@@ -115,7 +115,6 @@ def run_preprocessing(
         experiment=experiment,
         alias=alias,
         probe=probe,
-        analysis_name=analysis_name,
     )
     if not rerun_existing and (output_binpath.exists() or output_metapath.exists()):
         raise Exception(
