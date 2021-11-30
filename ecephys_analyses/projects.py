@@ -119,6 +119,19 @@ def mirror_raw_data_paths(mirror_parent, paths):
 
 
 def replace_ftype(path, extension, remove_probe=False, remove_stream=False):
+    """Replace a SpikeGLX filetype extension (i.e. .bin or .meta), and optionally strip
+    the probe and/or stream suffixes (e.g. .imec0 and .lf) while doing so.
+
+    Parameters:
+    -----------
+    path: pathlib.Path
+    extension: str
+        The desired final suffix(es), e.g. '.emg.nc' or '.txt'
+    remove_probe: bool (default: False)
+        If true, strip the probe suffix.
+    remove_stream: bool (default=False)
+        If True, strip the stream suffix.
+    """
     run, gate, trigger, probe, stream, ftype = parse_sglx_fname(path.name)
 
     name = path.with_suffix(extension).name
@@ -136,6 +149,26 @@ def get_project_counterparts(
     remove_probe=False,
     remove_stream=False,
 ):
+    """Get counterparts to SpikeGLX raw data files.
+
+    Counterparts are mirrored at the project's subject directory, and likely
+    have different suffixes than the original raw data files.
+
+    Parameters:
+    -----------
+    project_name: str
+        From projects.yaml
+    subject_name: str
+        Subject's name within this project, i.e. subject's directory name.
+    paths: list of pathlib.Path
+        The raw data files to get the counterparts of.
+    extension:
+        The extension to replace .bin or .meta with. See `replace_ftype`.
+
+    Returns:
+    --------
+    list of pathlib.Path
+    """
     counterparts = mirror_raw_data_paths(
         get_subject_directory(project_name, subject_name), paths
     )  # Mirror paths at the project's subject directory
