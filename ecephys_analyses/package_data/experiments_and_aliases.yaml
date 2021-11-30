@@ -2,7 +2,7 @@
 subject: CNPIX11-Adrian
 experiments:
   example_experiment:
-    recording_sessions_ids:
+    recording_session_ids:
       - 8-27-2021
       - 8-28-2021
     aliases:
