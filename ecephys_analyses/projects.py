@@ -16,7 +16,7 @@ from pathlib import Path
 from ecephys.sglx.file_mgmt import parse_sglx_fname
 
 from .package_data import package_datapath
-from .utils import load_yaml_stream
+from .utils import load_yaml_stream, remove_duplicates
 from .sglx_sessions import get_filepath_relative_to_session_directory_parent
 from .experiments_and_aliases import SUBALIAS_IDX_DF_VALUE
 
@@ -142,4 +142,4 @@ def get_project_counterparts(project_name, subject_name, paths, extension):
         project_name, subject_name, paths
     )
     counterparts = [p.with_suffix(extension) for p in mirrors]
-    return list(dict.fromkeys(counterparts))
+    return remove_duplicates(counterparts)
