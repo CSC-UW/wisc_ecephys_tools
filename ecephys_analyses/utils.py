@@ -13,3 +13,8 @@ def load_yaml_stream(yaml_path):
     with open(yaml_path) as fp:
         yaml_stream = list(yaml.safe_load_all(fp))
     return yaml_stream
+
+
+def remove_duplicates(l):
+    """Given a list l, remove duplicate items while preserving order."""
+    return list(dict.fromkeys(l))
