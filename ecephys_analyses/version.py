@@ -56,6 +56,7 @@ INSTALL_REQUIRES = [
     "pyyaml",
     "pandas",
     "xarray",
+    "pyEDFlib",
     "hypnogram @ git+https://github.com/CSC-UW/hypnogram.git@master#egg=hypnogram",
 ]
 PYTHON_REQUIRES = ">= 3.7"
