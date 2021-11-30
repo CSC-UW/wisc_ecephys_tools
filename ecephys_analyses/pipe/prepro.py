@@ -1,134 +1,168 @@
-import subprocess
+import ecephys.data_mgmt.paths
 from datetime import datetime
+import ecephys_analyses.paths
+from ecephys_analyses.params import get_analysis_params
 from pathlib import Path
-from ecephys_analyses.data import paths
-from ecephys_analyses.data.channel_groups import full_names
-from ecephys.data_mgmt.paths import parse_sglx_stem
 
-from ecephys.sglx.cat_gt import get_catGT_command
+from ecephys.sglx.cat_gt import run_catgt
 
 
-CATGT_PATH = "/Volumes/scratch/neuropixels/bin/CatGT-linux/runit.sh"
-
-CATGT_CFG_BASE = {
-    'aphipass': 300,
-    'aplopass': 9000,
-    'gbldmx': True,
-    'gfix': '0.40,0.10,0.02',
-}  # Default dict applied to all
-
-SYNC_CHANNEL = 384  # Applied to all
-
-AP = True
-LF = False
-
-CATGT_CFG_MANDATORY_KEYS = [
-    'g', 't', 'prb',
-    'aphipass', 'aplopass', 'gbldmx', 'gfix'
-]
-
-SRC_ROOT_KEY_DF = 'raw_chronic'
-TGT_ROOT_KEY_DF = 'catgt'
+CATGT_PROJECT_NAME = 'catgt'  # Key in projects.yaml.
+ANALYSIS_TYPE = 'preprocessing'  # Relevant analysis type in analysis_cfg.yaml
 
 
-def run_catgt(run_specs, dry_run=True, src_root_key=SRC_ROOT_KEY_DF, tgt_root_key=TGT_ROOT_KEY_DF):
-    """
-    Args:
-        run_specs (list): List of (<subject>, <condition>, <exp_id>, <run_id>, <catgt_cfg>) tuples.
-            CatGT output is saved with probe-folder structure at roots_paths[<tgt_root_key>]/subject/condition/exp_id
-
-    """
-    subject, condition, exp_id, run_id, catgt_cfg = run_specs
-    
-    assert all([key in catgt_cfg for key in CATGT_CFG_MANDATORY_KEYS])
-    
-    src_dir = paths.get_subject_root(subject, src_root_key)/exp_id
-    dest_dir = paths.get_subject_root(subject, tgt_root_key)/condition/exp_id
-    
-    cmd = get_catGT_command(
-        catGT_path=CATGT_PATH,
-        wine_path=None,
-        dir=str(src_dir),
-        dest=str(dest_dir),
-        run=run_id,
-        ap=AP,
-        lf=LF,
-        SY=f"{catgt_cfg['prb']},{SYNC_CHANNEL},6,500",
-        prb_fld=True,
-        out_prb_fld=True,
-        **catgt_cfg,
+def get_catgt_output_paths(
+    subject=None,
+    experiment=None,
+    alias=None,
+    probe=None,
+    project=CATGT_PROJECT_NAME,
+):
+    """Return catgt output paths: (metapath, binpath)."""
+    assert all(
+        [arg is not None
+        for arg in [subject, experiment, alias, probe]]
     )
 
-    start = datetime.now()
-    print(f"Running {cmd}")
-    if dry_run:
-        print("Dry run: doing nothing")
-    else:
-        dest_dir.mkdir(parents=True, exist_ok=True)
-        process = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    end = datetime.now()
+    analysis_dir = ecephys_analyses.projects.get_project_directory(project)
 
-    print(f"{end.strftime('%H:%M:%S')}: Finished {subject}, {run_id}. Run time = {str(end - start)}")
+    # TODO: Check that this is a continuous data and not a "combined" alias
+    raw_files = ecephys_analyses.get_ap_bin_files(
+        subject,
+        experiment,
+        alias,
+        probe=probe,
+    )
+
+    (
+        _,
+        subject_dirname,
+        session_dirname,
+        session_sglx_dirname,
+        _,
+        _,
+        fname,
+    ) = ecephys_analyses.get_session_style_path_parts(
+        raw_files.path.values[0]
+    )
+
+    ext = '.ap.bin'
+    stem = fname.split(ext)[0]
+    run, gate, trigger, probe = ecephys.data_mgmt.paths.parse_sglx_stem(stem)
+
+    # In catGT2.4 it's always g0 (Bill's mistake I think)
+    catgt_gate = 'g0'
+    catgt_gate_dirname = f'catgt_{run}_{catgt_gate}'
+    catgt_probe_dirname = f'{run}_{catgt_gate}_{probe}'
+
+    parent_dir = (
+        analysis_dir/
+        subject_dirname/
+        session_dirname/
+        session_sglx_dirname/
+        catgt_gate_dirname/
+        catgt_probe_dirname
+    )
+
+    metastem = f'{run}_{catgt_gate}_tcat.{probe}.ap.meta'
+    binstem = f'{run}_{catgt_gate}_tcat.{probe}.ap.bin'
+
+    return parent_dir/metastem, parent_dir/binstem
 
 
-def get_run_specs(subject, condition_group, catgt_cfg=None, rerun_existing=True):
-    """Return list of (<subject>, <condition>, <exp_id>, <run_id>, <catgt_cfg>) tuples.
+def clear_catgt_output_files(
+    subject=None,
+    experiment=None,
+    alias=None,
+    probe=None,
+    project=CATGT_PROJECT_NAME,
+):
+    print("Removing bin and meta catGT output files.")
+    output_metapath, output_binpath = get_catgt_output_paths(
+        subject=subject,
+        experiment=experiment,
+        alias=alias,
+        probe=probe,
+        project=project
+    )
+    assert output_binpath.exists()
+    output_binpath.unlink()
+    assert output_metapath.exists()
+    output_metapath.unlink()
 
-    The following keys are added to catgt_cfg for each run: 't', 'g', 'prb', 
 
-    Examples:
+def run_preprocessing(
+    subject=None,
+    experiment=None,
+    alias=None,
+    probe=None,
+    analysis_name=None,
+    project=CATGT_PROJECT_NAME,
+    rerun_existing=False,
+    dry_run=True
+):
+    """Run CatGT. Return 1 if the command finished running."""
+    assert all(
+        [arg is not None
+        for arg in [subject, experiment, alias, probe, analysis_name]]
+    )
 
-        >>> get_run_specs('Valentino', 'eStim')
-        [
-            ('CNPIX3-Valentino', 'eStim_condition_1', '2-19-2020', '2-19-2020',    {'g': '1', 'prb': '0', 't': '4,4',}), 
-        ]
-    """
-    if catgt_cfg is None:
-        catgt_cfg = CATGT_CFG_BASE
-    else:
-        assert all([k in catgt_cfg for k in ['aphipass', 'aplopass', 'gbldmx', 'gfix']])
-    
-    assert LF == False or rerun_existing  # Rerun logic only checks ap.meta
+    analysis_params = get_analysis_params('preprocessing', analysis_name)
 
-    conditions = paths.get_conditions(subject, condition_group)
-    datapath_dict = paths.load_datapath_yaml()
-    all_run_specs = []
-    for cond in conditions:
-        if not rerun_existing:
-            output_ap_meta = paths.get_sglx_style_datapaths(
-                subject, cond, 'ap.meta', catgt_data=True
-            )
-            if not len(output_ap_meta) == 1:
-                raise ValueError(f"Multiple output meta files for {subject} {cond}."
-                                 f"Only run catgt on non-combined conditions")
-            if output_ap_meta[0].exists():
-                print(f"Rerun=False: pass {subject} {cond}", end="")
-                print(f"(found ap.meta at {output_ap_meta[0]}")
-                continue
-        cond_spec = datapath_dict[subject][cond]
-        # # Name
-        # full_name = full_names[subject]
-        # exp
-        assert len(list(cond_spec.keys())) == 1
-        exp = list(cond_spec.keys())[0]
-        # run
-        stems = cond_spec[exp]
-        runs, gates, trigs, probes = zip(*[
-            parse_sglx_stem(stem) for stem in stems 
-        ])
-        assert len(set(runs)) == 1  #TODO
-        assert len(set(probes)) == 1  #TODO
-        assert len(set(gates)) == 1  #TODO
-        sorted_trigs = sorted([int(t.split('t')[1]) for t in trigs])
-        trg_str = ','.join([str(t) for t in sorted_trigs])  # "0,1,2,8" or "0"
-        run, gate, trig, probe = parse_sglx_stem(stems[0])
-        all_run_specs.append(
-            tuple([subject, cond, exp, run, {
-                'g': gate.split('g')[1],
-                'prb': probe.split('imec')[1],
-                't': trg_str,
-                **catgt_cfg,
-            }])
+    # Check for existing files
+    output_metapath, output_binpath = get_catgt_output_paths(
+        subject=subject,
+        experiment=experiment,
+        alias=alias,
+        probe=probe,
+        analysis_name=analysis_name,
+    )
+    if not rerun_existing and (output_binpath.exists() or output_metapath.exists()):
+        raise Exception(
+            f"Aborting catGT run: set `rerun_existing` == True or delete preexisting files at \n{output_binpath}, \n{output_metapath}."
         )
-    print("...")
-    return all_run_specs
+    elif rerun_existing:
+        output_binpath.unlink(missing_ok=True)
+        output_metapath.unlink(missing_ok=True)
+        
+    catgt_params = analysis_params['catgt_params']
+    catgt_path = analysis_params['catgt_path']
+    analysis_dir = ecephys_analyses.projects.get_project_directory(project)
+
+    raw_files = ecephys_analyses.paths.get_ap_bin_files(
+        subject,
+        experiment,
+        alias,
+        probe=probe,
+    )
+
+    # Src and target dirs
+    (
+        root_dir,
+        subject_dirname,
+        session_dirname,
+        session_sglx_dirname,
+        _,
+        _,
+        _,
+    ) = ecephys_analyses.get_session_style_path_parts(
+        raw_files.path[0]
+    )
+    src_dir = root_dir/subject_dirname/session_dirname/session_sglx_dirname
+    tgt_dir = analysis_dir/subject_dirname/session_dirname/session_sglx_dirname
+
+    start = datetime.now()
+    run_catgt(
+        raw_files,
+        catgt_params,
+        catgt_path,
+        src_dir,
+        tgt_dir,
+        dry_run=dry_run
+    )
+    end = datetime.now()
+    print(f"{end.strftime('%H:%M:%S')}: Finished {subject}, {experiment}, {alias}. Run time = {str(end - start)}")
+
+    # The command finished if we find the meta file (since it's written at the end)
+    success = output_binpath.exists() & output_metapath.exists()
+    return success

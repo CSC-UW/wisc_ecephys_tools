@@ -1,7 +1,15 @@
 ---
 analysis_type: preprocessing
 analysis_params:
-  prepro_df: {}
+  prepro_df:
+    catgt_path: "/Volumes/scratch/neuropixels/bin/CatGT2.4-linux/runit.sh"
+    catgt_params:  &catgt_params_base
+      # gbldmx: True  # Replaced by -tshift & -gblcar in v2.2
+      gblcar: True
+      no_tshift: False
+      gfix: '0.40,0.10,0.02'
+      ap: True
+      lf: False
 ...
 ---
 analysis_type: sorting
