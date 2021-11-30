@@ -137,16 +137,9 @@ def mirror_raw_data_paths_at_subject_directory(project_name, subject_name, paths
 ##### Functions for getting project counterparts
 
 
-def replace_stream_and_ftype_with_extension(path, extension):
-    (run, gate, trigger, probe, stream, ftype) = parse_sglx_fname(path.name)
-    return path.parent / f"{run}_{gate}_{trigger}.{probe}.{extension}"
-
-
 def get_project_counterparts(project_name, subject_name, paths, extension):
     mirrors = mirror_raw_data_paths_at_subject_directory(
         project_name, subject_name, paths
     )
-    counterparts = [
-        replace_stream_and_ftype_with_extension(p, extension) for p in mirrors
-    ]
+    counterparts = [p.with_suffix(extension) for p in mirrors]
     return list(dict.fromkeys(counterparts))
