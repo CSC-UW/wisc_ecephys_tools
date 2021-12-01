@@ -18,6 +18,7 @@ import pandas as pd
 from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
 
 from .sglx_sessions import get_session_files_from_multiple_locations
+from .utils import get_subject_document
 
 
 SUBALIAS_IDX_DF_VALUE = -1  # Value of 'subalias_idx' column when there is a single subalias.
@@ -163,19 +164,6 @@ def get_alias_files(sessions, experiment, alias):
     
     else:
         raise ValueError("Unrecognized format for alias:\n {alias}")
-
-
-def get_subject_document(yaml_stream, subject_name):
-    """Get a subject's YAML document from a YAML stream.
-
-    YAML documents must contain a 'subject' field:
-    ---
-    subject: subject_name
-    ...
-    """
-    matches = [doc for doc in yaml_stream if doc["subject"] == subject_name]
-    assert len(matches) == 1, f"Exactly 1 YAML document should match {subject_name}"
-    return matches[0]
 
 
 def get_files(
