@@ -15,7 +15,7 @@ from ecephys.sglx.file_mgmt import parse_sglx_fname
 
 from .package_data import package_datapath
 from .utils import load_yaml_stream, remove_duplicates
-from .sglx_sessions import get_filepath_relative_to_session_directory_parent
+from .sglx.sessions import get_filepath_relative_to_session_directory_parent
 
 # You could name a project the same thing as an experiment
 # You could name a project "Common" or "Scoring" or "Sorting"

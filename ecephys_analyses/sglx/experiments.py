@@ -17,8 +17,8 @@ from ecephys.sglx.file_mgmt import (
     set_index,
 )
 
-from .sglx_sessions import get_session_files_from_multiple_locations
-from .utils import get_subject_document
+from .sessions import get_session_files_from_multiple_locations
+from ..utils import get_subject_document
 
 
 def parse_trigger_stem(stem):
