@@ -67,6 +67,12 @@ def get_alias_subject_directory(
     return get_alias_directory(project_name, experiment_name, alias_name) / subject_name
 
 
+def get_alias_subject_directory(
+    project_name, experiment_name, alias_name, subject_name
+):
+    return get_alias_directory(project_name, experiment_name, alias_name) / subject_name
+
+
 ##### Functions for getting files
 
 
