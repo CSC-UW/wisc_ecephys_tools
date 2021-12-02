@@ -18,7 +18,8 @@ from ecephys.sglx.file_mgmt import (
 )
 
 from .sessions import get_session_files_from_multiple_locations
-from ..utils import get_subject_document
+from ..package_data import package_datapath
+from ..utils import get_subject_document, load_yaml_stream
 
 
 def parse_trigger_stem(stem):
@@ -129,8 +130,6 @@ def get_alias_files(sessions, experiment, alias):
 
 
 def get_files(
-    sessions_stream,
-    experiments_stream,
     subject_name,
     experiment_name,
     alias_name=None,
@@ -140,10 +139,6 @@ def get_files(
 
     Parameters:
     -----------
-    sessions_stream: list of dict
-        The YAML specification of sessions for each subject.
-    experiments_stream: list of dict
-        The YAML specification of experiments and aliases for each subject.
     subject_name: string
     experiment_name: string
     alias_name: string (default: None)
@@ -153,6 +148,9 @@ def get_files(
     pd.DataFrame:
         All requested files in sorted order.
     """
+    sessions_stream = load_yaml_stream(package_datapath("sglx_sessions.yaml"))
+    experiments_stream = load_yaml_stream(package_datapath("sglx_experiments.yaml"))
+
     sessions_doc = get_subject_document(sessions_stream, subject_name)
     experiments_doc = get_subject_document(experiments_stream, subject_name)
 
@@ -165,3 +163,11 @@ def get_files(
         else get_experiment_files(sessions, experiment)
     )
     return loc(df, **kwargs)
+
+
+def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
+    return (
+        get_files(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
+        .sort_values("fileCreateTime", ascending=True)
+        .path.values
+    )

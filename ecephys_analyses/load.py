@@ -8,7 +8,7 @@ from hypnogram import load_datetime_hypnogram
 from ecephys.utils import load_df_h5
 from ecephys.xrsig import rebase_time
 
-from .paths import get_lfp_bin_paths
+from .sglx.experiments import get_lfp_bin_paths
 from .projects import get_project_counterparts
 
 
@@ -79,5 +79,7 @@ def load_and_concatenate_spectrograms(subject, experiment, alias, probe):
 
 def load_and_concatenate_bandpowers(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    dataset_paths = get_project_counterparts("SPWRs", subject, bin_paths, "bandpower.nc")
+    dataset_paths = get_project_counterparts(
+        "SPWRs", subject, bin_paths, "bandpower.nc"
+    )
     return load_and_concatenate_datasets(dataset_paths)
