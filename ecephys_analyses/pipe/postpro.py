@@ -4,7 +4,7 @@ import subprocess
 
 from ecephys_analyses.params import get_analysis_params
 from ecephys_analyses.pipe import get_sorting_output_path
-from ecephys_analyses.paths import get_ap_bin_paths
+from ecephys_analyses.sglx.experiments import get_ap_bin_paths
 
 from ecephys_spike_sorting.scripts.create_input_json import createInputJson
 
