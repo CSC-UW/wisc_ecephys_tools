@@ -2,11 +2,10 @@
 # TODO: Separate functions into those that only require a path
 # from those that fetch paths.
 import pandas as pd
-import xarray as xr
 from ast import literal_eval
 from hypnogram import load_datetime_hypnogram
 from ecephys.utils import load_df_h5
-from ecephys.xrsig import rebase_time
+from ecephys.xrsig import load_and_concatenate_datasets
 
 from .paths import get_lfp_bin_paths
 from .projects import get_project_counterparts
@@ -60,17 +59,6 @@ def load_and_concatenate_hypnograms(subject, experiment, alias, probe):
     return pd.concat(hypnograms).reset_index(drop=True)
 
 
-def load_and_concatenate_datasets(paths):
-    datasets = list()
-    for path in paths:
-        try:
-            datasets.append(xr.load_dataset(path))
-        except FileNotFoundError:
-            pass
-
-    return rebase_time(xr.concat(datasets, dim="time"))
-
-
 def load_and_concatenate_spectrograms(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
     dataset_paths = get_project_counterparts("SPWRs", subject, bin_paths, "spg.nc")
@@ -79,5 +67,7 @@ def load_and_concatenate_spectrograms(subject, experiment, alias, probe):
 
 def load_and_concatenate_bandpowers(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    dataset_paths = get_project_counterparts("SPWRs", subject, bin_paths, "bandpower.nc")
+    dataset_paths = get_project_counterparts(
+        "SPWRs", subject, bin_paths, "bandpower.nc"
+    )
     return load_and_concatenate_datasets(dataset_paths)
