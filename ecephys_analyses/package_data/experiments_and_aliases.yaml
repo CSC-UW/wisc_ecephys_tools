@@ -7,6 +7,11 @@ experiments:
       - 8-28-2021
     aliases:
       example_alias:
+        - start_file: 8-27-2021_g2_t0
+          end_file: 8-27-2021_g3_t1
+        - start_file: 8-28-2021_g0_t3
+          end_file: 8-28-2021_g1_t4
+      example_alias_2:
         start_file: 8-27-2021_g2_t0
-        end_file: 8-27-2021_g2_t1
+        end_file: 8-27-2021_g3_t1
 ...

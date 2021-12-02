@@ -7,17 +7,20 @@ more information, see sglx_sessions.py.
 The experiments_and_aliases.yaml format allows you to define experiments
 in terms of SpikeGLX recording sessions, and to refer to subsets of this
 data using 'aliases'.
+
+Aliases contain a list of {'start_file': <...>, 'end_file': <...>} dictionaries
+each specifying a continuous subset of data.
 """
 import re
 from itertools import chain
 
-from ecephys.sglx.file_mgmt import (
-    filelist_to_frame,
-    loc,
-    set_index,
-)
+import pandas as pd
+from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
 
 from .sglx_sessions import get_session_files_from_multiple_locations
+
+
+SUBALIAS_IDX_DF_VALUE = -1  # Value of 'subalias_idx' column when there is a single subalias.
 
 
 def parse_trigger_stem(stem):
@@ -101,6 +104,16 @@ def get_experiment_files(sessions, experiment):
     return filelist_to_frame(files)
 
 
+def _get_subalias_files(files_df, start_file, end_file, subalias_idx=None):
+    if subalias_idx is None:
+        subalias_idx = SUBALIAS_IDX_DF_VALUE
+    subalias_df = files_df[
+            parse_trigger_stem(start_file) : parse_trigger_stem(end_file)
+    ].reset_index()
+    subalias_df['subalias_idx'] = subalias_idx
+    return subalias_df
+
+
 def get_alias_files(sessions, experiment, alias):
     """Get all SpikeGLX files belonging to a single alias.
 
@@ -110,21 +123,46 @@ def get_alias_files(sessions, experiment, alias):
         The YAML specification of sessions for this subject.
     experiment: dict
         The YAML specification of this experiment for this subject.
-    alias: dict
+    alias: list
         The YAML specification of this alias, for this experiment, for this subject.
+        The following formats is expected:
+            [
+                {
+                    'start_file': <start_file_stem>
+                    'end_file': <end_file_stem>
+                }, # "subalias" 0
+                {
+                    'start_file': <start_file_stem>
+                    'end_file': <end_file_stem>
+                }, # "subalias" 1
+                ...
+            ]
+        The index of the subalias each file is taken from is specified in the 'subalias_idx' column in the
+        returned frame. If there is a unique subalias, subalias_idx is set to -1
 
     Returns:
     --------
     pd.DataFrame:
-        All files in the alias, in sorted order, inclusive of both start_file and end_file.
+        All files in each of the sub-aliases, in sorted order, inclusive of both start_file and end_file.
     """
     df = get_experiment_files(sessions, experiment)
     df = (
         set_index(df).reset_index(level=0).sort_index()
     )  # Make df sliceable using (run, gate, trigger)
-    return df[
-        parse_trigger_stem(alias["start_file"]) : parse_trigger_stem(alias["end_file"])
-    ].reset_index()
+
+    if isinstance(alias, list) and len(alias) == 1:  # Single subalias ("subalias_idx" is set to -1)
+        _get_subalias_files(df, alias[0]['start_file'], alias[0]['end_file'], subalias_idx=None)
+
+    elif isinstance(alias, list):  # Multiple subaliases.
+        return pd.concat(
+            [
+                _get_subalias_files(df, subalias['start_file'], subalias['end_file'], subalias_idx=i)
+                for i, subalias in enumerate(alias)
+            ]
+        ).reset_index()
+    
+    else:
+        raise ValueError("Unrecognized format for alias:\n {alias}")
 
 
 def get_subject_document(yaml_stream, subject_name):
