@@ -6,4 +6,3 @@ from .projects import *
 from .load import *
 from .package_data import *
 from .utils import *
-from . import load_shy
