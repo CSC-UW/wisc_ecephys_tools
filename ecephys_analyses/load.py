@@ -2,11 +2,10 @@
 # TODO: Separate functions into those that only require a path
 # from those that fetch paths.
 import pandas as pd
-import xarray as xr
 from ast import literal_eval
 from hypnogram import load_datetime_hypnogram
 from ecephys.utils import load_df_h5
-from ecephys.xrsig import rebase_time
+from ecephys.xrsig import load_and_concatenate_datasets
 
 from .sglx.experiments import get_lfp_bin_paths
 from .projects import get_project_counterparts
@@ -58,17 +57,6 @@ def load_and_concatenate_hypnograms(subject, experiment, alias, probe):
     )
     hypnograms = [load_datetime_hypnogram(path) for path in hypnogram_paths]
     return pd.concat(hypnograms).reset_index(drop=True)
-
-
-def load_and_concatenate_datasets(paths):
-    datasets = list()
-    for path in paths:
-        try:
-            datasets.append(xr.load_dataset(path))
-        except FileNotFoundError:
-            pass
-
-    return rebase_time(xr.concat(datasets, dim="time"))
 
 
 def load_and_concatenate_spectrograms(subject, experiment, alias, probe):
