@@ -55,7 +55,6 @@ INSTALL_REQUIRES = [
     "numpy",
     "pyyaml",
     "pandas",
-    "xarray",
     "pyEDFlib",
     "hypnogram @ git+https://github.com/CSC-UW/hypnogram.git@master#egg=hypnogram",
 ]
