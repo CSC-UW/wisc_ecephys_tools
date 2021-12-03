@@ -2,79 +2,97 @@ from pathlib import Path
 from datetime import datetime
 import subprocess
 
+from ecephys_analyses.params import get_analysis_params
+from ecephys_analyses.pipe import get_sorting_output_path
+from ecephys_analyses.paths import get_ap_bin_paths
+
 from ecephys_spike_sorting.scripts.create_input_json import createInputJson
 
 
 def run_postprocessing(
-    subject, condition,
-    sorting_condition, postprocessing_condition,
-    root_key=None,
-    rerun_existing=True
+    project=None,
+    subject=None,
+    experiment=None,
+    alias=None,
+    probe=None,
+    analysis_name=None,
+    sorting_analysis_name=None,
+    rerun_existing=False,
+    dry_run=True
 ):
-    
-    print(f"Postprocessing: {subject} {condition} {sorting_condition} {postprocessing_condition}")
+    assert all(
+        [arg is not None
+        for arg in [project, subject, experiment, alias, probe, analysis_name, sorting_analysis_name]]
+    )
+    print(f"Postprocessing: {locals()}\n")
+
     # Modules and associated parameters
     modules = []
     params = []
-    module_name_params = parameters.get_analysis_params(
+    module_name_params = get_analysis_params(
         'ks_postprocessing',
-       postprocessing_condition 
+       analysis_name 
     )
     for d in module_name_params:
         modules += d.keys()
         params += d.values()
     
-    # Data
-    binpath, metapath = get_bin_meta(subject, condition)
+    # Raw data paths (Sorting was performed on preproed data, but this is only used for sRate channel positions etc)
+    raw_paths = get_ap_bin_paths(
+        subject,
+        experiment,
+        alias,
+        probe=probe,
+    )
+    binpath = raw_paths[0]
+    metapath = binpath.parent/(binpath.stem + '.meta')
+    assert 'mean_waveforms' not in modules  # Must use catGT data otherwise
     
     # Src ks dir
-    ks_dir_src = paths.get_datapath(
-        subject,
-        condition,
-        sorting_condition,
-        root_key=root_key,
+    ks_dir_src = get_sorting_output_path(
+        project, subject, experiment, alias, probe, sorting_analysis_name
     )
-    if not ks_dir_src.exists():
+    if not dry_run and not ks_dir_src.exists():
         raise FileNotFoundError(ks_dir_src)
     print(f"Kilosort input results dir: {ks_dir_src}")
 
-    # Target
-    ks_dir = paths.get_datapath(
-        subject,
-        condition,
-        sorting_condition + '_' + postprocessing_condition,
-        root_key=root_key,
+    # Target ks_dir
+    ks_dir = get_sorting_output_path(
+        project, subject, experiment, alias, probe, f'{sorting_analysis_name}_{analysis_name}'
     )
-    if (ks_dir/'amplitudes.npy').exists() and not rerun_existing:
-        print(f"Kilosort dir exists at {ks_dir}...\n Doing nothing.\n\n")
+    if ks_dir.exists() and not rerun_existing:
+        print(f"rerun_existing == False and kilosort dir exists at {ks_dir}...:\n Doing nothing.\n\n")
         return
-    print(f"Postprocessing. Results at: {ks_dir}")
-    copy_ks_dir(ks_dir_src, ks_dir)
+    elif ks_dir.exists() and rerun_existing:
+        print(f"rerun_existing == True: Deleting post-processed kilosort dir at {ks_dir}.\n\n")
+        import shutil
+        shutil.rmtree(ks_dir)
+    print(f"Postprocessing results at: {ks_dir}\n")
+
+    if not dry_run:
+        print(f"Copying original ks dir to output dir\n")
+        copy_ks_dir(ks_dir_src, ks_dir)
     
-    # Save config in ks dir
+    # Generate ecephys_spike_sorting config and save it in output dir
     cfg_path = ks_dir/'postprocessing-input.json'
     json_dir = ks_dir
+    kwargs_dict = {k: v for d in params for k, v in d.items()}  # params for all modules in single dict
+    KS2ver = get_ks_version(sorting_analysis_name)
+    if not dry_run:
+        _ = createInputJson(
+            str(cfg_path),
+            # Directories and data
+            input_meta_path=str(metapath),
+            continuous_file=str(binpath),  # CatGT (unused)
+            npx_directory=str(binpath.parents[3]),  # CatGT (unused)
+            extracted_data_directory=str(binpath.parents[3]),  # CatGT (unused)
+            spikeGLX_data=True,
+            kilosort_output_directory=str(ks_dir),
+            ks_make_copy=False,
+            KS2ver=KS2ver,
+            **kwargs_dict
+    )   
 
-    # KS version
-    KS2ver = get_ks_version(sorting_condition)
-    
-    # Params
-    kwargs_dict = {k: v for d in params for k, v in d.items()}
-    input_json = createInputJson(
-        str(cfg_path),
-        # Directories and data
-        input_meta_path=str(metapath),
-        continuous_file=str(binpath),  # CatGT (unused)
-        npx_directory=str(binpath.parents[3]),  # CatGT (unused)
-        extracted_data_directory=str(binpath.parents[3]),  # CatGT (unused)
-        spikeGLX_data=True,
-        kilosort_output_directory=str(ks_dir),
-        ks_make_copy=False,
-        KS2ver=KS2ver,
-        **kwargs_dict
-   )   
-
-    print('running')
     start = datetime.now()
     
     for module in modules:
@@ -84,67 +102,29 @@ def run_postprocessing(
             f" --input_json {cfg_path}"
             f" --output_json {output_json}"
         )
-        print(f'Running command `{command}`')
-        subprocess.check_call(command.split(' '))
+        print(f'Run module {module}:')
+        if dry_run:
+            print(f'Dry run. Not running: {command}')
+        else:
+            print(f'Running command `{command}`')
+            subprocess.check_call(command.split(' '))
         # !{command}
+        print('\n')
 
     end = datetime.now()
-    print(f"{end.strftime('%H:%M:%S')}: Finished {subject}, {condition}, {sorting_condition}.")
+    print(f"{end.strftime('%H:%M:%S')}: Finished {project}, {subject}, {experiment}, {alias}, {probe}.")
     print(f"Run time = {str(end - start)}\n\n")
 
     return 1
 
 
-def get_bin_meta(subject, condition):
-    """Return original bin & meta paths, either catgt or raw """
-    # Try catgt data
-    binpaths = paths.get_sglx_style_datapaths(
-        subject, 
-        condition,
-        'ap.bin',
-        catgt_data=True,
-        root_key='catgt'
-    )
-    # assert len(binpaths) == 1
-    binpath = binpaths[0]
-    metapath = binpath.parent/(binpath.stem + '.meta')
-    if metapath.exists():
-        if len(binpaths) > 1:
-            import warnings
-            warnings.warn("Multiple bin files. Recover metadata from first")
-        print(f"Recover metadata from catGT processed data at: {binpath}")
-        return binpath, metapath
-    import warnings
-    warnings.warn("Could not find catgt-processed data! Try with raw data")
-    # Otherwise we go back to using the raw data
-    binpaths = paths.get_sglx_style_datapaths(
-        subject, 
-        condition,
-        'ap.bin',
-        catgt_data=False,
-        root_key='raw_chronic'
-    )
-    binpath = binpaths[0]
-    metapath = binpath.parent/(binpath.stem + '.meta')
-    if metapath.exists():
-        if len(binpaths) > 1:
-            import warnings
-            warnings.warn("Multiple bin files. Recover metadata from first")
-        print(f"Recover metadata from raw data data at: {binpath}")
-        return binpath, metapath
-    raise Exception("Could not find catgt or raw data for {subject} condition{}}")
-
-
 def copy_ks_dir(src, tgt):
     "Copy src to tgt and symlink .dat files."
-    import os, shutil
+    import os
     IGNORE = ['.phy']
     ks_dir = Path(src)
     copy_dir = Path(tgt)
-    if copy_dir.exists():
-        print(f"Removing ks dir at {copy_dir}..")
-        shutil.rmtree(copy_dir)
-    print(f"Copying original ks dir to {copy_dir}\n")
+    assert not copy_dir.exists()
     os.mkdir(copy_dir)
     for file in [f for f in ks_dir.iterdir()]:
         if file.suffix == '.dat':
@@ -155,15 +135,15 @@ def copy_ks_dir(src, tgt):
             if file.name in IGNORE:
                 continue
             # Don't use copytree because chmod raises PermissionError on smb share
-            from ecephys.utils.utils import system_copy
+            from ecephys.utils import system_copy
             system_copy(file, copy_dir/file.name)
 
 
-def get_ks_version(sorting_condition):
+def get_ks_version(sorting_analysis_name):
     try:
-        sorter_name, _ = parameters.get_analysis_params(
+        sorter_name, _ = get_analysis_params(
             'sorting',
-            sorting_condition 
+            sorting_analysis_name 
         )
         if sorter_name == 'kilosort2_5':
             return '2.5'
@@ -173,12 +153,12 @@ def get_ks_version(sorting_condition):
             return '3.0'
         else:
             assert False
-    except KeyError:
-        if 'ks2_5' in sorting_condition:
+    except ValueError:  # Key not found in analysis_cfg.yml
+        if 'ks2_5' in sorting_analysis_name:
             return '2.5'
-        elif 'ks3_' in sorting_condition:
+        elif 'ks3_' in sorting_analysis_name:
             return '3.0'
-        elif 'ks2_' in sorting_condition:
+        elif 'ks2_' in sorting_analysis_name:
             return '2.0'
         else:
             assert False
