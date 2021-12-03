@@ -1,86 +1,157 @@
 from datetime import datetime
-from pathlib import Path
 
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 from ecephys import sglx
+from ecephys_analyses.params import get_analysis_params
+from ecephys_analyses.projects import get_alias_subject_directory
+
+from .prepro import CATGT_PROJECT_NAME, get_catgt_output_paths
 
 
-def run_sorting(subject, condition, sorting_condition,
-                catgt_data=True, tgt_root_key=None, bad_channels=None,
-                rerun_existing=True, dry_run=False, clean_dat_file=False):
+def get_sorting_output_path(
+    project=None,
+    subject=None,
+    experiment=None,
+    alias=None,
+    probe=None,
+    analysis_name=None,
+):
+    """Return f'project_dir/exp/alias/subject/{analysis_name}.{probe}' """
+    output_dirname = f"{analysis_name}.{probe}"
+    return get_alias_subject_directory(
+        project, 
+        experiment,
+        alias,
+        subject,
+    ) / output_dirname
+
+
+def run_sorting(
+    project=None,
+    subject=None,
+    experiment=None,
+    alias=None,
+    probe=None,
+    analysis_name=None,
+    prepro_analysis_name=None,
+    prepro_project=CATGT_PROJECT_NAME,
+    bad_channels=None,  # TODO
+    rerun_existing=False,
+    dry_run=True
+):
+    """Run sorting in alias-subject directory.
+    
+    Parameters:
+    -----------
+    project, subject, experiment, alias, probe: str
+    analysis_name: str
+        A key in 'sorting' document in analysis_cfg.py
+    prepro_analysis_name: str
+        A key in 'prepro' document in analysis_cfg.py used to preprocess the data
+    prepro_project: str
+        Project where the preprocessed data was saved
+    """
+    assert all(
+        [arg is not None
+        for arg in [project, subject, experiment, alias, probe, analysis_name]]
+    )
     print(f"Run: {locals()}")
 
     # Output
-    output_dir = paths.get_datapath(
+    output_dir = get_sorting_output_path(
+        project, 
         subject,
-        condition,
-        sorting_condition,
-        root_key=tgt_root_key,
+        experiment,
+        alias,
+        probe,
+        analysis_name,
     )
     print(f"Saving sorting output at {output_dir}")
     
     # rerun existing
     if (output_dir/'spike_times.npy').exists() and not rerun_existing:
-        print(f'Passing: output directory is done: {output_dir}\n\n')
-        return
+        print(f'Passing: output directory is already done: {output_dir}\n\n')
+        return True
+    elif rerun_existing:
+        if output_dir.exists():
+            print(f'rerun_exising==True : rm directory at {output_dir}')
+            import shutil
+            shutil.rmtree(output_dir)
 
     # Sorter parameters
-    sorter, params = parameters.get_analysis_params(
+    sorter, params = get_analysis_params(
         'sorting',
-        sorting_condition
+        analysis_name,
     )
     
     # Recording
-    rec = prepare_data(
-        subject, 
-        condition,
-        catgt_data=catgt_data,
-        bad_channels=bad_channels
-    )
+    if not dry_run:
+        rec = prepare_data(
+            subject=subject,
+            experiment=experiment,
+            alias=alias,
+            probe=probe,
+            prepro_analysis_name=prepro_analysis_name,
+            prepro_project=prepro_project,
+            bad_channels=bad_channels,
+        )
     
 
-    start = datetime.now()
     if dry_run:
         print("Dry run: doing nothing")
-    else:
-        print('Running...', end='')
-        output_dir.mkdir(exist_ok=True, parents=True)
-        ss.run_sorter(
-            sorter,
-            rec,
-            output_folder=output_dir,
-            verbose=True,
-            **params
-        )
-        rec_path = output_dir/'recording.dat'
-        if clean_dat_file and rec_path.exists():
-            rec_path.unlink()
+        return True
+
+    print('Running...', end='')
+    start = datetime.now()
+    output_dir.mkdir(exist_ok=True, parents=True)
+    ss.run_sorter(
+        sorter,
+        rec,
+        output_folder=output_dir,
+        verbose=True,
+        **params
+    )
+    # Clear `recording.dat`
+    rec_path = output_dir/'recording.dat'
+    rec_path.unlink()
 
     end = datetime.now()
-    print(f"{end.strftime('%H:%M:%S')}: Finished {subject}, {condition}, {sorting_condition}.")
+    print(f"{end.strftime('%H:%M:%S')}: Finished {project}, {subject}, {experiment}, {alias}, {probe}.")
     print(f"Run time = {str(end - start)}\n")
 
-    return 1
+    # Sorting finished if we find spike_times.npy
+    return (output_dir/'spike_times.npy').exists()
 
 
-def prepare_data(subject, condition, catgt_data=True, bad_channels=None):
+def prepare_data(
+    subject=None,
+    experiment=None,
+    alias=None,
+    probe=None,
+    prepro_analysis_name=None,
+    prepro_project=CATGT_PROJECT_NAME,
+    bad_channels=None
+    ):
 
-    if catgt_data:
-        root_key = 'catgt'
-    else:
-        root_key = 'raw_chronic'
+    if prepro_analysis_name is None:
+        raise NotImplementedError(
+            "Sorting must be performed on preprocessed data."
+            "Please specify the `prepro_analysis_name` kwarg so we can find the data."
+        )
 
-    binpaths = paths.get_sglx_style_datapaths(
-        subject,
-        condition,
-        'ap.bin',
-        catgt_data=catgt_data,
-        root_key=root_key,
+    meta_bin_paths = get_catgt_output_paths(
+        project=prepro_project,
+        subject=subject,
+        experiment=experiment,
+        alias=alias,
+        probe=probe,
+        analysis_name=prepro_analysis_name
     )
-    for p in binpaths:
-        # Check that catgt finished
-        assert sglx.get_meta_path(p).exists()
+    metapaths, binpaths = zip(*meta_bin_paths)
+
+    for m in metapaths:
+        assert m.exists()  # Check that catgt finished. Should be unnecessary.
     
     rec_extractors = [
         se.SpikeGLXRecordingExtractor(binpath)
@@ -93,18 +164,18 @@ def prepare_data(subject, condition, catgt_data=True, bad_channels=None):
         recording = se.MultiRecordingTimeExtractor(rec_extractors)
     total_t = recording.get_num_frames() / recording.get_sampling_frequency()
     n_chans = recording.get_num_channels()
-    print( f'binpaths: {binpaths}')
     print(
-        f'Recording extractor: N={len(binpaths)} bin files,'
+        f'Recording extractor: Concatenate N={len(binpaths)} bin files,'
         f' N={n_chans}chans, T={total_t/3600}h'
     )
 
     assign_locations(recording, binpaths[0])
 
     if bad_channels is not None:
-        recording = st.preprocessing.remove_bad_channels(
-            recording, bad_channel_ids=bad_channels
-        )
+        raise NotImplementedError()
+        # recording = st.preprocessing.remove_bad_channels(
+        #     recording, bad_channel_ids=bad_channels
+        # )
 
     return recording
 
