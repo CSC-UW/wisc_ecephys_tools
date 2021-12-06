@@ -29,7 +29,7 @@ def _get_abs_sink(spws):
 
 def load_and_concatenate_spws(subject, experiment, alias, probe, abs_sink=False):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    spw_paths = get_project_counterparts("SPWRs", subject, bin_paths, "spws.h5")
+    spw_paths = get_project_counterparts("SPWRs", subject, bin_paths, ".spws.h5")
     spws = [load_df_h5(path) for path in spw_paths]
 
     for _spws in spws:
@@ -53,7 +53,7 @@ def load_and_concatenate_spws(subject, experiment, alias, probe, abs_sink=False)
 def load_and_concatenate_hypnograms(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
     hypnogram_paths = get_project_counterparts(
-        "SPWRs", subject, bin_paths, "hypnogram.tsv"
+        "SPWRs", subject, bin_paths, ".hypnogram.tsv", remove_stream=True
     )
     hypnograms = [load_datetime_hypnogram(path) for path in hypnogram_paths]
     return pd.concat(hypnograms).reset_index(drop=True)
@@ -61,13 +61,13 @@ def load_and_concatenate_hypnograms(subject, experiment, alias, probe):
 
 def load_and_concatenate_spectrograms(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
-    dataset_paths = get_project_counterparts("SPWRs", subject, bin_paths, "spg.nc")
+    dataset_paths = get_project_counterparts("SPWRs", subject, bin_paths, ".spg.nc")
     return load_and_concatenate_datasets(dataset_paths)
 
 
 def load_and_concatenate_bandpowers(subject, experiment, alias, probe):
     bin_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
     dataset_paths = get_project_counterparts(
-        "SPWRs", subject, bin_paths, "bandpower.nc"
+        "SPWRs", subject, bin_paths, ".bandpower.nc"
     )
     return load_and_concatenate_datasets(dataset_paths)
