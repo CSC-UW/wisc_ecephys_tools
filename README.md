@@ -12,4 +12,3 @@ conda activate myenv
 cd ecephys_analyses
 pip install -r requirements.txt
 ```
-Because `jupyter` is installed as a dependency of `ecephys_analyses`, you do not have to do anything else in order to edit all included notebooks in VSCode.
