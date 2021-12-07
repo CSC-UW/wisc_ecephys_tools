@@ -14,7 +14,7 @@ Only projects.yaml is required to resolve paths?
 """
 from pathlib import Path
 
-from .package_data import package_datapath
+from .conf import get_config_file
 from .sglx.experiments import SUBALIAS_IDX_DF_VALUE
 from .utils import load_yaml_stream
 
@@ -45,7 +45,7 @@ def get_subalias_dirname(alias_name, subalias_idx=None):
 
 def get_project_directory(project_name):
     """Get a project directory described in projects.yaml"""
-    stream = load_yaml_stream(package_datapath("projects.yaml"))
+    stream = load_yaml_stream(get_config_file("projects.yaml"))
     doc = get_project_document(stream, project_name)
     return Path(doc["project_directory"])
 

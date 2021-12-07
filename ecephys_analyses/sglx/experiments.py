@@ -18,7 +18,7 @@ import pandas as pd
 from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
 
 from .sessions import get_session_files_from_multiple_locations
-from ..package_data import package_datapath
+from ..conf import get_config_file
 from ..utils import get_subject_document, load_yaml_stream
 
 
@@ -186,8 +186,8 @@ def get_files(
     pd.DataFrame:
         All requested files in sorted order.
     """
-    sessions_stream = load_yaml_stream(package_datapath("sglx_sessions.yaml"))
-    experiments_stream = load_yaml_stream(package_datapath("sglx_experiments.yaml"))
+    sessions_stream = load_yaml_stream(get_config_file("sglx_sessions.yaml"))
+    experiments_stream = load_yaml_stream(get_config_file("sglx_experiments.yaml"))
 
     sessions_doc = get_subject_document(sessions_stream, subject_name)
     experiments_doc = get_subject_document(experiments_stream, subject_name)

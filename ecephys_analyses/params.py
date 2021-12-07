@@ -4,13 +4,13 @@ from pathlib import Path
 
 import yaml
 
-from .package_data import package_datapath
+from .conf import get_config_file
 
 YAML_FILENAME = "analysis_cfg.yaml"
 
 
 def load_yaml():
-    yaml_path = Path(package_datapath(YAML_FILENAME))
+    yaml_path = Path(get_config_file(YAML_FILENAME))
     if not yaml_path.exists():
         raise FileNotFoundError(
             f'Could not find file at {yaml_path}'
