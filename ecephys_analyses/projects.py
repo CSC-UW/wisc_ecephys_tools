@@ -12,7 +12,7 @@ Only projects.yaml is required to resolve paths?
 """
 from pathlib import Path
 
-from .package_data import package_datapath
+from .conf import get_config_file
 from .utils import load_yaml_stream
 
 # You could name a project the same thing as an experiment
@@ -37,7 +37,7 @@ def get_project_document(yaml_stream, project_name):
 
 def get_project_directory(project_name):
     """Get a project directory described in projects.yaml"""
-    stream = load_yaml_stream(package_datapath("projects.yaml"))
+    stream = load_yaml_stream(get_config_file("projects.yaml"))
     doc = get_project_document(stream, project_name)
     return Path(doc["project_directory"])
 
