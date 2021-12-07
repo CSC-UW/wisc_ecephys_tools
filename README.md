@@ -1,7 +1,7 @@
 # ecephys_project_manager
 
 ## Installation
-This will also install `ecephys` as a local, editable sibling directory.
+This will also install [`ecephys`](https://github.com/CSC-UW/ecephys) as a local, editable sibling directory.
 ```
 git clone https://github.com/CSC-UW/ecephys.git
 git clone https://github.com/CSC-UW/ecephys_project_manager.git
