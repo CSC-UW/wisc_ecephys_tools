@@ -26,8 +26,3 @@ def get_subject_document(yaml_stream, subject_name):
     matches = [doc for doc in yaml_stream if doc["subject"] == subject_name]
     assert len(matches) == 1, f"Exactly 1 YAML document should match {subject_name}"
     return matches[0]
-
-
-def remove_duplicates(l):
-    """Given a list l, remove duplicate items while preserving order."""
-    return list(dict.fromkeys(l))
