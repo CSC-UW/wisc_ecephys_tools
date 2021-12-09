@@ -157,7 +157,7 @@ def get_alias_files(sessions, experiment, alias):
     )  # Make df sliceable using (run, gate, trigger)
 
     if isinstance(alias, list) and len(alias) == 1:  # Single subalias ("subalias_idx" is set to -1)
-        _get_subalias_files(df, alias[0]['start_file'], alias[0]['end_file'], subalias_idx=None)
+        return _get_subalias_files(df, alias[0]['start_file'], alias[0]['end_file'], subalias_idx=None)
 
     elif isinstance(alias, list):  # Multiple subaliases.
         return pd.concat(
