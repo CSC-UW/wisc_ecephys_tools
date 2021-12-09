@@ -1,4 +1,4 @@
-import ecephys_analyses.pipe
+import ecephys_project_manager.pipe
 import itertools
 
 """Copy, modify and run to run the whole pipeline for several datasets."""
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         experiment_alias_list
     ):
 
-        ecephys_analyses.pipe.run_postprocessing(
+        ecephys_project_manager.pipe.run_postprocessing(
             project=project,
             subject=subject,
             experiment=experiment,
