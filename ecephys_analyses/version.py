@@ -50,11 +50,8 @@ VERSION = __version__
 PACKAGE_DATA = {"ecephys_analyses": [pjoin("static", "*")]}
 INSTALL_REQUIRES = [
     "ecephys",
-    "jupyter",
-    "black[jupyter]",
     "numpy",
     "pyyaml",
-    "pandas",
-    "pyEDFlib",
+    "black",
 ]
 PYTHON_REQUIRES = ">= 3.7"
