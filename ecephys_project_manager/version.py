@@ -29,7 +29,8 @@ CLASSIFIERS = [
 description = "ecephys_project_manager"
 # Long description will go up on the pypi page
 long_description = """
-ecephys_project_manager
+Tools for managing (e)xtra(c)ellular (e)lectro(phys)iology projects
+at the Wisconsin Institute for Sleep and Consciousness.
 """
 
 NAME = "ecephys_project_manager"
@@ -37,7 +38,7 @@ MAINTAINER = "Graham Findlay"
 MAINTAINER_EMAIL = "gfindlay@wisc.edu"
 DESCRIPTION = description
 LONG_DESCRIPTION = long_description
-URL = "http://github.com/grahamfindlay/ecephys_project_manager"
+URL = "http://github.com/CSC-UW/ecephys_project_manager
 DOWNLOAD_URL = ""
 LICENSE = ""
 AUTHOR = "Graham Findlay"

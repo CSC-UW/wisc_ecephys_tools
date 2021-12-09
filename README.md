@@ -4,7 +4,7 @@
 This will also install [`ecephys`](https://github.com/CSC-UW/ecephys) as a local, editable sibling directory.
 ```
 git clone https://github.com/CSC-UW/ecephys.git
-git clone https://github.com/grahamfindlay/ecephys_project_manager.git
+git clone https://github.com/CSC-UW/ecephys_project_manager.git
 
 conda create -n myenv python=3
 conda activate myenv
