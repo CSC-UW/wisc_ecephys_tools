@@ -15,7 +15,11 @@ import re
 from itertools import chain
 
 import pandas as pd
-from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
+from ecephys.sglx.file_mgmt import (
+    filelist_to_frame,
+    loc,
+    set_index
+)
 
 from .sessions import get_session_files_from_multiple_locations
 from ..conf import get_config_file
