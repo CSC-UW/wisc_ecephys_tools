@@ -8,6 +8,7 @@ from ecephys_analyses.params import get_analysis_params
 from ecephys_analyses.projects import \
     get_alias_subject_directory  # TODO: Move loc
 from ecephys_analyses.sglx.experiments import get_ap_bin_files
+from ecephys_analyses.sglx.sessions import get_session_style_path_parts
 
 CATGT_PROJECT_NAME = 'catgt'  # Key in projects.yaml.
 ANALYSIS_TYPE = 'preprocessing'  # Relevant analysis type in analysis_cfg.yaml
@@ -177,7 +178,7 @@ def run_preprocessing(
             _,
             _,
             _,
-        ) = ecephys_analyses.get_session_style_path_parts(
+        ) = get_session_style_path_parts(
             subalias_files.path[0]
         )
         src_dir = root_dir/subject_dirname/session_dirname/session_sglx_dirname
