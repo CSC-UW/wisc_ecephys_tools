@@ -3,6 +3,6 @@ project: SPWRs
 project_directory: /Volumes/neuropixel_analysis/Data/SPWRs/
 ...
 ---
-project: catgt
+project: catgt  # Default location for catGT processed data
 project_directory: /Volumes/scratch/neuropixels/data/catgt
 ...
