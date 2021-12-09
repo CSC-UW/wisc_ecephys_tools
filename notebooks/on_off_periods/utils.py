@@ -1,10 +1,10 @@
-from ecephys_analyses.on_off import run_on_off_detection, get_on_off_df_filename
-from ecephys_analyses.data_mgmt.paths import get_datapath
+from ecephys_project_manager.on_off import run_on_off_detection, get_on_off_df_filename
+from ecephys_project_manager.data_mgmt.paths import get_datapath
 import pandas as pd
 
-from ecephys_analyses.data.channel_groups import region_depths
-from ecephys_analyses.data import paths
-import ecephys_analyses.units
+from ecephys_project_manager.data.channel_groups import region_depths
+from ecephys_project_manager.data import paths
+import ecephys_project_manager.units
 import ecephys.units
 
 
@@ -63,7 +63,7 @@ def load_analysis_data(
         df['dataset'] = dataset
 
         # Subset clusters using cluster_info
-        _, info = ecephys_analyses.units.get_sorting_data(
+        _, info = ecephys_project_manager.units.get_sorting_data(
             subject,
             condition,
             sorting_condition,

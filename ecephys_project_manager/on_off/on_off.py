@@ -3,10 +3,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import spikeextractors as se
-from ecephys_analyses.data import channel_groups, parameters, paths
+from ecephys_project_manager.data import channel_groups, parameters, paths
 import ecephys.units
 from ecephys.units.select import get_selection_intervals_str
-import ecephys_analyses.units
+import ecephys_project_manager.units
 
 from on_off_detection import OnOffModel
 
@@ -58,7 +58,7 @@ def run_on_off_detection(
     Tmax = ecephys.units.get_sorting_info(ks_dir)['duration']
 
     # Get spike trains of interest
-    extr, info = ecephys_analyses.units.get_sorting_data(
+    extr, info = ecephys_project_manager.units.get_sorting_data(
          subject, condition, sorting_condition,
          region=region,
          selection_intervals=selection_intervals,

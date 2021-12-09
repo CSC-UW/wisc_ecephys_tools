@@ -8,8 +8,8 @@ import spikeextractors as se
 from ecephys.plot import plot_psth_heatmap, plot_psth_hist
 from ecephys.units import get_selection_intervals_str
 from ecephys.units.psth import get_normed_data
-from ecephys_analyses.data import channel_groups, parameters, paths
-from ecephys_analyses.units import get_sorting_data
+from ecephys_project_manager.data import channel_groups, parameters, paths
+from ecephys_project_manager.units import get_sorting_data
 from spykes.plot.neurovis import NeuroVis
 from spykes.plot.popvis import PopVis
 

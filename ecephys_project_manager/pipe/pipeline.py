@@ -1,5 +1,5 @@
-from ecephys_analyses.pipe.prepro import CATGT_PROJECT_NAME
-import ecephys_analyses.pipe
+from ecephys_project_manager.pipe.prepro import CATGT_PROJECT_NAME
+import ecephys_project_manager.pipe
 
 
 def run_pipeline(
@@ -32,7 +32,7 @@ def run_pipeline(
     
     # Run CatGT
     print('\n\nRun preproecessing:')
-    success = ecephys_analyses.pipe.run_preprocessing(
+    success = ecephys_project_manager.pipe.run_preprocessing(
         project=prepro_project,
         subject=subject,
         experiment=experiment,
@@ -47,7 +47,7 @@ def run_pipeline(
 
     # Run sorting
     print('\n\nRun sorting:')
-    success = ecephys_analyses.pipe.run_sorting(
+    success = ecephys_project_manager.pipe.run_sorting(
         project=project,
         subject=subject,
         experiment=experiment,
@@ -61,7 +61,7 @@ def run_pipeline(
         dry_run=dry_run,
     )
     if clear_preprocessed_data:
-        ecephys_analyses.pipe.clear_catgt_output_files(
+        ecephys_project_manager.pipe.clear_catgt_output_files(
             project=prepro_project, subject=subject, experiment=experiment, alias=alias, probe=probe, analysis_name=prepro_analysis_name,
         )
     if not dry_run and not success:
@@ -69,7 +69,7 @@ def run_pipeline(
     
     # Run postpro
     print('\n\nRun postprocessing:')
-    success = ecephys_analyses.pipe.run_postprocessing(
+    success = ecephys_project_manager.pipe.run_postprocessing(
         project=project,
         subject=subject,
         experiment=experiment,

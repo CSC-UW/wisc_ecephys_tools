@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import ecephys.units
-from ecephys_analyses.data import channel_groups, paths, utils
+from ecephys_project_manager.data import channel_groups, paths, utils
 
 
 def get_sorting_data(

@@ -2,7 +2,7 @@ import ecephys.units
 from pathlib import Path
 import numpy as np
 import yaml
-from ecephys_analyses.data import channel_groups, paths
+from ecephys_project_manager.data import channel_groups, paths
 from scipy.ndimage import gaussian_filter1d
 from scipy.signal import find_peaks, argrelmin
 

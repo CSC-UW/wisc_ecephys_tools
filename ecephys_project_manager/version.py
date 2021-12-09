@@ -26,18 +26,18 @@ CLASSIFIERS = [
 ]
 
 # Description should be a one-liner:
-description = "ecephys_analyses"
+description = "ecephys_project_manager"
 # Long description will go up on the pypi page
 long_description = """
-ecephys_analyses
+ecephys_project_manager
 """
 
-NAME = "ecephys_analyses"
+NAME = "ecephys_project_manager"
 MAINTAINER = "Graham Findlay"
 MAINTAINER_EMAIL = "gfindlay@wisc.edu"
 DESCRIPTION = description
 LONG_DESCRIPTION = long_description
-URL = "http://github.com/grahamfindlay/ecephys_analyses"
+URL = "http://github.com/grahamfindlay/ecephys_project_manager"
 DOWNLOAD_URL = ""
 LICENSE = ""
 AUTHOR = "Graham Findlay"
@@ -47,7 +47,7 @@ MAJOR = _version_major
 MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
-PACKAGE_DATA = {"ecephys_analyses": [pjoin("static", "*")]}
+PACKAGE_DATA = {"ecephys_project_manager": [pjoin("static", "*")]}
 INSTALL_REQUIRES = [
     "ecephys",
     "numpy",

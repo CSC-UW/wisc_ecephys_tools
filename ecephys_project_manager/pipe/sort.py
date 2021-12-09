@@ -3,8 +3,8 @@ from datetime import datetime
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 from ecephys import sglx
-from ecephys_analyses.params import get_analysis_params
-from ecephys_analyses.projects import get_alias_subject_directory
+from ecephys_project_manager.params import get_analysis_params
+from ecephys_project_manager.projects import get_alias_subject_directory
 
 from .prepro import CATGT_PROJECT_NAME, get_catgt_output_paths
 
