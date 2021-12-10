@@ -160,21 +160,21 @@ experiments:
     recording_session_ids:
       - 3-1-2021
     aliases:
-      - light_period_circadian_match:
-          start_file: 3-1-2021_g0_t0
-        end_file: 3-1-2021_C_g0_t8
-      - sleep_deprivation:
-          start_file: 3-2-2021_A_g0_t0
-        end_file: 3-2-2021_E_g0_t0
-      - recovery_sleep:
-          start_file: 3-2-2021_F_g0_t0
-        end_file: 3-2-2021_G_g0_t0
-      - light_period:
-          start_file: 3-2-2021_A_g0_t0
-        end_file: 3-2-2021_G_g0_t0
-      - full_48h:
-          start_file: 3-1-2021_g0_t0
-        end_file: 3-2-2021_O_g0_t0
+      light_period_circadian_match:
+        - start_file: 3-1-2021_g0_t0
+          end_file: 3-1-2021_C_g0_t8
+      sleep_deprivation:
+        - start_file: 3-2-2021_A_g0_t0
+          end_file: 3-2-2021_E_g0_t0
+      recovery_sleep:
+        - start_file: 3-2-2021_F_g0_t0
+          end_file: 3-2-2021_G_g0_t0
+      light_period:
+        - start_file: 3-2-2021_A_g0_t0
+          end_file: 3-2-2021_G_g0_t0
+      full_48h:
+        - start_file: 3-1-2021_g0_t0
+          end_file: 3-2-2021_O_g0_t0
 ...
 ---
 subject: CNPIX9-Luigi
