@@ -1,6 +1,7 @@
 import ecephys.units
 from ecephys_project_manager.pipe import get_sorting_output_path
 from ..cluster_groups import get_cluster_group_dict
+from ..regions import get_region_depths
 
 
 def get_sorting_data(
@@ -45,8 +46,7 @@ def get_sorting_data(
             assert 'depth' not in selection_intervals.keys()
             depth_interval = (0.0, float('Inf'))
         else:
-            # depth_interval = channel_groups.region_depths[subject][condition][region]
-            raise NotImplementedError() # TODO
+            depth_interval = get_region_depths(subject, experiment, alias, probe)[region]
         selection_intervals = {
             'depth': depth_interval,
             **selection_intervals
@@ -68,9 +68,8 @@ def get_sorting_data(
 
     # Add boolean column for each region
     if assign_regions:
-        raise NotImplementedError()  # TODO
-        # regions = channel_groups.region_depths[subject][condition]
-        # for region, region_depths in regions.items():
-        #     info[region] = info['depth'].between(*region_depths)
+        regions = get_region_depths(subject, experiment, alias, probe)
+        for region, region_depths in regions.items():
+            info[region] = info['depth'].between(*region_depths)
 
     return extr, info
