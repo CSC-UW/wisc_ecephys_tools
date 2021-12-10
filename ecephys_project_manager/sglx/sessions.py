@@ -177,3 +177,38 @@ def get_filepath_relative_to_session_directory_parent(path):
     session_sglx_dir = gate_dir.parent
     session_dir = session_sglx_dir.parent
     return path.relative_to(session_dir.parent)
+
+
+def get_session_style_path_parts(fpath):
+    """Get all elements of a session-style filepath.
+    
+    Parameters:
+    -----------
+    fpath: pathlib.Path
+        Must be a file (e.g. run0_g0_t0.lf.bin), not a directory.
+
+    Returns:
+    --------
+    list of pathlib.Path or str containing the following elements::
+        - Root directory  (eg path/to/my/project)
+        - Subject directory name (eg 'CNPIX11-Adrian')
+        - Session directory name (eg '8-27-2021')
+        - Session SGLX directory name (ie 'SpikeGLX')
+        - Gate directory name
+        - Probe directory name
+        - Filename
+    """
+    gate_dir, probe_dirname, fname = validate_sglx_path(fpath)
+    session_sglx_dir = gate_dir.parent
+    session_dir = session_sglx_dir.parent
+    subject_dir = session_dir.parent
+    root_dir = subject_dir.parent
+    return (
+        root_dir,
+        subject_dir.name,
+        session_dir.name,
+        session_sglx_dir.name,
+        gate_dir.name,
+        probe_dirname,
+        fname,
+    )

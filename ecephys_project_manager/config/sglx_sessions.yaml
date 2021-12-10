@@ -1,4 +1,11 @@
 ---
+subject: my_subject
+recording_sessions:
+  - id: session_id
+    ap: /path/to/raw/ap/{subject_id}/{session_id}/SpikeGLX/
+    lf: /path/to/raw/lf/{subject_id}/{session_id}/SpikeGLX/
+...
+---
 subject: CNPIX2-Segundo
 recording_sessions:
   - id: 1-21-2020

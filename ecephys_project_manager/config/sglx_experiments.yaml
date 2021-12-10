@@ -1,4 +1,17 @@
 ---
+subject: my_subject
+experiments:
+  my_experiment:
+    my_alias:
+      - start_file: first_run_g0_t0
+        end_file: first_run_g1_t1
+      - start_file: second_run_g0_t0
+        end_file: second_run_g1_t1
+    my_alias_2:
+      - start_file: first_run_g2_t1818
+        end_file: first_run_g2_t999
+...
+---
 subject: CNPIX2-Segundo
 experiments:
   novel_objects_deprivation:
@@ -6,20 +19,28 @@ experiments:
       - 1-21-2020
     aliases:
       light_period_circadian_match:
-        start_file: 1-21-2020_g0_t8
-        end_file: 1-21-2020_g0_t13
+        - start_file: 1-21-2020_g0_t8
+          end_file: 1-21-2020_g0_t13
       sleep_deprivation:
-        start_file: 1-21-2020_g0_t20
-        end_file: 1-21-2020_g0_t22
+        - start_file: 1-21-2020_g0_t20
+          end_file: 1-21-2020_g0_t22
       recovery_sleep:
-        start_file: 1-21-2020_g0_t23
-        end_file: 1-21-2020_g0_t25
+        - start_file: 1-21-2020_g0_t23
+          end_file: 1-21-2020_g0_t25
       light_period:
-        start_file: 1-21-2020_g0_t20
-        end_file: 1-21-2020_g0_t25
+        - start_file: 1-21-2020_g0_t20
+          end_file: 1-21-2020_g0_t25
       full_48h:
-        start_file: 1-21-2020_g0_t8
-        end_file: 1-21-2020_g0_t31
+        - start_file: 1-21-2020_g0_t8
+          end_file: 1-21-2020_g0_t31
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 1-21-2020_g0_t11
+          end_file: 1-21-2020_g0_t11
+        # recovery_sleep
+        - start_file: 1-21-2020_g0_t23
+          end_file: 1-21-2020_g0_t23
+
 ...
 ---
 subject: CNPIX3-Valentino
@@ -30,20 +51,27 @@ experiments:
       - 2-20-2020
     aliases:
       light_period_circadian_match:
-        start_file: 2-19-2020_g1_t0
-        end_file: 2-19-2020_g1_t5
+        - start_file: 2-19-2020_g1_t0
+          end_file: 2-19-2020_g1_t5
       sleep_deprivation:
-        start_file: 2-20-2020_g0_t0
-        end_file: 2-20-2020_g0_t2
+        - start_file: 2-20-2020_g0_t0
+          end_file: 2-20-2020_g0_t2
       recovery_sleep:
-        start_file: 2-20-2020_g0_t3
-        end_file: 2-20-2020_g0_t5
+        - start_file: 2-20-2020_g0_t3
+          end_file: 2-20-2020_g0_t5
       light_period:
-        start_file: 2-20-2020_g0_t0
-        end_file: 2-20-2020_g0_t5
+        - start_file: 2-20-2020_g0_t0
+          end_file: 2-20-2020_g0_t5
       full_48h:
-        start_file: 2-19-2020_g1_t0
-        end_file: 2-20-2020_g0_t11
+        - start_file: 2-19-2020_g1_t0
+          end_file: 2-20-2020_g0_t11
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 2-19-2020_g1_t3
+          end_file: 2-19-2020_g1_t3
+        # recovery_sleep
+        - start_file: 2-20-2020_g0_t3.imec0
+          end_file: 2-20-2020_g0_t3.imec0
 ...
 ---
 subject: CNPIX4-Doppio
@@ -54,20 +82,27 @@ experiments:
       - 3-18-2020
     aliases:
       light_period_circadian_match:
-        start_file: 3-17-2020_g0_t0
-        end_file: 3-17-2020_g0_t5
+        - start_file: 3-17-2020_g0_t0
+          end_file: 3-17-2020_g0_t5
       sleep_deprivation:
-        start_file: 3-18-2020_g0_t0
-        end_file: 3-18-2020_g0_t2
+        - start_file: 3-18-2020_g0_t0
+          end_file: 3-18-2020_g0_t2
       recovery_sleep:
-        start_file: 3-18-2020_g0_t3
-        end_file: 3-18-2020_g0_t5
+        - start_file: 3-18-2020_g0_t3
+          end_file: 3-18-2020_g0_t5
       light_period:
-        start_file: 3-18-2020_g0_t0
-        end_file: 3-18-2020_g0_t5
+        - start_file: 3-18-2020_g0_t0
+          end_file: 3-18-2020_g0_t5
       full_48h:
-        start_file: 3-17-2020_g0_t0
-        end_file: 3-18-2020_g0_t9
+        - start_file: 3-17-2020_g0_t0
+          end_file: 3-18-2020_g0_t9
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 3-17-2020_g0_t3
+          end_file: 3-17-2020_g0_t3
+        # recovery_sleep
+        - start_file: 3-18-2020_g0_t3
+          end_file: 3-18-2020_g0_t3
 ...
 ---
 subject: CNPIX5-Alessandro
@@ -78,20 +113,27 @@ experiments:
       - 8-25-2020
     aliases:
       light_period_circadian_match:
-        start_file: 8-24-2020_g0_t0
-        end_file: 8-24-2020_g0_t11
+        - start_file: 8-24-2020_g0_t0
+          end_file: 8-24-2020_g0_t11
       sleep_deprivation:
-        start_file: 8-25-2020_SD_g0_t0
-        end_file: 8-25-2020_g0_t1
+        - start_file: 8-25-2020_SD_g0_t0
+          end_file: 8-25-2020_g0_t1
       recovery_sleep:
-        start_file: 8-25-2020_g0_t2
-        end_file: 8-25-2020_g0_t7
+        - start_file: 8-25-2020_g0_t2
+          end_file: 8-25-2020_g0_t7
       light_period:
-        start_file: 8-25-2020_SD_g0_t0
-        end_file: 8-25-2020_g0_t7
+        - start_file: 8-25-2020_SD_g0_t0
+          end_file: 8-25-2020_g0_t7
       full_48h:
-        start_file: 8-24-2020_g0_t0
-        end_file: 8-25-2020_g0_t12
+        - start_file: 8-24-2020_g0_t0
+          end_file: 8-25-2020_g0_t12
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 8-24-2020_g0_t6
+          end_file: 8-24-2020_g0_t7
+        # recovery_sleep
+        - start_file: 8-25-2020_g0_t2
+          end_file: 8-25-2020_g0_t3
 ...
 ---
 subject: CNPIX6-Eugene
@@ -101,20 +143,21 @@ experiments:
       - 9-24-2020
     aliases:
       light_period_circadian_match:
-        start_file: 9.24.2020_BL_24hs_g0_t0
-        end_file: 9.24.2020_BL_24hs5_g0_t0
+        - start_file: 9.24.2020_BL_24hs_g0_t0
+          end_file: 9.24.2020_BL_24hs5_g0_t0
       sleep_deprivation:
-        start_file: 9.24.2020_SD_24hs_g0_t0
-        end_file: 9.24.2020_SD_24hs8_g0_t1
+        - start_file: 9.24.2020_SD_24hs_g0_t0
+          end_file: 9.24.2020_SD_24hs8_g0_t1
       recovery_sleep:
-        start_file: 9.24.2020_SR_24hs_g0_t0
-        end_file: 9.24.2020_SR_24hs1_g0_t0
+        - start_file: 9.24.2020_SR_24hs_g0_t0
+          end_file: 9.24.2020_SR_24hs1_g0_t0
       light_period:
-        start_file: 9.24.2020_SD_24hs_g0_t0
-        end_file: 9.24.2020_SR_24hs1_g0_t0
+        - start_file: 9.24.2020_SD_24hs_g0_t0
+          end_file: 9.24.2020_SR_24hs1_g0_t0
       full_48h:
-        start_file: 9.24.2020_BL_24hs_g0_t0
-        end_file: 9.24.2020_SR_24hs5_g0_t2
+        - start_file: 9.24.2020_BL_24hs_g0_t0
+          end_file: 9.24.2020_SR_24hs5_g0_t2
+      # sleep-homeostasis-2h:  # TODO?
 ...
 ---
 subject: CNPIX7-Giuseppe
@@ -125,20 +168,27 @@ experiments:
       - 12-13-2020
     aliases:
       light_period_circadian_match:
-        start_file: 12-12-2020_BL_24hs_g0_t0
-        end_file: 12-12-2020_BL_24hs_g0_t10
+        - start_file: 12-12-2020_BL_24hs_g0_t0
+          end_file: 12-12-2020_BL_24hs_g0_t10
       sleep_deprivation:
-        start_file: 12.12.2020 SD 6hs_g0_t0
-        end_file: 12.13.2020 SD 6hs (restart_2)_g2_t2
+        - start_file: 12.12.2020 SD 6hs_g0_t0
+          end_file: 12.13.2020 SD 6hs (restart_2)_g2_t2
       recovery_sleep:
-        start_file: 12-13-2020_SR_18hs_g0_t0
-        end_file: 12-13-2020_SR_18hs_g0_t5
+        - start_file: 12-13-2020_SR_18hs_g0_t0
+          end_file: 12-13-2020_SR_18hs_g0_t5
       light-period:
-        start_file: 12.12.2020 SD 6hs_g0_t0
-        end_file: 12-13-2020_SR_18hs_g0_t5
+        - start_file: 12.12.2020 SD 6hs_g0_t0
+          end_file: 12-13-2020_SR_18hs_g0_t5
       full_48h:
-        start_file: 12-12-2020_BL_24hs_g0_t0
-        end_file: 12-13-2020_SR_18hs_g0_t6
+        - start_file: 12-12-2020_BL_24hs_g0_t0
+          end_file: 12-13-2020_SR_18hs_g0_t6
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 12-12-2020_BL_24hs_g0_t6
+          end_file: 12-12-2020_BL_24hs_g0_t7
+        # recovery_sleep
+        - start_file: 12-13-2020_SR_18hs_g0_t0
+          end_file: 12-13-2020_SR_18hs_g0_t1
 ...
 ---
 subject: CNPIX8-Allan
@@ -148,20 +198,27 @@ experiments:
       - 3-1-2021
     aliases:
       light_period_circadian_match:
-        start_file: 3-1-2021_g0_t0
-        end_file: 3-1-2021_C_g0_t8
+        - start_file: 3-1-2021_g0_t0
+          end_file: 3-1-2021_C_g0_t8
       sleep_deprivation:
-        start_file: 3-2-2021_A_g0_t0
-        end_file: 3-2-2021_E_g0_t0
+        - start_file: 3-2-2021_A_g0_t0
+          end_file: 3-2-2021_E_g0_t0
       recovery_sleep:
-        start_file: 3-2-2021_F_g0_t0
-        end_file: 3-2-2021_G_g0_t0
+        - start_file: 3-2-2021_F_g0_t0
+          end_file: 3-2-2021_G_g0_t0
       light_period:
-        start_file: 3-2-2021_A_g0_t0
-        end_file: 3-2-2021_G_g0_t0
+        - start_file: 3-2-2021_A_g0_t0
+          end_file: 3-2-2021_G_g0_t0
       full_48h:
-        start_file: 3-1-2021_g0_t0
-        end_file: 3-2-2021_O_g0_t0
+        - start_file: 3-1-2021_g0_t0
+          end_file: 3-2-2021_O_g0_t0
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 3-1-2021_C_g0_t2
+          end_file: 3-1-2021_C_g0_t3
+        # recovery_sleep
+        - start_file: 3-2-2021_F_g0_t0
+          end_file: 3-2-2021_F_g0_t1
 ...
 ---
 subject: CNPIX9-Luigi
@@ -172,20 +229,27 @@ experiments:
       - 6-21-2021
     aliases:
       light_period_circadian_match:
-        start_file: 6-20-2021_g0_t0
-        end_file: 6-20-2021_g0_t5
+        - start_file: 6-20-2021_g0_t0
+          end_file: 6-20-2021_g0_t5
       sleep_deprivation:
-        start_file: 6-21-2021_g0_t0
-        end_file: 6-21-2021_g0_t2
+        - start_file: 6-21-2021_g0_t0
+          end_file: 6-21-2021_g0_t2
       recovery_sleep:
-        start_file: 6-21-2021_g1_t0
-        end_file: 6-21-2021_g1_t2
+        - start_file: 6-21-2021_g1_t0
+          end_file: 6-21-2021_g1_t2
       light_period:
-        start_file: 6-21-2021_g0_t0
-        end_file: 6-21-2021_g1_t2
+        - start_file: 6-21-2021_g0_t0
+          end_file: 6-21-2021_g1_t2
       full_48h:
-        start_file: 6-20-2021_g0_t0
-        end_file: 6-21-2021_g1_t8
+        - start_file: 6-20-2021_g0_t0
+          end_file: 6-21-2021_g1_t8
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 6-20-2021_g0_t3
+          end_file: 6-20-2021_g0_t3
+        # recovery_sleep
+        - start_file: 6-21-2021_g1_t0
+          end_file: 6-21-2021_g1_t0
 ...
 ---
 subject: CNPIX10-Charles
@@ -196,20 +260,27 @@ experiments:
       - 7-11-2021
     aliases:
       light_period_circadian_match:
-        start_file: 7-10-2021_g0_t0
-        end_file: 7-10-2021_g0_t5
+        - start_file: 7-10-2021_g0_t0
+          end_file: 7-10-2021_g0_t5
       sleep_deprivation:
-        start_file: 7-11-2021_g0_t0
-        end_file: 7-11-2021_g0_t2
+        - start_file: 7-11-2021_g0_t0
+          end_file: 7-11-2021_g0_t2
       recovery_sleep:
-        start_file: 7-11-2021_g1_t0
-        end_file: 7-11-2021_g1_t2
+        - start_file: 7-11-2021_g1_t0
+          end_file: 7-11-2021_g1_t2
       light-period:
-        start_file: 7-11-2021_g0_t0
-        end_file: 7-11-2021_g1_t2
+        - start_file: 7-11-2021_g0_t0
+          end_file: 7-11-2021_g1_t2
       full_48h:
-        start_file: 7-10-2021_g0_t0
-        end_file: 7-11-2021_g1_t8
+        - start_file: 7-10-2021_g0_t0
+          end_file: 7-11-2021_g1_t8
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 7-10-2021_g0_t3
+          end_file: 7-10-2021_g0_t3
+        # recovery_sleep
+        - start_file: 7-11-2021_g1_t0
+          end_file: 7-11-2021_g1_t0
 ...
 ---
 subject: CNPIX11-Adrian
@@ -220,40 +291,47 @@ experiments:
       - 8-28-2021
     aliases:
       light_period_circadian_match:
-        start_file: 8-27-2021_g2_t0
-        end_file: 8-27-2021_g2_t5
+        - start_file: 8-27-2021_g2_t0
+          end_file: 8-27-2021_g2_t5
       sleep_deprivation:
-        start_file: 8-28-2021_g0_t0
-        end_file: 8-28-2021_g0_t2
+        - start_file: 8-28-2021_g0_t0
+          end_file: 8-28-2021_g0_t2
       recovery_sleep:
-        start_file: 8-28-2021_g0_t3
-        end_file: 8-28-2021_g0_t5
+        - start_file: 8-28-2021_g0_t3
+          end_file: 8-28-2021_g0_t5
       light_period:
-        start_file: 8-28-2021_g0_t0
-        end_file: 8-28-2021_g0_t5
+        - start_file: 8-28-2021_g0_t0
+          end_file: 8-28-2021_g0_t5
       full_48h:
-        start_file: 8-27-2021_g2_t0
-        end_file: 8-28-2021_g0_t11
+        - start_file: 8-27-2021_g2_t0
+          end_file: 8-28-2021_g0_t11
   novel_objects_deprivation:
     recording_session_ids:
       - 8-30-2021
       - 8-31-2021
     aliases:
       light_period_circadian_match:
-        start_file: 8-30-2021_g0_t0
-        end_file: 8-30-2021_g0_t5
+        - start_file: 8-30-2021_g0_t0
+          end_file: 8-30-2021_g0_t5
       sleep_deprivation:
-        start_file: 8-31-2021_g0_t0
-        end_file: 8-31-2021_g0_t2
+        - start_file: 8-31-2021_g0_t0
+          end_file: 8-31-2021_g0_t2
       recovery_sleep:
-        start_file: 8-31-2021_g0_t3
-        end_file: 8-31-2021_g0_t5
+        - start_file: 8-31-2021_g0_t3
+          end_file: 8-31-2021_g0_t5
       light_period:
-        start_file: 8-31-2021_g0_t0
-        end_file: 8-31-2021_g0_t5
+        - start_file: 8-31-2021_g0_t0
+          end_file: 8-31-2021_g0_t5
       full_48h:
-        start_file: 8-30-2021_g0_t0
-        end_file: 8-31-2021_g1_t0
+        - start_file: 8-30-2021_g0_t0
+          end_file: 8-31-2021_g1_t0
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 8-30-2021_g0_t3
+          end_file: 8-30-2021_g0_t3
+        # recovery_sleep
+        - start_file: 8-31-2021_g0_t3
+          end_file: 8-31-2021_g0_t3
 ...
 ---
 subject: CNPIX12-Santiago
@@ -264,38 +342,39 @@ experiments:
       - 11-1-2021
     aliases:
       light_period_circadian_match:
-        start_file: 10-31-2021_g0_t0
-        end_file: 10-31-2021_g0_t5
+        - start_file: 10-31-2021_g0_t0
+          end_file: 10-31-2021_g0_t5
       sleep_deprivation:
-        start_file: 11-1-2021_g0_t0
-        end_file: 11-1-2021_g0_t2
+        - start_file: 11-1-2021_g0_t0
+          end_file: 11-1-2021_g0_t2
       recovery_sleep:
-        start_file: 11-1-2021_g1_t0
-        end_file: 11-1-2021_g1_t2
+        - start_file: 11-1-2021_g1_t0
+          end_file: 11-1-2021_g1_t2
       light_period:
-        start_file: 11-1-2021_g0_t0
-        end_file: 11-1-2021_g1_t2
+        - start_file: 11-1-2021_g0_t0
+          end_file: 11-1-2021_g1_t2
       full_48h:
-        start_file: 10-31-2021_g0_t0
-        end_file: 11-1-2021_g1_t8
+        - start_file: 10-31-2021_g0_t0
+          end_file: 11-1-2021_g1_t8
   conveyor_over_water:
     recording_session_ids:
       - 11-3-2021
       - 11-4-2021
     aliases:
       light_period_circadian_match:
-        start_file: 11-3-2021_g0_t0
-        end_file: 11-3-2021_g0_t5
+        - start_file: 11-3-2021_g0_t0
+          end_file: 11-3-2021_g0_t5
       sleep_deprivation:
-        start_file: 11-4-2021_g0_t0
-        end_file: 11-4-2021_g0_t2
+        - start_file: 11-4-2021_g0_t0
+          end_file: 11-4-2021_g0_t2
       recovery_sleep:
-        start_file: 11-4-2021_g0_t3
-        end_file: 11-4-2021_g0_t5
+        - start_file: 11-4-2021_g0_t3
+          end_file: 11-4-2021_g0_t5
       light_period:
-        start_file: 11-4-2021_g0_t0
-        end_file: 11-4-2021_g0_t5
+        - start_file: 11-4-2021_g0_t0
+          end_file: 11-4-2021_g0_t5
       full_48h:
-        start_file: 11-3-2021_g0_t0
-        end_file: 11-4-2021_g0_t11
+        - start_file: 11-3-2021_g0_t0
+          end_file: 11-4-2021_g0_t11
+      # sleep-homeostasis-2h:  # TODO
 ...

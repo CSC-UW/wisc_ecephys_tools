@@ -1,0 +1,12 @@
+# Overwrites phy cluster labels
+---
+subject: my_subject
+experiments:
+  my_experiment:
+    aliases:
+      my_alias:
+        probes:
+          imec0:
+            my_cluster_label: [5, 6]
+            noise_contaminated: [1, 2, 3]
+...
