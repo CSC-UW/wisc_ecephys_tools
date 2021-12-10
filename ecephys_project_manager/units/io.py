@@ -1,29 +1,40 @@
-from pathlib import Path
-
 import ecephys.units
-from ecephys_project_manager.data import channel_groups, paths, utils
+from ecephys_project_manager.pipe import get_sorting_output_path
+from ..cluster_groups import get_cluster_group_dict
 
 
 def get_sorting_data(
-    subject, condition, sorting_condition,
+    project=None,
+    subject=None,
+    experiment=None,
+    alias=None,
+    probe=None,
+    analysis_name=None,
     region='all',
     selection_intervals=None,
     assign_regions=True,
     selected_groups=None,
-    root_key=None,
 ):
-    """Return (<subsortingextractor>, <cluster_info>)"""
+    """Return (<SpikeInterface.SubSortingExtractor>, <cluster_info>)."""
+
+    assert all(
+        [arg is not None
+        for arg in [project, subject, experiment, alias, probe, analysis_name]]
+    )
+
     # Params
     if selection_intervals is None:
         selection_intervals = {}
-    print(f'Get sorting extractor, subj={subject}, condition={condition}, sorting={sorting_condition}, region={region}, groups={selected_groups}, selection_intervals={selection_intervals}, root_key={root_key}')
+    print(f'Get sorting extractor: {locals()}')
 
     # Path 
-    ks_dir = paths.get_datapath(
-        subject,
-        condition,
-        sorting_condition,
-        root_key=root_key,
+    ks_dir = get_sorting_output_path(
+        project=project,
+        subject=subject,
+        experiment=experiment,
+        alias=alias,
+        probe=probe,
+        analysis_name=analysis_name
     )
 
     # Get depth intervals either from file ('region') or from `selection_intervals` kwargs
@@ -34,16 +45,15 @@ def get_sorting_data(
             assert 'depth' not in selection_intervals.keys()
             depth_interval = (0.0, float('Inf'))
         else:
-            depth_interval = channel_groups.region_depths[subject][condition][region]
+            # depth_interval = channel_groups.region_depths[subject][condition][region]
+            raise NotImplementedError() # TODO
         selection_intervals = {
             'depth': depth_interval,
             **selection_intervals
         }
 
     # Get cluster group overrides
-    cluster_group_overrides = {
-        'noise_contam': utils.get_noise_contam_dict().get(subject, {}).get(condition, {})
-    }
+    cluster_group_overrides = get_cluster_group_dict( subject, experiment, alias, probe)
     print(f"cluster group overrides: {cluster_group_overrides}")
 
     # Get clusters
@@ -58,8 +68,9 @@ def get_sorting_data(
 
     # Add boolean column for each region
     if assign_regions:
-        regions = channel_groups.region_depths[subject][condition]
-        for region, region_depths in regions.items():
-            info[region] = info['depth'].between(*region_depths)
+        raise NotImplementedError()  # TODO
+        # regions = channel_groups.region_depths[subject][condition]
+        # for region, region_depths in regions.items():
+        #     info[region] = info['depth'].between(*region_depths)
 
     return extr, info
