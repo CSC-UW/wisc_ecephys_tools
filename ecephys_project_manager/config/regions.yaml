@@ -1,0 +1,21 @@
+# Depths of structures. Corresponding to depths in Phy.
+# WATCH OUT: 0 is tip of probe, not necessarily the deepest channel
+---
+subject: my_subject
+_:
+  imec0:  &imec0_base
+    # Cortex
+    region_1: [0, 1000]
+    region_2: [1000, 7660]
+experiments:
+  my_experiment:
+    aliases:
+      my_alias_1:
+        probes:
+          imec0: *imec0_base
+      my_alias_2:
+        probes:
+          imec0:
+            <<: *imec0_base
+            region_2: [1050, 7660]
+...
