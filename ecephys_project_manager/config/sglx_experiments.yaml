@@ -33,6 +33,14 @@ experiments:
       full_48h:
         - start_file: 1-21-2020_g0_t8
           end_file: 1-21-2020_g0_t31
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 1-21-2020_g0_t11
+          end_file: 1-21-2020_g0_t11
+        # recovery_sleep
+        - start_file: 1-21-2020_g0_t23
+          end_file: 1-21-2020_g0_t23
+
 ...
 ---
 subject: CNPIX3-Valentino
@@ -57,6 +65,13 @@ experiments:
       full_48h:
         - start_file: 2-19-2020_g1_t0
           end_file: 2-20-2020_g0_t11
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 2-19-2020_g1_t3
+          end_file: 2-19-2020_g1_t3
+        # recovery_sleep
+        - start_file: 2-20-2020_g0_t3.imec0
+          end_file: 2-20-2020_g0_t3.imec0
 ...
 ---
 subject: CNPIX4-Doppio
@@ -81,6 +96,13 @@ experiments:
       full_48h:
         - start_file: 3-17-2020_g0_t0
           end_file: 3-18-2020_g0_t9
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 3-17-2020_g0_t3
+          end_file: 3-17-2020_g0_t3
+        # recovery_sleep
+        - start_file: 3-18-2020_g0_t3
+          end_file: 3-18-2020_g0_t3
 ...
 ---
 subject: CNPIX5-Alessandro
@@ -105,6 +127,13 @@ experiments:
       full_48h:
         - start_file: 8-24-2020_g0_t0
           end_file: 8-25-2020_g0_t12
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 8-24-2020_g0_t6
+          end_file: 8-24-2020_g0_t7
+        # recovery_sleep
+        - start_file: 8-25-2020_g0_t2
+          end_file: 8-25-2020_g0_t3
 ...
 ---
 subject: CNPIX6-Eugene
@@ -128,6 +157,7 @@ experiments:
       full_48h:
         - start_file: 9.24.2020_BL_24hs_g0_t0
           end_file: 9.24.2020_SR_24hs5_g0_t2
+      # sleep-homeostasis-2h:  # TODO?
 ...
 ---
 subject: CNPIX7-Giuseppe
@@ -152,6 +182,13 @@ experiments:
       full_48h:
         - start_file: 12-12-2020_BL_24hs_g0_t0
           end_file: 12-13-2020_SR_18hs_g0_t6
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 12-12-2020_BL_24hs_g0_t6
+          end_file: 12-12-2020_BL_24hs_g0_t7
+        # recovery_sleep
+        - start_file: 12-13-2020_SR_18hs_g0_t0
+          end_file: 12-13-2020_SR_18hs_g0_t1
 ...
 ---
 subject: CNPIX8-Allan
@@ -175,6 +212,13 @@ experiments:
       full_48h:
         - start_file: 3-1-2021_g0_t0
           end_file: 3-2-2021_O_g0_t0
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 3-1-2021_C_g0_t2
+          end_file: 3-1-2021_C_g0_t3
+        # recovery_sleep
+        - start_file: 3-2-2021_F_g0_t0
+          end_file: 3-2-2021_F_g0_t1
 ...
 ---
 subject: CNPIX9-Luigi
@@ -199,6 +243,13 @@ experiments:
       full_48h:
         - start_file: 6-20-2021_g0_t0
           end_file: 6-21-2021_g1_t8
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 6-20-2021_g0_t3
+          end_file: 6-20-2021_g0_t3
+        # recovery_sleep
+        - start_file: 6-21-2021_g1_t0
+          end_file: 6-21-2021_g1_t0
 ...
 ---
 subject: CNPIX10-Charles
@@ -223,6 +274,13 @@ experiments:
       full_48h:
         - start_file: 7-10-2021_g0_t0
           end_file: 7-11-2021_g1_t8
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 7-10-2021_g0_t3
+          end_file: 7-10-2021_g0_t3
+        # recovery_sleep
+        - start_file: 7-11-2021_g1_t0
+          end_file: 7-11-2021_g1_t0
 ...
 ---
 subject: CNPIX11-Adrian
@@ -267,6 +325,13 @@ experiments:
       full_48h:
         - start_file: 8-30-2021_g0_t0
           end_file: 8-31-2021_g1_t0
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 8-30-2021_g0_t3
+          end_file: 8-30-2021_g0_t3
+        # recovery_sleep
+        - start_file: 8-31-2021_g0_t3
+          end_file: 8-31-2021_g0_t3
 ...
 ---
 subject: CNPIX12-Santiago
@@ -311,4 +376,5 @@ experiments:
       full_48h:
         - start_file: 11-3-2021_g0_t0
           end_file: 11-4-2021_g0_t11
+      # sleep-homeostasis-2h:  # TODO
 ...
