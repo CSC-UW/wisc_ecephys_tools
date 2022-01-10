@@ -262,6 +262,9 @@ experiments:
       light_period_circadian_match:
         - start_file: 7-10-2021_g0_t0
           end_file: 7-10-2021_g0_t5
+      circadian_match:
+        - start_file: 7-10-2021_g0_t0
+          end_file: 7-10-2021_g0_t11
       sleep_deprivation:
         - start_file: 7-11-2021_g0_t0
           end_file: 7-11-2021_g0_t2
