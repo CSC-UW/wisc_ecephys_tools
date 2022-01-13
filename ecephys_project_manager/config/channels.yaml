@@ -20,21 +20,6 @@
 #   Hippocampal channels, +/- additional channels above and below to allow for drift.
 #   This is probably unnecessary, even for animals with a lot of drift.
 ---
-Template:
-  my-experiment:
-    imecN:
-      all: MyMontage
-      internal_reference: [191]
-      emg_from_lfp: []
-      superficial_ctx: []
-      stratum_pyramidale_inversion: [] # Manually ID'd
-      white_matter: [] # X um from stratum_pyramidale_inversion
-      stratum_radiatum: []
-      scoring: []
-      hippocampus: [] # X mm to Y mm from probe tip.
-      drift_tracking: [] # Hippocampus +/- 100um
-...
----
 subject: CNPIX2-Segundo
 experiments:
   novel_objects_deprivation:
