@@ -15,18 +15,17 @@ import re
 from itertools import chain
 
 import pandas as pd
-from ecephys.sglx.file_mgmt import (
-    filelist_to_frame,
-    loc,
-    set_index
-)
+from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
+from ecephys.sglx import Map
 
 from .sessions import get_session_files_from_multiple_locations
 from ..conf import get_config_file
 from ..utils import get_subject_document, load_yaml_stream
 
 
-SUBALIAS_IDX_DF_VALUE = -1  # Value of 'subalias_idx' column when there is a single subalias.
+SUBALIAS_IDX_DF_VALUE = (
+    -1
+)  # Value of 'subalias_idx' column when there is a single subalias.
 
 
 def parse_trigger_stem(stem):
@@ -114,9 +113,9 @@ def _get_subalias_files(files_df, start_file, end_file, subalias_idx=None):
     if subalias_idx is None:
         subalias_idx = SUBALIAS_IDX_DF_VALUE
     subalias_df = files_df[
-            parse_trigger_stem(start_file) : parse_trigger_stem(end_file)
+        parse_trigger_stem(start_file) : parse_trigger_stem(end_file)
     ].reset_index()
-    subalias_df['subalias_idx'] = subalias_idx
+    subalias_df["subalias_idx"] = subalias_idx
     return subalias_df
 
 
@@ -156,17 +155,23 @@ def get_alias_files(sessions, experiment, alias):
         set_index(df).reset_index(level=0).sort_index()
     )  # Make df sliceable using (run, gate, trigger)
 
-    if isinstance(alias, list) and len(alias) == 1:  # Single subalias ("subalias_idx" is set to -1)
-        return _get_subalias_files(df, alias[0]['start_file'], alias[0]['end_file'], subalias_idx=None)
+    if (
+        isinstance(alias, list) and len(alias) == 1
+    ):  # Single subalias ("subalias_idx" is set to -1)
+        return _get_subalias_files(
+            df, alias[0]["start_file"], alias[0]["end_file"], subalias_idx=None
+        )
 
     elif isinstance(alias, list):  # Multiple subaliases.
         return pd.concat(
             [
-                _get_subalias_files(df, subalias['start_file'], subalias['end_file'], subalias_idx=i)
+                _get_subalias_files(
+                    df, subalias["start_file"], subalias["end_file"], subalias_idx=i
+                )
                 for i, subalias in enumerate(alias)
             ]
         ).reset_index()
-    
+
     else:
         raise ValueError("Unrecognized format for alias:\n {alias}")
 
@@ -224,14 +229,19 @@ def get_ap_bin_paths(subject, experiment, alias=None, **kwargs):
 
 
 def get_lfp_bin_files(subject, experiment, alias=None, **kwargs):
-    return (
-        get_files(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
-        .sort_values("fileCreateTime", ascending=True)
-    )
+    return get_files(
+        subject, experiment, alias, stream="lf", ftype="bin", **kwargs
+    ).sort_values("fileCreateTime", ascending=True)
 
 
 def get_ap_bin_files(subject, experiment, alias=None, **kwargs):
-    return (
-        get_files(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
-        .sort_values("fileCreateTime", ascending=True)
-    )
+    return get_files(
+        subject, experiment, alias, stream="ap", ftype="bin", **kwargs
+    ).sort_values("fileCreateTime", ascending=True)
+
+
+def get_imec_map(subject, experiment, probe):
+    stream = load_yaml_stream(get_config_file("channels.yaml"))
+    doc = get_subject_document(stream, subject)
+    map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
+    return Map(map_name)

@@ -386,6 +386,7 @@ experiments:
   conveyor_over_water:
     probes:
       imec1:
+        imec_map: LongCol_1shank
         all: *LongColumn
         internal_reference: [191]
         emg_from_lfp: [0, 382, 363]
