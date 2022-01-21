@@ -244,4 +244,4 @@ def get_imec_map(subject, experiment, probe):
     stream = load_yaml_stream(get_config_file("channels.yaml"))
     doc = get_subject_document(stream, subject)
     map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
-    return ImecMap(map_name)
+    return ImecMap.from_library(map_name)
