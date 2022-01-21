@@ -16,7 +16,7 @@ from itertools import chain
 
 import pandas as pd
 from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
-from ecephys.sglx import Map
+from ecephys.sglx import ImecMap
 
 from .sessions import get_session_files_from_multiple_locations
 from ..conf import get_config_file
@@ -244,4 +244,4 @@ def get_imec_map(subject, experiment, probe):
     stream = load_yaml_stream(get_config_file("channels.yaml"))
     doc = get_subject_document(stream, subject)
     map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
-    return Map(map_name)
+    return ImecMap(map_name)
