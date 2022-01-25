@@ -1,5 +1,5 @@
 ---
-project: my_project  # Default location for catGT processed data
+project: my_project
 project_directory: /Volumes/scratch/neuropixels/data/my_project
 ...
 ---
@@ -9,4 +9,8 @@ project_directory: /Volumes/scratch/neuropixels/data/catgt
 ---
 project: SPWRs
 project_directory: /Volumes/neuropixel_analysis/Data/SPWRs/
+...
+---
+project: Scoring
+project_directory: /Volumes/neuropixel_analysis/Data/Scoring/
 ...
