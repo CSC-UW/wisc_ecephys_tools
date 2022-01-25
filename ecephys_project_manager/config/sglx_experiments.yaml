@@ -64,6 +64,8 @@ experiments:
           end_file: 2-20-2020_g0_t5
       full_48h:
         - start_file: 2-19-2020_g1_t0
+          end_file: 2-19-2020_g1_t11
+        - start_file: 2-20-2020_g0_t0
           end_file: 2-20-2020_g0_t11
       sleep-homeostasis-2h:
         # baseline-sleep-2h-circadian-match
@@ -144,6 +146,8 @@ experiments:
     aliases:
       light_period_circadian_match:
         - start_file: 9.24.2020_BL_24hs_g0_t0
+          end_file: 9.24.2020_BL_24hs3_g0_t1
+        - start_file: 9.24.2020_BL_24hs5_g0_t0
           end_file: 9.24.2020_BL_24hs5_g0_t0
       sleep_deprivation:
         - start_file: 9.24.2020_SD_24hs_g0_t0
@@ -156,6 +160,8 @@ experiments:
           end_file: 9.24.2020_SR_24hs1_g0_t0
       full_48h:
         - start_file: 9.24.2020_BL_24hs_g0_t0
+          end_file: 9.24.2020_BL_24hs3_g0_t1
+        - start_file: 9.24.2020_BL_24hs5_g0_t0
           end_file: 9.24.2020_SR_24hs5_g0_t2
       # sleep-homeostasis-2h:  # TODO?
 ...
