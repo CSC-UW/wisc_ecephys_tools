@@ -51,6 +51,7 @@ VERSION = __version__
 PACKAGE_DATA = {"ecephys_project_manager": [pjoin("static", "*")]}
 INSTALL_REQUIRES = [
     "ecephys",
+    "sglxarray",
     "numpy",
     "pyyaml",
     "black",
