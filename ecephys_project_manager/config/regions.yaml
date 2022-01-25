@@ -2,27 +2,21 @@
 # WATCH OUT: 0 is tip of probe, not necessarily the deepest channel
 ---
 subject: my_subject
-_:
-  imec0:  &imec0_base
-    # Cortex
+probes:
+  imec0:  &imec0
     region_1: [0, 1000]
     region_2: [1000, 7660]
 experiments:
   my_experiment:
-    aliases:
-      my_alias_1:
-        probes:
-          imec0: *imec0_base
-      my_alias_2:
-        probes:
-          imec0:
-            <<: *imec0_base
-            region_2: [1050, 7660]
+    probes:
+      imec0:
+        <<: *imec0
+        region_2: [1050, 7660]
 ...
 ---
 subject: CNPIX2-Segundo
-_:
-  imec0_base: &imec0_base # parietal
+probes:
+  imec0: &imec0 # parietal
     # Cortex
     cortex_inner: [6220, 7580]  # Medial parietal associative cortex. Accounts for 200um error
     cortex_base: [6020, 7580]  # Medial parietal associative cortex. 200um error from these values
@@ -41,29 +35,17 @@ _:
     hypothalamus_base: [0, 1000]  # 200um error from these values.
     ZI_base: [0, 1000]  # Zona Incerta. ZI (from tip) = 1: 51. 200um error from these values
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-...
----
-subject: CNPIX3-Valentino
-_:
-  imec0_base: &imec0_base # parietal  # TODO
-  imec1_base: &imec0_base # parietal  # TODO
-experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-          imec1: *imec1_base
+  novel_objects_deprivation:
+    probes:
+      imec0:
+        <<: *imec0
+        white_matter: [5880, 6040] # Added by Graham for SPWRs
+        hippocampus: [4080, 5880] # Added by Graham for SPWRs
 ...
 ---
 subject: CNPIX4-Doppio
-_:
-  imec0: &imec0_base # Parietal
+probes:
+  imec0: &imec0 # Parietal
     # Cortex
     cortex_inner: [6160, 7460]  # Medial parietal associative cortex. Accounts for 200um error
     cortex_base: [5960, 7460]  # Medial parietal associative cortex. 200um error from these values
@@ -81,7 +63,7 @@ _:
     hypothalamus_inner: [0, 360]  # Accounts for 200um error.
     hypothalamus_base: [0, 560]  # 200um error from these values.
     ZI_base: [0, 560]  # Zona Incerta. ZI = 1:29 from tip. 200um error from these values.
-  imec1: &imec1_base # Frontal
+  imec1: &imec1 # Frontal
     # Neocortex
     cortex_inner: [1820.0, 6540.0]
     cortex_base: [1620.0, 6540.0]
@@ -93,17 +75,15 @@ _:
     DP_base: [1040.0, 1640.0]  # Dorsal peduncular Cx 591 um 30 channels DP (from tip) = 53:83. 200um error from these values
     TT_base: [0, 1020.0]  # Tenia tecta 1040 um 52 Channels ,TT (from tip) = 1:52, 200um error from these values.
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-          imec1: *imec1_base
+  novel_objects_deprivation:
+    probes:
+      imec0: *imec0
+      imec1: *imec1
 ...
 ---
 subject: CNPIX5-Alessandro
-_:
-  imec0_base: &imec0_base  #TODO # Parietal  # Different implantation
+probes:
+  imec0: &imec0  #TODO # Parietal  # Different implantation
     hypothalamus_base: [0, 780]
     thalamus_base: [780, 3880]
     hippocampus_base: [3880, 5980]
@@ -111,36 +91,32 @@ _:
     # NB Different parietal probe implantation
 experiments:
   conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
+    probes:
+      imec0: *imec0
 ...
 ---
 subject: CNPIX6-Eugene
-_:
-  imec0_base: &imec0_base  # TODO # Parietal
+probes:
+  imec0: &imec0  # TODO # Parietal
     hypothalamus_base: [0, 980]
     thalamus_base: [980, 3980]
     hippocampus_base: [3980, 6260]
     cortex_base: [6260, 7660]
-  imec1_base: &imec1_base  # TODO  # Frontal
-      entorhinal_base: [0, 1780]
-      subiculum_base: [1780, 4980]
-      cortex_base: [4980, 7660]
+  imec1: &imec1  # TODO  # Frontal
+    entorhinal_base: [0, 1780]
+    subiculum_base: [1780, 4980]
+    cortex_base: [4980, 7660]
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-          imec1: *imec1_base
+  novel_objects_deprivation:
+    probes:
+      imec0: *imec0
+      imec1: *imec1
 ...
 ---
 subject: CNPIX7-Giuseppe
-_:
-  imec0: &imec0_base # Frontal
-    # Cortex   
+probes:
+  imec0: &imec0 # Frontal
+    # Cortex
     cortex_inner: [1920, 6570.0]  # Neo Cortex 4850 um, 242 channels, 200um errror from these values
     cortex_base: [1720, 6570.0]  # Neo Cortex 4850 um, 242 channels, 200um errror from these values
     neocortex_inner: [1920, 6570.0]  # Neo Cortex 4850 um, 242 channels, 200um errror from these values
@@ -150,28 +126,26 @@ _:
     # Olfactory
     AO_base: [0.0, 860.0] # Anterior Olfactory area 897 um, 44 Channels, AO (from tip) = 1:44, AO (from surf) = 1:X, 200um error from these values
     # NB: Different frontal probe implantation
-  imec1: &imec1_base # Parietal # TODO
+  imec1: &imec1 # Parietal # TODO
     hypothalamus_base: [0, 780]
     thalamus_base: [780, 3880]
     hippocampus_base: [3880, 5980]
     cortex_base: [5980, 7660]
     # NB Different parietal probe implantation
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-          imec1: *imec1_base
+  novel_objects_deprivation:
+    probes:
+      imec0: *imec0
+      imec1: *imec1
 ...
 ---
 subject: CNPIX8-Allan
-_:
-  imec0_base: &imec0_base # Frontal  # TODO (looks correct from cluster distribution)
+probes:
+  imec0: &imec0 # Frontal  # TODO (looks correct from cluster distribution)
     neocortex_base: [2500, 7480]
     cortex_base: [2500, 7480]
     olfactory_cortex_base: [0, 2500]
-  imec1_base: &imec1_base # parietal
+  imec1: &imec1 # parietal
     # Cortex
     cortex_inner: [7060, 8480]  # Medial parietal associative cortex. Accounts for 200um error
     cortex_base: [6860, 8480]  # Medial parietal associative cortex. 200um error from these values
@@ -191,37 +165,33 @@ _:
     hypothalamus_base: [820, 1620]  # 200um error from these values.
     ZI_base: [820, 1620]  # Zona Incerta. ZI (from tip) = 1: 41, +820um
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-          imec1: *imec1_base
+  novel_objects_deprivation:
+    probes:
+      imec0: *imec0
+      imec1: *imec1
 ...
 ---
 subject: CNPIX9-Luigi
-_:
-  imec0_base: &imec0_base  # Parietal
+probes:
+  imec0: &imec0  # Parietal
     # Cortex
     cortex_base: [5180.0, 6980.0]  # 260:350. 200um error from these values
     # Hippocampus
     hippocampus_base: [3020.0, 5140.0]  # 152:258 from . 200um error from these values.
     # thal
-    thalamus_base: [0.0, 3000.0]  # 1:151 from tip. 200um error from these values. 
+    thalamus_base: [0.0, 3000.0]  # 1:151 from tip. 200um error from these values.
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
+  novel_objects_deprivation:
+    probes:
+      imec0: *imec0
 ...
 ---
 subject: CNPIX10-Charles
-_:
-  imec0: &imec0_base # Frontal  # TODO
+probes:
+  imec0: &imec0 # Frontal  # TODO
     cortex_base: [3500, 7660]  # TODO
     neocortex_base: [3500, 7660]  # TODO
-  imec1: &imec1_base # Parietal
+  imec1: &imec1 # Parietal
     # Cortex
     cortex_inner: [6280, 7660]  # Medial parietal associative cortex. Accounts for 200um error
     cortex_base: [6080, 7660]  # Medial parietal associative cortex. 200um error from these values
@@ -240,46 +210,42 @@ _:
     hypothalamus_base: [0, 940]  # 200um error from these values.
     ZI_base: [0, 940]  # Zona Incerta. ZI (from tip) = 1: 48. 200um error from these values
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-          imec1: *imec1_base
+  novel_objects_deprivation:
+    probes:
+      imec0: *imec0
+      imec1: *imec1
 ...
 ---
 subject: CNPIX11-Adrian
-_:
-  imec0: &imec0_base  # Frontal # TODO detailed histology (this was quick reconstruction)
+probes:
+  imec0: &imec0  # Frontal # TODO detailed histology (this was quick reconstruction)
     # Neocortex
     cortex_base: [2720.0, 6780.0] # Neocortex(from tip) = 137:340, 200um error from these values,
     neocortex_base: [2720.0, 6780.0] # Neocortex(from tip) = 137:340, 200um error from these values,
     # Olfactory cortex
     olfactory_cortex_base: [2720.0, 6780.0] # Olfactory area(from tip) = 1:136, 200um error from these values,
-  imec1: &imec1_base # Parietal  # TODO detailed histology (this was quick reconstruction)
+  imec1: &imec1 # Parietal  # TODO detailed histology (this was quick reconstruction)
     # Cortex
     cortex_base: [6100.0, 7660]  # 306:384. 200um error from these values
     # Hippocampus
     hippocampus_base: [4160, 6080]  #  from tip: 209:305. 200um error from these values.
     # thal
-    thalamus_base: [1000, 4140]  # 51:208 from tip. 200um error from these values. 
+    thalamus_base: [1000, 4140]  # 51:208 from tip. 200um error from these values.
     # hypo thalamus
     hypothalamus_base: [0, 980]  # 200um error from these values.
     ZI_base: [0, 980]  # Zona Incerta. ZI (from tip) = 1: 50. 200um error from these values
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-          imec1: *imec1_base
+  novel_objects_deprivation:
+    probes:
+      imec0: *imec0
+      imec1: *imec1
 ...
 ---
 subject: CNPIX12-Santiago
-_:
-  imec0: &imec0_base  # TODO
+probes:
+  imec0: &imec0  # TODO
     cortex_base: [2500, 7660]  # TODO
-  imec1: &imec1_base # TODO
+  imec1: &imec1 # TODO
     # Cortex
     cortex_base: [6100.0, 7660]
     # Hippocampus
@@ -290,10 +256,8 @@ _:
     hypothalamus_base: [0, 980]
     ZI_base: [0, 980]
 experiments:
-  conveyor_over_water:
-    aliases:
-      sleep-homeostasis-2h:
-        probes:
-          imec0: *imec0_base
-          imec1: *imec1_base
+  novel_objects_deprivation:
+    probes:
+      imec0: *imec0
+      imec1: *imec1
 ...
