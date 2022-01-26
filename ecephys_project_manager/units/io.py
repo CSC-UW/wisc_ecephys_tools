@@ -1,7 +1,7 @@
 import ecephys.units
 from ecephys_project_manager.pipe import get_sorting_output_path
 from ..cluster_groups import get_cluster_group_dict
-from ..regions import get_region_depths
+from ..depths import get_depths
 
 
 def get_sorting_data(
@@ -11,7 +11,7 @@ def get_sorting_data(
     alias=None,
     probe=None,
     analysis_name=None,
-    region='all',
+    region="all",
     selection_intervals=None,
     assign_regions=True,
     selected_groups=None,
@@ -19,41 +19,42 @@ def get_sorting_data(
     """Return (<SpikeInterface.SubSortingExtractor>, <cluster_info>)."""
 
     assert all(
-        [arg is not None
-        for arg in [project, subject, experiment, alias, probe, analysis_name]]
+        [
+            arg is not None
+            for arg in [project, subject, experiment, alias, probe, analysis_name]
+        ]
     )
 
     # Params
     if selection_intervals is None:
         selection_intervals = {}
-    print(f'Get sorting extractor: {locals()}')
+    print(f"Get sorting extractor: {locals()}")
 
-    # Path 
+    # Path
     ks_dir = get_sorting_output_path(
         project=project,
         subject=subject,
         experiment=experiment,
         alias=alias,
         probe=probe,
-        analysis_name=analysis_name
+        analysis_name=analysis_name,
     )
 
     # Get depth intervals either from file ('region') or from `selection_intervals` kwargs
-    if region is None and 'depth' in selection_intervals.keys():
+    if region is None and "depth" in selection_intervals.keys():
         pass
     else:
-        if region is None or region == 'all':
-            assert 'depth' not in selection_intervals.keys()
-            depth_interval = (0.0, float('Inf'))
+        if region is None or region == "all":
+            assert "depth" not in selection_intervals.keys()
+            depth_interval = (0.0, float("Inf"))
         else:
-            depth_interval = get_region_depths(subject, experiment, alias, probe)[region]
-        selection_intervals = {
-            'depth': depth_interval,
-            **selection_intervals
-        }
+            depth_interval = get_region_depths(subject, experiment, alias, probe)[
+                region
+            ]
+        selection_intervals = {"depth": depth_interval, **selection_intervals}
 
     # Get cluster group overrides
-    cluster_group_overrides = get_cluster_group_dict( subject, experiment, alias, probe)
+    cluster_group_overrides = get_cluster_group_dict(subject, experiment, alias, probe)
     print(f"cluster group overrides: {cluster_group_overrides}")
 
     # Get clusters
@@ -63,13 +64,13 @@ def get_sorting_data(
         selection_intervals=selection_intervals,
         cluster_group_overrides=cluster_group_overrides,
     )
-    info_all =  ecephys.units.get_cluster_info(ks_dir)
-    info = info_all[info_all['cluster_id'].isin(extr.get_unit_ids())].copy()
+    info_all = ecephys.units.get_cluster_info(ks_dir)
+    info = info_all[info_all["cluster_id"].isin(extr.get_unit_ids())].copy()
 
     # Add boolean column for each region
     if assign_regions:
-        regions = get_region_depths(subject, experiment, alias, probe)
+        regions = get_depths(subject, experiment, alias, probe)
         for region, region_depths in regions.items():
-            info[region] = info['depth'].between(*region_depths)
+            info[region] = info["depth"].between(*region_depths)
 
     return extr, info
