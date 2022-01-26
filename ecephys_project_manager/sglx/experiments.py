@@ -21,6 +21,7 @@ from sglxarray import ImecMap
 from .sessions import get_session_files_from_multiple_locations
 from ..conf import get_config_file
 from ..utils import get_subject_document, load_yaml_stream
+from ..depths import get_depths
 
 
 SUBALIAS_IDX_DF_VALUE = (
@@ -240,8 +241,17 @@ def get_ap_bin_files(subject, experiment, alias=None, **kwargs):
     ).sort_values("fileCreateTime", ascending=True)
 
 
-def get_imec_map(subject, experiment, probe):
+def get_imec_map(subject, experiment, probe, stream_type=None):
     stream = load_yaml_stream(get_config_file("channels.yaml"))
     doc = get_subject_document(stream, subject)
     map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
-    return ImecMap.from_library(map_name)
+    im = ImecMap.from_library(map_name)
+    if stream_type:
+        im.stream_type = stream_type
+    return im
+
+
+def get_channels_from_depths(subject, experiment, probe, region, stream_type=None):
+    [lo, hi] = get_depths(subject, experiment, probe, region)
+    im = get_imec_map(subject, experiment, probe, stream_type)
+    return im.yrange2chans(lo, hi).chan_id.values
