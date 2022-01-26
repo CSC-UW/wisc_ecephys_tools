@@ -1,5 +1,5 @@
 from .channels import *
-from .regions import *
+from .depths import *
 from .projects import *
 from .conf import *
 from .utils import *
