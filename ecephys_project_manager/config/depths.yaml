@@ -260,4 +260,9 @@ experiments:
     probes:
       imec0: *imec0
       imec1: *imec1
+  conveyor_over_water:
+    probes:
+      imec1:
+        hippocampus: [3440, 5700]
+        white_matter: [5700, 5900]
 ...
