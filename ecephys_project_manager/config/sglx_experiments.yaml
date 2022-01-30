@@ -387,3 +387,16 @@ experiments:
           end_file: 11-4-2021_g0_t11
       # sleep-homeostasis-2h:  # TODO
 ...
+---
+subject: ANPIX1-Sputnik
+experiments:
+  recovery_sleep:
+    recording_session_ids:
+      -10-13-2020
+    aliases:
+      full:
+        - start_file: 10-13-2020_ABCDE-4_g0_t0
+          end_file: 10-13-2020_ABCDE-4_g0_t0
+...
+
+

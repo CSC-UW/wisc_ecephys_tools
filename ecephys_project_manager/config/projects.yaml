@@ -14,3 +14,7 @@ project_directory: /Volumes/neuropixel_analysis/Data/SPWRs/
 project: Scoring
 project_directory: /Volumes/neuropixel_analysis/Data/Scoring/
 ...
+---
+project: acute
+project_directory: /Volumes/neuropixel_analysis/Data/acute/
+...

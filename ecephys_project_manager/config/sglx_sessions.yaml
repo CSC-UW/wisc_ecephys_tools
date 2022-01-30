@@ -121,5 +121,11 @@ recording_sessions:
     ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/11-4-2021/SpikeGLX/
     lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/11-4-2021/SpikeGLX/
 ...
-
+---
+subject: ANPIX1-Sputnik
+recording_sessions:
+  - id: 10-13-2020
+    ap: /Volumes/neuropixel_archive/Data/acute/ANPIX1-Sputnik/10-13-2020/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/acute/ANPIX1-Sputnik/10-13-2020/SpikeGLX/
+...
 

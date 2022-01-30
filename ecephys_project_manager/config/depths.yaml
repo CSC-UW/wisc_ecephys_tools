@@ -266,3 +266,14 @@ experiments:
         hippocampus: [3440, 5700]
         white_matter: [5700, 5900]
 ...
+---
+subject: ANPIX1-Sputnik
+experiments:
+  recovery_sleep:
+    probes:
+      imec1:
+        subcortical: [0, 1000]
+        hippocampal: [1000, 2500]
+        white_matter: [2500, 2700]
+        cortical: [2700, 3820]
+...
