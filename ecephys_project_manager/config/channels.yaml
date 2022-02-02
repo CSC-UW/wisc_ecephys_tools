@@ -46,6 +46,7 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec0:
+        imec_map: CheckPat_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 383, 381]
         scoring: [169, 310, 381]
@@ -92,6 +93,7 @@ experiments:
   novel_objects_deprivation: &NOD
     probes:
       imec0:
+        imec_map: CheckPat_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 383, 381]
         scoring: [150, 310, 381]
@@ -129,6 +131,7 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec0:
+        imec_map: LongCol_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 382, 381]
         scoring: [149, 239, 381]
@@ -149,6 +152,7 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec0:
+        imec_map: LongCol_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 382, 381]
         scoring: [187, 309, 381]
@@ -174,6 +178,7 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec1:
+        imec_map: LongCol_Allan
         internal_reference: [191]
         emg_from_lfp: [82, 75, 70]
         scoring: [219, 319, 12]
@@ -202,6 +207,7 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec0:
+        imec_map: LongCol_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 382, 345]
         superficial_ctx: [337, 339, 341, 343, 345]
@@ -224,6 +230,7 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec1:
+        imec_map: LongCol_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 382, 371]
         superficial_ctx: [375, 377, 379, 381, 383]
@@ -246,6 +253,7 @@ experiments:
   conveyor_over_water:
     probes:
       imec1:
+        imec_map: LongCol_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 382, 321]
         superficial_ctx: [313, 315, 317, 319, 321] # Actually deep CTX
@@ -255,6 +263,7 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec1:
+        imec_map: LongCol_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 382, 321]
         superficial_ctx: [313, 315, 317, 319, 321] # Actually deep CTX
@@ -268,6 +277,7 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec1:
+        imec_map: LongCol_1shank
         internal_reference: [191]
         emg_from_lfp: [0, 382, 363]
         superficial_ctx: [357, 359, 361, 363, 365]
