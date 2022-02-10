@@ -71,6 +71,8 @@ experiments:
         hypothalamus_inner: [0, 360]  # Accounts for 200um error.
         hypothalamus_base: [0, 560]  # 200um error from these values.
         ZI_base: [0, 560]  # Zona Incerta. ZI = 1:29 from tip. 200um error from these values.
+        white_matter: [5920, 6080] # Added by Graham for SPWs
+        hippocampus: [3700, 5900] # Added by Graham for SPWs
       imec1: # Frontal
         # Neocortex
         cortex_inner: [1820.0, 6540.0]
@@ -82,8 +84,6 @@ experiments:
         olfactory_cortex_base: [0.0, 1640.0]
         DP_base: [1040.0, 1640.0]  # Dorsal peduncular Cx 591 um 30 channels DP (from tip) = 53:83. 200um error from these values
         TT_base: [0, 1020.0]  # Tenia tecta 1040 um 52 Channels ,TT (from tip) = 1:52, 200um error from these values.
-        white_matter: [5920, 6080] # Added by Graham for SPWs
-        hippocampus: [3700, 5900] # Added by Graham for SPWs
 ...
 ---
 subject: CNPIX5-Alessandro
