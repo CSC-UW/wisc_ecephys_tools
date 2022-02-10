@@ -19,6 +19,9 @@
 # drift_tracking:
 #   Hippocampal channels, +/- additional channels above and below to #allow for drift.
 #   This is probably unnecessary, even for animals with a lot of drift.
+
+# TODO: Remove stratum_pyrmidale_inversion channels, or clarify that they are from the first2h recovery sleep?
+# TODO: Fix notes above.
 ---
 subject: CNPIX2-Segundo
 experiments:
@@ -48,6 +51,7 @@ experiments:
       imec0:
         imec_map: CheckPat_1shank
         internal_reference: [191]
+        initial_spw_sink_peak: [153]
         emg_from_lfp: [0, 383, 381]
         scoring: [169, 310, 381]
         superficial_ctx: [374, 377, 378, 381, 382]
@@ -97,6 +101,7 @@ experiments:
         internal_reference: [191]
         emg_from_lfp: [0, 383, 381]
         scoring: [150, 310, 381]
+        initial_spw_sink_peak: [149]
         superficial_ctx: [374, 377, 378, 381, 382]
         stratum_pyrimidale_inversion: [166] # Manually ID'd
   isoflurane: *NOD
@@ -135,6 +140,7 @@ experiments:
         internal_reference: [191]
         emg_from_lfp: [0, 382, 381]
         scoring: [149, 239, 381]
+        initial_spw_sink_peak: [151]
         superficial_ctx: [375, 377, 379, 381, 383]
   dexmedetomidine-eStim:
     probes:
@@ -156,6 +162,7 @@ experiments:
         internal_reference: [191]
         emg_from_lfp: [0, 382, 381]
         scoring: [187, 309, 381]
+        initial_spw_sink_peak: [189]
         superficial_ctx: [375, 377, 379, 381, 383]
 ...
 ---
@@ -182,6 +189,7 @@ experiments:
         internal_reference: [191]
         emg_from_lfp: [82, 75, 70]
         scoring: [219, 319, 12]
+        initial_spw_sink_peak: [219]
         superficial_ctx: [72, 74, 76, 78, 80]
   dexmedetomidine:
     probes:
@@ -213,6 +221,7 @@ experiments:
         superficial_ctx: [337, 339, 341, 343, 345]
         stratum_pyramidale_inversion: [137] # Manually ID'd
         stratum_radiatum: [117, 119, 121, 123]
+        initial_spw_sink_peak: [121]
         scoring: [119, 263, 337]
   dexmedetomidine:
     probes:
@@ -236,6 +245,7 @@ experiments:
         superficial_ctx: [375, 377, 379, 381, 383]
         stratum_pyramidale_inversion: [163] # Manually ID'd
         stratum_radiatum: [143, 145, 147, 149]
+        initial_spw_sink_peak: [145]
         scoring: [143, 271, 383]
   dexmedetomidine:
     probes:
@@ -259,6 +269,7 @@ experiments:
         superficial_ctx: [313, 315, 317, 319, 321] # Actually deep CTX
         stratum_pyramidale_inversion: [207] # Manually ID'd
         stratum_radiatum: [187, 189, 191, 193]
+        initial_spw_sink_peak: [193]
         scoring: [189, 321]
   novel_objects_deprivation:
     probes:
@@ -269,6 +280,7 @@ experiments:
         superficial_ctx: [313, 315, 317, 319, 321] # Actually deep CTX
         stratum_pyramidale_inversion: [205] # Manually ID'd
         stratum_radiatum: [185, 187, 189, 191]
+        initial_spw_sink_peak: [193]
         scoring: [189, 321]
 ...
 ---
@@ -283,6 +295,7 @@ experiments:
         superficial_ctx: [357, 359, 361, 363, 365]
         stratum_pyrmidale_inversion: [145]
         stratum_radiatum: [125, 127, 129, 131]
+        initial_spw_sink_peak: [125]
         scoring: [125, 231, 365]
   conveyor_over_water:
     probes:
