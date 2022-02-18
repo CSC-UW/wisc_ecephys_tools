@@ -12,3 +12,14 @@ conda activate myenv
 cd ecephys_project_manager
 pip install -r requirements.txt
 ```
+
+### Extra steps for spike sorting
+So that spikeinterfacea can find your install locations:
+```
+export IRONCLUST_PATH='/Volumes/scratch/neuropixels/matlab/external/ironclust'
+export KILOSORT_PATH='/Volumes/scratch/neuropixels/matlab/external/Kilosort-v1.0'
+export KILOSORT2_PATH='/Volumes/scratch/neuropixels/matlab/external/Kilosort-v2.0'
+export KILOSORT2_5_PATH='/Volumes/scratch/neuropixels/matlab/external/Kilosort-tb-v2.5'
+export KILOSORT3_PATH='/Volumes/scratch/neuropixels/matlab/external/Kilosort-v3.0'
+```
+TODO: Set these paths as options in analysis_cfg.yaml, rather than as enviornment variables.
