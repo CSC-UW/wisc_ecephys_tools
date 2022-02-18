@@ -51,12 +51,12 @@ VERSION = __version__
 PACKAGE_DATA = {"ecephys_project_manager": [pjoin("static", "*")]}
 EXTRAS_REQUIRE = {}
 INSTALL_REQUIRES = [
-    "ecephys",
-    "sglxarray",
     "numpy",
     "pyyaml",
     "black",
-    "spikeinterface @ git+https://github.com/CSC-UW/spikeinterface@master#egg=spikeinterface",
-    "ecephys_spike_sorting @ git+https://github.com/CSC-UW/ecephys_spike_sorting@master#egg=ecephys_spike_sorting",
+    "ecephys", # @ git+https://github.com/CSC-UW/ecephys.git@develop#egg=develop
+    "sglxarray", # @ git+https://github.com/CSC-UW/sglxarray.git@main#egg=sglxarray
+    "spikeinterface", #  @ git+https://github.com/CSC-UW/spikeinterface.git@master#egg=spikeinterface
+    "ecephys_spike_sorting", # @ git+https://github.com/CSC-UW/ecephys_spike_sorting.git@master#egg=ecephys_spike_sorting
 ]
-PYTHON_REQUIRES = ">= 3.7"
+PYTHON_REQUIRES = ">= 3.10"
