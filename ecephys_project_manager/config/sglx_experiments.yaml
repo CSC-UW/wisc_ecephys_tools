@@ -96,6 +96,8 @@ experiments:
           end_file: 3-18-2020_g0_t5
       full_48h:
         - start_file: 3-17-2020_g0_t0
+          end_file: 3-17-2020_g0_t8
+        - start_file: 3-17-2020_g0_t11
           end_file: 3-18-2020_g0_t9
       sleep-homeostasis-2h:
         # baseline-sleep-2h-circadian-match
