@@ -34,7 +34,6 @@ analysis_params:
     nfilt_factor: 4
     NT: null
     keep_good_only: False
-    chunk_mb: 200000
     n_jobs_bin: 50
   ks2_5_catgt_df:
     - kilosort2_5 # Gets returned from params.get_analysis_params as 'sorter'
