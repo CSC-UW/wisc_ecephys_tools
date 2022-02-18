@@ -2,7 +2,8 @@ from datetime import datetime
 
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
-from ecephys import sglx
+from ecephys.sglx import get_xy_coords
+from ecephys.plot import plot_channel_coords
 from ecephys_project_manager.params import get_analysis_params
 from ecephys_project_manager.projects import get_alias_subject_directory
 
@@ -111,7 +112,7 @@ def run_sorting(
     start = datetime.now()
     output_dir.mkdir(exist_ok=True, parents=True)
     if sorter == "kilosort2_5":
-        ss.sorter_dict[sorter].set_kilosort2_5_path(params["ks_path"])
+        ss.sorter_dict[sorter].set_kilosort2_5_path(params.pop("ks_path"))
     ss.run_sorter(sorter, rec, output_folder=output_dir, verbose=True, **params)
     # Clear `recording.dat`
     rec_path = output_dir / "recording.dat"
@@ -174,7 +175,18 @@ def prepare_data(
         f" N={n_chans}chans, T={total_t/3600}h"
     )
 
+    # Setting channel locations will indirectly create a Probe object on the recording,
+    # which can then be manipulated to remove SY0.
     assign_locations(recording, binpaths[0])
+
+    # Remove SY0 channel.
+    assert "#SY0" in recording.channel_ids[-1], "Expected to find SYNC channel."
+    prb = recording.get_probe()
+    prb.device_channel_indices[-1] = -1  # Set SY0 index to -1 so that it gets omitted
+    recording = recording.set_probe(prb)
+    assert not any(
+        "SY" in id for id in recording.get_channel_ids()
+    ), "Did not expect to find SYNC channel."
 
     if bad_channels is not None:
         raise NotImplementedError()
@@ -186,16 +198,12 @@ def prepare_data(
 
 
 def assign_locations(recording, binpath, plot=False):
-    from ecephys.sglx import get_xy_coords
+    assert "#SY0" in recording.channel_ids[-1], "Expected to find SYNC channel."
 
     idx, x, y = get_xy_coords(binpath)
-
-    assert "#SY0" in recording.channel_ids[-1], "Expected to find SYNC channel."
 
     recording.set_channel_locations(
         [(x[i], y[i]) for i in range(len(idx))], channel_ids=recording.channel_ids[:-1]
     )
     if plot:
-        from ecephys.plot import plot_channel_coords
-
         plot_channel_coords(range(len(x)), x, y)
