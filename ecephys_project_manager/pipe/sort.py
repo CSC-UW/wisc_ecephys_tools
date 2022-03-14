@@ -10,6 +10,9 @@ from ecephys_project_manager.projects import get_alias_subject_directory
 from .prepro import CATGT_PROJECT_NAME, get_catgt_output_paths
 
 
+# TODO: The `analysis_name` parameter does not actually correspond to any other `analysis_name` parameters.
+# Instead, it is a concatenation of several analyses: the sorting analysis name, the postprocessing analysis name, and the quality metrics analysis name.
+# For example, `ks2_5_catgt_df_postpro_2_metrics_all_isi`.
 def get_sorting_output_path(
     project=None,
     subject=None,
