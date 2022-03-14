@@ -8,7 +8,11 @@ from ecephys_project_manager.sglx.experiments import get_ap_bin_paths
 
 from ecephys_spike_sorting.scripts.create_input_json import createInputJson
 
-
+# TODO: Perhaps `analysis_name` should be called `ecephys_spike_sorting_modules`, since it seems to basically just control
+# which, if any, of these modules get run.
+# TODO: Maybe this should be refactored into a core `run_postprocessing` function, and a wrapper that specifically handles
+# running quality metrics, since it seems like `run_metrics_template.py` really just calls this function, but with a different
+# set of parameters than were used when `run_sorting_template.py` was called.
 def run_postprocessing(
     project=None,
     subject=None,
