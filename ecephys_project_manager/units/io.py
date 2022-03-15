@@ -1,13 +1,15 @@
 import ecephys.units
 from ecephys_project_manager.pipe import get_sorting_output_path
 from ..cluster_groups import get_cluster_group_dict
-from ..depths import get_depths
+from ..depths import get_regions, get_depths
 
 
 # TODO: Are these arguments truly all optional?
 # TODO: The `analysis_name` parameter does not actually correspond to any other `analysis_name` parameters.
 # Instead, it is a concatenation of several analyses: the sorting analysis name, the postprocessing analysis name, and the quality metrics analysis name.
 # For example, `ks2_5_catgt_df_postpro_2_metrics_all_isi`.
+# TODO: `region` loads only a single region, as specified in `depths.yaml`. This option should be removed, as it is probably better to provide this as an option in the selection_intervals dictionary.
+# If it is going to stay, it should allow selection of more than one region. Also, it shouldn't allow both `None` and `all` to yield the same behavior.
 def get_sorting_data(
     project=None,
     subject=None,
@@ -15,7 +17,7 @@ def get_sorting_data(
     alias=None,
     probe=None,
     analysis_name=None,
-    region="all",
+    region=None,
     selection_intervals=None,
     assign_regions=True,
     selected_groups=None,
@@ -53,11 +55,7 @@ def get_sorting_data(
             assert "depth" not in selection_intervals.keys()
             depth_interval = (0.0, float("Inf"))
         else:
-            depth_interval = get_region_depths(
-                subject, experiment, alias, probe
-            )[  # TODO: Should this be `depths.get_depths`?
-                region
-            ]
+            depth_interval = get_depths(subject, experiment, probe, region)
         selection_intervals = {"depth": depth_interval, **selection_intervals}
 
     # Get cluster group overrides
@@ -81,9 +79,7 @@ def get_sorting_data(
 
     # Add boolean column for each region
     if assign_regions:
-        regions = get_region_depths(
-            subject, experiment, alias, probe
-        )  # TODO: Should this be `depths.get_depths`?
+        regions = get_regions(subject, experiment, probe)
         for region, region_depths in regions.items():
             info[region] = info["depth"].between(*region_depths)
 
