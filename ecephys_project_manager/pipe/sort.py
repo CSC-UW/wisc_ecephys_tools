@@ -179,17 +179,20 @@ def prepare_data(
     )
 
     # Setting channel locations will indirectly create a Probe object on the recording,
-    # which can then be manipulated to remove SY0.
+    # which can then be manipulated to remove SY0 if it exists.
     assign_locations(recording, binpaths[0])
 
     # Remove SY0 channel.
-    assert "#SY0" in recording.channel_ids[-1], "Expected to find SYNC channel."
-    prb = recording.get_probe()
-    prb.device_channel_indices[-1] = -1  # Set SY0 index to -1 so that it gets omitted
-    recording = recording.set_probe(prb)
-    assert not any(
-        "SY" in id for id in recording.get_channel_ids()
-    ), "Did not expect to find SYNC channel."
+    if "#SY0" in recording.channel_ids[-1]:
+        print("SYNC channel still present. Removing.")
+        prb = recording.get_probe()
+        prb.device_channel_indices[
+            -1
+        ] = -1  # Set SY0 index to -1 so that it gets omitted
+        recording = recording.set_probe(prb)
+        assert not any(
+            "SY" in id for id in recording.get_channel_ids()
+        ), "Did not expect to find SYNC channel."
 
     if bad_channels is not None:
         raise NotImplementedError()
@@ -201,12 +204,18 @@ def prepare_data(
 
 
 def assign_locations(recording, binpath, plot=False):
-    assert "#SY0" in recording.channel_ids[-1], "Expected to find SYNC channel."
-
     idx, x, y = get_xy_coords(binpath)
 
-    recording.set_channel_locations(
-        [(x[i], y[i]) for i in range(len(idx))], channel_ids=recording.channel_ids[:-1]
-    )
+    if "#SY0" in recording.channel_ids[-1]:
+        print("Found SYNC channel.")
+        recording.set_channel_locations(
+            [(x[i], y[i]) for i in range(len(idx))],
+            channel_ids=recording.channel_ids[:-1],
+        )
+    else:
+        recording.set_channel_locations(
+            [(x[i], y[i]) for i in range(len(idx))], channel_ids=recording.channel_ids
+        )
+
     if plot:
         plot_channel_coords(range(len(x)), x, y)
