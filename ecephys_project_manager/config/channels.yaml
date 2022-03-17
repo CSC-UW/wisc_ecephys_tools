@@ -314,9 +314,21 @@ subject: ANPIX1-Sputnik
 experiments:
   recovery_sleep:
     probes:
+      imec0:
+        imec_map: Default_1shank
+        internal_reference: [191]
       imec1:
         imec_map: Default_1shank
         internal_reference: [191]
         bad: [229, 311, 372]
         suspicious: [23, 47, 71, 95, 119, 143, 167, 215, 239, 263, 287, 383] # Looks like a bad ADC - every 24th channel.
+      imec2:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec3:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec4:
+        imec_map: Default_1shank
+        internal_reference: [191]
 ...

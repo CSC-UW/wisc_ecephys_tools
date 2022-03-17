@@ -83,4 +83,5 @@ def get_sorting_data(
         for region, region_depths in regions.items():
             info[region] = info["depth"].between(*region_depths)
 
+    # TODO: Assert that info matches extr._properties before returning
     return extr, info
