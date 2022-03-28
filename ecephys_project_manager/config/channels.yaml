@@ -332,3 +332,28 @@ experiments:
         imec_map: Default_1shank
         internal_reference: [191]
 ...
+---
+subject: ANPIX27-Julius
+experiments:
+  discoflow:
+    probes:
+      imec0:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec1:
+        imec_map: Default_1shank
+        internal_reference: [191]
+        bad: [229, 311, 372]
+      imec2:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec3:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec4:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec5:
+        imec_map: Default_1shank
+        internal_reference: [191]
+...
