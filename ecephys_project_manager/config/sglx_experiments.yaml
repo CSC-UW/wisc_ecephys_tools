@@ -366,6 +366,13 @@ experiments:
       full_48h:
         - start_file: 10-31-2021_g0_t0
           end_file: 11-1-2021_g1_t8
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 10-31-2021_g0_t3
+          end_file: 10-31-2021_g0_t3
+        # recovery_sleep
+        - start_file: 11-1-2021_g1_t0
+          end_file: 11-1-2021_g1_t0
   conveyor_over_water:
     recording_session_ids:
       - 11-3-2021
@@ -386,7 +393,13 @@ experiments:
       full_48h:
         - start_file: 11-3-2021_g0_t0
           end_file: 11-4-2021_g0_t11
-      # sleep-homeostasis-2h:  # TODO
+      sleep-homeostasis-2h:  # TODO
+        # baseline-sleep-2h-circadian-match
+        - start_file: 11-3-2021_g0_t3
+          end_file: 11-3-2021_g0_t3
+        # recovery_sleep
+        - start_file: 11-3-2021_g0_t0
+          end_file: 11-3-2021_g0_t0      
 ...
 ---
 subject: ANPIX1-Sputnik
