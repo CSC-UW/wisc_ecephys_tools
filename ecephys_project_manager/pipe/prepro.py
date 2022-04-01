@@ -72,15 +72,15 @@ def get_catgt_output_paths(
         fname = subalias_files.path.values[0].name
         ext = '.ap.bin'
         stem = fname.split(ext)[0]
-        run, _, _, probe = ecephys.data_mgmt.paths.parse_sglx_stem(stem)
+        run, gate, trigger, probe = ecephys.data_mgmt.paths.parse_sglx_stem(stem)
         # In catGT2.4 it's always g0 (Bill's mistake I think)
-        catgt_gate = 'g0'
-        catgt_gate_dirname = f'catgt_{run}_{catgt_gate}'
-        catgt_probe_dirname = f'{run}_{catgt_gate}_{probe}'
+        #catgt_gate = 'g0'
+        catgt_gate_dirname = f'catgt_{run}_{gate}'
+        catgt_probe_dirname = f'{run}_{gate}_{probe}'
 
         parent_dir = analysis_dir/catgt_gate_dirname/catgt_probe_dirname
-        metastem = f'{run}_{catgt_gate}_tcat.{probe}.ap.meta'
-        binstem = f'{run}_{catgt_gate}_tcat.{probe}.ap.bin'
+        metastem = f'{run}_{gate}_tcat.{probe}.ap.meta'
+        binstem = f'{run}_{gate}_tcat.{probe}.ap.bin'
 
         meta_bin_paths.append((parent_dir/metastem, parent_dir/binstem))
 
