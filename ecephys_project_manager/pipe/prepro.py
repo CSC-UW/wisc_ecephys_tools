@@ -88,8 +88,11 @@ def get_catgt_output_paths(
 
 
 def clear_catgt_output_files(*args, **kwargs):
-    print("Removing bin and meta catGT output files.")
     meta_bin_paths = get_catgt_output_paths(*args, **kwargs)
+    if any([m.exists() or b.exists() for m, b in meta_bin_paths]):
+        print("Removing bin and meta catGT output files.")
+    else:
+        print("Found no bin and meta catGT output files to remove.")
     for metapath, binpath in meta_bin_paths:
         if metapath.exists():
             print(f"Remove {metapath}")
