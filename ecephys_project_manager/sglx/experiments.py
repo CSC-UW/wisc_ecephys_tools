@@ -13,6 +13,7 @@ each specifying a continuous subset of data.
 """
 import re
 from itertools import chain
+import numpy as np
 
 import pandas as pd
 from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
@@ -27,6 +28,8 @@ from ..depths import get_depths
 SUBALIAS_IDX_DF_VALUE = (
     -1
 )  # Value of 'subalias_idx' column when there is a single subalias.
+
+MAX_DELTA_SEC = 5  # (s) Maximum gap between successive recordings from the same subalias
 
 
 def parse_trigger_stem(stem):
@@ -181,6 +184,7 @@ def get_files(
     subject_name,
     experiment_name,
     alias_name=None,
+    assert_contiguous=False,
     **kwargs,
 ):
     """Get all SpikeGLX files matching selection criteria.
@@ -190,6 +194,9 @@ def get_files(
     subject_name: string
     experiment_name: string
     alias_name: string (default: None)
+    assert_contiguous: bool (default: False). If True and an alias was
+        specified, assert that the all of the subaliases' start and end files
+        were found, and that all the files are contiguous (enough) in between.
 
     Returns:
     --------
@@ -210,7 +217,12 @@ def get_files(
         if alias_name
         else get_experiment_files(sessions, experiment)
     )
-    return loc(df, **kwargs)
+    files_df = loc(df, **kwargs)
+
+    if assert_contiguous and alias_name:
+        check_contiguous(files_df, experiment["aliases"][alias_name])
+    
+    return files_df
 
 
 def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
@@ -255,3 +267,50 @@ def get_channels_from_depths(subject, experiment, probe, region, stream_type=Non
     [lo, hi] = get_depths(subject, experiment, probe, region)
     im = get_imec_map(subject, experiment, probe, stream_type)
     return im.yrange2chans(lo, hi).chan_id.values
+
+
+def check_contiguous(files_df, alias, probes=None):
+    """Check for missing data in returned alias files."""
+    if probes is None:
+        probes = files_df.probe.unique()
+
+    # Check independently for each probe
+    for probe in probes:
+        probe_files = loc(files_df, probe=probe).copy()
+
+        # Check independently for each subalias
+        for i, subalias in enumerate(alias):
+            if len(alias) == 1: 
+                # Single alias
+                sub_files = probe_files
+            else:
+                sub_files = loc(probe_files, subalias_idx=i).copy()
+            
+            # Check that start and end files were found
+            start, end = subalias["start_file"], subalias["end_file"]
+            sub_files.loc[:, ['stem']] = sub_files.apply(
+                lambda row: '_'.join([row.run, row.gate, row.trigger]),
+                axis=1
+            )
+            if not all([f in sub_files.stem.values for f in [start, end]]):
+                raise FileNotFoundError(
+                    f"The start file `{start}` or end file `{end}` could not be"
+                    f" found at the provided location for probe `{probe}`"
+                )
+
+            # Check that there's a small enough timedelta between files
+            datetimes = sub_files['fileCreateTime'].values
+            durations = sub_files['fileTimeSecs'].values
+            for i in range(len(sub_files) - 1):
+                startdeltasec = (datetimes[i+1] - datetimes[i]) / np.timedelta64(1, 's')
+                deltasec = startdeltasec - float(durations[i])
+                assert deltasec >= 0
+                if abs(deltasec) > MAX_DELTA_SEC:
+                    raise FileNotFoundError(
+                        f"Files are not contiguous! \n"
+                        f"probe={probe}, alias={alias}: \nThere's {deltasec}sec gap (greater than"
+                        f" the limit {MAX_DELTA_SEC}sec) in between the following subalias files: \n"
+                        f"{sub_files.iloc[i:i+2]}"
+                    )
+
+
