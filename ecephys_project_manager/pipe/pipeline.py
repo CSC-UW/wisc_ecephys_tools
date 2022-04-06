@@ -91,7 +91,7 @@ def run_pipeline(
         alias=alias,
         probe=probe,
         analysis_name=postpro_analysis_name,
-        sorting_analysis_name=sorting_analysis_name,
+        sorting_name=sorting_analysis_name,
         rerun_existing=rerun_existing,
         dry_run=dry_run,
     )

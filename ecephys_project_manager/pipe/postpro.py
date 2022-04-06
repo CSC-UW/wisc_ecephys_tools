@@ -20,7 +20,7 @@ def run_postprocessing(
     alias=None,
     probe=None,
     analysis_name=None,
-    sorting_analysis_name=None,
+    sorting_name=None,
     rerun_existing=False,
     dry_run=True,
 ):
@@ -34,7 +34,7 @@ def run_postprocessing(
                 alias,
                 probe,
                 analysis_name,
-                sorting_analysis_name,
+                sorting_name,
             ]
         ]
     )
@@ -61,7 +61,7 @@ def run_postprocessing(
 
     # Src ks dir
     ks_dir_src = get_sorting_output_path(
-        project, subject, experiment, alias, probe, sorting_analysis_name
+        project, subject, experiment, alias, probe, sorting_name
     )
     if not dry_run and not ks_dir_src.exists():
         raise FileNotFoundError(ks_dir_src)
@@ -74,7 +74,7 @@ def run_postprocessing(
         experiment,
         alias,
         probe,
-        f"{sorting_analysis_name}_{analysis_name}",
+        f"{sorting_name}_{analysis_name}",
     )
     if ks_dir.exists() and not rerun_existing:
         print(
@@ -100,7 +100,7 @@ def run_postprocessing(
     kwargs_dict = {
         k: v for d in params for k, v in d.items()
     }  # params for all modules in single dict
-    KS2ver = get_ks_version(sorting_analysis_name)
+    KS2ver = get_ks_version(sorting_name)
     if not dry_run:
         _ = createInputJson(
             str(cfg_path),
@@ -167,9 +167,9 @@ def copy_ks_dir(src, tgt):
             system_copy(file, copy_dir / file.name)
 
 
-def get_ks_version(sorting_analysis_name):
+def get_ks_version(sorting_name):
     try:
-        sorter_name, _ = get_analysis_params("sorting", sorting_analysis_name)
+        sorter_name, _ = get_analysis_params("sorting", sorting_name)
         if sorter_name == "kilosort2_5":
             return "2.5"
         elif sorter_name == "kilosort2":
@@ -179,11 +179,11 @@ def get_ks_version(sorting_analysis_name):
         else:
             assert False
     except ValueError:  # Key not found in analysis_cfg.yml
-        if "ks2_5" in sorting_analysis_name:
+        if "ks2_5" in sorting_name:
             return "2.5"
-        elif "ks3_" in sorting_analysis_name:
+        elif "ks3_" in sorting_name:
             return "3.0"
-        elif "ks2_" in sorting_analysis_name:
+        elif "ks2_" in sorting_name:
             return "2.0"
         else:
             assert False

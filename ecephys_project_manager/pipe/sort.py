@@ -20,10 +20,10 @@ def get_sorting_output_path(
     experiment=None,
     alias=None,
     probe=None,
-    analysis_name=None,
+    sorting_name=None,
 ):
-    """Return f'project_dir/exp/alias/subject/{analysis_name}.{probe}'"""
-    output_dirname = f"{analysis_name}.{probe}"
+    """Return f'project_dir/exp/alias/subject/{sorting_name}.{probe}'"""
+    output_dirname = f"{sorting_name}.{probe}"
     return (
         get_alias_subject_directory(
             project,
