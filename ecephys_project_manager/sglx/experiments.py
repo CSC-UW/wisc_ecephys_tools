@@ -304,7 +304,7 @@ def check_contiguous(files_df, alias, probes=None):
             for i in range(len(sub_files) - 1):
                 startdeltasec = (datetimes[i+1] - datetimes[i]) / np.timedelta64(1, 's')
                 deltasec = startdeltasec - float(durations[i])
-                assert deltasec >= 0
+                assert deltasec > -1  # A file should not start before the last one finished... but allow for rounding errors
                 if abs(deltasec) > MAX_DELTA_SEC:
                     raise FileNotFoundError(
                         f"Files are not contiguous! \n"
