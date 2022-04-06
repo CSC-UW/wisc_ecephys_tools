@@ -158,6 +158,7 @@ def run_preprocessing(
         experiment,
         alias,
         probe=probe,
+        assert_contiguous=True,
     )
 
     # Run each subalias separately    
