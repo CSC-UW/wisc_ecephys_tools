@@ -4,6 +4,7 @@ from pathlib import Path
 import ecephys.data_mgmt.paths
 from ecephys.sglx.cat_gt import run_catgt
 from ecephys.sglx.file_mgmt import loc
+from ecephys.sglx.utils import get_meta_value
 from ecephys_project_manager.params import get_analysis_params
 from ecephys_project_manager.projects import \
     get_alias_subject_directory  # TODO: Move loc
@@ -161,17 +162,34 @@ def run_preprocessing(
         assert_contiguous=True,
     )
 
+    print("\nBelow are all the files that will be processed (all subaliases):")
+    print(raw_files[['run', 'gate', 'trigger', 'fileTimeSecs', 'subalias_idx', 'fileCreateTime']])
+
     # Run each subalias separately    
     subalias_indices = sorted(raw_files.subalias_idx.unique())
     for i, subalias_idx in enumerate(subalias_indices):
-
-        print(f"Run subalias #{i + 1}/{len(subalias_indices)}")
 
         # Subalias files and output dir
         analysis_dir = get_analysis_dir(
             project=project, experiment=experiment, alias=alias, subject=subject, subalias_idx=subalias_idx, analysis_name=analysis_name
         )
         subalias_files = loc(raw_files, subalias_idx=subalias_idx).reset_index()
+
+        print(
+            f"\nRun subalias #{i + 1}/{len(subalias_indices)}, "
+            f"concatenate N={len(subalias_files)} files. "
+            f"Total output recording duration should be {subalias_files.fileTimeSecs.astype(float).sum() / 3600}h (in the absence of CatGT-filled gaps)\n"
+        )
+
+        # Check that subalias files are all from the same run
+        if not len(subalias_files.run.unique()) == 1:
+            raise ValueError(
+                "Files from a single subalias should all originate from the same run."
+                f"Please specify N={len(subalias_files.run.unique())} different subaliases"
+                f"for the following files: "
+                f"{subalias_files[['run', 'gate', 'trigger', 'fileTimeSecs', 'subalias_idx', 'fileCreateTime']]}"
+            )
+
 
         # Src and target dirs
         (
@@ -198,7 +216,21 @@ def run_preprocessing(
             dry_run=dry_run
         )
         end = datetime.now()
-        print(f"{end.strftime('%H:%M:%S')}: Finished {subject}, {experiment}, {alias}, subalias #{i+1}/{len(subalias_indices)}. Run time = {str(end - start)}")
+
+        print(
+            f"{end.strftime('%H:%M:%S')}: Finished {subject}, {experiment}, {alias}, subalias #{i+1}/{len(subalias_indices)}. "
+            f"Run time = {str(end - start)}, ",
+            end=""
+        )
+        if not dry_run:
+            # Extract the output file duration (sanity check)
+            output_binpath, _ = get_catgt_output_paths(
+                project=project, subject=subject, experiment=experiment, alias=alias, probe=probe, analysis_name=analysis_name
+            )[i]
+            output_duration = get_meta_value(output_binpath, 'fileTimeSecs')
+            print(
+                f"Output file duration = {float(output_duration) / 3600}sec"
+            )
 
     # The command finished if we find the meta file (since it's written at the end)
     subaliases_metapaths, subaliases_binpaths = zip(*get_catgt_output_paths(
