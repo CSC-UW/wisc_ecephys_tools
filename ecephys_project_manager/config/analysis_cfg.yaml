@@ -40,6 +40,11 @@ analysis_params:
     - &ks2_5_catgt_df
       <<: *ks2_5_base
       car: False
+  ks2_5_catgt_8s-batches:
+    - kilosort2_5 # Gets returned from params.get_analysis_params as 'sorter'
+    -
+      <<: *ks2_5_catgt_df
+      NT: 262272
   ks2_5_catgt_Th=12-10_lam=50_8s-batches:
     - kilosort2_5
     -
