@@ -26,3 +26,7 @@ project_directory: /Volumes/neuropixel_analysis/Data/Scoring/
 project: acute
 project_directory: /Volumes/neuropixel_analysis/Data/acute/
 ...
+---
+project: nucleated_rebooting
+project_directory: /Volumes/scratch/neuropixels/data/nucleated_rebooting
+...
