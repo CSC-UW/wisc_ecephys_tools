@@ -212,6 +212,8 @@ experiments:
           end_file: 3-2-2021_E_g0_t0
       recovery_sleep:
         - start_file: 3-2-2021_F_g0_t0
+          end_file: 3-2-2021_F_g0_t4
+        - start_file: 3-2-2021_G_g0_t0
           end_file: 3-2-2021_G_g0_t0
       light_period:
         - start_file: 3-2-2021_A_g0_t0
