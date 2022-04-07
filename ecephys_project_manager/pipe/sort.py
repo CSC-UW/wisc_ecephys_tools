@@ -22,7 +22,12 @@ def get_sorting_output_path(
     probe=None,
     sorting_name=None,
 ):
-    """Return f'project_dir/exp/alias/subject/{sorting_name}.{probe}'"""
+    """Return f'project_dir/exp/alias/subject/{sorting_name}.{probe}'.
+    
+    The name of the output directory ('sorting_name') is {sorting_name}.{probe}
+    and it is located in the 'alias_subject_directory'
+    (`ecephys.projects.get_alias_subject_directory`)
+    """
     output_dirname = f"{sorting_name}.{probe}"
     return (
         get_alias_subject_directory(
