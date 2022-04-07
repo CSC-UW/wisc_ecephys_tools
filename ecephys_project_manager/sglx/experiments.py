@@ -269,6 +269,8 @@ def get_channels_from_depths(subject, experiment, probe, region, stream_type=Non
     return im.yrange2chans(lo, hi).chan_id.values
 
 
+# TODO: This should have rather used the firstSample field (which is exact)
+# rather than fileCreateTime which is rounded
 def check_contiguous(files_df, alias, probes=None):
     """Check for missing data in returned alias files."""
     if probes is None:
