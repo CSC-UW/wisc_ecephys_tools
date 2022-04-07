@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import spikeinterface as si
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 from ecephys.sglx import get_xy_coords
@@ -170,7 +171,7 @@ def prepare_data(
     if len(rec_extractors) == 1:
         recording = rec_extractors[0]
     else:
-        recording = se.MultiRecordingTimeExtractor(rec_extractors)
+        recording = si.concatenate_recordings(rec_extractors)
     total_t = recording.get_num_frames() / recording.get_sampling_frequency()
     n_chans = recording.get_num_channels()
     print(
