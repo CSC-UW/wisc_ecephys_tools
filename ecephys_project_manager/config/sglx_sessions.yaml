@@ -135,4 +135,11 @@ recording_sessions:
     ap: /Volumes/neuropixel_archive/Data/acute/ANPIX27-Julius/03-03-2022/SpikeGLX/
     lf: /Volumes/neuropixel_archive/Data/acute/ANPIX27-Julius/03-03-2022/SpikeGLX/
 ...
+---
+subject: ANPIX28-Francis
+recording_sessions:
+  - id: 03-31-2022
+    ap: /Volumes/neuropixel_archive/Data/acute/ANPIX28-Francis/03-31-2022/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/acute/ANPIX28-Francis/03-31-2022/SpikeGLX/
+...
 

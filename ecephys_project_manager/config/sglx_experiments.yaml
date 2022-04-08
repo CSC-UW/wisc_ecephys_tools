@@ -399,7 +399,7 @@ experiments:
           end_file: 11-3-2021_g0_t3
         # recovery_sleep
         - start_file: 11-3-2021_g0_t0
-          end_file: 11-3-2021_g0_t0      
+          end_file: 11-3-2021_g0_t0
 ...
 ---
 subject: ANPIX1-Sputnik
@@ -422,4 +422,15 @@ experiments:
       full:
         - start_file: 03-03-2022_g0_t0
           end_file: 03-03-2022_g0_t0
+...
+---
+subject: ANPIX28-Francis
+experiments:
+  discoflow:
+    recording_session_ids:
+      - 03-31-2022
+    aliases:
+      full:
+        - start_file: 03-31-2022_g0_t0
+          end_file: 03-31-2022_g0_t0
 ...
