@@ -13,6 +13,20 @@ cd ecephys_project_manager
 pip install -r requirements.txt
 ```
 
+If you run into issues with h5py/hdf5 version compatibility within ipython/jupyter (but not python):
+```
+git clone https://github.com/CSC-UW/ecephys.git
+git clone https://github.com/CSC-UW/ecephys_project_manager.git
+
+conda create --name myenv python=3
+conda activate myenv
+
+conda install -c conda-forge --update-deps --force-reinstall hdf5 h5py
+
+cd ecephys_project_manager
+pip install -r requirements.txt
+```
+
 ### Extra steps for spike sorting
 So that spikeinterfacea can find your install locations:
 ```
