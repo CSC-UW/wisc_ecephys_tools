@@ -45,7 +45,7 @@ if __name__ == '__main__':
             alias=alias,
             probe=probe,
             analysis_name=analysis_name,
-            sorting_analysis_name=f"{sorting_analysis_name}_{postpro_analysis_name}",
+            sorting_name=f"{sorting_analysis_name}_{postpro_analysis_name}",
             rerun_existing=rerun_existing,
             dry_run=dry_run
         )
