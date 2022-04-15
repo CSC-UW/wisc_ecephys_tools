@@ -435,4 +435,11 @@ experiments:
       full:
         - start_file: 03-31-2022_g0_t0
           end_file: 03-31-2022_g0_t0
+  discoflow-day1:
+    recording_session_ids:
+      - 03-29-2022
+    aliases:
+      full:
+        - start_file: 03-29-2022_g0_t0
+          end_file: 03-29-2022_g0_t0
 ...
