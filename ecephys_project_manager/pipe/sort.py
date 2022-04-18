@@ -1,12 +1,14 @@
 from datetime import datetime
 
+import numpy as np
 import spikeinterface as si
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
-from ecephys.sglx import get_xy_coords
 from ecephys.plot import plot_channel_coords
+from ecephys.sglx import get_xy_coords
 from ecephys_project_manager.params import get_analysis_params
 from ecephys_project_manager.projects import get_alias_subject_directory
+from probeinterface import Probe
 
 from .prepro import CATGT_PROJECT_NAME, get_catgt_output_paths
 
@@ -184,21 +186,7 @@ def prepare_data(
         f" N={n_chans}chans, T={total_t/3600}h"
     )
 
-    # Setting channel locations will indirectly create a Probe object on the recording,
-    # which can then be manipulated to remove SY0 if it exists.
-    assign_locations(recording, binpaths[0])
-
-    # Remove SY0 channel.
-    if "#SY0" in recording.channel_ids[-1]:
-        print("SYNC channel still present. Removing.")
-        prb = recording.get_probe()
-        prb.device_channel_indices[
-            -1
-        ] = -1  # Set SY0 index to -1 so that it gets omitted
-        recording = recording.set_probe(prb)
-        assert not any(
-            "SY" in id for id in recording.get_channel_ids()
-        ), "Did not expect to find SYNC channel."
+    recording = set_probe_and_locations(recording, binpaths[0])
 
     if bad_channels is not None:
         raise NotImplementedError()
@@ -206,22 +194,35 @@ def prepare_data(
         #     recording, bad_channel_ids=bad_channels
         # )
 
+    print(f"Finished setting up recording and probe information.")
+    print(f"Recording: {recording}")
+    print(f"Probe: {recording.get_probe()}")
+
     return recording
 
 
-def assign_locations(recording, binpath, plot=False):
+def set_probe_and_locations(recording, binpath):
+
     idx, x, y = get_xy_coords(binpath)
 
-    if "#SY0" in recording.channel_ids[-1]:
-        print("Found SYNC channel.")
-        recording.set_channel_locations(
-            [(x[i], y[i]) for i in range(len(idx))],
-            channel_ids=recording.channel_ids[:-1],
-        )
-    else:
-        recording.set_channel_locations(
-            [(x[i], y[i]) for i in range(len(idx))], channel_ids=recording.channel_ids
-        )
+    locations = np.array([(x[i], y[i]) for i in range(len(idx))])
+    shape='square'
+    shape_params={'width': 8}
 
-    if plot:
-        plot_channel_coords(range(len(x)), x, y)
+    prb = Probe()
+    if "#SY0" in recording.channel_ids[-1]:
+        print('FOUND SY0')
+        ids = recording.channel_ids[:-1]  # Remove last (SY0)
+    else:
+        ids = recording.channel_ids
+    prb.set_contacts(locations[:len(ids),:], shapes=shape, shape_params=shape_params)
+    prb.set_contact_ids(ids)  # Must go after prb.set_contacts
+    prb.set_device_channel_indices(np.arange(len(ids)))  # Mandatory. I did as in recording.set_dummy_probe_from_locations
+    assert prb._contact_positions.shape[0] == len(prb._contact_ids)  # Shouldn't be needed
+
+    recording = recording.set_probe(prb)
+
+    if any(["#SY0" in id for id in recording.channel_ids]):
+        assert False, "Did not expect to find SYNC channel"
+
+    return recording
