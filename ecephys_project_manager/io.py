@@ -1,12 +1,7 @@
+import pandas as pd
+from hypnogram import DatetimeHypnogram, load_datetime_hypnogram
 
-from ecephys_project_manager import (
-    get_lfp_bin_paths,
-    get_project_counterparts,
-    get_experiment_subject_file,
-)
-from hypnogram import load_datetime_hypnogram, DatetimeHypnogram
-import datetime
-
+from ecephys_project_manager import get_lfp_bin_paths, get_project_counterparts
 
 ## HYPNOGRAM
 
