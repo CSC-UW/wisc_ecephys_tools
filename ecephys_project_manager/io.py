@@ -5,6 +5,24 @@ from ecephys_project_manager import get_lfp_bin_paths, get_project_counterparts
 
 ## HYPNOGRAM
 
+def load_hypnogram_as_generic_events(
+    subject, experiment, alias, extension=".hypnogram.tsv", project="Scoring",
+):
+    """Load and concatenate second hypnograms. Add t1/t2/description fields.
+    
+    Description field contains f"{state}: {start_time}(s) - {end_time}(s)"
+    """
+    hyp = load_and_concatenate_second_hypnograms(
+        subject, experiment, alias, extension=extension, project=project,
+    )
+    hyp['t1'] = hyp['start_time']
+    hyp['t2'] = hyp['end_time']
+    hyp['description'] = hyp['state'].map(str) + ': ' + hyp['start_time'].round(3).map(str) + '(s) - ' + hyp['end_time'].round(3).map(str) + '(s)'
+
+    return hyp
+
+
+
 def load_and_concatenate_second_hypnograms(
     subject, experiment, alias, extension=".hypnogram.tsv", project="Scoring",
 ):
