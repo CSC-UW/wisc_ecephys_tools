@@ -140,8 +140,10 @@ experiments:
   novel_objects_deprivation:
     probes:
       imec0: # Frontal  # TODO (looks correct from cluster distribution)
-        neocortex_base: [2500, 7480]
-        cortex_base: [2500, 7480]
+        neocortex_base: [3040, 7480]  # More conservative until I get sharptrack or something. There's maybe a bit of cortex between 2500 and 3540
+        cortex_base: [3040, 7480]
+        # neocortex_base: [2500, 7480]
+        # cortex_base: [2500, 7480]
         olfactory_cortex_base: [0, 2500]
       imec1: # parietal
         # Cortex
