@@ -404,6 +404,18 @@ experiments:
           end_file: 11-3-2021_g0_t0
 ...
 ---
+subject: CNPIX13-Al
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 1-5-2022
+      - 1-6-2022
+    aliases:
+      full_48h:
+        - start_file: 1-5-2022_g0_t0
+          end_file: 1-6-2022_g1_t9
+...
+---
 subject: ANPIX1-Sputnik
 experiments:
   recovery_sleep:

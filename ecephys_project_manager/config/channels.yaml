@@ -310,6 +310,17 @@ experiments:
         scoring: [125, 241, 365]
 ...
 ---
+subject: CNPIX13-Al
+experiments:
+  novel_objects_deprivation:
+    probes:
+      imec0:
+        imec_map: LongCol_1shank
+        internal_reference: [191]
+        emg_from_lfp: [74, 348, 349]
+        scoring: [355, 249, 141, 376]
+...
+---
 subject: ANPIX1-Sputnik
 experiments:
   recovery_sleep:
