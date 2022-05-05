@@ -400,3 +400,18 @@ experiments:
         imec_map: Default_1shank
         internal_reference: [191]
 ...
+---
+subject: ANPIX28-Madoc
+experiments:
+  discoflow-day1:
+    probes:
+      imec0:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec1:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec2:
+        imec_map: Default_1shank
+        internal_reference: [191]
+...

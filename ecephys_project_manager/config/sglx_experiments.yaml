@@ -455,3 +455,21 @@ experiments:
         - start_file: 03-29-2022_g0_t0
           end_file: 03-29-2022_g0_t0
 ...
+---
+subject: ANPIX29-Madoc
+experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 04-18-2022
+    aliases:
+      full:
+        - start_file: 04-18-2022_g0_t0
+          end_file: 04-18-2022_g0_t0
+  discoflow-day2:
+    recording_session_ids:
+      - 04-19-2022
+    aliases:
+      full:
+        - start_file: 04-19-2022_g0_t0
+          end_file: 04-19-2022_g0_t0
+...
