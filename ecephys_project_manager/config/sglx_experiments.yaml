@@ -473,3 +473,21 @@ experiments:
         - start_file: 04-19-2022_g0_t0
           end_file: 04-19-2022_g0_t0
 ...
+---
+subject: ACR2-Fiona
+experiments:
+  ACR-Test:
+    recording_session_ids:
+      - 05-03-2022-ACR
+    aliases:
+      full:
+        - start_file: 05-03-2022-ACR_g0_t0
+          end_file: 05-03-2022-ACR_g0_t0
+  discoflow-day1:
+    recording_session_ids:
+      - 05-03-2022
+    aliases:
+      full:
+        - start_file: 05-03-2022_g0_t0
+          end_file: 05-03-2022_g0_t0
+...

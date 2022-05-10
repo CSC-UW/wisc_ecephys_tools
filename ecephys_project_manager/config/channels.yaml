@@ -403,7 +403,7 @@ experiments:
 ---
 subject: ANPIX28-Madoc
 experiments:
-  discoflow-day1:
+  discoflow-day1: &ANPIX29-Madoc
     probes:
       imec0:
         imec_map: Default_1shank
@@ -423,7 +423,12 @@ experiments:
       imec5:
         imec_map: Default_1shank
         internal_reference: [191]
-  discoflow-day2:
+  discoflow-day2: *ANPIX29-Madoc
+...
+---
+subject: ACR2-Fiona
+experiments:
+  ACR-Test: &ACR2-Fiona
     probes:
       imec0:
         imec_map: Default_1shank
@@ -440,7 +445,5 @@ experiments:
       imec4:
         imec_map: Default_1shank
         internal_reference: [191]
-      imec5:
-        imec_map: Default_1shank
-        internal_reference: [191]
+  discoflow-day1: *ACR2-Fiona
 ...

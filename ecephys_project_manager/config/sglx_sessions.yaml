@@ -165,4 +165,13 @@ recording_sessions:
     ap: /Volumes/qnap-data/ANPIX29-Madoc/04-19-2022/SpikeGLX/
     lf: /Volumes/qnap-data/ANPIX29-Madoc/04-19-2022/SpikeGLX/
 ...
-
+---
+subject: ACR2-Fiona
+recording_sessions:
+  - id: 05-03-2022-ACR
+    ap: /Volumes/qnap-data/ACR2-Fiona/05-03-2022-ACR/SpikeGLX/
+    lf: /Volumes/qnap-data/ACR2-Fiona/05-03-2022-ACR/SpikeGLX/
+  - id: 05-03-2022
+    ap: /Volumes/qnap-data/ACR2-Fiona/05-03-2022/SpikeGLX/
+    lf: /Volumes/qnap-data/ACR2-Fiona/05-03-2022/SpikeGLX/
+...
