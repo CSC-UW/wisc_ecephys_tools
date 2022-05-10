@@ -414,4 +414,33 @@ experiments:
       imec2:
         imec_map: Default_1shank
         internal_reference: [191]
+      imec3:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec4:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec5:
+        imec_map: Default_1shank
+        internal_reference: [191]
+  discoflow-day2:
+    probes:
+      imec0:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec1:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec2:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec3:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec4:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec5:
+        imec_map: Default_1shank
+        internal_reference: [191]
 ...
