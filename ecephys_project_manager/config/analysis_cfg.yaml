@@ -16,7 +16,7 @@ analysis_type: sorting
 analysis_params:
   # Kilosort 2.5
   ks2_5_base: &ks2_5_base
-    ks_path: "/Volumes/scratch/neuropixels/matlab/external/Kilosort-tb-v2.5"
+    ks_path: "/Volumes/scratch/neuropixels/matlab/external/Kilosort-wisc-v2.5"
     detect_threshold: 6
     projection_threshold: [10, 4]
     preclust_threshold: 8
