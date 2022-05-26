@@ -414,6 +414,9 @@ experiments:
       full_48h:
         - start_file: 1-5-2022_g0_t0
           end_file: 1-6-2022_g1_t9
+      recovery_sleep:
+        - start_file: 1-5-2022_g0_t3
+          end_file: 1-5-2022_g0_t5
 ...
 ---
 subject: ANPIX1-Sputnik
