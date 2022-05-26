@@ -1,29 +1,29 @@
-# ecephys_project_manager
+# wisc_ecephys_tools
 
 ## Installation
 This will also install [`ecephys`](https://github.com/CSC-UW/ecephys) as a local, editable sibling directory.
 ```
 git clone https://github.com/CSC-UW/ecephys.git
-git clone https://github.com/CSC-UW/ecephys_project_manager.git
+git clone https://github.com/CSC-UW/wisc_ecephys_tools.git
 
 conda create -n myenv python=3
 conda activate myenv
 
-cd ecephys_project_manager
+cd wisc_ecephys_tools
 pip install -r requirements.txt
 ```
 
 If you run into issues with h5py/hdf5 version compatibility within ipython/jupyter (but not python):
 ```
 git clone https://github.com/CSC-UW/ecephys.git
-git clone https://github.com/CSC-UW/ecephys_project_manager.git
+git clone https://github.com/CSC-UW/wisc_ecephys_tools.git
 
 conda create --name myenv python=3
 conda activate myenv
 
 conda install -c conda-forge --update-deps --force-reinstall hdf5 h5py
 
-cd ecephys_project_manager
+cd wisc_ecephys_tools
 pip install -r requirements.txt
 ```
 

@@ -6,8 +6,8 @@ import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 from ecephys.plot import plot_channel_coords
 from ecephys.sglx import get_xy_coords
-from ecephys_project_manager.params import get_analysis_params
-from ecephys_project_manager.projects import get_alias_subject_directory
+from wisc_ecephys_tools.params import get_analysis_params
+from wisc_ecephys_tools.projects import get_alias_subject_directory
 from probeinterface import Probe
 
 from .prepro import CATGT_PROJECT_NAME, get_catgt_output_paths
@@ -25,7 +25,7 @@ def get_sorting_output_path(
     sorting_name=None,
 ):
     """Return f'project_dir/exp/alias/subject/{sorting_name}.{probe}'.
-    
+
     The name of the output directory ('sorting_name') is {sorting_name}.{probe}
     and it is located in the 'alias_subject_directory'
     (`ecephys.projects.get_alias_subject_directory`)
@@ -206,19 +206,23 @@ def set_probe_and_locations(recording, binpath):
     idx, x, y = get_xy_coords(binpath)
 
     locations = np.array([(x[i], y[i]) for i in range(len(idx))])
-    shape='square'
-    shape_params={'width': 8}
+    shape = "square"
+    shape_params = {"width": 8}
 
     prb = Probe()
     if "#SY0" in recording.channel_ids[-1]:
-        print('FOUND SY0')
+        print("FOUND SY0")
         ids = recording.channel_ids[:-1]  # Remove last (SY0)
     else:
         ids = recording.channel_ids
-    prb.set_contacts(locations[:len(ids),:], shapes=shape, shape_params=shape_params)
+    prb.set_contacts(locations[: len(ids), :], shapes=shape, shape_params=shape_params)
     prb.set_contact_ids(ids)  # Must go after prb.set_contacts
-    prb.set_device_channel_indices(np.arange(len(ids)))  # Mandatory. I did as in recording.set_dummy_probe_from_locations
-    assert prb._contact_positions.shape[0] == len(prb._contact_ids)  # Shouldn't be needed
+    prb.set_device_channel_indices(
+        np.arange(len(ids))
+    )  # Mandatory. I did as in recording.set_dummy_probe_from_locations
+    assert prb._contact_positions.shape[0] == len(
+        prb._contact_ids
+    )  # Shouldn't be needed
 
     recording = recording.set_probe(prb)
 

@@ -1,9 +1,9 @@
-import ecephys_project_manager.pipe
+import wisc_ecephys_tools.pipe
 import itertools
 
 """Copy, modify and run to run the whole pipeline for several datasets."""
 
-project = 'test_project'
+project = "test_project"
 
 subject_probe_list = [
     # ('CNPIX99-Miles', 'imec0'),
@@ -17,28 +17,29 @@ experiment_alias_list = [
 ]
 
 # Analyses ran in pipeline (pre-curation)
-sorting_analysis_name = 'ks2_5_catgt_df'  # Must be in 'sorting' doc in analysis_cfg.yaml
-postpro_analysis_name = 'postpro_2'  # Must be in 'ks_postprocessing' doc in analysis_cfg.yaml
+sorting_analysis_name = (
+    "ks2_5_catgt_df"  # Must be in 'sorting' doc in analysis_cfg.yaml
+)
+postpro_analysis_name = (
+    "postpro_2"  # Must be in 'ks_postprocessing' doc in analysis_cfg.yaml
+)
 
 # Post-curation
-analysis_name = 'metrics_all_isi'
+analysis_name = "metrics_all_isi"
 
 # Misc
 rerun_existing = True
 dry_run = False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     for (
         (subject, probe),
         (experiment, alias),
-    ) in itertools.product(
-        subject_probe_list,
-        experiment_alias_list
-    ):
+    ) in itertools.product(subject_probe_list, experiment_alias_list):
 
-        ecephys_project_manager.pipe.run_postprocessing(
+        wisc_ecephys_tools.pipe.run_postprocessing(
             project=project,
             subject=subject,
             experiment=experiment,
@@ -47,5 +48,5 @@ if __name__ == '__main__':
             analysis_name=analysis_name,
             sorting_name=f"{sorting_analysis_name}_{postpro_analysis_name}",
             rerun_existing=rerun_existing,
-            dry_run=dry_run
+            dry_run=dry_run,
         )

@@ -5,14 +5,14 @@ import ecephys.data_mgmt.paths
 from ecephys.sglx.cat_gt import run_catgt
 from ecephys.sglx.file_mgmt import loc
 from ecephys.sglx.utils import get_meta_value
-from ecephys_project_manager.params import get_analysis_params
-from ecephys_project_manager.projects import \
-    get_alias_subject_directory  # TODO: Move loc
-from ecephys_project_manager.sglx.experiments import get_ap_bin_files
-from ecephys_project_manager.sglx.sessions import get_session_style_path_parts
+from wisc_ecephys_tools.params import get_analysis_params
+from wisc_ecephys_tools.projects import get_alias_subject_directory  # TODO: Move loc
+from wisc_ecephys_tools.sglx.experiments import get_ap_bin_files
+from wisc_ecephys_tools.sglx.sessions import get_session_style_path_parts
 
-CATGT_PROJECT_NAME = 'catgt'  # Key in projects.yaml.
-ANALYSIS_TYPE = 'preprocessing'  # Relevant analysis type in analysis_cfg.yaml
+CATGT_PROJECT_NAME = "catgt"  # Key in projects.yaml.
+ANALYSIS_TYPE = "preprocessing"  # Relevant analysis type in analysis_cfg.yaml
+
 
 def get_analysis_dir(
     project=None,
@@ -20,7 +20,7 @@ def get_analysis_dir(
     experiment=None,
     alias=None,
     analysis_name=None,
-    subalias_idx=None
+    subalias_idx=None,
 ):
     """
     Catgt target directory. Output data is at analysis_dir/catgt_gate_dir/catgt_probe_dir
@@ -31,9 +31,12 @@ def get_analysis_dir(
                 subject/
                     analysis_name/
     """
-    return get_alias_subject_directory(
-        project, experiment, alias, subject, subalias_idx=subalias_idx
-    ) / analysis_name
+    return (
+        get_alias_subject_directory(
+            project, experiment, alias, subject, subalias_idx=subalias_idx
+        )
+        / analysis_name
+    )
 
 
 def get_catgt_output_paths(
@@ -45,14 +48,11 @@ def get_catgt_output_paths(
     analysis_name=None,
 ):
     """Return list of catgt output paths for each subalias: [(metapath_0, binpath_0), ..]
-    
+
     CatGT data is saved following standard SGLX folder-per-probe structure in the analysis dir
     for each subalias: analysis_dir/catgt_gate_dir/catgt_probe_dir
     """
-    assert all(
-        [arg is not None
-        for arg in [subject, experiment, alias, probe]]
-    )
+    assert all([arg is not None for arg in [subject, experiment, alias, probe]])
 
     raw_files = get_ap_bin_files(
         subject,
@@ -64,26 +64,32 @@ def get_catgt_output_paths(
 
     meta_bin_paths = []
     for subalias_idx in subalias_indices:
-        
+
         analysis_dir = get_analysis_dir(
-            project=project, experiment=experiment, alias=alias, subject=subject, analysis_name=analysis_name, subalias_idx=subalias_idx,)
+            project=project,
+            experiment=experiment,
+            alias=alias,
+            subject=subject,
+            analysis_name=analysis_name,
+            subalias_idx=subalias_idx,
+        )
         subalias_files = loc(raw_files, subalias_idx=subalias_idx).reset_index()
 
         # This is necessary because catgt changes gate and probe dirnames
         fname = subalias_files.path.values[0].name
-        ext = '.ap.bin'
+        ext = ".ap.bin"
         stem = fname.split(ext)[0]
         run, gate, trigger, probe = ecephys.data_mgmt.paths.parse_sglx_stem(stem)
         # In catGT2.4 it's always g0 (Bill's mistake I think)
-        #catgt_gate = 'g0'
-        catgt_gate_dirname = f'catgt_{run}_{gate}'
-        catgt_probe_dirname = f'{run}_{gate}_{probe}'
+        # catgt_gate = 'g0'
+        catgt_gate_dirname = f"catgt_{run}_{gate}"
+        catgt_probe_dirname = f"{run}_{gate}_{probe}"
 
-        parent_dir = analysis_dir/catgt_gate_dirname/catgt_probe_dirname
-        metastem = f'{run}_{gate}_tcat.{probe}.ap.meta'
-        binstem = f'{run}_{gate}_tcat.{probe}.ap.bin'
+        parent_dir = analysis_dir / catgt_gate_dirname / catgt_probe_dirname
+        metastem = f"{run}_{gate}_tcat.{probe}.ap.meta"
+        binstem = f"{run}_{gate}_tcat.{probe}.ap.bin"
 
-        meta_bin_paths.append((parent_dir/metastem, parent_dir/binstem))
+        meta_bin_paths.append((parent_dir / metastem, parent_dir / binstem))
 
     return meta_bin_paths
 
@@ -121,20 +127,30 @@ def run_preprocessing(
     probe=None,
     analysis_name=None,
     rerun_existing=False,
-    dry_run=True
+    dry_run=True,
 ):
     """Run CatGT for each subalias. Return 1 if the command finished running."""
     assert all(
-        [arg is not None
-        for arg in [project, subject, experiment, alias, probe, analysis_name]]
+        [
+            arg is not None
+            for arg in [project, subject, experiment, alias, probe, analysis_name]
+        ]
     )
 
     # rerun_existing logic
     any_output = check_any_exists_catgt_output(
-        subject=subject, experiment=experiment, alias=alias, probe=probe, analysis_name=analysis_name,
+        subject=subject,
+        experiment=experiment,
+        alias=alias,
+        probe=probe,
+        analysis_name=analysis_name,
     )
     all_output = check_any_exists_catgt_output(
-        subject=subject, experiment=experiment, alias=alias, probe=probe, analysis_name=analysis_name,
+        subject=subject,
+        experiment=experiment,
+        alias=alias,
+        probe=probe,
+        analysis_name=analysis_name,
     )
     if not rerun_existing:
         if any_output and not all_output:
@@ -147,13 +163,17 @@ def run_preprocessing(
     elif rerun_existing and not dry_run:
         print("rerun_existing = True: Deleting preexisting catgt files.")
         clear_catgt_output_files(
-            subject=subject, experiment=experiment, alias=alias, probe=probe, analysis_name=analysis_name,
+            subject=subject,
+            experiment=experiment,
+            alias=alias,
+            probe=probe,
+            analysis_name=analysis_name,
         )
-        
+
     # Gather files and params
-    analysis_params = get_analysis_params('preprocessing', analysis_name)
-    catgt_params = analysis_params['catgt_params']
-    catgt_path = analysis_params['catgt_path']
+    analysis_params = get_analysis_params("preprocessing", analysis_name)
+    catgt_params = analysis_params["catgt_params"]
+    catgt_path = analysis_params["catgt_path"]
     raw_files = get_ap_bin_files(
         subject,
         experiment,
@@ -163,15 +183,24 @@ def run_preprocessing(
     )
 
     print("\nBelow are all the files that will be processed (all subaliases):")
-    print(raw_files[['run', 'gate', 'trigger', 'fileTimeSecs', 'subalias_idx', 'fileCreateTime']])
+    print(
+        raw_files[
+            ["run", "gate", "trigger", "fileTimeSecs", "subalias_idx", "fileCreateTime"]
+        ]
+    )
 
-    # Run each subalias separately    
+    # Run each subalias separately
     subalias_indices = sorted(raw_files.subalias_idx.unique())
     for i, subalias_idx in enumerate(subalias_indices):
 
         # Subalias files and output dir
         analysis_dir = get_analysis_dir(
-            project=project, experiment=experiment, alias=alias, subject=subject, subalias_idx=subalias_idx, analysis_name=analysis_name
+            project=project,
+            experiment=experiment,
+            alias=alias,
+            subject=subject,
+            subalias_idx=subalias_idx,
+            analysis_name=analysis_name,
         )
         subalias_files = loc(raw_files, subalias_idx=subalias_idx).reset_index()
 
@@ -190,7 +219,6 @@ def run_preprocessing(
                 f"{subalias_files[['run', 'gate', 'trigger', 'fileTimeSecs', 'subalias_idx', 'fileCreateTime']]}"
             )
 
-
         # Src and target dirs
         (
             root_dir,
@@ -200,40 +228,43 @@ def run_preprocessing(
             _,
             _,
             _,
-        ) = get_session_style_path_parts(
-            subalias_files.path[0]
-        )
-        src_dir = root_dir/subject_dirname/session_dirname/session_sglx_dirname
+        ) = get_session_style_path_parts(subalias_files.path[0])
+        src_dir = root_dir / subject_dirname / session_dirname / session_sglx_dirname
         tgt_dir = analysis_dir
 
         start = datetime.now()
         run_catgt(
-            subalias_files,
-            catgt_params,
-            catgt_path,
-            src_dir,
-            tgt_dir,
-            dry_run=dry_run
+            subalias_files, catgt_params, catgt_path, src_dir, tgt_dir, dry_run=dry_run
         )
         end = datetime.now()
 
         print(
             f"{end.strftime('%H:%M:%S')}: Finished {subject}, {experiment}, {alias}, subalias #{i+1}/{len(subalias_indices)}. "
             f"Run time = {str(end - start)}, ",
-            end=""
+            end="",
         )
         if not dry_run:
             # Extract the output file duration (sanity check)
             output_binpath, _ = get_catgt_output_paths(
-                project=project, subject=subject, experiment=experiment, alias=alias, probe=probe, analysis_name=analysis_name
+                project=project,
+                subject=subject,
+                experiment=experiment,
+                alias=alias,
+                probe=probe,
+                analysis_name=analysis_name,
             )[i]
-            output_duration = get_meta_value(output_binpath, 'fileTimeSecs')
-            print(
-                f"Output file duration = {float(output_duration) / 3600}sec"
-            )
+            output_duration = get_meta_value(output_binpath, "fileTimeSecs")
+            print(f"Output file duration = {float(output_duration) / 3600}sec")
 
     # The command finished if we find the meta file (since it's written at the end)
-    subaliases_metapaths, subaliases_binpaths = zip(*get_catgt_output_paths(
-        project=project, subject=subject, experiment=experiment, alias=alias, probe=probe, analysis_name=analysis_name
-    ))
+    subaliases_metapaths, subaliases_binpaths = zip(
+        *get_catgt_output_paths(
+            project=project,
+            subject=subject,
+            experiment=experiment,
+            alias=alias,
+            probe=probe,
+            analysis_name=analysis_name,
+        )
+    )
     return all([metapath.exists() for metapath in subaliases_metapaths])

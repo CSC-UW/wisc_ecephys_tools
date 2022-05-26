@@ -26,19 +26,19 @@ CLASSIFIERS = [
 ]
 
 # Description should be a one-liner:
-description = "ecephys_project_manager"
+description = "wisc_ecephys_tools"
 # Long description will go up on the pypi page
 long_description = """
 Tools for managing (e)xtra(c)ellular (e)lectro(phys)iology projects
 at the Wisconsin Institute for Sleep and Consciousness.
 """
 
-NAME = "ecephys_project_manager"
+NAME = "wisc_ecephys_tools"
 MAINTAINER = "Graham Findlay"
 MAINTAINER_EMAIL = "gfindlay@wisc.edu"
 DESCRIPTION = description
 LONG_DESCRIPTION = long_description
-URL = "http://github.com/CSC-UW/ecephys_project_manager"
+URL = "http://github.com/CSC-UW/wisc_ecephys_tools"
 DOWNLOAD_URL = ""
 LICENSE = ""
 AUTHOR = "Graham Findlay"
@@ -48,7 +48,7 @@ MAJOR = _version_major
 MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
-PACKAGE_DATA = {"ecephys_project_manager": [pjoin("static", "*")]}
+PACKAGE_DATA = {"wisc_ecephys_tools": [pjoin("static", "*")]}
 EXTRAS_REQUIRE = {}
 INSTALL_REQUIRES = [
     "numpy",
