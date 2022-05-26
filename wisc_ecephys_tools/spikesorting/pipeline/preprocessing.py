@@ -1,5 +1,6 @@
+# This basically runs CatGT -- there is no additional preprocessing.
+
 from datetime import datetime
-from pathlib import Path
 
 import ecephys.data_mgmt.paths
 from ecephys.sglx.cat_gt import run_catgt

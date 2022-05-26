@@ -1,5 +1,10 @@
-from wisc_ecephys_tools.pipe.prepro import CATGT_PROJECT_NAME
-import wisc_ecephys_tools.pipe
+from .preprocessing import (
+    run_preprocessing,
+    CATGT_PROJECT_NAME,
+    clear_catgt_output_files,
+)
+from .sorting import run_sorting
+from .postprocessing import run_postprocessing
 
 
 def run_pipeline(
@@ -42,7 +47,7 @@ def run_pipeline(
 
     # Run CatGT
     print("\n\nRun preproecessing:")
-    success = wisc_ecephys_tools.pipe.run_preprocessing(
+    success = run_preprocessing(
         project=prepro_project,
         subject=subject,
         experiment=experiment,
@@ -57,7 +62,7 @@ def run_pipeline(
 
     # Run sorting
     print("\n\nRun sorting:")
-    success = wisc_ecephys_tools.pipe.run_sorting(
+    success = run_sorting(
         project=project,
         subject=subject,
         experiment=experiment,
@@ -71,7 +76,7 @@ def run_pipeline(
         dry_run=dry_run,
     )
     if clear_preprocessed_data:
-        wisc_ecephys_tools.pipe.clear_catgt_output_files(
+        clear_catgt_output_files(
             project=prepro_project,
             subject=subject,
             experiment=experiment,
@@ -84,7 +89,7 @@ def run_pipeline(
 
     # Run postpro
     print("\n\nRun postprocessing:")
-    success = wisc_ecephys_tools.pipe.run_postprocessing(
+    success = run_postprocessing(
         project=project,
         subject=subject,
         experiment=experiment,

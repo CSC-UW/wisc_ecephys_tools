@@ -1,5 +1,5 @@
 import ecephys.units
-from wisc_ecephys_tools.pipe import get_sorting_output_path
+from .pipeline import get_sorting_output_path
 from ..cluster_groups import get_cluster_group_dict
 from ..depths import get_regions, get_depths
 

@@ -1,16 +1,17 @@
+# This is not specific to Kilosort -- it can be used to run other sorters, at least in principle.
+
 from datetime import datetime
 
 import numpy as np
 import spikeinterface as si
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
-from ecephys.plot import plot_channel_coords
 from ecephys.sglx import get_xy_coords
 from wisc_ecephys_tools.params import get_analysis_params
 from wisc_ecephys_tools.projects import get_alias_subject_directory
 from probeinterface import Probe
 
-from .prepro import CATGT_PROJECT_NAME, get_catgt_output_paths
+from .preprocessing import CATGT_PROJECT_NAME, get_catgt_output_paths
 
 
 # TODO: The `analysis_name` parameter does not actually correspond to any other `analysis_name` parameters.

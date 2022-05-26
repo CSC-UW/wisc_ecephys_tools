@@ -1,4 +1,4 @@
-import wisc_ecephys_tools.pipe
+from wisc_ecephys_tools.spikesorting.pipeline import run_pipeline
 import itertools
 
 """Copy, modify and run to run the whole pipeline for several datasets."""
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         (experiment, alias),
     ) in itertools.product(subject_probe_list, experiment_alias_list):
 
-        wisc_ecephys_tools.pipe.run_pipeline(
+        run_pipeline(
             project=project,
             prepro_project=prepro_project,
             subject=subject,
