@@ -59,4 +59,4 @@ INSTALL_REQUIRES = [
     "spikeinterface",  # @ git+https://github.com/CSC-UW/spikeinterface.git@master#egg=spikeinterface"
     "ecephys_spike_sorting",  # @ git+https://github.com/CSC-UW/ecephys_spike_sorting.git@master#egg=ecephys_spike_sorting"
 ]
-PYTHON_REQUIRES = ">= 3.10"
+PYTHON_REQUIRES = ">= 3.7"
