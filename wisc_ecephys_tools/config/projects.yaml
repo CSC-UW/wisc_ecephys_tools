@@ -7,24 +7,20 @@ project: catgt  # "catgt" project holds the default location for catGT processed
 project_directory: /nvme/neuropixels/catgt/
 ...
 ---
-project: acute_sorting
-project_directory: /nvme/neuropixels/acute_sorting/
-...
----
-project: chronic_sorting
-project_directory: /nvme/neuropixels/chronic_sorting/
+project: sorting
+project_directory: /nvme/neuropixels/sorting/
 ...
 ---
 project: SPWRs
 project_directory: /Volumes/neuropixel_analysis/Data/SPWRs/
 ...
 ---
-project: Scoring
-project_directory: /Volumes/neuropixel_analysis/Data/Scoring/
+project: scoring
+project_directory: /Volumes/neuropixel_analysis/Data/scoring/
 ...
 ---
-project: acute
-project_directory: /Volumes/neuropixel_analysis/Data/acute/
+project: discoflow
+project_directory: /Volumes/neuropixel_analysis/Data/discoflow/
 ...
 ---
 project: nucleated_rebooting
