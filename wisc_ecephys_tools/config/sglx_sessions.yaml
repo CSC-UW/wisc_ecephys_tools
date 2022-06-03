@@ -175,3 +175,10 @@ recording_sessions:
     ap: /Volumes/NeuropixelNAS1/ACR2-Fiona/05-03-2022/SpikeGLX/
     lf: /Volumes/NeuropixelNAS1/ACR2-Fiona/05-03-2022/SpikeGLX/
 ...
+---
+subject: ANPIX30-Krapotkin
+recording_sessions:
+  - id: 06-02-2022
+    ap: /Volumes/NeuropixelNAS1/ANPIX30-Krapotkin/06-02-2022/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS1/ANPIX30-Krapotkin/06-02-2022/SpikeGLX/
+...
