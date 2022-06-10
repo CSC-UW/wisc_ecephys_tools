@@ -22,4 +22,5 @@ These are already done for you, if you are using `tononi-2`:
 6. Open the results in `phy` (this may require a different virtual envrionment) and `File->Save`. This regenerates the `cluster_info.tsv` file with the metrics.
 7. Move the final outputs (found in directories named `ks2_5_catgt_df_postpro_2_metrics_all_isi.imec*`) to `/Volumes/neuropixel_analysis`.
     - Example rysnc command: `cd /path/to/results; rsync -rvh --info=progress2 *metrics* /Volumes/neuropixel_analysis/destination_directory`
+    - Example destination directory: `/Volumes/neuropixel_analysis/Data/<project-name>/<experiment-name>/<alias-name>/<subject-name>`
 8. Remove all data (don't forget the CatGT output!) from the `nvme` array. Update the ANPIX-Manifest spreadsheet!
