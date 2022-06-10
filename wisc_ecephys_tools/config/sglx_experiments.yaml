@@ -504,4 +504,11 @@ experiments:
       full:
         - start_file: 06-02-2022_g0_t0
           end_file: 06-02-2022_g0_t0
+  discoflow-day2:
+    recording_session_ids:
+      - 06-03-2022
+    aliases:
+      full:
+        - start_file: 06-03-2022_g0_t0
+          end_file: 06-03-2022_g0_t0
 ...

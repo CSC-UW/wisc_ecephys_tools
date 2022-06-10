@@ -470,4 +470,5 @@ experiments:
       imec5:
         imec_map: Default_1shank
         internal_reference: [191]
+  discoflow-day2: *ANPIX30-Krapotkin
 ...
