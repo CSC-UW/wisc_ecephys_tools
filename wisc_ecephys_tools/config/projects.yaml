@@ -4,7 +4,7 @@ project_directory: /Volumes/neuropixel_analysis/Data/my_project/
 ...
 ---
 project: catgt  # "catgt" project holds the default location for catGT processed data
-project_directory: /nvme/neuropixels/catgt/
+project_directory: /Volumes/scratch/neuropixels/tmp/catgt/
 ...
 ---
 project: sorting
