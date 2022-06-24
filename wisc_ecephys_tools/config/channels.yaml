@@ -401,7 +401,7 @@ experiments:
         internal_reference: [191]
 ...
 ---
-subject: ANPIX28-Madoc
+subject: ANPIX29-Madoc
 experiments:
   discoflow-day1: &ANPIX29-Madoc
     probes:
