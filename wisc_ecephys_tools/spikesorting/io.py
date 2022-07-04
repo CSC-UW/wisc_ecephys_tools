@@ -3,6 +3,33 @@ from .pipeline import get_sorting_output_path
 from ..cluster_groups import get_cluster_group_dict
 from ..depths import get_regions, get_depths
 
+from ecephys.units.sorting import SingleProbeSorting
+from ecephys.units import spikeinterface_sorting_to_dataframe
+
+
+def load_single_probe_sorting(
+    subject, experiment, alias, probe, sorting_project=None,
+    sorting_name=None, cluster_groups=None, selection_intervals=None,
+    region=None
+):
+    si_sorting, si_info = get_sorting_data(
+        sorting_project,
+        subject,
+        experiment,
+        alias,
+        probe,
+        sorting_name=sorting_name,
+        selected_groups=cluster_groups,
+        selection_intervals=selection_intervals,
+        region=region,
+    )
+
+    units = si_info.set_index("cluster_id")
+
+    spikes = spikeinterface_sorting_to_dataframe(si_sorting)
+
+    return SingleProbeSorting(spikes=spikes, units=units)
+
 
 # TODO: Are these arguments truly all optional?
 # TODO: `region` loads only a single region, as specified in `depths.yaml`. This option should be removed, as it is probably better to provide this as an option in the selection_intervals dictionary.
