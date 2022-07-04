@@ -11,7 +11,7 @@ def load_hypnogram_as_generic_events(
     experiment,
     alias,
     extension=".hypnogram.tsv",
-    project="Scoring",
+    project="scoring",
 ):
     """Load and concatenate second hypnograms. Add t1/t2/description fields.
 
@@ -43,7 +43,7 @@ def load_and_concatenate_second_hypnograms(
     experiment,
     alias,
     extension=".hypnogram.tsv",
-    project="Scoring",
+    project="scoring",
 ):
     """Return concatenated hypnograms with start/end_time fields in datetime.
 
@@ -83,7 +83,7 @@ def load_and_concatenate_datetime_hypnograms(
     experiment,
     alias,
     extension=".hypnogram.tsv",
-    project="Scoring",
+    project="scoring",
 ):
     """Return concatenated hypnograms with start/end_time fields in datetime.
 
@@ -103,7 +103,7 @@ def load_and_concatenate_datetime_hypnograms(
 
         lfp_paths = get_lfp_bin_paths(subject, experiment, alias, probe=probe)
         hypnogram_paths = get_project_counterparts(
-            "Scoring", subject, lfp_paths, extension, remove_stream=True
+            project, subject, lfp_paths, extension, remove_stream=True
         )
 
         hypnogram_exists = [
