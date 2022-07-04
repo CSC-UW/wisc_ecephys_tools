@@ -26,3 +26,7 @@ project_directory: /Volumes/neuropixel_analysis/Data/discoflow/
 project: nucleated_rebooting
 project_directory: /Volumes/scratch/neuropixels/data/nucleated_rebooting
 ...
+---
+project: rates
+project_directory: /Volumes/scratch/neuropixels/data/rates
+...
