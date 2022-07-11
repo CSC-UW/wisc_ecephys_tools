@@ -24,12 +24,18 @@ from ..conf import get_config_file
 from ..utils import get_subject_document, load_yaml_stream
 from ..depths import get_depths
 
+# TODO: Currently, there can be no clean `get_session_directory(subject_name, experiment_name) function,
+# because there is no single session directory -- it can be split across AP and LF locations, and we
+# don't know which might hold e.g. video files for that session.
+
 
 SUBALIAS_IDX_DF_VALUE = (
     -1
 )  # Value of 'subalias_idx' column when there is a single subalias.
 
-MAX_DELTA_SEC = 5  # (s) Maximum gap between successive recordings from the same subalias
+MAX_DELTA_SEC = (
+    5  # (s) Maximum gap between successive recordings from the same subalias
+)
 
 
 def parse_trigger_stem(stem):
@@ -221,7 +227,7 @@ def get_files(
 
     if assert_contiguous and alias_name:
         check_contiguous(files_df, experiment["aliases"][alias_name])
-    
+
     return files_df
 
 
@@ -282,17 +288,16 @@ def check_contiguous(files_df, alias, probes=None):
 
         # Check independently for each subalias
         for i, subalias in enumerate(alias):
-            if len(alias) == 1: 
+            if len(alias) == 1:
                 # Single alias
                 sub_files = probe_files
             else:
                 sub_files = loc(probe_files, subalias_idx=i).copy()
-            
+
             # Check that start and end files were found
             start, end = subalias["start_file"], subalias["end_file"]
-            sub_files.loc[:, ['stem']] = sub_files.apply(
-                lambda row: '_'.join([row.run, row.gate, row.trigger]),
-                axis=1
+            sub_files.loc[:, ["stem"]] = sub_files.apply(
+                lambda row: "_".join([row.run, row.gate, row.trigger]), axis=1
             )
             if not all([f in sub_files.stem.values for f in [start, end]]):
                 raise FileNotFoundError(
@@ -301,12 +306,16 @@ def check_contiguous(files_df, alias, probes=None):
                 )
 
             # Check that there's a small enough timedelta between files
-            datetimes = sub_files['fileCreateTime'].values
-            durations = sub_files['fileTimeSecs'].values
+            datetimes = sub_files["fileCreateTime"].values
+            durations = sub_files["fileTimeSecs"].values
             for i in range(len(sub_files) - 1):
-                startdeltasec = (datetimes[i+1] - datetimes[i]) / np.timedelta64(1, 's')
+                startdeltasec = (datetimes[i + 1] - datetimes[i]) / np.timedelta64(
+                    1, "s"
+                )
                 deltasec = startdeltasec - float(durations[i])
-                assert deltasec > -1  # A file should not start before the last one finished... but allow for rounding errors
+                assert (
+                    deltasec > -1
+                )  # A file should not start before the last one finished... but allow for rounding errors
                 if abs(deltasec) > MAX_DELTA_SEC:
                     raise FileNotFoundError(
                         f"Files are not contiguous! \n"
@@ -314,5 +323,3 @@ def check_contiguous(files_df, alias, probes=None):
                         f" the limit {MAX_DELTA_SEC}sec) in between the following subalias files: \n"
                         f"{sub_files.iloc[i:i+2]}"
                     )
-
-
