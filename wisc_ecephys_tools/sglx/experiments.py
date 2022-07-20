@@ -17,7 +17,7 @@ import numpy as np
 
 import pandas as pd
 from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
-from sglxarray import ImecMap
+from ecephys.sglxr import ImecMap
 
 from .sessions import get_session_files_from_multiple_locations
 from ..conf import get_config_file

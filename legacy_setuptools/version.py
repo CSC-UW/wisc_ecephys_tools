@@ -52,7 +52,6 @@ INSTALL_REQUIRES = [
     "pyyaml",
     "black",
     "ecephys",
-    "sglxarray",
     "spikeinterface @ git+https://github.com/CSC-UW/spikeinterface.git@wisc/dev#egg=spikeinterface"
     "ecephys_spike_sorting @ git+https://github.com/CSC-UW/ecephys_spike_sorting.git@wisc/dev#egg=ecephys_spike_sorting",
 ]
