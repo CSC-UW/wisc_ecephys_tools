@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 PACKAGES = find_packages()
 
 # Get version and release info, which is all stored in ecephys/version.py
-ver_file = os.path.join("wisc_ecephys_tools", "version.py")
+ver_file = os.path.join("version.py")
 with open(ver_file) as f:
     exec(f.read())
 
@@ -31,7 +31,7 @@ opts = dict(
     platforms=PLATFORMS,
     version=VERSION,
     packages=PACKAGES,
-    package_data=PACKAGE_DATA,
+    package_dir={"wisc_ecephys_tools": "../wisc_ecephys_tools"},
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
     python_requires=PYTHON_REQUIRES,

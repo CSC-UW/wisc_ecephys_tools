@@ -1,5 +1,3 @@
-from os.path import join as pjoin
-
 # Format expected by setup.py and doc/source/conf.py: string of form "X.Y.Z"
 _version_major = 0
 _version_minor = 1
@@ -48,7 +46,6 @@ MAJOR = _version_major
 MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
-PACKAGE_DATA = {"wisc_ecephys_tools": [pjoin("static", "*")]}
 EXTRAS_REQUIRE = {}
 INSTALL_REQUIRES = [
     "numpy",
@@ -56,7 +53,7 @@ INSTALL_REQUIRES = [
     "black",
     "ecephys",
     "sglxarray",
-    "spikeinterface",  # @ git+https://github.com/CSC-UW/spikeinterface.git@master#egg=spikeinterface"
-    "ecephys_spike_sorting",  # @ git+https://github.com/CSC-UW/ecephys_spike_sorting.git@master#egg=ecephys_spike_sorting"
+    "spikeinterface @ git+https://github.com/CSC-UW/spikeinterface.git@wisc/dev#egg=spikeinterface"
+    "ecephys_spike_sorting @ git+https://github.com/CSC-UW/ecephys_spike_sorting.git@wisc/dev#egg=ecephys_spike_sorting",
 ]
-PYTHON_REQUIRES = ">= 3.7"
+PYTHON_REQUIRES = ">= 3.8"

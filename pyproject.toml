@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "wisc_ecephys_tools"
+version = "0.1.0"
+description = "\"Private/internal tools specific to the Wisconsin Institute for Sleep and Consciousness (WISC)\""
+authors = ["Graham Findlay <gfindlay@wisc.edu>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11" # Because of ecephys
+ecephys-spike-sorting = {git = "https://github.com/CSC-UW/ecephys_spike_sorting.git", rev = "wisc/dev"}
+spikeinterface = {git = "https://github.com/CSC-UW/spikeinterface.git", rev = "wisc/dev"}
+black = "^22.6.0"
+PyYAML = "^6.0"
+numpy = "^1.18"
+ecephys = {path = "../ecephys", develop = true}
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
