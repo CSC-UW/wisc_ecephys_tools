@@ -5,7 +5,7 @@ description = "\"Private/internal tools specific to the Wisconsin Institute for 
 authors = ["Graham Findlay <gfindlay@wisc.edu>"]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11" # Because of ecephys
+python = "^3.8"
 ecephys-spike-sorting = {git = "https://github.com/CSC-UW/ecephys_spike_sorting.git", rev = "wisc/dev"}
 spikeinterface = {git = "https://github.com/CSC-UW/spikeinterface.git", rev = "wisc/dev"}
 black = "^22.6.0"
