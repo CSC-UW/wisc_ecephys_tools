@@ -1,0 +1,66 @@
+---
+recording_sessions:
+  - id: 6-20-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-20-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-20-2021/SpikeGLX/
+  - id: 6-21-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-21-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX9-Luigi/6-21-2021/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 6-20-2021
+      - 6-21-2021
+    aliases:
+      light_period_circadian_match:
+        - start_file: 6-20-2021_g0_t0
+          end_file: 6-20-2021_g0_t5
+      sleep_deprivation:
+        - start_file: 6-21-2021_g0_t0
+          end_file: 6-21-2021_g0_t2
+      recovery_sleep:
+        - start_file: 6-21-2021_g1_t0
+          end_file: 6-21-2021_g1_t2
+      light_period:
+        - start_file: 6-21-2021_g0_t0
+          end_file: 6-21-2021_g1_t2
+      full_48h:
+        - start_file: 6-20-2021_g0_t0
+          end_file: 6-21-2021_g1_t8
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 6-20-2021_g0_t3
+          end_file: 6-20-2021_g0_t3
+        # recovery_sleep
+        - start_file: 6-21-2021_g1_t0
+          end_file: 6-21-2021_g1_t0
+    probes:
+      imec0: # Partietal
+        imec_map: LongCol_1shank
+        ##### Channels #####
+        internal_reference: [191]
+        emg_from_lfp: [0, 382, 345]
+        superficial_ctx: [337, 339, 341, 343, 345]
+        stratum_pyramidale_inversion: [137] # Manually ID'd
+        stratum_radiatum: [117, 119, 121, 123]
+        initial_spw_sink_peak: [121]
+        scoring: [119, 263, 337]
+        ##### Depths #####
+        # Cortex
+        cortex_base: [5180.0, 6980.0]  # 260:350. 200um error from these values
+        # Hippocampus
+        hippocampus_base: [3020.0, 5140.0]  # 152:258 from . 200um error from these values.
+        # thal
+        thalamus_base: [0.0, 3000.0]  # 1:151 from tip. 200um error from these values.
+        white_matter: [5620, 5780] # Added by Graham for SPWs
+        hippocampus: [3500, 5600] # Added by Graham for SPWs
+  dexmedetomidine:
+    probes:
+      imec0:
+        internal_reference: [191]
+        emg_from_lfp: [0, 382, 345]
+        superficial_ctx: [297, 299, 301, 303, 305]
+        stratum_pyramidale_inversion: [93] # Manually ID'd
+        stratum_radiatum: [73, 75, 77, 79]
+        scoring: [73, 205, 301]
+...

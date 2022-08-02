@@ -1,0 +1,85 @@
+---
+recording_sessions:
+  - id: 7-10-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-10-2021/SpikeGLX/
+  - id: 7-11-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-11-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX10-Charles/7-11-2021/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 7-10-2021
+      - 7-11-2021
+    aliases:
+      light_period_circadian_match:
+        - start_file: 7-10-2021_g0_t0
+          end_file: 7-10-2021_g0_t5
+      circadian_match:
+        - start_file: 7-10-2021_g0_t0
+          end_file: 7-10-2021_g0_t11
+      sleep_deprivation:
+        - start_file: 7-11-2021_g0_t0
+          end_file: 7-11-2021_g0_t2
+      recovery_sleep:
+        - start_file: 7-11-2021_g1_t0
+          end_file: 7-11-2021_g1_t2
+      light-period:
+        - start_file: 7-11-2021_g0_t0
+          end_file: 7-11-2021_g1_t2
+      full_48h:
+        - start_file: 7-10-2021_g0_t0
+          end_file: 7-11-2021_g1_t8
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 7-10-2021_g0_t3
+          end_file: 7-10-2021_g0_t3
+        # recovery_sleep
+        - start_file: 7-11-2021_g1_t0
+          end_file: 7-11-2021_g1_t0
+    probes:
+      imec0: # Frontal
+        ##### Depths #####
+        cortex_base: [3500, 7660]  # TODO
+        neocortex_base: [3500, 7660]  # TODO
+      imec1: # Parietal
+        imec_map: LongCol_1shank
+        ##### Channels #####
+        internal_reference: [191]
+        emg_from_lfp: [0, 382, 371]
+        superficial_ctx: [375, 377, 379, 381, 383]
+        stratum_pyramidale_inversion: [163] # Manually ID'd
+        stratum_radiatum: [143, 145, 147, 149]
+        initial_spw_sink_peak: [145]
+        scoring: [143, 271, 383]
+        ##### Depths #####
+        # Cortex
+        cortex_inner: [6280, 7660]  # Medial parietal associative cortex. Accounts for 200um error
+        cortex_base: [6080, 7660]  # Medial parietal associative cortex. 200um error from these values
+        MPPtA_base: [6080, 7660]  # Medial parietal associative cortex. from tip: 305:388. 200um error from these values
+        # Hippocampus
+        hippocampus_inner: [4280, 5860]  # Accounts for 200um error
+        hippocampus_base: [4080, 6060]  # 200um error from these values. from tip: 205:304
+        # thal
+        thalamus_inner: [1160, 3860]  # Accounts for 200um error
+        thalamus_base: [960, 4060]  # 200um error from these values
+        LPMR_base: [3300, 4060]  # Lateral Posterior MedioRostral thal nucleux. LPMR (from tip) = 166:204, 200um error from these values
+        Po_base: [2220, 3280]  # Posterior Thal. nucleus. Po (from tip) = 112: 165, 200um error from these values
+        VPM_base: [960, 2200]  # Ventral posteromedial nucleus. VPM (from tip) = 49:111, 200um error from these values
+        # hypo thalamus
+        hypothalamus_inner: [0, 740]  # Accounts for 200um error.
+        hypothalamus_base: [0, 940]  # 200um error from these values.
+        ZI_base: [0, 940]  # Zona Incerta. ZI (from tip) = 1: 48. 200um error from these values
+        white_matter: [5820, 5980] # Added by Graham for SPWs
+        hippocampus: [3950, 5800] # Added by Graham for SPWs
+  dexmedetomidine:
+    probes:
+      imec1:
+        ##### Channels #####
+        internal_reference: [191]
+        emg_from_lfp: [0, 382, 383]
+        superficial_ctx: [375, 377, 379, 381, 383]
+        stratum_pyramidale_inversion: [125] # Manually ID'd
+        stratum_radiatum: [105, 107, 109, 111]
+        scoring: [105, 247, 303]
+...

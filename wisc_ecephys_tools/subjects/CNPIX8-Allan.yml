@@ -1,0 +1,89 @@
+---
+recording_sessions:
+  - id: 3-1-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX8-Allan/3-1-2021/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 3-1-2021
+    aliases:
+      light_period_circadian_match:
+        - start_file: 3-1-2021_g0_t0
+          end_file: 3-1-2021_C_g0_t8
+      sleep_deprivation:
+        - start_file: 3-2-2021_A_g0_t0
+          end_file: 3-2-2021_E_g0_t0
+      recovery_sleep:
+        - start_file: 3-2-2021_F_g0_t0
+          end_file: 3-2-2021_F_g0_t4
+        - start_file: 3-2-2021_G_g0_t0
+          end_file: 3-2-2021_G_g0_t0
+      light_period:
+        - start_file: 3-2-2021_A_g0_t0
+          end_file: 3-2-2021_G_g0_t0
+      full_48h:
+        - start_file: 3-1-2021_g0_t0
+          end_file: 3-2-2021_O_g0_t0
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 3-1-2021_C_g0_t2
+          end_file: 3-1-2021_C_g0_t3
+        # recovery_sleep
+        - start_file: 3-2-2021_F_g0_t0
+          end_file: 3-2-2021_F_g0_t1
+    probes:
+      imec0: # Frontal
+        ##### Depths #####
+        neocortex_base: [3040, 7480]  # More conservative until I get sharptrack or something. There's maybe a bit of cortex between 2500 and 3540
+        cortex_base: [3040, 7480]
+        # neocortex_base: [2500, 7480]
+        # cortex_base: [2500, 7480]
+        olfactory_cortex_base: [0, 2500]
+      imec1: # Parietal
+        imec_map: LongCol_Allan
+        ##### Channels ####
+        internal_reference: [191]
+        emg_from_lfp: [82, 75, 70]
+        scoring: [219, 319, 12]
+        initial_spw_sink_peak: [219]
+        superficial_ctx: [72, 74, 76, 78, 80]
+        ##### Depths #####
+        # Cortex
+        cortex_inner: [7060, 8480]  # Medial parietal associative cortex. Accounts for 200um error
+        cortex_base: [6860, 8480]  # Medial parietal associative cortex. 200um error from these values
+        cortex_outer: [6660, 8480]  # Medial parietal associative cortex. 200um error from these values
+        MPPtA_base: [6860, 8480]  # Medial parietal associative cortex. From tip: 303:386 +820um. 200um error from these values
+        # Hippocampus
+        hippocampus_inner: [5040, 6640]  # Accounts for 200um error
+        hippocampus_base: [4840, 6840]  # From tip: 202:302 +820um. 200um error from these values
+        # thal
+        thalamus_inner: [1840, 4620]  # Accounts for 200um error
+        thalamus_base: [1640, 4820]  # 200um error from these values
+        LPMR_base: [4100, 4820]  # Lateral Posterior MedioRostral thal nucleux. LPMR (from tip) = 165:201 + 820um. 200um error from these values
+        Po_base: [2280, 4080]  # Posterior Thal. nucleus. Po (from tip) = 74:164 +820um. 200um error from these values
+        VPM_base: [1640, 2260]  # Ventral posteromedial nucleus. VPM (from tip) = 42:73 +820um, 200um error from these values
+        # hypo thalamus
+        hypothalamus_inner: [820, 1420]  # Accounts for 200um error.
+        hypothalamus_base: [820, 1620]  # 200um error from these values.
+        ZI_base: [820, 1620]  # Zona Incerta. ZI (from tip) = 1: 41, +820um
+        white_matter: [6620, 6780] # Added by Graham for SPWs
+        hippocampus: [4300, 6600] # Added by Graham for SPWs
+  dexmedetomidine:
+    probes:
+      imec0:
+        internal_reference: [191]
+        emg_from_lfp: [82, 75, 70]
+        superficial_ctx: [72, 74, 76, 78, 80]
+        stratum_pyramidale_inversion: [207] # Manually ID'd
+        stratum_radiatum: [187, 189, 191, 193]
+  atropine: &Atropine
+    probes:
+      imec0:
+        internal_reference: [191]
+        emg_from_lfp: [82, 75, 70]
+        superficial_ctx: [72, 74, 76, 78, 80]
+        stratum_pyramidale_inversion: [207] # Manually ID'd
+        stratum_radiatum: [187, 189, 191, 193]
+  ketamine: *Atropine
+...

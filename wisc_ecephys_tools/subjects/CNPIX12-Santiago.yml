@@ -1,0 +1,111 @@
+---
+recording_sessions:
+  - id: 10-31-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/10-31-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/10-31-2021/SpikeGLX/
+  - id: 11-1-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/11-1-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/11-1-2021/SpikeGLX/
+  - id: 11-3-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/11-3-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/11-3-2021/SpikeGLX/
+  - id: 11-4-2021
+    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/11-4-2021/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX12-Santiago/11-4-2021/SpikeGLX/
+experiments:
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 10-31-2021
+      - 11-1-2021
+    aliases:
+      light_period_circadian_match:
+        - start_file: 10-31-2021_g0_t0
+          end_file: 10-31-2021_g0_t5
+      sleep_deprivation:
+        - start_file: 11-1-2021_g0_t0
+          end_file: 11-1-2021_g0_t2
+      recovery_sleep:
+        - start_file: 11-1-2021_g1_t0
+          end_file: 11-1-2021_g1_t2
+      light_period:
+        - start_file: 11-1-2021_g0_t0
+          end_file: 11-1-2021_g1_t2
+      full_48h:
+        - start_file: 10-31-2021_g0_t0
+          end_file: 11-1-2021_g1_t8
+      sleep-homeostasis-2h:
+        # baseline-sleep-2h-circadian-match
+        - start_file: 10-31-2021_g0_t3
+          end_file: 10-31-2021_g0_t3
+        # recovery_sleep
+        - start_file: 11-1-2021_g1_t0
+          end_file: 11-1-2021_g1_t0
+    probes:
+      imec0:
+        ##### Depths #####
+        cortex_base: [2500, 7660]  # TODO
+      imec1:
+        imec_map: LongCol_1shank
+        ##### Channels #####
+        internal_reference: [191]
+        emg_from_lfp: [0, 382, 363]
+        superficial_ctx: [357, 359, 361, 363, 365]
+        stratum_pyrmidale_inversion: [145]
+        stratum_radiatum: [125, 127, 129, 131]
+        initial_spw_sink_peak: [125]
+        scoring: [125, 231, 365]
+        ##### Depths #####
+        # TODO
+        # Cortex
+        cortex_base: [6100.0, 7660]
+        # Hippocampus
+        hippocampus_base: [4160, 6080]
+        # thal
+        thalamus_base: [1000, 4140]
+        # hypo thalamus
+        hypothalamus_base: [0, 980]
+        ZI_base: [0, 980]
+        hippocampus: [3440, 5700] # Added by Graham for SPWs
+        white_matter: [5700, 5900] # Added by Graham for SPWs
+  conveyor_over_water:
+    recording_session_ids:
+      - 11-3-2021
+      - 11-4-2021
+    aliases:
+      light_period_circadian_match:
+        - start_file: 11-3-2021_g0_t0
+          end_file: 11-3-2021_g0_t5
+      sleep_deprivation:
+        - start_file: 11-4-2021_g0_t0
+          end_file: 11-4-2021_g0_t2
+      recovery_sleep:
+        - start_file: 11-4-2021_g0_t3
+          end_file: 11-4-2021_g0_t5
+      light_period:
+        - start_file: 11-4-2021_g0_t0
+          end_file: 11-4-2021_g0_t5
+      full_48h:
+        - start_file: 11-3-2021_g0_t0
+          end_file: 11-4-2021_g0_t11
+      sleep-homeostasis-2h:  # TODO
+        # baseline-sleep-2h-circadian-match
+        - start_file: 11-3-2021_g0_t3
+          end_file: 11-3-2021_g0_t3
+        # recovery_sleep
+        - start_file: 11-3-2021_g0_t0
+          end_file: 11-3-2021_g0_t0
+    probes:
+      imec1:
+        imec_map: LongCol_1shank
+        ##### Channels #####
+        internal_reference: [191]
+        emg_from_lfp: [0, 382, 363]
+        superficial_ctx: [357, 359, 361, 363, 365]
+        stratum_pyrmidale_inversion: [143]
+        stratum_radiatum: [123, 125, 127, 129]
+        initial_spw_sink_peak: [125]
+        scoring: [125, 241, 365]
+        ##### Depths #####
+        hippocampus: [3440, 5700] # Added by Graham for SPWs
+        white_matter: [5700, 5900] # Added by Graham for SPWs
+...
