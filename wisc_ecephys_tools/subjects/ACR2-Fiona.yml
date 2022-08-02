@@ -1,0 +1,42 @@
+---
+subject: ACR2-Fiona
+recording_sessions:
+  - id: 05-03-2022-ACR
+    ap: /Volumes/NeuropixelNAS1/ACR2-Fiona/05-03-2022-ACR/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS1/ACR2-Fiona/05-03-2022-ACR/SpikeGLX/
+  - id: 05-03-2022
+    ap: /Volumes/NeuropixelNAS1/ACR2-Fiona/05-03-2022/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS1/ACR2-Fiona/05-03-2022/SpikeGLX/
+experiments:
+  ACR-Test:
+    recording_session_ids:
+      - 05-03-2022-ACR
+    aliases:
+      full:
+        - start_file: 05-03-2022-ACR_g0_t0
+          end_file: 05-03-2022-ACR_g0_t0
+    probes: &probes
+      imec0:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec1:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec2:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec3:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec4:
+        imec_map: Default_1shank
+        internal_reference: [191]
+  discoflow-day1:
+    recording_session_ids:
+      - 05-03-2022
+    aliases:
+      full:
+        - start_file: 05-03-2022_g0_t0
+          end_file: 05-03-2022_g0_t0
+    probes: *probes
+...
