@@ -1,9 +1,7 @@
 """Access params specified in data/analysis_cfg.yaml"""
 from pathlib import Path
 import yaml
-from .conf import get_config_file
-
-# TODO: This module is ready for file-per-subject
+from .utils import get_config_file
 
 YAML_FILENAME = "analysis_cfg.yaml"
 

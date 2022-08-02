@@ -1,16 +1,21 @@
 import ecephys.units
 from .pipeline import get_sorting_output_path
-from ..cluster_groups import get_cluster_group_dict
-from ..depths import get_regions, get_depths
+from ..subjects import get_regions, get_depths
 
 from ecephys.units.sorting import SingleProbeSorting
 from ecephys.units import spikeinterface_sorting_to_dataframe
 
 
 def load_single_probe_sorting(
-    subject, experiment, alias, probe, sorting_project=None,
-    sorting_name=None, cluster_groups=None, selection_intervals=None,
-    region=None
+    subject,
+    experiment,
+    alias,
+    probe,
+    sorting_project=None,
+    sorting_name=None,
+    cluster_groups=None,
+    selection_intervals=None,
+    region=None,
 ):
     si_sorting, si_info = get_sorting_data(
         sorting_project,
@@ -34,6 +39,7 @@ def load_single_probe_sorting(
 # TODO: Are these arguments truly all optional?
 # TODO: `region` loads only a single region, as specified in `depths.yaml`. This option should be removed, as it is probably better to provide this as an option in the selection_intervals dictionary.
 # If it is going to stay, it should allow selection of more than one region. Also, it shouldn't allow both `None` and `all` to yield the same behavior.
+# TODO: The `override_cluster_groups` option is unused and should be removed
 def get_sorting_data(
     project=None,
     subject=None,
@@ -84,10 +90,7 @@ def get_sorting_data(
 
     # Get cluster group overrides
     if override_cluster_groups:
-        cluster_group_overrides = get_cluster_group_dict(
-            subject, experiment, alias, probe
-        )
-        print(f"cluster group overrides: {cluster_group_overrides}")
+        raise NotImplementedError("Cluster group override was disabled due to disuse.")
     else:
         cluster_group_overrides = None
 

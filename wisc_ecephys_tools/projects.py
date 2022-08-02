@@ -14,11 +14,8 @@ Only projects.yaml is required to resolve paths?
 """
 from pathlib import Path
 
-from .conf import get_config_file
 from .sglx.experiments import SUBALIAS_IDX_DF_VALUE
-from .utils import load_yaml_stream
-
-# TODO: This module is ready for file-per-subject
+from .utils import load_yaml_stream, get_config_file
 
 # You could name a project the same thing as an experiment
 # You could name a project "Common" or "Scoring" or "Sorting"
