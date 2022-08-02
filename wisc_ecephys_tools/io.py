@@ -1,7 +1,9 @@
 import pandas as pd
-from hypnogram import DatetimeHypnogram, load_datetime_hypnogram
-
+from ecephys.hypnogram import load_datetime_hypnogram
 from wisc_ecephys_tools import get_lfp_bin_paths, get_project_counterparts
+
+# TODO: This module is ready for file-per-subject
+# TODO: Is this module used? Nobody seems to have noticed that imports were incorrect.
 
 ## HYPNOGRAM
 

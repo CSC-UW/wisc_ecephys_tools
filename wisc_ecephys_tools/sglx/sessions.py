@@ -129,6 +129,7 @@ def get_subject_files(sessions):
     )
 
 
+# TODO: This function will be remvoed upon transition to file-per-subject. It is currently unused.
 def get_yamlstream_files(stream):
     """Get SpikeGLX files of belonging to all YAML documents in a YAML stream.
 
@@ -146,6 +147,7 @@ def get_yamlstream_files(stream):
     }
 
 
+# TODO: This function will be remvoed upon transition to file-per-subject. It is currently unused.
 def get_yamlstream_files_as_frame(stream):
     """Get SpikeGLX files of belonging to all YAML documents in a YAML stream."""
     d = {
@@ -181,7 +183,7 @@ def get_filepath_relative_to_session_directory_parent(path):
 
 def get_session_style_path_parts(fpath):
     """Get all elements of a session-style filepath.
-    
+
     Parameters:
     -----------
     fpath: pathlib.Path

@@ -1,5 +1,7 @@
 import yaml
 
+# TODO: This module is ready for file-per-subject
+
 
 def load_yaml_doc(yaml_path):
     """Load a YAML file that contains only one document."""
@@ -8,6 +10,7 @@ def load_yaml_doc(yaml_path):
     return yaml_doc
 
 
+# TODO: This function should no longer be necessary after conversion to file-per-subject
 def load_yaml_stream(yaml_path):
     """Load all YAML documents in a file."""
     with open(yaml_path) as fp:
@@ -15,6 +18,7 @@ def load_yaml_stream(yaml_path):
     return yaml_stream
 
 
+# TODO: This function should no longer be necessary after conversion to file-per-subject
 def get_subject_document(yaml_stream, subject_name):
     """Get a subject's YAML document from a YAML stream.
 

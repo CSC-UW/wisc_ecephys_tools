@@ -18,6 +18,8 @@ from .conf import get_config_file
 from .sglx.experiments import SUBALIAS_IDX_DF_VALUE
 from .utils import load_yaml_stream
 
+# TODO: This module is ready for file-per-subject
+
 # You could name a project the same thing as an experiment
 # You could name a project "Common" or "Scoring" or "Sorting"
 
@@ -40,6 +42,7 @@ def get_subalias_dirname(alias_name, subalias_idx=None):
         return alias_name
     return f"{alias_name}_{subalias_idx}"
 
+
 ##### Functions for getting directories
 
 
@@ -60,7 +63,9 @@ def get_experiment_directory(project_name, experiment_name):
 
 
 def get_alias_directory(project_name, experiment_name, alias_name, subalias_idx=None):
-    return get_experiment_directory(project_name, experiment_name) / get_subalias_dirname(alias_name, subalias_idx)
+    return get_experiment_directory(
+        project_name, experiment_name
+    ) / get_subalias_dirname(alias_name, subalias_idx)
 
 
 def get_experiment_subject_directory(project_name, experiment_name, subject_name):
@@ -76,7 +81,12 @@ def get_alias_subject_directory(
 def get_alias_subject_directory(
     project_name, experiment_name, alias_name, subject_name, subalias_idx=None
 ):
-    return get_alias_directory(project_name, experiment_name, alias_name, subalias_idx=subalias_idx) / subject_name
+    return (
+        get_alias_directory(
+            project_name, experiment_name, alias_name, subalias_idx=subalias_idx
+        )
+        / subject_name
+    )
 
 
 ##### Functions for getting files
@@ -95,7 +105,12 @@ def get_experiment_file(project_name, experiment_name, fname):
 
 
 def get_alias_file(project_name, experiment_name, alias_name, fname, subalias_idx=None):
-    return get_alias_directory(project_name, experiment_name, alias_name, subalias_idx=subalias_idx) / fname
+    return (
+        get_alias_directory(
+            project_name, experiment_name, alias_name, subalias_idx=subalias_idx
+        )
+        / fname
+    )
 
 
 def get_experiment_subject_file(project_name, experiment_name, subject_name, fname):

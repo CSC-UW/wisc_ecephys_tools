@@ -20,8 +20,8 @@ from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
 from ecephys.sglxr import ImecMap
 
 from .sessions import get_session_files_from_multiple_locations
-from ..conf import get_config_file
-from ..utils import get_subject_document, load_yaml_stream
+from ..conf import get_config_file, get_subject_file
+from ..utils import get_subject_document, load_yaml_stream, load_yaml_doc
 from ..depths import get_depths
 
 # TODO: Currently, there can be no clean `get_session_directory(subject_name, experiment_name) function,
@@ -209,14 +209,19 @@ def get_files(
     pd.DataFrame:
         All requested files in sorted order.
     """
-    sessions_stream = load_yaml_stream(get_config_file("sglx_sessions.yaml"))
-    experiments_stream = load_yaml_stream(get_config_file("sglx_experiments.yaml"))
+    try:
+        doc = load_yaml_doc(get_subject_file(subject_name))
+        sessions = doc["recording_sessions"]
+        experiment = doc["experiments"][experiment_name]
+    except:
+        sessions_stream = load_yaml_stream(get_config_file("sglx_sessions.yaml"))
+        experiments_stream = load_yaml_stream(get_config_file("sglx_experiments.yaml"))
 
-    sessions_doc = get_subject_document(sessions_stream, subject_name)
-    experiments_doc = get_subject_document(experiments_stream, subject_name)
+        sessions_doc = get_subject_document(sessions_stream, subject_name)
+        experiments_doc = get_subject_document(experiments_stream, subject_name)
 
-    sessions = sessions_doc["recording_sessions"]
-    experiment = experiments_doc["experiments"][experiment_name]
+        sessions = sessions_doc["recording_sessions"]
+        experiment = experiments_doc["experiments"][experiment_name]
 
     df = (
         get_alias_files(sessions, experiment, experiment["aliases"][alias_name])
@@ -260,9 +265,14 @@ def get_ap_bin_files(subject, experiment, alias=None, **kwargs):
 
 
 def get_imec_map(subject, experiment, probe, stream_type=None):
-    stream = load_yaml_stream(get_config_file("channels.yaml"))
-    doc = get_subject_document(stream, subject)
-    map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
+    try:
+        doc = load_yaml_doc(get_subject_file(subject))
+        map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
+    except FileNotFoundError:
+        stream = load_yaml_stream(get_config_file("channels.yaml"))
+        doc = get_subject_document(stream, subject)
+        map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
+
     im = ImecMap.from_library(map_name)
     if stream_type:
         im.stream_type = stream_type
