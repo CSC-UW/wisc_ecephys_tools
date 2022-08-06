@@ -17,7 +17,7 @@ import numpy as np
 
 import pandas as pd
 from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
-from ecephys.sglxr import ImecMap
+from ecephys import sglxr
 
 from .sessions import get_session_files_from_multiple_locations
 from .. import subjects
@@ -252,18 +252,29 @@ def get_ap_bin_files(subject, experiment, alias=None, **kwargs):
     ).sort_values("fileCreateTime", ascending=True)
 
 
-def get_imec_map(subject, experiment, probe, stream_type=None):
+def get_imec_map_from_sglxr_library(subject, experiment, probe, stream_type=None):
     doc = subjects.get_subject_doc(subject)
     map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
-    im = ImecMap.from_library(map_name)
+    im = sglxr.ImecMap.from_library(map_name)
     if stream_type:
         im.stream_type = stream_type
     return im
 
 
-def get_channels_from_depths(subject, experiment, probe, region, stream_type=None):
+def get_imec_map_from_sglx_metadata(subject, experiment, probe, stream_type):
+    if stream_type == "LF":
+        bin_files = get_lfp_bin_files(subject, experiment, probe=probe)
+    elif stream_type == "AP":
+        bin_files = get_ap_bin_files(subject, experiment, probe=probe)
+    else:
+        raise ValueError(f"Stream type {stream_type} not recognized.")
+    sig = sglxr.load_trigger(bin_files[0], start_time=0, end_time=0.1)
+    return sig.im
+
+
+def get_channels_from_depths(subject, experiment, probe, region, stream_type):
+    im = get_imec_map_from_sglx_metadata(subject, experiment, probe, stream_type)
     [lo, hi] = subjects.get_depths(subject, experiment, probe, region)
-    im = get_imec_map(subject, experiment, probe, stream_type)
     return im.yrange2chans(lo, hi).chan_id.values
 
 
