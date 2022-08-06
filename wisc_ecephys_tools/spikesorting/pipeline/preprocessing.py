@@ -6,10 +6,10 @@ import ecephys.data_mgmt.paths
 from ecephys.sglx.cat_gt import run_catgt
 from ecephys.sglx.file_mgmt import loc
 from ecephys.sglx.utils import get_meta_value
-from wisc_ecephys_tools.params import get_analysis_params
-from wisc_ecephys_tools.projects import get_alias_subject_directory  # TODO: Move loc
-from wisc_ecephys_tools.sglx.experiments import get_ap_bin_files
-from wisc_ecephys_tools.sglx.sessions import get_session_style_path_parts
+from ..params import get_analysis_params
+from ...projects.projects import get_alias_subject_directory
+from ...sglx.experiments import get_ap_bin_files
+from ...sglx.sessions import get_session_style_path_parts
 
 CATGT_PROJECT_NAME = "catgt"  # Key in projects.yaml.
 ANALYSIS_TYPE = "preprocessing"  # Relevant analysis type in analysis_cfg.yaml

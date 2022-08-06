@@ -7,8 +7,8 @@ import spikeinterface as si
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 from ecephys.sglx import get_xy_coords
-from wisc_ecephys_tools.params import get_analysis_params
-from wisc_ecephys_tools.projects import get_alias_subject_directory
+from ..params import get_analysis_params
+from ...projects.projects import get_alias_subject_directory
 from probeinterface import Probe
 
 from .preprocessing import CATGT_PROJECT_NAME, get_catgt_output_paths

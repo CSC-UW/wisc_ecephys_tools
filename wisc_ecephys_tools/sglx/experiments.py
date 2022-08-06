@@ -20,8 +20,7 @@ from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
 from ecephys.sglxr import ImecMap
 
 from .sessions import get_session_files_from_multiple_locations
-from ..subjects import get_subject_file, get_depths
-from ..utils import load_yaml_doc
+from .. import subjects
 
 # TODO: Currently, there can be no clean `get_session_directory(subject_name, experiment_name) function,
 # because there is no single session directory -- it can be split across AP and LF locations, and we
@@ -208,7 +207,7 @@ def get_files(
     pd.DataFrame:
         All requested files in sorted order.
     """
-    doc = load_yaml_doc(get_subject_file(subject_name))
+    doc = subjects.get_subject_doc(subject_name)
     sessions = doc["recording_sessions"]
     experiment = doc["experiments"][experiment_name]
 
@@ -254,7 +253,7 @@ def get_ap_bin_files(subject, experiment, alias=None, **kwargs):
 
 
 def get_imec_map(subject, experiment, probe, stream_type=None):
-    doc = load_yaml_doc(get_subject_file(subject))
+    doc = subjects.get_subject_doc(subject)
     map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
     im = ImecMap.from_library(map_name)
     if stream_type:
@@ -263,7 +262,7 @@ def get_imec_map(subject, experiment, probe, stream_type=None):
 
 
 def get_channels_from_depths(subject, experiment, probe, region, stream_type=None):
-    [lo, hi] = get_depths(subject, experiment, probe, region)
+    [lo, hi] = subjects.get_depths(subject, experiment, probe, region)
     im = get_imec_map(subject, experiment, probe, stream_type)
     return im.yrange2chans(lo, hi).chan_id.values
 
