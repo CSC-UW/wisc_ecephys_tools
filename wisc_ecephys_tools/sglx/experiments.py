@@ -94,7 +94,7 @@ def get_experiment_sessions(sessions, experiment):
     ]
 
 
-def get_experiment_files(sessions, experiment):
+def get_experiment_files_table(sessions, experiment):
     """Get all SpikeGLX files belonging to a single experiment.
 
     Parameters:
@@ -127,7 +127,7 @@ def _get_subalias_files(files_df, start_file, end_file, subalias_idx=None):
     return subalias_df
 
 
-def get_alias_files(sessions, experiment, alias):
+def get_alias_files_table(sessions, experiment, alias):
     """Get all SpikeGLX files belonging to a single alias.
 
     Parameters:
@@ -158,7 +158,7 @@ def get_alias_files(sessions, experiment, alias):
     pd.DataFrame:
         All files in each of the sub-aliases, in sorted order, inclusive of both start_file and end_file.
     """
-    df = get_experiment_files(sessions, experiment)
+    df = get_experiment_files_table(sessions, experiment)
     df = (
         set_index(df).reset_index(level=0).sort_index()
     )  # Make df sliceable using (run, gate, trigger)
@@ -184,7 +184,7 @@ def get_alias_files(sessions, experiment, alias):
         raise ValueError("Unrecognized format for alias:\n {alias}")
 
 
-def get_files(
+def get_files_table(
     subject_name,
     experiment_name,
     alias_name=None,
@@ -212,9 +212,9 @@ def get_files(
     experiment = doc["experiments"][experiment_name]
 
     df = (
-        get_alias_files(sessions, experiment, experiment["aliases"][alias_name])
+        get_alias_files_table(sessions, experiment, experiment["aliases"][alias_name])
         if alias_name
-        else get_experiment_files(sessions, experiment)
+        else get_experiment_files_table(sessions, experiment)
     )
     files_df = loc(df, **kwargs)
 
@@ -226,7 +226,7 @@ def get_files(
 
 def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
     return (
-        get_files(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
+        get_files_table(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
         .sort_values("fileCreateTime", ascending=True)
         .path.values
     )
@@ -234,20 +234,20 @@ def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
 
 def get_ap_bin_paths(subject, experiment, alias=None, **kwargs):
     return (
-        get_files(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
+        get_files_table(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
         .sort_values("fileCreateTime", ascending=True)
         .path.values
     )
 
 
-def get_lfp_bin_files(subject, experiment, alias=None, **kwargs):
-    return get_files(
+def get_lfp_bin_table(subject, experiment, alias=None, **kwargs):
+    return get_files_table(
         subject, experiment, alias, stream="lf", ftype="bin", **kwargs
     ).sort_values("fileCreateTime", ascending=True)
 
 
-def get_ap_bin_files(subject, experiment, alias=None, **kwargs):
-    return get_files(
+def get_ap_bin_table(subject, experiment, alias=None, **kwargs):
+    return get_files_table(
         subject, experiment, alias, stream="ap", ftype="bin", **kwargs
     ).sort_values("fileCreateTime", ascending=True)
 
@@ -263,12 +263,12 @@ def get_imec_map_from_sglxr_library(subject, experiment, probe, stream_type=None
 
 def get_imec_map_from_sglx_metadata(subject, experiment, probe, stream_type):
     if stream_type == "LF":
-        bin_files = get_lfp_bin_files(subject, experiment, probe=probe)
+        bin_files = get_lfp_bin_paths(subject, experiment, probe=probe)
     elif stream_type == "AP":
-        bin_files = get_ap_bin_files(subject, experiment, probe=probe)
+        bin_files = get_ap_bin_paths(subject, experiment, probe=probe)
     else:
         raise ValueError(f"Stream type {stream_type} not recognized.")
-    sig = sglxr.load_trigger(bin_files[0], start_time=0, end_time=0.1)
+    sig = sglxr.load_trigger(bin_files[0], channels=[0], start_time=0, end_time=0.1)
     return sig.im
 
 
