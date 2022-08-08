@@ -24,7 +24,7 @@ experiments:
       recovery_sleep:
         - start_file: 7-11-2021_g1_t0
           end_file: 7-11-2021_g1_t2
-      light-period:
+      light_period:
         - start_file: 7-11-2021_g0_t0
           end_file: 7-11-2021_g1_t2
       full_48h:
