@@ -146,6 +146,9 @@ def get_start_times_relative_to_experiment(ftab, tol=1, method="rigorous"):
         # Finally, combine the (super-precise) offset of each file within its continuous series, with the (less precise*) offset of each series from the start of the experiment.
         # *(If there is only one series --i.e. no crashes or gaps -- there is no loss of precision. Otherwise, tests indicate that this value is precise to within a few msec.)
         ftab.loc[mask, "tExperiment"] = file_ser_t + ser_exp_td.dt.total_seconds()
+        ftab.loc[mask, "dtExperiment"] = exp_dt0 + pd.to_timedelta(
+            ftab.loc[mask, "tExperiment"], "s"
+        )
         ftab.loc[mask, "isContinuation"] = is_continuation
     return ftab
 
