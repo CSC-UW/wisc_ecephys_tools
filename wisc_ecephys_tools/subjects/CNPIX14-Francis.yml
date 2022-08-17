@@ -61,14 +61,14 @@ experiments:
           end_file: 4-19-2022_g0_t5
     probes:
       imec1:
-        imec_map: LongCol_1shank
+        imec_map: LongCol_1shank #TODO: Deprecated, remove
         ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [0, 382, 305]
-        scoring: [183, 283, 369]
-        initial_spw_sink_peak: [175]
-        superficial_ctx: [323, 325, 327, 329, 331]
+        internal_reference: [191] # TODO: Deprecate.
+        emg_from_lfp: [0, 382, 305] # TODO: Deprecate.
+        scoring: [183, 283, 369] #TODO: Deprecate
+        initial_spw_sink_peak: [175] #TODO: Deprecated, remove.
+        superficial_ctx: [323, 325, 327, 329, 331] #TODO: Deprecate
         ##### Depths #####
-        hippocampus: [4100, 6140] # Added by Graham for SPWs
-        white_matter: [6140, 6340] # Added by Graham for SPWs
+        hippocampus: [4100, 6140] # Added by Graham for SPWs. Deprecate
+        white_matter: [6140, 6340] # Added by Graham for SPWs. Deprecate
 ...
