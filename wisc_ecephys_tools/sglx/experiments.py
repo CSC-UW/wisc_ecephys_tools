@@ -350,7 +350,7 @@ def get_imec_map_from_sglxr_library(subject, experiment, probe, stream_type=None
     return im
 
 
-# TODO: This is slow. Avoid using load_trigger
+# TODO: This function should be removed. It is better to just use sglxr.ImecMap.from_bin() directly
 def get_imec_map_from_sglx_metadata(subject, experiment, probe, stream_type):
     if stream_type == "LF":
         bin_files = get_lfp_bin_paths(subject, experiment, probe=probe)
@@ -358,10 +358,10 @@ def get_imec_map_from_sglx_metadata(subject, experiment, probe, stream_type):
         bin_files = get_ap_bin_paths(subject, experiment, probe=probe)
     else:
         raise ValueError(f"Stream type {stream_type} not recognized.")
-    sig = sglxr.load_trigger(bin_files[0], channels=[0], start_time=0, end_time=0.1)
-    return sig.im
+    return sglxr.ImecMap.from_bin(bin_files[0])
 
 
+# TODO: This is bad, because depths should really be stored in project-specific config files.
 def get_channels_from_depths(subject, experiment, probe, region, stream_type):
     im = get_imec_map_from_sglx_metadata(subject, experiment, probe, stream_type)
     [lo, hi] = subjects.get_depths(subject, experiment, probe, region)
