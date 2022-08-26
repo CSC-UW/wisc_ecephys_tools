@@ -19,6 +19,10 @@ project: scoring
 project_directory: /Volumes/neuropixel_analysis/Data/scoring/
 ...
 ---
+project: preprocessed_lfps
+project_directory: /Volumes/neuropixel_analysis/Data/scoring/
+...
+---
 project: discoflow
 project_directory: /Volumes/neuropixel_analysis/Data/discoflow/
 ...
