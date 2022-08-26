@@ -15,6 +15,7 @@ import re
 import itertools as it
 import numpy as np
 import pandas as pd
+import logging
 
 from ecephys import sglxr, sglx
 
@@ -25,6 +26,7 @@ from .. import subjects
 # because there is no single session directory -- it can be split across AP and LF locations, and we
 # don't know which might hold e.g. video files for that session.
 
+logger = logging.getLogger("wet")
 
 SUBALIAS_IDX_DF_VALUE = (
     -1
@@ -105,9 +107,25 @@ def get_start_times_relative_to_experiment(ftab, tol=1, method="rigorous"):
 
         # Get the number of samples in each file.
         # fileTimeSec is not precise enough. We must use fileSizeBytes.
-        nFileChan = _ftab["nSavedChans"].astype("int")
-        nFileSamp = _ftab["fileSizeBytes"].astype("int") / (2 * nFileChan)
-        firstSample = _ftab["firstSample"].astype("int")
+        def _get_sample_info(_ftab):
+            nFileChan = _ftab["nSavedChans"].astype("int")
+            nFileSamp = _ftab["fileSizeBytes"].astype("int") / (2 * nFileChan)
+            firstSample = _ftab["firstSample"].astype("int")
+            return nFileSamp, firstSample
+
+        try:
+            nFileSamp, firstSample = _get_sample_info(_ftab)
+        except ValueError:
+            logger.warn(
+                "File found with metadata that could not be cast as an integer. This likely indicates an incomplete .meta produced by a crash. Please repair."
+            )
+            logger.warn(
+                "Attempting to proceed anyway. This is experimental and could affect tExperiment values. Proceed with caution."
+            )
+            _ftab.loc[:, "fileSizeBytes"] = _ftab["fileSizeBytes"].fillna(-1)
+            _ftab.loc[:, "firstSample"] = _ftab["firstSample"].fillna(-1)
+            nFileSamp, firstSample = _get_sample_info(_ftab)
+
         # Get the expected 'firstSample' of the next file in a continous recording.
         nextSample = nFileSamp + firstSample
 
