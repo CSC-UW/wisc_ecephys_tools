@@ -31,6 +31,6 @@ project: nucleated_rebooting
 project_directory: /Volumes/scratch/neuropixels/data/nucleated_rebooting
 ...
 ---
-project: rates
-project_directory: /Volumes/scratch/neuropixels/data/rates
+project: homeostasis
+project_directory: /Volumes/scratch/neuropixels/data/homeostasis
 ...
