@@ -6,10 +6,10 @@ import ecephys.data_mgmt.paths
 from ecephys.sglx.cat_gt import run_catgt
 from ecephys.sglx.file_mgmt import loc
 from ecephys.sglx.utils import get_meta_value
-from wisc_ecephys_tools.params import get_analysis_params
-from wisc_ecephys_tools.projects import get_alias_subject_directory  # TODO: Move loc
-from wisc_ecephys_tools.sglx.experiments import get_ap_bin_files
-from wisc_ecephys_tools.sglx.sessions import get_session_style_path_parts
+from ..params import get_analysis_params
+from ...projects.projects import get_alias_subject_directory
+from ...sglx.experiments import get_ap_bin_table
+from ...sglx.sessions import get_session_style_path_parts
 
 CATGT_PROJECT_NAME = "catgt"  # Key in projects.yaml.
 ANALYSIS_TYPE = "preprocessing"  # Relevant analysis type in analysis_cfg.yaml
@@ -55,7 +55,7 @@ def get_catgt_output_paths(
     """
     assert all([arg is not None for arg in [subject, experiment, alias, probe]])
 
-    raw_files = get_ap_bin_files(
+    raw_files = get_ap_bin_table(
         subject,
         experiment,
         alias,
@@ -175,7 +175,7 @@ def run_preprocessing(
     analysis_params = get_analysis_params("preprocessing", analysis_name)
     catgt_params = analysis_params["catgt_params"]
     catgt_path = analysis_params["catgt_path"]
-    raw_files = get_ap_bin_files(
+    raw_files = get_ap_bin_table(
         subject,
         experiment,
         alias,

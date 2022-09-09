@@ -1,7 +1,7 @@
 from ecephys.sglx.file_mgmt import parse_sglx_fname
 from ecephys.utils import remove_duplicates
 from .sessions import get_filepath_relative_to_session_directory_parent
-from ..projects import get_subject_directory
+from ..projects.projects import get_subject_directory
 
 ##### Functions for mirroring
 

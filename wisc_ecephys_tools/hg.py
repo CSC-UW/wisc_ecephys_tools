@@ -2,7 +2,7 @@ import pandas as pd
 from ecephys.hypnogram import load_datetime_hypnogram
 from wisc_ecephys_tools import get_lfp_bin_paths, get_project_counterparts
 
-# TODO: Is this module used? Nobody seems to have noticed that imports were incorrect.
+# TODO: Is this module used? Nobody seems to have noticed that imports were incorrect, and contents are not imported to the top-level
 
 ## HYPNOGRAM
 

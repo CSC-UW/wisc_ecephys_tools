@@ -12,13 +12,27 @@ Only projects.yaml is required to resolve paths?
     - experiment_subject_dir/ (e.g. ANPIX11-Adrian/)
 
 """
+import os
+import yaml
 from pathlib import Path
-
-from .sglx.experiments import SUBALIAS_IDX_DF_VALUE
-from .utils import load_yaml_stream, get_config_file
 
 # You could name a project the same thing as an experiment
 # You could name a project "Common" or "Scoring" or "Sorting"
+
+DEFAULT_PROJECTS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+
+
+def load_yaml_stream(yaml_path):
+    """Load all YAML documents in a file."""
+    with open(yaml_path) as fp:
+        yaml_stream = list(yaml.safe_load_all(fp))
+    return yaml_stream
+
+
+def get_projects_file(
+    filename="projects.yaml", projects_dir=DEFAULT_PROJECTS_DIRECTORY
+):
+    return Path(os.path.join(projects_dir, filename))
 
 
 def get_project_document(yaml_stream, project_name):
@@ -35,7 +49,7 @@ def get_project_document(yaml_stream, project_name):
 
 
 def get_subalias_dirname(alias_name, subalias_idx=None):
-    if subalias_idx is None or subalias_idx == SUBALIAS_IDX_DF_VALUE:
+    if (subalias_idx is None) or (subalias_idx == -1):
         return alias_name
     return f"{alias_name}_{subalias_idx}"
 
@@ -45,7 +59,7 @@ def get_subalias_dirname(alias_name, subalias_idx=None):
 
 def get_project_directory(project_name):
     """Get a project directory described in projects.yaml"""
-    stream = load_yaml_stream(get_config_file("projects.yaml"))
+    stream = load_yaml_stream(get_projects_file())
     doc = get_project_document(stream, project_name)
     return Path(doc["project_directory"])
 
@@ -93,7 +107,7 @@ def get_project_file(project_name, fname):
     return get_project_directory(project_name) / fname
 
 
-def get_subject_file(project_name, subject_name, fname):
+def get_project_subject_file(project_name, subject_name, fname):
     return get_subject_directory(project_name, subject_name) / fname
 
 

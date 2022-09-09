@@ -1,6 +1,6 @@
 import ecephys.units
 from .pipeline import get_sorting_output_path
-from ..subjects import get_regions, get_depths
+from ..subjects.subjects import get_regions, get_depths
 
 from ecephys.units.sorting import SingleProbeSorting
 from ecephys.units import spikeinterface_sorting_to_dataframe

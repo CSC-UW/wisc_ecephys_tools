@@ -12,21 +12,21 @@ Aliases contain a list of {'start_file': <...>, 'end_file': <...>} dictionaries
 each specifying a continuous subset of data.
 """
 import re
-from itertools import chain
+import itertools as it
 import numpy as np
-
 import pandas as pd
-from ecephys.sglx.file_mgmt import filelist_to_frame, loc, set_index
-from ecephys.sglxr import ImecMap
+import logging
+
+from ecephys import sglxr, sglx
 
 from .sessions import get_session_files_from_multiple_locations
-from ..subjects import get_subject_file, get_depths
-from ..utils import load_yaml_doc
+from .. import subjects
 
 # TODO: Currently, there can be no clean `get_session_directory(subject_name, experiment_name) function,
 # because there is no single session directory -- it can be split across AP and LF locations, and we
 # don't know which might hold e.g. video files for that session.
 
+logger = logging.getLogger("wet")
 
 SUBALIAS_IDX_DF_VALUE = (
     -1
@@ -74,6 +74,103 @@ def parse_trigger_stem(stem):
     return (run, gate, trigger)
 
 
+def get_start_times_relative_to_experiment(ftab, tol=1, method="rigorous"):
+    """Get a series containing the time of each file start, in seconds, relative to the beginning of the experiment.
+
+    ftab: pd.DataFrame
+        ALL files from the experiment.
+    tol: int
+        The number of samples that continuous files are allowed to be overlapped or gapped by.
+    method: "rigorous" or "approximate"
+        How to determine timestamps. Rigorous is fast.
+    """
+    ftab = ftab.sort_values("fileCreateTime")
+    if method == "approximate":
+        ftab["tExperiment"] = (
+            ftab["fileCreateTime"] - ftab["fileCreateTime"].min()
+        ).dt.total_seconds()
+        return ftab
+    elif method != "rigorous":
+        raise ValueError(f"Method {method} not recognized.")
+
+    # Do the rigourus method
+    for probe, stream, ftype in it.product(
+        ftab["probe"].unique(), ftab["stream"].unique(), ftab["ftype"].unique()
+    ):
+        # Select data. We cannot assume that different streams or probes having the same metadata.
+        mask = (
+            (ftab["probe"] == probe)
+            & (ftab["stream"] == stream)
+            & (ftab["ftype"] == ftype)
+        )
+        _ftab = ftab.loc[mask]
+
+        # Get the number of samples in each file.
+        # fileTimeSec is not precise enough. We must use fileSizeBytes.
+        def _get_sample_info(_ftab):
+            nFileChan = _ftab["nSavedChans"].astype("int")
+            nFileSamp = _ftab["fileSizeBytes"].astype("int") / (2 * nFileChan)
+            firstSample = _ftab["firstSample"].astype("int")
+            return nFileSamp, firstSample
+
+        try:
+            nFileSamp, firstSample = _get_sample_info(_ftab)
+        except ValueError:
+            logger.warn(
+                "File found with metadata that could not be cast as an integer. This likely indicates an incomplete .meta produced by a crash. Please repair."
+            )
+            logger.warn(
+                "Attempting to proceed anyway. This is experimental and could affect tExperiment values. Proceed with caution."
+            )
+            _ftab.loc[:, "fileSizeBytes"] = _ftab["fileSizeBytes"].fillna(-1)
+            _ftab.loc[:, "firstSample"] = _ftab["firstSample"].fillna(-1)
+            nFileSamp, firstSample = _get_sample_info(_ftab)
+
+        # Get the expected 'firstSample' of the next file in a continous recording.
+        nextSample = nFileSamp + firstSample
+
+        # Check these expected 'firstSample' values against actual 'firstSample' values.
+        # This tells us whether any file is actually contiguous with the one preceeding it.
+        # A tolerance is used, because even in continuous recordings, files can overlap or gap by a sample.
+        is_continuation = np.abs(firstSample.values[1:] - nextSample.values[:-1]) <= tol
+        is_continuation = np.insert(
+            is_continuation, 0, False
+        )  # The first file is, by definition, not a contination.
+
+        # For each 'series' of continuous files, get the first datetime (i.e. `fileCreateTime`) in that series.
+        ser_dt0 = _ftab["fileCreateTime"].copy()
+        ser_dt0[is_continuation] = np.NaN
+        ser_dt0 = ser_dt0.fillna(method="ffill")
+
+        # For each 'series' of continuous files, use the first datetime to compute the timedelta to the start of the experiment.
+        exp_dt0 = _ftab["fileCreateTime"].min()
+        ser_exp_td = ser_dt0 - exp_dt0
+
+        # For each file, get the number of seconds from the start of that series, NOT accounting for samples
+        # collected before we started saving to disk.*
+        # *(SGLX starts counting samples as soon as acquisition starts, even before data is written to disk)
+        file_t0 = _ftab["firstSample"].astype("float") / _ftab["imSampRate"].astype(
+            "float"
+        )
+
+        # Now account for samples collected before we started writing to disk.
+        ser_t0 = file_t0.copy()
+        ser_t0[is_continuation] = np.NaN
+        ser_t0 = ser_t0.fillna(method="ffill")
+        file_ser_t = (
+            file_t0 - ser_t0
+        )  # This is the number of seconds from the start of the series
+
+        # Finally, combine the (super-precise) offset of each file within its continuous series, with the (less precise*) offset of each series from the start of the experiment.
+        # *(If there is only one series --i.e. no crashes or gaps -- there is no loss of precision. Otherwise, tests indicate that this value is precise to within a few msec.)
+        ftab.loc[mask, "tExperiment"] = file_ser_t + ser_exp_td.dt.total_seconds()
+        ftab.loc[mask, "dtExperiment"] = exp_dt0 + pd.to_timedelta(
+            ftab.loc[mask, "tExperiment"], "s"
+        )
+        ftab.loc[mask, "isContinuation"] = is_continuation
+    return ftab
+
+
 def get_experiment_sessions(sessions, experiment):
     """Get the subset of sessions needed by an experiment.
 
@@ -95,7 +192,7 @@ def get_experiment_sessions(sessions, experiment):
     ]
 
 
-def get_experiment_files(sessions, experiment):
+def get_experiment_files_table(sessions, experiment):
     """Get all SpikeGLX files belonging to a single experiment.
 
     Parameters:
@@ -110,12 +207,12 @@ def get_experiment_files(sessions, experiment):
     list of pathlib.Path
     """
     files = list(
-        chain.from_iterable(
+        it.chain.from_iterable(
             get_session_files_from_multiple_locations(session)
             for session in get_experiment_sessions(sessions, experiment)
         )
     )
-    return filelist_to_frame(files)
+    return get_start_times_relative_to_experiment(sglx.filelist_to_frame(files))
 
 
 def _get_subalias_files(files_df, start_file, end_file, subalias_idx=None):
@@ -128,7 +225,7 @@ def _get_subalias_files(files_df, start_file, end_file, subalias_idx=None):
     return subalias_df
 
 
-def get_alias_files(sessions, experiment, alias):
+def get_alias_files_table(sessions, experiment, alias):
     """Get all SpikeGLX files belonging to a single alias.
 
     Parameters:
@@ -159,9 +256,9 @@ def get_alias_files(sessions, experiment, alias):
     pd.DataFrame:
         All files in each of the sub-aliases, in sorted order, inclusive of both start_file and end_file.
     """
-    df = get_experiment_files(sessions, experiment)
+    df = get_experiment_files_table(sessions, experiment)
     df = (
-        set_index(df).reset_index(level=0).sort_index()
+        sglx.set_index(df).reset_index(level=0).sort_index()
     )  # Make df sliceable using (run, gate, trigger)
 
     if (
@@ -185,7 +282,7 @@ def get_alias_files(sessions, experiment, alias):
         raise ValueError("Unrecognized format for alias:\n {alias}")
 
 
-def get_files(
+def get_files_table(
     subject_name,
     experiment_name,
     alias_name=None,
@@ -208,111 +305,82 @@ def get_files(
     pd.DataFrame:
         All requested files in sorted order.
     """
-    doc = load_yaml_doc(get_subject_file(subject_name))
+    doc = subjects.get_subject_doc(subject_name)
     sessions = doc["recording_sessions"]
     experiment = doc["experiments"][experiment_name]
 
     df = (
-        get_alias_files(sessions, experiment, experiment["aliases"][alias_name])
+        get_alias_files_table(sessions, experiment, experiment["aliases"][alias_name])
         if alias_name
-        else get_experiment_files(sessions, experiment)
+        else get_experiment_files_table(sessions, experiment)
     )
-    files_df = loc(df, **kwargs)
+    files_df = sglx.loc(df, **kwargs)
 
-    if assert_contiguous and alias_name:
-        check_contiguous(files_df, experiment["aliases"][alias_name])
+    # TODO: This would be better as a check performed by the user on the returned DataFrame,
+    # especially if they might want to use a tolerance of more than a sample or two.
+    if assert_contiguous:
+        assert files_df["isContinuation"][
+            1:
+        ].all(), "Files are not contiguous to within the specified tolerance."
 
     return files_df
 
 
+# TODO: Values should already be sorted by fileCreateTime. Check that the sort here is unnecessary
 def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
     return (
-        get_files(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
+        get_files_table(subject, experiment, alias, stream="lf", ftype="bin", **kwargs)
         .sort_values("fileCreateTime", ascending=True)
         .path.values
     )
 
 
+# TODO: Values should already be sorted by fileCreateTime. Check that the sort here is unnecessary
 def get_ap_bin_paths(subject, experiment, alias=None, **kwargs):
     return (
-        get_files(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
+        get_files_table(subject, experiment, alias, stream="ap", ftype="bin", **kwargs)
         .sort_values("fileCreateTime", ascending=True)
         .path.values
     )
 
 
-def get_lfp_bin_files(subject, experiment, alias=None, **kwargs):
-    return get_files(
+# TODO: Values should already be sorted by fileCreateTime. Check that the sort here is unnecessary
+def get_lfp_bin_table(subject, experiment, alias=None, **kwargs):
+    return get_files_table(
         subject, experiment, alias, stream="lf", ftype="bin", **kwargs
     ).sort_values("fileCreateTime", ascending=True)
 
 
-def get_ap_bin_files(subject, experiment, alias=None, **kwargs):
-    return get_files(
+# TODO: Values should already be sorted by fileCreateTime. Check that the sort here is unnecessary
+def get_ap_bin_table(subject, experiment, alias=None, **kwargs):
+    return get_files_table(
         subject, experiment, alias, stream="ap", ftype="bin", **kwargs
     ).sort_values("fileCreateTime", ascending=True)
 
 
-def get_imec_map(subject, experiment, probe, stream_type=None):
-    doc = load_yaml_doc(get_subject_file(subject))
+# Deprecated. Will be removed.
+def get_imec_map_from_sglxr_library(subject, experiment, probe, stream_type=None):
+    doc = subjects.get_subject_doc(subject)
     map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]
-    im = ImecMap.from_library(map_name)
+    im = sglxr.ImecMap.from_library(map_name)
     if stream_type:
         im.stream_type = stream_type
     return im
 
 
-def get_channels_from_depths(subject, experiment, probe, region, stream_type=None):
-    [lo, hi] = get_depths(subject, experiment, probe, region)
-    im = get_imec_map(subject, experiment, probe, stream_type)
+# TODO: This function should be removed. It is better to just use sglxr.ImecMap.from_bin() directly
+def get_imec_map_from_sglx_metadata(subject, experiment, probe, stream_type):
+    if stream_type == "LF":
+        bin_files = get_lfp_bin_paths(subject, experiment, probe=probe)
+    elif stream_type == "AP":
+        bin_files = get_ap_bin_paths(subject, experiment, probe=probe)
+    else:
+        raise ValueError(f"Stream type {stream_type} not recognized.")
+    return sglxr.ImecMap.from_bin(bin_files[0])
+
+
+# TODO: This is bad, because depths should really be stored in project-specific config files.
+def get_channels_from_depths(subject, experiment, probe, region, stream_type):
+    im = get_imec_map_from_sglx_metadata(subject, experiment, probe, stream_type)
+    [lo, hi] = subjects.get_depths(subject, experiment, probe, region)
     return im.yrange2chans(lo, hi).chan_id.values
-
-
-# TODO: This should have rather used the firstSample field (which is exact)
-# rather than fileCreateTime which is rounded
-def check_contiguous(files_df, alias, probes=None):
-    """Check for missing data in returned alias files."""
-    if probes is None:
-        probes = files_df.probe.unique()
-
-    # Check independently for each probe
-    for probe in probes:
-        probe_files = loc(files_df, probe=probe).copy()
-
-        # Check independently for each subalias
-        for i, subalias in enumerate(alias):
-            if len(alias) == 1:
-                # Single alias
-                sub_files = probe_files
-            else:
-                sub_files = loc(probe_files, subalias_idx=i).copy()
-
-            # Check that start and end files were found
-            start, end = subalias["start_file"], subalias["end_file"]
-            sub_files.loc[:, ["stem"]] = sub_files.apply(
-                lambda row: "_".join([row.run, row.gate, row.trigger]), axis=1
-            )
-            if not all([f in sub_files.stem.values for f in [start, end]]):
-                raise FileNotFoundError(
-                    f"The start file `{start}` or end file `{end}` could not be"
-                    f" found at the provided location for probe `{probe}`"
-                )
-
-            # Check that there's a small enough timedelta between files
-            datetimes = sub_files["fileCreateTime"].values
-            durations = sub_files["fileTimeSecs"].values
-            for i in range(len(sub_files) - 1):
-                startdeltasec = (datetimes[i + 1] - datetimes[i]) / np.timedelta64(
-                    1, "s"
-                )
-                deltasec = startdeltasec - float(durations[i])
-                assert (
-                    deltasec > -1
-                )  # A file should not start before the last one finished... but allow for rounding errors
-                if abs(deltasec) > MAX_DELTA_SEC:
-                    raise FileNotFoundError(
-                        f"Files are not contiguous! \n"
-                        f"probe={probe}, alias={alias}: \nThere's {deltasec}sec gap (greater than"
-                        f" the limit {MAX_DELTA_SEC}sec) in between the following subalias files: \n"
-                        f"{sub_files.iloc[i:i+2]}"
-                    )

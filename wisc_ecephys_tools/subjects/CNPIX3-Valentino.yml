@@ -38,16 +38,15 @@ experiments:
           end_file: 2-20-2020_g0_t3.imec0
     probes:
       imec0:
-        imec_map: CheckPat_1shank
+        imec_map: CheckPat_1shank #TODO: Remove
         ##### Channels #####
-        internal_reference: [191]
-        initial_spw_sink_peak: [153]
+        internal_reference: [191] #TODO: Remove
+        initial_spw_sink_peak: [153] #TODO: Remove
         emg_from_lfp: [0, 383, 381]
         scoring: [169, 310, 381]
         superficial_ctx: [374, 377, 378, 381, 382]
         ##### Depths #####
         white_matter: [6100, 6260] # Added by Graham for SPWRs
-        hippocampus: [3800, 6100] # Added by Graham for SPWRs
   sevo-dex:
     probes:
       imec0:

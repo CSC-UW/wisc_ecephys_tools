@@ -4,9 +4,9 @@ from pathlib import Path
 from datetime import datetime
 import subprocess
 
-from wisc_ecephys_tools.params import get_analysis_params
-from wisc_ecephys_tools.sglx.experiments import get_ap_bin_paths
 from .sorting import get_sorting_output_path
+from ..params import get_analysis_params
+from ...sglx.experiments import get_ap_bin_paths
 
 from ecephys_spike_sorting.scripts.create_input_json import createInputJson
 
