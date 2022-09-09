@@ -43,6 +43,7 @@ experiments:
     probes:
       imec0:
         ##### Depths #####
+        # TODO
         cortex_base: [2500, 7660]  # TODO
       imec1:
         imec_map: LongCol_1shank
@@ -95,6 +96,9 @@ experiments:
         - start_file: 11-3-2021_g0_t0
           end_file: 11-3-2021_g0_t0
     probes:
+      imec0: # Frontal
+        ##### Depths #####
+        # TODO
       imec1:
         imec_map: LongCol_1shank
         ##### Channels #####
@@ -106,6 +110,7 @@ experiments:
         initial_spw_sink_peak: [125]
         scoring: [125, 241, 365]
         ##### Depths #####
+        # TODO
         hippocampus: [3440, 5700] # Added by Graham for SPWs
         white_matter: [5700, 5900] # Added by Graham for SPWs
 ...

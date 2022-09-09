@@ -22,10 +22,13 @@ experiments:
         - start_file: 1-5-2022_g0_t3
           end_file: 1-5-2022_g0_t5
     probes:
-      imec0:
+      imec0:  # Frontal (different implantation)
         imec_map: LongCol_1shank
         ##### Channels #####
         internal_reference: [191]
         emg_from_lfp: [74, 348, 349]
         scoring: [355, 249, 141, 376]
+        ##### Depths #####
+        # TODO
+      imec1: {} # Parietal exists but is "bad"
 ...
