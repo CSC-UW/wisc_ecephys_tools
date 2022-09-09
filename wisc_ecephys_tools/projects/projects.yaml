@@ -7,6 +7,10 @@ project: catgt  # "catgt" project holds the default location for catGT processed
 project_directory: /Volumes/scratch/neuropixels/tmp/catgt/
 ...
 ---
+project: catgt_nvme
+project_directory: /nvme/neuropixels/catgt
+...
+---
 project: sorting
 project_directory: /nvme/neuropixels/sorting/
 ...
