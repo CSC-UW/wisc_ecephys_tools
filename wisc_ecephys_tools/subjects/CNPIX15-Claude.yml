@@ -17,6 +17,9 @@ experiments:
       - 8-29-2022
       - 8-30-2022
     aliases:
+      sleep_deprivation:
+        - start_file: 8-30-2022_g0_t0
+          end_file: 8-30-2022_g0_t2
       recovery_sleep:
         - start_file: 8-30-2022_g0_t3
           end_file: 8-30-2022_g0_t5

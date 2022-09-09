@@ -27,6 +27,9 @@ experiments:
       full_48h:
         - start_file: 4-12-2022_g0_t0
           end_file: 4-13-2022_g0_t11
+      sleep_deprivation:
+        - start_file: 4-13-2022_g0_t0
+          end_file: 4-13-2022_g0_t2
       recovery_sleep:
         - start_file: 4-13-2022_g0_t3
           end_file: 4-13-2022_g0_t5
