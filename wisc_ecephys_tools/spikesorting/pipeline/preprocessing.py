@@ -140,6 +140,7 @@ def run_preprocessing(
 
     # rerun_existing logic
     any_output = check_any_exists_catgt_output(
+        project=project,
         subject=subject,
         experiment=experiment,
         alias=alias,
@@ -147,6 +148,7 @@ def run_preprocessing(
         analysis_name=analysis_name,
     )
     all_output = check_any_exists_catgt_output(
+        project=project,
         subject=subject,
         experiment=experiment,
         alias=alias,
@@ -164,6 +166,7 @@ def run_preprocessing(
     elif rerun_existing and not dry_run:
         print("rerun_existing = True: Deleting preexisting catgt files.")
         clear_catgt_output_files(
+            project=project,
             subject=subject,
             experiment=experiment,
             alias=alias,
