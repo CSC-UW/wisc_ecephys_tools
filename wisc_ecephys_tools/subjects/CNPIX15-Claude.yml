@@ -23,12 +23,22 @@ experiments:
       - 8-29-2022
       - 8-30-2022
     aliases:
+      sleep_deprivation:
+        - start_file: 8-30-2022_g0_t0
+          end_file: 8-30-2022_g0_t2
       recovery_sleep:
         - start_file: 8-30-2022_g0_t3
           end_file: 8-30-2022_g0_t5
       full_48h:
         - start_file: 8-29-2022_g0_t0
           end_file: 8-30-2022_g0_t11
+    probes:
+      imec0: # Frontal
+        ##### Depths #####
+        # TODO
+      imec1: # Parietal
+        ##### Depths #####
+        # TODO
   conveyor_over_water:
     recording_session_ids:
       - 9-1-2022

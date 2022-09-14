@@ -34,6 +34,9 @@ experiments:
         - start_file: 8-27-2021_g2_t0
           end_file: 8-28-2021_g0_t11
     probes:
+      imec0: # Frontal
+        ##### Depths ######
+        # TODO
       imec1:
         imec_map: LongCol_1shank
         ##### Channels #####
@@ -45,6 +48,7 @@ experiments:
         initial_spw_sink_peak: [193]
         scoring: [189, 321]
         ##### Depths ######
+        # TODO
         white_matter: [6320, 6480] # Added by Graham for SPWs
         hippocampus: [4100, 6300] # Added by Graham for SPWs
   novel_objects_deprivation:
