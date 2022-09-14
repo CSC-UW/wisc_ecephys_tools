@@ -35,8 +35,18 @@ experiments:
     probes:
       imec0: # Frontal
         ##### Depths #####
-        # TODO
-      imec1: # Parietal
+        # TODO: Exact values after reconstruction (but looks correct from cluster distrib)
+        # Cortex
+        neocortex_base: [5200, 6400]
+        cortex_base: [5200, 6400]
+        # M1_base: [5200, 6400] # M1&M2 mixed, TODO
+        # M2_base: [5200, 6400] # M1&M2 mixed, TODO
+        # Striatum
+        striatum_base: [1100, 4700]
+        CPu_base: [1100, 4700]
+        # 
+        # 4 clusters below 700um
+      imec1: {} # Parietal
         ##### Depths #####
         # TODO
   conveyor_over_water:
