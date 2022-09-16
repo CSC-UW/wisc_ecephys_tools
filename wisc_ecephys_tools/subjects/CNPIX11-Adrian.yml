@@ -36,7 +36,10 @@ experiments:
     probes:
       imec0: # Frontal
         ##### Depths ######
-        # TODO
+        neocortex_base: [2720, 6780]  # 137:340. Consistent with cluster distrib
+        cortex_base: [2720, 6780]  # 137:340. Consistent with cluster distrib
+        # TODO: M2/A32V/A32D
+        olfactory_cortex_base: [0, 2700]  # 1:136. NB:No cluster above 1750um.
       imec1:
         imec_map: LongCol_1shank
         ##### Channels #####
