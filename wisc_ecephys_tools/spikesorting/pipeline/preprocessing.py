@@ -140,6 +140,7 @@ def run_preprocessing(
 
     # rerun_existing logic
     any_output = check_any_exists_catgt_output(
+        project=project,
         subject=subject,
         experiment=experiment,
         alias=alias,
@@ -147,6 +148,7 @@ def run_preprocessing(
         analysis_name=analysis_name,
     )
     all_output = check_any_exists_catgt_output(
+        project=project,
         subject=subject,
         experiment=experiment,
         alias=alias,
@@ -164,6 +166,7 @@ def run_preprocessing(
     elif rerun_existing and not dry_run:
         print("rerun_existing = True: Deleting preexisting catgt files.")
         clear_catgt_output_files(
+            project=project,
             subject=subject,
             experiment=experiment,
             alias=alias,
@@ -180,7 +183,7 @@ def run_preprocessing(
         experiment,
         alias,
         probe=probe,
-        assert_contiguous=True,
+        assert_contiguous=False,  # TODO: CHeck within each subalias
     )
 
     print("\nBelow are all the files that will be processed (all subaliases):")
@@ -204,6 +207,12 @@ def run_preprocessing(
             analysis_name=analysis_name,
         )
         subalias_files = loc(raw_files, subalias_idx=subalias_idx).reset_index()
+
+        if len(subalias_files) >= 2 and not all(subalias_files.iloc[1:].isContinuation):
+            raise ValueError(
+                f"Files are not contiguous within the specified tolerance for subalias {subalias_idx}.\n"
+                f"Subalias files: \n{subalias_files}."
+            )
 
         print(
             f"\nRun subalias #{i + 1}/{len(subalias_indices)}, "

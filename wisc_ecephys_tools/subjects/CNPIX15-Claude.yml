@@ -11,18 +11,47 @@ recording_sessions:
   - id: 9-2-2022
     ap: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-2-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-2-2022/SpikeGLX
+  - id: 9-8-2022
+    ap: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-8-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-8-2022/SpikeGLX
+  - id: 9-9-2022
+    ap: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-9-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-9-2022/SpikeGLX
+  - id: 9-14-2022
+    ap: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-14-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-14-2022/SpikeGLX
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
       - 8-29-2022
       - 8-30-2022
     aliases:
+      sleep_deprivation:
+        - start_file: 8-30-2022_g0_t0
+          end_file: 8-30-2022_g0_t2
       recovery_sleep:
         - start_file: 8-30-2022_g0_t3
           end_file: 8-30-2022_g0_t5
       full_48h:
         - start_file: 8-29-2022_g0_t0
           end_file: 8-30-2022_g0_t11
+    probes:
+      imec0: # Frontal
+        ##### Depths #####
+        # TODO: Exact values after reconstruction (but looks correct from cluster distrib)
+        # Cortex
+        neocortex_base: [5200, 6400]
+        cortex_base: [5200, 6400]
+        # M1_base: [5200, 6400] # M1&M2 mixed, TODO
+        # M2_base: [5200, 6400] # M1&M2 mixed, TODO
+        # Striatum
+        striatum_base: [1100, 4700]
+        CPu_base: [1100, 4700]
+        #
+        # 4 clusters below 700um
+      imec1: {} # Parietal
+        ##### Depths #####
+        # TODO
   conveyor_over_water:
     recording_session_ids:
       - 9-1-2022
@@ -34,4 +63,23 @@ experiments:
       recovery_sleep:
         - start_file: 9-2-2022_g1_t3
           end_file: 9-2-2022_g1_t5
+  conveyor_then_novelty:
+    recording_session_ids:
+      - 9-8-2022
+      - 9-9-2022
+    aliases:
+      full_48h:
+        - start_file: 9-8-2022_g0_t0
+          end_file: 9-9-2022_g0_t11
+      recovery_sleep:
+        - start_file: 9-9-2022_g0_t4
+          end_file: 9-9-2022_g0_t6
+  sevoflurane:
+    recording_session_ids:
+      - 9-14-2022
+    aliases:
+      full:
+        - start_file: 9-14-2022_g0_t0
+          end_file: 9-14-2022_g0_t6
+
 
