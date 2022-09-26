@@ -15,8 +15,8 @@ experiments:
       - 09-13-2022
     aliases:
       full:
-        - start_file: 09-13-2022_g0_t0
-          end_file: 09-13-2022_g0_t0
+        - start_file: 9-13-2022_g0_t0
+          end_file: 9-13-2022_g0_t0
     probes: &probes
       imec0:
         imec_map: Default_1shank
@@ -41,51 +41,15 @@ experiments:
       - 09-14-2022
     aliases:
       full:
-        - start_file: 09-14-2022_g0_t0
-          end_file: 09-14-2022_g0_t0
-    probes: &probes
-      imec0:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec2:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec3:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec5:
-        imec_map: Default_1shank
-        internal_reference: [191]
-  discoflow-day2:
+        - start_file: 9-14-2022_g0_t0
+          end_file: 9-14-2022_g0_t0
+    probes: *probes
+  discoflow-day3:
     recording_session_ids:
       - 09-15-2022
     aliases:
       full:
-        - start_file: 09-15-2022_g0_t0
-          end_file: 09-15-2022_g0_t0
-    probes: &probes
-      imec0:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec2:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec3:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec5:
-        imec_map: Default_1shank
-        internal_reference: [191]
+        - start_file: 9-15-2022_g0_t0
+          end_file: 9-15-2022_g0_t0
+    probes: *probes
 ...
