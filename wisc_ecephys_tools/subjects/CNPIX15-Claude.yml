@@ -17,6 +17,9 @@ recording_sessions:
   - id: 9-9-2022
     ap: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-9-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-9-2022/SpikeGLX
+  - id: 9-14-2022
+    ap: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-14-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-14-2022/SpikeGLX
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -44,7 +47,7 @@ experiments:
         # Striatum
         striatum_base: [1100, 4700]
         CPu_base: [1100, 4700]
-        # 
+        #
         # 4 clusters below 700um
       imec1: {} # Parietal
         ##### Depths #####
@@ -71,9 +74,12 @@ experiments:
       recovery_sleep:
         - start_file: 9-9-2022_g0_t4
           end_file: 9-9-2022_g0_t6
-      patch:
-        - start_file: 9-8-2022_g0_t8
-          end_file: 9-9-2022_g0_t11
-
+  sevoflurane:
+    recording_session_ids:
+      - 9-14-2022
+    aliases:
+      full:
+        - start_file: 9-14-2022_g0_t0
+          end_file: 9-14-2022_g0_t6
 
 

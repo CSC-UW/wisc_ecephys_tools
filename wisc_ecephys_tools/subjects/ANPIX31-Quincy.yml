@@ -1,0 +1,55 @@
+---
+recording_sessions:
+  - id: 09-13-2022
+    ap: /Volumes/NeuropixelNAS1/ANPIX31-Quincy/09-13-2022/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS1/ANPIX31-Quincy/09-13-20222/SpikeGLX/
+  - id: 09-14-2022
+    ap: /Volumes/NeuropixelNAS1/ANPIX31-Quincy/09-14-2022/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS1/ANPIX31-Quincy/09-14-2022/SpikeGLX/
+  - id: 09-15-2022
+    ap: /Volumes/NeuropixelNAS1/ANPIX31-Quincy/09-15-2022/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS1/ANPIX31-Quincy/09-15-2022/SpikeGLX/
+experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 09-13-2022
+    aliases:
+      full:
+        - start_file: 9-13-2022_g0_t0
+          end_file: 9-13-2022_g0_t0
+    probes: &probes
+      imec0:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec1:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec2:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec3:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec4:
+        imec_map: Default_1shank
+        internal_reference: [191]
+      imec5:
+        imec_map: Default_1shank
+        internal_reference: [191]
+  discoflow-day2:
+    recording_session_ids:
+      - 09-14-2022
+    aliases:
+      full:
+        - start_file: 9-14-2022_g0_t0
+          end_file: 9-14-2022_g0_t0
+    probes: *probes
+  discoflow-day3:
+    recording_session_ids:
+      - 09-15-2022
+    aliases:
+      full:
+        - start_file: 9-15-2022_g0_t0
+          end_file: 9-15-2022_g0_t0
+    probes: *probes
+...
