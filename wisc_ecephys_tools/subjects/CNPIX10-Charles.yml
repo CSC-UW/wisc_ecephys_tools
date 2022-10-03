@@ -43,9 +43,11 @@ experiments:
         # Neocortex
         cortex_base: [3750, 7660]  # TODO. Conservative estimate.
         neocortex_base: [3750, 7660]  # TODO. Conservative estimate.
-        M2_base: [5100, 6900]  # 256:346th. -40um adjusted from cluster distribution
-        A32D_base: [3750, 5040]  # TODO exact? Inferred from cluster distribution and histology
+        M2_base: [5100, 6900]  # TODO adjust from Ephys markers. Histology: 256:346th.
+        A32D_base: [3750, 5040]  # TODO adjust from Ephys markers? Inferred from cluster distribution and histology
         A32_base: [3180, 5040]  # TODO exact? Cingulate. A32D and A32V . 160:253. Doesn't match cluster distrib
+        # 
+        NA_base: [0, 1600] # Nucleus acumbens shell. Inferred from cluster distribution
       imec1: # Parietal
         imec_map: LongCol_1shank
         ##### Channels #####
