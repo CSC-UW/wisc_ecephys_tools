@@ -20,6 +20,9 @@ recording_sessions:
   - id: 9-14-2022
     ap: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-14-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-14-2022/SpikeGLX
+  - id: 9-19-2022
+    ap: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-19-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data1/CNPIX15-Claude/9-19-2022/SpikeGLX
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -81,5 +84,12 @@ experiments:
       full:
         - start_file: 9-14-2022_g0_t0
           end_file: 9-14-2022_g0_t6
+  sevoflurane2:
+    recording_session_ids:
+      - 9-19-2022
+    aliases:
+      full:
+        - start_file: 9-19-2022_g0_t0
+          end_file: 9-19-2022_g0_t6
 
 
