@@ -50,6 +50,7 @@ from ecephys.sglx.file_mgmt import (
 )
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_gate_directories(session_sglx_dir):
     """Get all gate directories belonging to a single session.
 
@@ -69,6 +70,7 @@ def get_gate_directories(session_sglx_dir):
     return sorted(matches)
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_session_files_from_single_location(session_sglx_dir):
     """Get all SpikeGLX files belonging to a single session directory.
 
@@ -88,6 +90,7 @@ def get_session_files_from_single_location(session_sglx_dir):
     )
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_session_files_from_multiple_locations(session):
     """Get all SpikeGLX files belonging to a single session.
     The AP and LF files may be stored in separate locations.
@@ -110,6 +113,7 @@ def get_session_files_from_multiple_locations(session):
     return ap_files + lf_files
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_subject_files(sessions):
     """Get all SpikeGLX files belonging to a single subject's YAML document.
 
@@ -129,34 +133,7 @@ def get_subject_files(sessions):
     )
 
 
-# TODO: This function will be remvoed upon transition to file-per-subject. It is currently unused.
-def get_yamlstream_files(stream):
-    """Get SpikeGLX files of belonging to all YAML documents in a YAML stream.
-
-    Parameters:
-    -----------
-    stream: list of dict
-        The YAML specifications for each subject.
-
-    Returns:
-    --------
-    dict of list of pathlib.Path, keyed by subject.
-    """
-    return {
-        doc["subject"]: get_subject_files(doc["recording_sessions"]) for doc in stream
-    }
-
-
-# TODO: This function will be remvoed upon transition to file-per-subject. It is currently unused.
-def get_yamlstream_files_as_frame(stream):
-    """Get SpikeGLX files of belonging to all YAML documents in a YAML stream."""
-    d = {
-        doc["subject"]: filelist_to_frame(get_subject_files(doc["recording_sessions"]))
-        for doc in stream
-    }
-    return pd.concat(d.values(), keys=d.keys(), names=["subject"], sort=True)
-
-
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_filepath_relative_to_session_directory_parent(path):
     """Get only the path parts after and including a
     session directory, discarding path parts that precede
@@ -181,6 +158,7 @@ def get_filepath_relative_to_session_directory_parent(path):
     return path.relative_to(session_dir.parent)
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_session_style_path_parts(fpath):
     """Get all elements of a session-style filepath.
 

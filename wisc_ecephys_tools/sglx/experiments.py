@@ -37,6 +37,7 @@ MAX_DELTA_SEC = (
 )
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def parse_trigger_stem(stem):
     """Parse recording identifiers from a SpikeGLX style filename stem.
     Because this stem ends with the trigger identifier, we call it a
@@ -74,6 +75,7 @@ def parse_trigger_stem(stem):
     return (run, gate, trigger)
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_start_times_relative_to_experiment(ftab, tol=1, method="rigorous"):
     """Get a series containing the time of each file start, in seconds, relative to the beginning of the experiment.
 
@@ -171,6 +173,7 @@ def get_start_times_relative_to_experiment(ftab, tol=1, method="rigorous"):
     return ftab
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_experiment_sessions(sessions, experiment):
     """Get the subset of sessions needed by an experiment.
 
@@ -192,6 +195,7 @@ def get_experiment_sessions(sessions, experiment):
     ]
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_experiment_files_table(sessions, experiment):
     """Get all SpikeGLX files belonging to a single experiment.
 
@@ -215,6 +219,7 @@ def get_experiment_files_table(sessions, experiment):
     return get_start_times_relative_to_experiment(sglx.filelist_to_frame(files))
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def _get_subalias_files(files_df, start_file, end_file, subalias_idx=None):
     if subalias_idx is None:
         subalias_idx = SUBALIAS_IDX_DF_VALUE
@@ -225,6 +230,7 @@ def _get_subalias_files(files_df, start_file, end_file, subalias_idx=None):
     return subalias_df
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_alias_files_table(sessions, experiment, alias):
     """Get all SpikeGLX files belonging to a single alias.
 
@@ -282,6 +288,7 @@ def get_alias_files_table(sessions, experiment, alias):
         raise ValueError("Unrecognized format for alias:\n {alias}")
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_files_table(
     subject_name,
     experiment_name,
@@ -326,6 +333,7 @@ def get_files_table(
     return files_df
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 # TODO: Values should already be sorted by fileCreateTime. Check that the sort here is unnecessary
 def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
     return (
@@ -335,6 +343,7 @@ def get_lfp_bin_paths(subject, experiment, alias=None, **kwargs):
     )
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 # TODO: Values should already be sorted by fileCreateTime. Check that the sort here is unnecessary
 def get_ap_bin_paths(subject, experiment, alias=None, **kwargs):
     return (
@@ -344,6 +353,7 @@ def get_ap_bin_paths(subject, experiment, alias=None, **kwargs):
     )
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 # TODO: Values should already be sorted by fileCreateTime. Check that the sort here is unnecessary
 def get_lfp_bin_table(subject, experiment, alias=None, **kwargs):
     return get_files_table(
@@ -351,6 +361,7 @@ def get_lfp_bin_table(subject, experiment, alias=None, **kwargs):
     ).sort_values("fileCreateTime", ascending=True)
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 # TODO: Values should already be sorted by fileCreateTime. Check that the sort here is unnecessary
 def get_ap_bin_table(subject, experiment, alias=None, **kwargs):
     return get_files_table(
@@ -358,7 +369,7 @@ def get_ap_bin_table(subject, experiment, alias=None, **kwargs):
     ).sort_values("fileCreateTime", ascending=True)
 
 
-# Deprecated. Will be removed.
+# TODO: Deprecated. Will be removed.
 def get_imec_map_from_sglxr_library(subject, experiment, probe, stream_type=None):
     doc = subjects.get_subject_doc(subject)
     map_name = doc["experiments"][experiment]["probes"][probe]["imec_map"]

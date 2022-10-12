@@ -22,6 +22,13 @@ from pathlib import Path
 DEFAULT_PROJECTS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
 
+def get_projects_file(
+    filename="projects.yaml", projects_dir=DEFAULT_PROJECTS_DIRECTORY
+):
+    return Path(os.path.join(projects_dir, filename))
+
+
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def load_yaml_stream(yaml_path):
     """Load all YAML documents in a file."""
     with open(yaml_path) as fp:
@@ -29,12 +36,7 @@ def load_yaml_stream(yaml_path):
     return yaml_stream
 
 
-def get_projects_file(
-    filename="projects.yaml", projects_dir=DEFAULT_PROJECTS_DIRECTORY
-):
-    return Path(os.path.join(projects_dir, filename))
-
-
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_project_document(yaml_stream, project_name):
     """Get a project's YAML document from a YAML stream.
 
@@ -48,6 +50,7 @@ def get_project_document(yaml_stream, project_name):
     return matches[0]
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_subalias_dirname(alias_name, subalias_idx=None):
     if (subalias_idx is None) or (subalias_idx == -1):
         return alias_name
@@ -57,6 +60,7 @@ def get_subalias_dirname(alias_name, subalias_idx=None):
 ##### Functions for getting directories
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_project_directory(project_name):
     """Get a project directory described in projects.yaml"""
     stream = load_yaml_stream(get_projects_file())
@@ -64,31 +68,37 @@ def get_project_directory(project_name):
     return Path(doc["project_directory"])
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_subject_directory(project_name, subject_name):
     """Get a subject's directory for this project."""
     return get_project_directory(project_name) / subject_name
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_experiment_directory(project_name, experiment_name):
     return get_project_directory(project_name) / experiment_name
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_alias_directory(project_name, experiment_name, alias_name, subalias_idx=None):
     return get_experiment_directory(
         project_name, experiment_name
     ) / get_subalias_dirname(alias_name, subalias_idx)
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_experiment_subject_directory(project_name, experiment_name, subject_name):
     return get_experiment_directory(project_name, experiment_name) / subject_name
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_alias_subject_directory(
     project_name, experiment_name, alias_name, subject_name
 ):
     return get_alias_directory(project_name, experiment_name, alias_name) / subject_name
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_alias_subject_directory(
     project_name, experiment_name, alias_name, subject_name, subalias_idx=None
 ):
@@ -103,18 +113,22 @@ def get_alias_subject_directory(
 ##### Functions for getting files
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_project_file(project_name, fname):
     return get_project_directory(project_name) / fname
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_project_subject_file(project_name, subject_name, fname):
     return get_subject_directory(project_name, subject_name) / fname
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_experiment_file(project_name, experiment_name, fname):
     return get_experiment_directory(project_name, experiment_name) / fname
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_alias_file(project_name, experiment_name, alias_name, fname, subalias_idx=None):
     return (
         get_alias_directory(
@@ -124,6 +138,7 @@ def get_alias_file(project_name, experiment_name, alias_name, fname, subalias_id
     )
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_experiment_subject_file(project_name, experiment_name, subject_name, fname):
     return (
         get_experiment_subject_directory(project_name, experiment_name, subject_name)
@@ -131,6 +146,7 @@ def get_experiment_subject_file(project_name, experiment_name, subject_name, fna
     )
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_alias_subject_file(
     project_name, experiment_name, alias_name, subject_name, fname
 ):

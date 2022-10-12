@@ -6,6 +6,7 @@ from ..projects.projects import get_subject_directory
 ##### Functions for mirroring
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def mirror_raw_data_path(mirror_parent, path):
     """Mirror a path to raw SpikeGLX data, maintaining session-style data/directory organization, but at a new path root.
     For example...
@@ -27,6 +28,7 @@ def mirror_raw_data_path(mirror_parent, path):
     return mirror_parent / get_filepath_relative_to_session_directory_parent(path)
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def mirror_raw_data_paths(mirror_parent, paths):
     return [mirror_raw_data_path(mirror_parent, p) for p in paths]
 
@@ -34,6 +36,7 @@ def mirror_raw_data_paths(mirror_parent, paths):
 ##### Functions for getting project counterparts
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def replace_ftype(path, extension, remove_probe=False, remove_stream=False):
     """Replace a SpikeGLX filetype extension (i.e. .bin or .meta), and optionally strip
     the probe and/or stream suffixes (e.g. .imec0 and .lf) while doing so.
@@ -57,6 +60,7 @@ def replace_ftype(path, extension, remove_probe=False, remove_stream=False):
     return path.with_name(name)
 
 
+# TODO: Deprecated, will be removed. Use ecephys.wne instead.
 def get_project_counterparts(
     project_name,
     subject_name,
