@@ -225,7 +225,7 @@ def set_probe_and_locations(recording, binpath):
         prb._contact_ids
     )  # Shouldn't be needed
 
-    recording = recording.set_probe(prb)
+    recording = recording.set_probe(prb)  # TODO: Use in_place=True ?
 
     if any(["#SY0" in id for id in recording.channel_ids]):
         assert False, "Did not expect to find SYNC channel"
