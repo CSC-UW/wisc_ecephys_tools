@@ -132,7 +132,7 @@ def run_sorting(
     # Clear `recording.dat`
     with Timing(name="Clear recording.dat file"):
         rec_path = output_dir / "recording.dat"
-        rec_path.unlink()
+        rec_path.unlink(missing_ok=True)
 
     end = datetime.now()
     print(
