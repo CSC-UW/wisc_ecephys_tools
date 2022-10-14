@@ -6,10 +6,12 @@ import ecephys.data_mgmt.paths
 from ecephys.sglx.cat_gt import run_catgt
 from ecephys.sglx.file_mgmt import loc
 from ecephys.sglx.utils import get_meta_value
-from ..params import get_analysis_params
+from horology import timed, Timing
+
 from ...projects.projects import get_alias_subject_directory
 from ...sglx.experiments import get_ap_bin_table
 from ...sglx.sessions import get_session_style_path_parts
+from ..params import get_analysis_params
 
 CATGT_PROJECT_NAME = "catgt"  # Key in projects.yaml.
 ANALYSIS_TYPE = "preprocessing"  # Relevant analysis type in analysis_cfg.yaml
@@ -95,6 +97,7 @@ def get_catgt_output_paths(
     return meta_bin_paths
 
 
+@timed
 def clear_catgt_output_files(*args, **kwargs):
     meta_bin_paths = get_catgt_output_paths(*args, **kwargs)
     if any([m.exists() or b.exists() for m, b in meta_bin_paths]):
@@ -120,6 +123,7 @@ def check_any_exists_catgt_output(*args, **kwargs):
     return any([f.exists() for f in metapaths + binpaths])
 
 
+@timed
 def run_preprocessing(
     project=CATGT_PROJECT_NAME,
     subject=None,
@@ -243,14 +247,14 @@ def run_preprocessing(
         tgt_dir = analysis_dir
 
         start = datetime.now()
-        run_catgt(
-            subalias_files, catgt_params, catgt_path, src_dir, tgt_dir, dry_run=dry_run
-        )
-        end = datetime.now()
+        with Timing("run_catgt: "):
+            run_catgt(
+                subalias_files, catgt_params, catgt_path, src_dir, tgt_dir, dry_run=dry_run
+            )
 
+        end = datetime.now()
         print(
-            f"{end.strftime('%H:%M:%S')}: Finished {subject}, {experiment}, {alias}, subalias #{i+1}/{len(subalias_indices)}. "
-            f"Run time = {str(end - start)}, ",
+            f"{end.strftime('%H:%M:%S')}: Finished {subject}, {experiment}, {alias}, subalias #{i+1}/{len(subalias_indices)}. ",
             end="",
         )
         if not dry_run:

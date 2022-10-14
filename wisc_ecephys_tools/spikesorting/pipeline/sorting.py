@@ -7,10 +7,11 @@ import spikeinterface as si
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 from ecephys.sglx import get_xy_coords
-from ..params import get_analysis_params
-from ...projects.projects import get_alias_subject_directory
+from horology import timed, Timing
 from probeinterface import Probe
 
+from ...projects.projects import get_alias_subject_directory
+from ..params import get_analysis_params
 from .preprocessing import CATGT_PROJECT_NAME, get_catgt_output_paths
 
 
@@ -43,6 +44,7 @@ def get_sorting_output_path(
     )
 
 
+@timed
 def run_sorting(
     project=None,
     subject=None,
@@ -125,16 +127,17 @@ def run_sorting(
     output_dir.mkdir(exist_ok=True, parents=True)
     if sorter == "kilosort2_5":
         ss.sorter_dict[sorter].set_kilosort2_5_path(params.pop("ks_path"))
-    ss.run_sorter(sorter, rec, output_folder=output_dir, verbose=True, **params)
+    with Timing(name="Run spikeinterface sorter"):
+        ss.run_sorter(sorter, rec, output_folder=output_dir, verbose=True, **params)
     # Clear `recording.dat`
-    rec_path = output_dir / "recording.dat"
-    rec_path.unlink()
+    with Timing(name="Clear recording.dat file"):
+        rec_path = output_dir / "recording.dat"
+        rec_path.unlink()
 
     end = datetime.now()
     print(
         f"{end.strftime('%H:%M:%S')}: Finished {project}, {subject}, {experiment}, {alias}, {probe}."
     )
-    print(f"Run time = {str(end - start)}\n")
 
     # Sorting finished if we find spike_times.npy
     return (output_dir / "spike_times.npy").exists()

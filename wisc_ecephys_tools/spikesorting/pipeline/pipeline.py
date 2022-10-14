@@ -1,12 +1,12 @@
-from .preprocessing import (
-    run_preprocessing,
-    CATGT_PROJECT_NAME,
-    clear_catgt_output_files,
-)
-from .sorting import run_sorting
+from horology import timed
+
 from .postprocessing import run_postprocessing
+from .preprocessing import (CATGT_PROJECT_NAME, clear_catgt_output_files,
+                            run_preprocessing)
+from .sorting import run_sorting
 
 
+@timed
 def run_pipeline(
     # paths and data
     project=None,

@@ -11,6 +11,7 @@ spikeinterface = {git = "https://github.com/CSC-UW/spikeinterface.git", rev = "w
 black = "^22.6.0"
 PyYAML = "^6.0"
 numpy = "^1.18"
+horology = "1.2.0"
 ecephys = {path = "../ecephys", develop = true}
 
 [tool.poetry.dev-dependencies]
