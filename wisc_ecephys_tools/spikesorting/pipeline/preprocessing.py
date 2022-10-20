@@ -193,7 +193,7 @@ def run_preprocessing(
     print("\nBelow are all the files that will be processed (all subaliases):")
     print(
         raw_files[
-            ["run", "gate", "trigger", "fileTimeSecs", "subalias_idx", "fileCreateTime"]
+            ["run", "gate", "trigger", "fileTimeSecs", "subalias_idx", "fileCreateTime", "isContinuation", "sampleDiff"]
         ]
     )
 
