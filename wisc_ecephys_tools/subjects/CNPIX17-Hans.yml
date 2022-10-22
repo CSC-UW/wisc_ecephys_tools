@@ -5,6 +5,12 @@ recording_sessions:
   - id: 10-14-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-14-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-14-2022/SpikeGLX
+  - id: 10-17-2022
+    ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-17-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-17-2022/SpikeGLX
+  - id: 10-18-2022
+    ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-18-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-18-2022/SpikeGLX
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -17,3 +23,14 @@ experiments:
       recovery_sleep:
         - start_file: 10-13-2022_g2_t1
           end_file: 10-13-2022_g2_t3
+  conveyor_over_water:
+    recording_session_ids:
+      - 10-17-2022
+      - 10-18-2022
+    aliases:
+      full_48h:
+        - start_file: 10-17-2022_g0_t0
+          end_file: 10-18-2022_g0_t11
+      recovery_sleep:
+        - start_file: 10-18-2022_g0_t3
+          end_file: 10-18-2022_g0_t5
