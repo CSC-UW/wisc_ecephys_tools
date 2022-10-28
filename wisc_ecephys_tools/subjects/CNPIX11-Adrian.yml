@@ -30,7 +30,7 @@ experiments:
       light_period:
         - start_file: 8-28-2021_g0_t0
           end_file: 8-28-2021_g0_t5
-      full_48h:
+      full:
         - start_file: 8-27-2021_g2_t0
           end_file: 8-28-2021_g0_t11
     probes:
@@ -71,7 +71,7 @@ experiments:
       light_period:
         - start_file: 8-31-2021_g0_t0
           end_file: 8-31-2021_g0_t5
-      full_48h:
+      full:
         - start_file: 8-30-2021_g0_t0
           end_file: 8-31-2021_g1_t0
       sleep-homeostasis-2h:

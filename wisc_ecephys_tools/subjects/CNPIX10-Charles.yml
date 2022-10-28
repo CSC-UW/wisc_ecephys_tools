@@ -27,7 +27,7 @@ experiments:
       light_period:
         - start_file: 7-11-2021_g0_t0
           end_file: 7-11-2021_g1_t2
-      full_48h:
+      full:
         - start_file: 7-10-2021_g0_t0
           end_file: 7-11-2021_g1_t8
       sleep-homeostasis-2h:
@@ -46,7 +46,7 @@ experiments:
         M2_base: [5100, 6900]  # TODO adjust from Ephys markers. Histology: 256:346th.
         A32D_base: [3750, 5040]  # TODO adjust from Ephys markers? Inferred from cluster distribution and histology
         A32_base: [3180, 5040]  # TODO exact? Cingulate. A32D and A32V . 160:253. Doesn't match cluster distrib
-        # 
+        #
         NA_base: [0, 1600] # Nucleus acumbens shell. Inferred from cluster distribution
       imec1: # Parietal
         imec_map: LongCol_1shank

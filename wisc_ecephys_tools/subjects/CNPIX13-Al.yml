@@ -12,7 +12,7 @@ experiments:
       - 1-5-2022
       - 1-6-2022
     aliases:
-      full_48h:
+      full:
         - start_file: 1-5-2022_g0_t0
           end_file: 1-6-2022_g1_t9
       sleep_deprivation:
@@ -22,7 +22,7 @@ experiments:
         - start_file: 1-5-2022_g0_t3
           end_file: 1-5-2022_g0_t5
     probes:
-      imec0:  # Frontal (orbitofrontal cortex implantation) 
+      imec0:  # Frontal (orbitofrontal cortex implantation)
         imec_map: LongCol_1shank
         ##### Channels #####
         internal_reference: [191]

@@ -35,7 +35,7 @@ experiments:
       recovery_sleep:
         - start_file: 8-30-2022_g0_t3
           end_file: 8-30-2022_g0_t5
-      full_48h:
+      full:
         - start_file: 8-29-2022_g0_t0
           end_file: 8-30-2022_g0_t11
     probes:
@@ -60,7 +60,7 @@ experiments:
       - 9-1-2022
       - 9-2-2022
     aliases:
-      full_48h:
+      full:
         - start_file: 9-1-2022_g0_t0
           end_file: 9-2-2022_g1_t10
       recovery_sleep:
@@ -71,7 +71,7 @@ experiments:
       - 9-8-2022
       - 9-9-2022
     aliases:
-      full_48h:
+      full:
         - start_file: 9-8-2022_g0_t0
           end_file: 9-9-2022_g0_t11
       recovery_sleep:

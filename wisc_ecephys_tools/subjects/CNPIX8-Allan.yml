@@ -32,7 +32,7 @@ experiments:
       light_period:
         - start_file: 3-2-2021_A_g0_t0
           end_file: 3-2-2021_G_g0_t0
-      full_48h:
+      full:
         - start_file: 3-1-2021_g0_t0
           end_file: 3-2-2021_O_g0_t0
       sleep-homeostasis-2h:
