@@ -24,7 +24,7 @@ experiments:
       light_period:
         - start_file: 3-18-2020_g0_t0
           end_file: 3-18-2020_g0_t5
-      full_48h:
+      full:
         - start_file: 3-17-2020_g0_t0
           end_file: 3-18-2020_g0_t9
       sleep-homeostasis-2h:

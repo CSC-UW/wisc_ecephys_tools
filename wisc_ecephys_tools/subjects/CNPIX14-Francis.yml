@@ -24,7 +24,7 @@ experiments:
       light_period_circadian_match:
         - start_file: 4-12-2022_g0_t0
           end_file: 4-12-2022_g0_t5
-      full_48h:
+      full:
         - start_file: 4-12-2022_g0_t0
           end_file: 4-13-2022_g0_t11
       sleep_deprivation:
@@ -60,7 +60,7 @@ experiments:
       light_period_circadian_match:
         - start_file: 4-18-2022_g0_t0
           end_file: 4-18-2022_g1_t3
-      full_48h:
+      full:
         - start_file: 4-18-2022_g0_t0
           end_file: 4-19-2022_g0_t11
       recovery_sleep:

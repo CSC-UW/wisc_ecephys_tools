@@ -22,7 +22,7 @@ experiments:
       light_period:
         - start_file: 9.24.2020_SD_24hs_g0_t0
           end_file: 9.24.2020_SR_24hs1_g0_t0
-      full_48h:
+      full:
         - start_file: 9.24.2020_BL_24hs_g0_t0
           end_file: 9.24.2020_BL_24hs3_g0_t1
         - start_file: 9.24.2020_BL_24hs5_g0_t0
