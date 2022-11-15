@@ -38,3 +38,7 @@ project_directory: /Volumes/scratch/neuropixels/data/nucleated_rebooting
 project: homeostasis
 project_directory: /Volumes/scratch/neuropixels/data/homeostasis
 ...
+---
+project: shared_sortings
+project_directory: /nvme/neuropixels/sorting/shared_sortings
+...
