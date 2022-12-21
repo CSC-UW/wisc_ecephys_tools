@@ -1,0 +1,21 @@
+---
+recording_sessions:
+  - id: 12-9-2022
+    ap: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-9-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-9-2022/SpikeGLX
+experiments:
+  12-9-2022_experiment:  # TODO
+    recording_session_ids:
+      - 12-9-2022
+    aliases:  # TODO
+      12-9-2022_full_12h:
+        - start_file: 12-9-2022_g0_t0
+          end_file: 12-9-2022_g0_t5
+    # probes: &probes  # TODO
+    #   imec0:
+    #     imec_map: Default_1shank
+    #     internal_reference: [191]
+    #   imec1:
+    #     imec_map: Default_1shank
+    #     internal_reference: [191]
+...
