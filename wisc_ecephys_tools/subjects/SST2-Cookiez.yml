@@ -6,7 +6,7 @@ recording_sessions: # NB: "2020" on disk, not 2022. TODO?
   - id: 12-19-2020-B
     ap: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-B/SpikeGLX
     lf: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-B/SpikeGLX
-  - id: 12-19-2022-C
+  - id: 12-19-2020-C
     ap: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-C/SpikeGLX
     lf: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-C/SpikeGLX
 experiments:
@@ -21,7 +21,7 @@ experiments:
           end_file: 12-19-2022_g0_t0
       session-B:
         - start_file: 12-19-2022-B_g0_t0
-          end_file: 12-19-2022_g0_t0
+          end_file: 12-19-2022-B_g0_t0
       session-C:
         - start_file: 12-19-2022-C_g0_t0
           end_file: 12-19-2022-C_g0_t0
