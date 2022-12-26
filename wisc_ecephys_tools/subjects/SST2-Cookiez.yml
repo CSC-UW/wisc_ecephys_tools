@@ -1,0 +1,44 @@
+---
+recording_sessions: # NB: "2020" on disk, not 2022. TODO?
+  - id: 12-19-2020-A
+    ap: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-A/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-A/SpikeGLX
+  - id: 12-19-2020-B
+    ap: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-B/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-B/SpikeGLX
+  - id: 12-19-2020-C
+    ap: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-C/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/SST2-Cookiez/12-19-2020-C/SpikeGLX
+experiments:
+  sst-experiment:  # TODO
+    recording_session_ids:
+      - 12-19-2020-A
+      - 12-19-2020-B
+      - 12-19-2020-C
+    aliases:  # TODO
+      session-A:
+        - start_file: 12-19-2022_g0_t0
+          end_file: 12-19-2022_g0_t0
+      session-B:
+        - start_file: 12-19-2022-B_g0_t0
+          end_file: 12-19-2022-B_g0_t0
+      session-C:
+        - start_file: 12-19-2022-C_g0_t0
+          end_file: 12-19-2022-C_g0_t0
+    # probes: &probes  # TODO
+    #   imec0:
+    #     imec_map: Default_1shank
+    #     internal_reference: [191]
+    #   imec1:
+    #     imec_map: Default_1shank
+    #     internal_reference: [191]
+    #   imec2:
+    #     imec_map: Default_1shank
+    #     internal_reference: [191]
+    #   imec3:
+    #     imec_map: Default_1shank
+    #     internal_reference: [191]
+    #   imec4:
+    #     imec_map: Default_1shank
+    #     internal_reference: [191]
+...
