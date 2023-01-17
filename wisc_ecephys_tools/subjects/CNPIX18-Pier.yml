@@ -1,7 +1,25 @@
 recording_sessions:
+  - id: 12-5-2022
+    ap: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-5-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-5-2022/SpikeGLX
+  - id: 12-6-2022
+    ap: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-6-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-6-2022/SpikeGLX
   - id: 12-9-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-9-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-9-2022/SpikeGLX
+  - id: 12-15-2022
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX18-Pier/12-15-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX18-Pier/12-15-2022/SpikeGLX
+  - id: 12-16-2022
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX18-Pier/12-16-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX18-Pier/12-16-2022/SpikeGLX
+  - id: 12-22-2022
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX18-Pier/12-22-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX18-Pier/12-22-2022/SpikeGLX
+  - id: 12-23-2022
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX18-Pier/12-23-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX18-Pier/12-23-2022/SpikeGLX
 experiments:
   auditory_stim:
     recording_session_ids:
@@ -10,3 +28,27 @@ experiments:
       full:
         - start_file: 12-9-2022_g0_t0
           end_file: 12-9-2022_g0_t5
+  novel_objects_deprivation:
+    recording_session_ids:
+      - 12-5-2022
+      - 12-6-2022
+    aliases:
+      full:
+        - start_file: 12-5-2022_g0_t0
+          end_file: 12-6-2022_g0_t11
+  conveyor_then_novelty:
+    recording_session_ids:
+      - 12-15-2022
+      - 12-16-2022
+    aliases:
+      full:
+        - start_file: 12-15-2022_g0_t0
+          end_file: 12-16-2022_g0_t10
+  conveyor_over_water:
+    recording_session_ids:
+      - 12-22-2022
+      - 12-23-2022
+    aliases:
+      full:
+        - start_file: 12-22-2022_g0_t0
+          end_file: 12-23-2022_g1_t9
