@@ -1,6 +1,21 @@
 ---
-project: my_project
-project_directory: /Volumes/neuropixel_analysis/Data/my_project/
+project: seahorse
+project_directory: /Volumes/npx_nfs/nobak/seahorse
+...
+---
+project: shared_s3
+project_directory: /Volumes/npx_nfs/shared_s3
+---
+project: discoflow
+project_directory: /Volumes/neuropixel_analysis/Data/discoflow/
+...
+---
+project: nucleated_rebooting
+project_directory: /Volumes/scratch/neuropixels/data/nucleated_rebooting
+...
+---
+project: homeostasis
+project_directory: /Volumes/scratch/neuropixels/data/homeostasis
 ...
 ---
 project: catgt  # "catgt" project holds the default location for catGT processed data
@@ -13,30 +28,6 @@ project_directory: /nvme/neuropixels/catgt
 ---
 project: sorting
 project_directory: /nvme/neuropixels/sorting/
-...
----
-project: SPWRs
-project_directory: /Volumes/neuropixel_analysis/Data/SPWRs/
-...
----
-project: scoring
-project_directory: /Volumes/neuropixel_analysis/Data/scoring/
-...
----
-project: preprocessed_lfps
-project_directory: /Volumes/neuropixel_analysis/Data/preprocessed_lfps/
-...
----
-project: discoflow
-project_directory: /Volumes/neuropixel_analysis/Data/discoflow/
-...
----
-project: nucleated_rebooting
-project_directory: /Volumes/scratch/neuropixels/data/nucleated_rebooting
-...
----
-project: homeostasis
-project_directory: /Volumes/scratch/neuropixels/data/homeostasis
 ...
 ---
 project: shared_sortings
