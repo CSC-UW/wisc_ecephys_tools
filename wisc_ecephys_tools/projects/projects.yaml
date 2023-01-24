@@ -7,7 +7,7 @@ project: shared_s3
 project_directory: /Volumes/npx_nfs/shared_s3
 ---
 project: discoflow
-project_directory: /Volumes/neuropixel_analysis/Data/discoflow/
+project_directory: /Volumes/npx_nfs/nobak/discoflow
 ...
 ---
 project: nucleated_rebooting
@@ -24,10 +24,6 @@ project_directory: /Volumes/scratch/neuropixels/tmp/catgt/
 ---
 project: catgt_nvme
 project_directory: /nvme/neuropixels/catgt
-...
----
-project: sorting
-project_directory: /nvme/neuropixels/sorting/
 ...
 ---
 project: shared_sortings
