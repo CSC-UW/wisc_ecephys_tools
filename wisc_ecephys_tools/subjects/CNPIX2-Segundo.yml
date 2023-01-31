@@ -1,11 +1,11 @@
 ---
 recording_sessions:
   - id: 1-21-2020
-    ap: /Volumes/qnap-data-neuropixels/CNPIX2-Segundo/1-21-2020/SpikeGLX/
-    lf: /Volumes/qnap-data-neuropixels/CNPIX2-Segundo/1-21-2020/SpikeGLX/
+    ap: /Volumes/ceph-tononi/CNPIX2-Segundo/1-21-2020/SpikeGLX/
+    lf: /Volumes/ceph-tononi/CNPIX2-Segundo/1-21-2020/SpikeGLX/
   - id: 1-24-2020
-    ap: /Volumes/qnap-data-neuropixels/CNPIX2-Segundo/1-24-2020/SpikeGLX/
-    lf: /Volumes/qnap-data-neuropixels/CNPIX2-Segundo/1-24-2020/SpikeGLX/
+    ap: /Volumes/ceph-tononi/CNPIX2-Segundo/1-24-2020/SpikeGLX/
+    lf: /Volumes/ceph-tononi/CNPIX2-Segundo/1-24-2020/SpikeGLX/
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
