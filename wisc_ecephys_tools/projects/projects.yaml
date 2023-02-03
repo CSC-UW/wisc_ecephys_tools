@@ -27,5 +27,5 @@ project_directory: /nvme/neuropixels/catgt
 ...
 ---
 project: shared_sortings
-project_directory: /nvme/neuropixels/sorting/shared_sortings
+project_directory: /Volumes/npx_nfs/shared_sortings
 ...

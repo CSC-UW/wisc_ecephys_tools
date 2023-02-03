@@ -1,0 +1,14 @@
+---
+recording_sessions:
+  - id: 1-25-2023
+    ap: /Volumes/NeuropixelNAS1/SST3-Martin/1-25-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/SST3-Martin/1-25-2023/SpikeGLX
+experiments:
+  sst-experiment:
+    recording_session_ids:
+      - 1-25-2023
+    aliases:
+      full:
+        - start_file: 1-25-2023_g0_t0
+          end_file: 1-25-2023_g0_t0
+...
