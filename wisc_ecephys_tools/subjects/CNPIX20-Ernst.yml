@@ -10,3 +10,4 @@ experiments:
       full:
         - start_file: 1-26-2023_g0_t0
           end_file: 1-26-2023_g0_t4
+    tdt_block_path: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-26-2023/tdt/SITSAuditoryStim-221204-185634/Ernst-230126-124059
