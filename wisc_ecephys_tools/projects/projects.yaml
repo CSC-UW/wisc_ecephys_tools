@@ -1,4 +1,8 @@
 ---
+project: hypnogram
+project_directory: /Volumes/npx_nfs/shared_s3
+...
+---
 project: seahorse
 project_directory: /Volumes/npx_nfs/nobak/seahorse
 ...
