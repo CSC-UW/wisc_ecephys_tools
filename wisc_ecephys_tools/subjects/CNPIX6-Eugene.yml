@@ -1,8 +1,8 @@
 ---
 recording_sessions:
   - id: 9-24-2020
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX6-Eugene/9-24-2020/SpikeGLX/
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX6-Eugene/9-24-2020/SpikeGLX/
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX6-Eugene/9-24-2020/SpikeGLX/
 experiments:
   novel_objects_deprivation:
     recording_session_ids:

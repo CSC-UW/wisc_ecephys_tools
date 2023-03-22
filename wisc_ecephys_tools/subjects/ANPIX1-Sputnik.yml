@@ -1,8 +1,8 @@
 ---
 recording_sessions:
   - id: 10-13-2020
-    ap: /Volumes/neuropixel_archive/Data/acute/ANPIX1-Sputnik/10-13-2020/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/acute/ANPIX1-Sputnik/10-13-2020/SpikeGLX/
+    ap: /Volumes/NeuropixelNAS1/ANPIX1-Sputnik/10-13-2020/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS1/ANPIX1-Sputnik/10-13-2020/SpikeGLX/
 experiments:
   discoflow-day1:
     recording_session_ids:

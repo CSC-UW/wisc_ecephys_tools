@@ -2,10 +2,10 @@
 recording_sessions:
   - id: 1-5-2022
     ap: /Volumes/NeuropixelNAS2-data1/CNPIX13-Al/1-5-2022/SpikeGLX
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX13-Al/1-5-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data1/CNPIX13-Al/1-5-2022/SpikeGLX
   - id: 1-6-2022
     ap: /Volumes/NeuropixelNAS2-data1/CNPIX13-Al/1-6-2022/SpikeGLX
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX13-Al/1-6-2022/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data1/CNPIX13-Al/1-6-2022/SpikeGLX
 experiments:
   novel_objects_deprivation:
     recording_session_ids:

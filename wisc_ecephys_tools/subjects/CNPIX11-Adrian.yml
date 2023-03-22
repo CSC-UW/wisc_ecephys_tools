@@ -1,17 +1,17 @@
 ---
 recording_sessions:
   - id: 8-27-2021
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-27-2021/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-27-2021/SpikeGLX/
+    ap: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-27-2021/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-27-2021/SpikeGLX/
   - id: 8-28-2021
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-28-2021/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-28-2021/SpikeGLX/
+    ap: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-28-2021/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-28-2021/SpikeGLX/
   - id: 8-30-2021
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-30-2021/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-30-2021/SpikeGLX/
+    ap: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-30-2021/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-30-2021/SpikeGLX/
   - id: 8-31-2021
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-31-2021/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX11-Adrian/8-31-2021/SpikeGLX/
+    ap: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-31-2021/SpikeGLX/
+    lf: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-31-2021/SpikeGLX/
 experiments:
   conveyor_over_water:
     recording_session_ids:

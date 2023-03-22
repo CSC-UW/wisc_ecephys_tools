@@ -1,11 +1,11 @@
 ---
 recording_sessions:
   - id: 3-17-2020
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-17-2020/SpikeGLX/
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-17-2020/SpikeGLX/
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-17-2020/SpikeGLX/
   - id: 3-18-2020
-    ap: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-18-2020/SpikeGLX/
-    lf: /Volumes/neuropixel_archive/Data/chronic/CNPIX4-Doppio/3-18-2020/SpikeGLX/
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-18-2020/SpikeGLX/
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-18-2020/SpikeGLX/
 experiments:
   novel_objects_deprivation: &NOD
     recording_session_ids:
