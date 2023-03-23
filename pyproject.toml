@@ -6,9 +6,9 @@ authors = ["Graham Findlay <gfindlay@wisc.edu>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-ecephys = {path = "../ecephys", develop = true}
-spikeinterface = {path = "../spikeinterface", develop = true}
-#spikeinterface = {git = "https://github.com/CSC-UW/spikeinterface.git", rev = "wisc/dev"}
+# ecephys = {path = "../ecephys", develop = true}
+# spikeinterface = {path = "../spikeinterface", develop = true}
+# spikeinterface = {git = "https://github.com/CSC-UW/spikeinterface.git", rev = "wisc/dev"}
 black = "^22.6.0"
 PyYAML = "^6.0"
 numpy = "^1.18"

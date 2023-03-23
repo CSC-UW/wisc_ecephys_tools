@@ -13,8 +13,12 @@ git clone https://github.com/CSC-UW/wisc_ecephys_tools.git
 conda create -n myenv python=3
 conda activate myenv
 
+cd ecephys
+pip install -e .
+
+cd ..
 cd wisc_ecephys_tools
-pip install -r requirements.txt
+pip install -e .
 ```
 
 If you run into issues with h5py/hdf5 version compatibility within ipython/jupyter (but not python):
