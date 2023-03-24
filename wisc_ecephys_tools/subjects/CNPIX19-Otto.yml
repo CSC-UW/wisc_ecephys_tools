@@ -1,16 +1,16 @@
 recording_sessions:
   - id: 1-17-2023
-    ap: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-17-2023/SpikeGLX
-    lf: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-17-2023/SpikeGLX
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-17-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-17-2023/SpikeGLX
   - id: 1-18-2023
-    ap: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-18-2023/SpikeGLX
-    lf: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-18-2023/SpikeGLX
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-18-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-18-2023/SpikeGLX
   - id: 1-22-2023
-    ap: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-22-2023/SpikeGLX
-    lf: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-22-2023/SpikeGLX
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-22-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-22-2023/SpikeGLX
   - id: 1-23-2023
-    ap: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-23-2023/SpikeGLX
-    lf: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/1-23-2023/SpikeGLX
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-23-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-23-2023/SpikeGLX
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
