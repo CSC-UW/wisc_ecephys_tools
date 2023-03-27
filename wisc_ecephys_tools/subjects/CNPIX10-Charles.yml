@@ -1,11 +1,11 @@
 ---
 recording_sessions:
   - id: 7-10-2021
-    ap: /Volumes/NeuropixelNAS1/CNPIX10-Charles/7-10-2021/SpikeGLX/
-    lf: /Volumes/NeuropixelNAS1/CNPIX10-Charles/7-10-2021/SpikeGLX/
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX10-Charles/7-10-2021/SpikeGLX/
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX10-Charles/7-10-2021/SpikeGLX/
   - id: 7-11-2021
-    ap: /Volumes/NeuropixelNAS1/CNPIX10-Charles/7-11-2021/SpikeGLX/
-    lf: /Volumes/NeuropixelNAS1/CNPIX10-Charles/7-11-2021/SpikeGLX/
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX10-Charles/7-11-2021/SpikeGLX/
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX10-Charles/7-11-2021/SpikeGLX/
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
