@@ -27,6 +27,9 @@ experiments:
       full:
         - start_file: 1-30-2023_g0_t0
           end_file: 1-30-2023_g0_t23
+      patch:
+        - start_file: 1-30-2023_g0_t15
+          end_file: 1-30-2023_g0_t23
   conveyor_over_water:
     recording_session_ids:
       - 2-5-2023

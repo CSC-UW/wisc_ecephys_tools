@@ -11,6 +11,15 @@ recording_sessions:
   - id: 1-23-2023
     ap: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-23-2023/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data4/CNPIX19-Otto/1-23-2023/SpikeGLX
+  - id: 3-28-2023
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX19-Otto/3-28-2023/SpikeGLX
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX19-Otto/3-28-2023/SpikeGLX
+  - id: 3-29-2023
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX19-Otto/3-29-2023/SpikeGLX
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX19-Otto/3-29-2023/SpikeGLX
+  - id: 4-1-2023
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX19-Otto/4-1-2023/SpikeGLX
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX19-Otto/4-1-2023/SpikeGLX
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -28,3 +37,18 @@ experiments:
       full:
         - start_file: 1-22-2023_g0_t0
           end_file: 1-23-2023_g0_t11
+  conveyor_then_novelty:
+    recording_session_ids:
+      - 3-28-2023
+      - 3-29-2023
+    aliases:
+      full:
+        - start_file: 3-28-2023_g0_t0
+          end_file: 3-29-2023_g0_t9
+  sevoflurane:
+    recording_session_ids:
+      - 4-1-2023
+    aliases:
+      full:
+        - start_file: 4-1-2023_g0_t0
+          end_file: 4-1-2023_g0_t5
