@@ -1,0 +1,18 @@
+[tool.isort]
+profile = "black"
+
+[tool.poetry]
+name = "ephyviewer-env"
+version = "0.0.1"
+description = "\"A minimal environment for using ephyviewer on tononi-2\""
+authors = ["Graham Findlay <gfindlay@wisc.edu>"]
+
+[tool.poetry.dependencies]
+python = "~3.10"
+ecephys = {path = "../../ecephys", develop = true}
+wisc-ecephys-tools = {path = "../../wisc_ecephys_tools", develop = true}
+spikeinterface = {path = "../../spikeinterface", develop = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
