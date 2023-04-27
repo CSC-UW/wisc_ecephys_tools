@@ -22,6 +22,6 @@ git clone https://github.com/CSC-UW/spikeinterface.git
 mamba create -n ephyviewer python=3.10 pyqt
 mamba activate ephyviewer
 cd ~/projects/ephyviewer/wisc_ecephys_tools/ephyviewer-env
-pip install sortednp # Wheel building is broken WITHIN sortednp. Poetry will fail.
+pip install sortednp --no-deps # Wheel building is broken WITHIN sortednp. Poetry will fail.
 poetry install
 ```
