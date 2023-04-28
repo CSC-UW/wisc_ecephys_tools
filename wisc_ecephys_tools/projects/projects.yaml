@@ -1,14 +1,31 @@
 ---
+project: shared_sortings
+project_directory: /Volumes/npx_nfs/shared_sortings
+...
+---
+project: shared_sortings_ssd
+project_directory: /ssd-raid0/neuropixels/sorting/shared_sortings
+...
+---
+project: shared_sortings_nvme
+project_directory: /nvme/neuropixels/sorting/shared_sortings
+...
+---
 project: hypnogram
+project_directory: /Volumes/npx_nfs/shared_s3
+...
+---
+project: anatomy
+project_directory: /Volumes/npx_nfs/shared_s3
+...
+---
+project: shared_s3
 project_directory: /Volumes/npx_nfs/shared_s3
 ...
 ---
 project: seahorse
 project_directory: /Volumes/npx_nfs/nobak/seahorse
 ...
----
-project: shared_s3
-project_directory: /Volumes/npx_nfs/shared_s3
 ---
 project: discoflow
 project_directory: /Volumes/npx_nfs/nobak/discoflow
@@ -22,22 +39,7 @@ project: homeostasis
 project_directory: /Volumes/scratch/neuropixels/data/homeostasis
 ...
 ---
-project: catgt  # "catgt" project holds the default location for catGT processed data
-project_directory: /Volumes/scratch/neuropixels/tmp/catgt/
+project: test_project
+project_directory: /nvme/neuropixels/sorting/test_project
 ...
----
-project: catgt_nvme
-project_directory: /nvme/neuropixels/catgt
-...
----
-project: shared_sortings
-project_directory: /Volumes/npx_nfs/shared_sortings
-...
----
-project: shared_sortings_ssd
-project_directory: /ssd-raid0/neuropixels/sorting/shared_sortings
-...
----
-project: shared_sortings_nvme
-project_directory: /nvme/neuropixels/sorting/shared_sortings
-...
+
