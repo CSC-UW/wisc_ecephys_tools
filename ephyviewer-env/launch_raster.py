@@ -56,7 +56,7 @@ txt = tk.Text(root)
 txt.insert(tk.END, rich.pretty.pretty_repr(sortings_summary))
 txt.pack(anchor="w")
 v = tk.IntVar()
-available_subject_probes = []
+available_subject_probes = [(None, None)]
 for subj, prbs in available_sortings.items():
         available_subject_probes += [(subj, prb) for prb in prbs]
 for i, (subj, prb) in enumerate(available_subject_probes):
@@ -67,6 +67,7 @@ subj_prb_i = v.get()
 if subj_prb_i == 0:  # If window was closed without making a selection
     sys.exit()
 subject, probe = available_subject_probes[subj_prb_i]
+print(f"\nLoading: {subject}, {probe}\n")
 
 # Load the sorting
 wneSubject = wne.sglx.SubjectLibrary(wet.get_subjects_directory()).get_subject(subject)
