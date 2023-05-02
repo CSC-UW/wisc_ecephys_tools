@@ -78,7 +78,7 @@ filters = {
         "good",
         "mua",
     },  # "quality" property is "group" from phy curation. Remove noise
-    "firing_rate": (0.5, float("Inf")),
+    "firing_rate": (0.0, float("Inf")),
     # ...
 }
 
