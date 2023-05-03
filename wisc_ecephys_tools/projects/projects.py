@@ -13,16 +13,24 @@ Only projects.yaml is required to resolve paths?
 
 """
 import os
-import yaml
 from pathlib import Path
+
+from ecephys import wne
 
 # You could name a project the same thing as an experiment
 # You could name a project "Common" or "Scoring" or "Sorting"
 
 DEFAULT_PROJECTS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_PROJECTS_FILENAME = "projects.yaml"
 
 
 def get_projects_file(
-    filename="projects.yaml", projects_dir=DEFAULT_PROJECTS_DIRECTORY
+    filename=DEFAULT_PROJECTS_FILENAME, projects_dir=DEFAULT_PROJECTS_DIRECTORY
 ):
     return Path(os.path.join(projects_dir, filename))
+
+
+def get_wne_project(projectName, filename=DEFAULT_PROJECTS_FILENAME, projects_dir=DEFAULT_PROJECTS_DIRECTORY):
+    projectsFile = get_projects_file(filename=filename, projects_dir=projects_dir)
+    projLib = wne.ProjectLibrary(projectsFile)
+    return projLib.get_project(project_name=projectName)
