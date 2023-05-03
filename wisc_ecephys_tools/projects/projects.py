@@ -13,7 +13,6 @@ Only projects.yaml is required to resolve paths?
 
 """
 import os
-import yaml
 from pathlib import Path
 
 # You could name a project the same thing as an experiment
