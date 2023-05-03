@@ -4,7 +4,6 @@ import tkinter as tk
 
 import rich
 
-from ecephys import wne
 from ecephys.wne.utils import load_singleprobe_sorting
 import wisc_ecephys_tools as wet
 
@@ -13,8 +12,8 @@ alias = "full"
 
 
 # Get the available sortings
-ss = wne.ProjectLibrary(wet.get_projects_file()).get_project("shared_sortings")
-s3 = wne.ProjectLibrary(wet.get_projects_file()).get_project("shared_s3")
+ss = wet.get_wne_project("shared_sortings")
+s3 = wet.get_wne_project("shared_s3")
 chronic_sortings_dir = ss.get_alias_directory(experiment, alias)
 available_sortings = {
     subj.name: [
