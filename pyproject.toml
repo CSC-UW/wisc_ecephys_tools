@@ -5,7 +5,8 @@ description = "\"Private/internal tools specific to the Wisconsin Institute for 
 authors = ["Graham Findlay <gfindlay@wisc.edu>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "~3.11"
+ecephys = {path = "../ecephys", develop = true}
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
