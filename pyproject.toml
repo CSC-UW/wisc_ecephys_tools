@@ -1,16 +1,38 @@
-[tool.poetry]
-name = "wisc_ecephys_tools"
-version = "0.1.0"
-description = "\"Private/internal tools specific to the Wisconsin Institute for Sleep and Consciousness (WISC)\""
-authors = ["Graham Findlay <gfindlay@wisc.edu>"]
+[project]
+name = "wisc-ecephys-tools"
+version = "0.0.1"
+authors = [
+  { name="Graham Findlay", email="gfindlay@wisc.edu" }
+]
+description = "Private internal tools specific to the Wisconsin Institute for Sleep and Consciousness (WISC)"
+readme = "README.md"
+requires-python = ">=3.9,<4.0"
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: OS Independent"
+]
 
-[tool.poetry.dependencies]
-python = "~3.11"
-ecephys = {path = "../ecephys", develop = true}
+dependencies = [
+    "ecephys",
+]
 
-[tool.poetry.dev-dependencies]
-black = "^22.6.0"
+[project.optional-dependencies]
+
+dev = [
+    "black",
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=62.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 120
+
+[tool.setuptools]
+packages = ["wisc_ecephys_tools"]
