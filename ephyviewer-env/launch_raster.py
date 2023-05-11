@@ -178,7 +178,7 @@ if has_off and var_off.get():
         off_df,
         view_name="Offs",
         name_column="structures",
-        add_event_list=False
+        add_event_list=True,
     )
 
 if has_scorsig and var_scorsig.get():
