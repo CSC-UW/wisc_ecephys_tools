@@ -9,7 +9,8 @@ import rich
 
 from ecephys.wne.utils import load_singleprobe_sorting
 import wisc_ecephys_tools as wet
-from ecephys.units.ephyviewerutils import add_traceviewer_to_window
+from ecephys.units.ephyviewerutils import add_traceviewer_to_window, add_epochviewer_to_window
+from ecephys.utils import read_htsv
 
 experiment = "novel_objects_deprivation"
 alias = "full"
@@ -44,6 +45,15 @@ has_anatomy = {
     }
     for subject, probes in available_sortings.items()
 }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+has_off_df = {
+    subject: {
+        probe: s3.get_experiment_subject_file(
+            experiment, subject, f"{probe}.offs.htsv"
+        ).exists()
+        for probe in probes
+    }
+    for subject, probes in available_sortings.items()
+}  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
 has_scoring_sigs = {
     subject: all(
         [
@@ -59,6 +69,7 @@ sortings_summary = {
         "anatomy": has_anatomy[subject],
         "hypnogram": has_hypnogram[subject],
         "scoring_sigs": has_scoring_sigs[subject],
+        "offs": has_off_df[subject]
     }
     for subject in available_sortings
 }
@@ -115,14 +126,62 @@ singleprobe_sorting = singleprobe_sorting.refine_clusters(
 )
 
 
+has_off = has_off_df[subject][probe]
+has_hypno = has_hypnogram[subject]
+has_scorsig = has_scoring_sigs[subject]
+
+# GUI to select views to load
+window = tk.Tk()
+window.title("Select views to load.")
+if has_hypno:
+    var_hypno = tk.BooleanVar()
+    checkbox = tk.Checkbutton(window, text="Display hypnogram", variable=var_hypno)
+    checkbox.pack()
+    checkbox.select()
+if has_scorsig:
+    var_scorsig = tk.BooleanVar()
+    checkbox = tk.Checkbutton(window, text="Display scoring signals", variable=var_scorsig)
+    checkbox.pack()
+    checkbox.select()
+if has_off:
+    var_off = tk.BooleanVar()
+    checkbox = tk.Checkbutton(window, text="Display offs", variable=var_off)
+    checkbox.pack()
+structs_vars = {}
+for acronym in singleprobe_sorting.structs.acronym.unique():
+    N_units = (singleprobe_sorting.properties.acronym == acronym).sum()
+    structs_vars[acronym] = tk.BooleanVar()
+    checkbox = tk.Checkbutton(window, text=f"Display structure '{acronym}' (N={N_units})", variable=structs_vars[acronym])
+    checkbox.pack()
+    if N_units > 10:
+        checkbox.select()
+tk.Button(text="Submit", command=window.destroy).pack()
+window.mainloop()
+
+
 app = ephyviewer.mkQApp()
 window = ephyviewer.MainViewer(
     debug=True, show_auto_scale=False, global_xsize_zoom=True
 )
 
-window = singleprobe_sorting.add_ephyviewer_hypnogram_view(window)
+if has_hypno and var_hypno.get():
+    window = singleprobe_sorting.add_ephyviewer_hypnogram_view(window)
 
-if has_scoring_sigs[subject]:
+if has_off and var_off.get():
+    off_df = read_htsv(
+        s3.get_experiment_subject_file(
+            experiment, subject, f"{probe}.offs.htsv"
+        )
+    )
+    window = add_epochviewer_to_window(
+        window,
+        off_df,
+        view_name="Offs",
+        name_column="structures",
+        add_event_list=False
+    )
+
+if has_scorsig and var_scorsig.get():
     print("Loading scoring signals")
     lfp = xr.open_dataarray(
         slfp.get_experiment_subject_file(experiment, subject, "scoring_lfp.zarr"),
@@ -171,10 +230,13 @@ if has_scoring_sigs[subject]:
         view_params=view_params,
     )
 
+tgt_struct_acronyms = [
+    a for a, v in structs_vars.items() if v.get()
+]
 window = singleprobe_sorting.add_ephyviewer_spiketrain_views(
     window,
     by="depth",
-    tgt_struct_acronyms=None,
+    tgt_struct_acronyms=tgt_struct_acronyms,
     group_by_structure=True,
 )
 
