@@ -30,7 +30,11 @@ def get_projects_file(
     return Path(os.path.join(projects_dir, filename))
 
 
-def get_wne_project(projectName, filename=DEFAULT_PROJECTS_FILENAME, projects_dir=DEFAULT_PROJECTS_DIRECTORY):
-    projectsFile = get_projects_file(filename=filename, projects_dir=projects_dir)
-    projLib = wne.ProjectLibrary(projectsFile)
-    return projLib.get_project(project_name=projectName)
+def get_wne_project(
+    project_name,
+    filename=DEFAULT_PROJECTS_FILENAME,
+    projects_dir=DEFAULT_PROJECTS_DIRECTORY,
+):
+    projects_file = get_projects_file(filename=filename, projects_dir=projects_dir)
+    projects_library = wne.ProjectLibrary(projects_file)
+    return projects_library.get_project(project_name=project_name)
