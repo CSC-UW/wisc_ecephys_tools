@@ -160,24 +160,24 @@ def get_circadian_match_hypnogram(
 
 
 def compute_basic_novel_objects_deprivation_experiment_hypnograms(
-    experiment: str, subject: wne.sglx.Subject, duration="1:00:00"
+    subject: wne.sglx.Subject, duration="1:00:00"
 ) -> dict[str, hypnogram.FloatHypnogram]:
     duration = pd.to_timedelta(duration).total_seconds()
     hgs = dict()
 
-    nod_hg = get_novel_objects_hypnogram(experiment, subject)
+    nod_hg = get_novel_objects_hypnogram(NOD, subject)
     hgs["Early NOD"] = nod_hg.keep_first(duration)
     hgs["Late NOD"] = nod_hg.keep_last(duration)
 
     pdd2_hg = get_post_deprivation_day2_light_period_hypnogram(
-        experiment, subject, nod_hg["end_time"].max()
+        NOD, subject, nod_hg["end_time"].max()
     )
     rslp_hg = pdd2_hg.keep_states(["NREM"])
     hgs["Early Recovery NREM"] = rslp_hg.keep_first(duration)
     hgs["Late Recovery NREM"] = rslp_hg.keep_last(duration)
 
     match_hg = get_circadian_match_hypnogram(
-        experiment,
+        NOD,
         subject,
         hgs["Early Recovery NREM"]["start_time"].min(),
         hgs["Early Recovery NREM"]["end_time"].max(),
@@ -185,7 +185,7 @@ def compute_basic_novel_objects_deprivation_experiment_hypnograms(
     hgs["Early Recovery NREM match"] = match_hg
 
     hgs["Early Baseline NREM"] = (
-        get_day1_light_period_hypnogram(experiment, subject)
+        get_day1_light_period_hypnogram(NOD, subject)
         .keep_states(["NREM"])
         .keep_first(duration)
     )
