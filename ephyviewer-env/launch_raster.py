@@ -45,10 +45,11 @@ has_anatomy = {
     }
     for subject, probes in available_sortings.items()
 }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+off_fname_suffix = f"offs_bystruct_bystate_intermediate.htsv"
 has_off_df = {
     subject: {
         probe: s3.get_experiment_subject_file(
-            experiment, subject, f"{probe}.offs.htsv"
+            experiment, subject, f"{probe}.{off_fname_suffix}"
         ).exists()
         for probe in probes
     }
@@ -168,15 +169,16 @@ if has_hypno and var_hypno.get():
     window = singleprobe_sorting.add_ephyviewer_hypnogram_view(window)
 
 if has_off and var_off.get():
+    off_fname = f"{probe}.{off_fname_suffix}"
     off_df = read_htsv(
         s3.get_experiment_subject_file(
-            experiment, subject, f"{probe}.offs.htsv"
+            experiment, subject, off_fname
         )
     )
     window = add_epochviewer_to_window(
         window,
         off_df,
-        view_name="Offs",
+        view_name=f"{off_fname}",
         name_column="structures",
         add_event_list=True,
     )
