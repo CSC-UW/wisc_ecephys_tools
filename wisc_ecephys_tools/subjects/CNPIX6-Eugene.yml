@@ -9,24 +9,20 @@ experiments:
       - 9-24-2020
     aliases:
       light_period_circadian_match:
-        - start_file: 9.24.2020_BL_24hs_g0_t0
-          end_file: 9.24.2020_BL_24hs3_g0_t1
-        - start_file: 9.24.2020_BL_24hs5_g0_t0
-          end_file: 9.24.2020_BL_24hs5_g0_t0
+        - start_file: 9-24-2020_BL_24hs_g0_t0
+          end_file: 9-24-2020_BL_24hs5_g0_t0
       sleep_deprivation:
-        - start_file: 9.24.2020_SD_24hs_g0_t0
-          end_file: 9.24.2020_SD_24hs8_g0_t1
+        - start_file: 9-24-2020_SD_24hs_g0_t0
+          end_file: 9-24-2020_SD_24hs8_g0_t1
       recovery_sleep:
-        - start_file: 9.24.2020_SR_24hs_g0_t0
-          end_file: 9.24.2020_SR_24hs1_g0_t0
+        - start_file: 9-24-2020_SR_24hs_g0_t0
+          end_file: 9-24-2020_SR_24hs1_g0_t0
       light_period:
-        - start_file: 9.24.2020_SD_24hs_g0_t0
-          end_file: 9.24.2020_SR_24hs1_g0_t0
+        - start_file: 9-24-2020_SD_24hs_g0_t0
+          end_file: 9-24-2020_SR_24hs1_g0_t0
       full:
-        - start_file: 9.24.2020_BL_24hs_g0_t0
-          end_file: 9.24.2020_BL_24hs3_g0_t1
-        - start_file: 9.24.2020_BL_24hs5_g0_t0
-          end_file: 9.24.2020_SR_24hs5_g0_t2
+        - start_file: 9-24-2020_BL_24hs_g0_t0
+          end_file: 9-24-2020_SR_24hs5_g0_t2
     probes:
       imec0: # Parietal
         imec_map: LongCol_1shank
@@ -36,16 +32,4 @@ experiments:
         scoring: [187, 309, 381]
         initial_spw_sink_peak: [189]
         superficial_ctx: [375, 377, 379, 381, 383]
-        ##### Depths #####
-        hypothalamus_base: [0, 980]
-        thalamus_base: [980, 3980]
-        hippocampus_base: [3980, 6260]
-        cortex_base: [6260, 7660]
-        white_matter: [6220, 6380] # Added by Graham for SPWs
-        hippocampus: [4400, 6200] # Added by Graham for SPWs
-      imec1: # Frontal
-        ##### Depths #####
-        entorhinal_base: [0, 1780]
-        subiculum_base: [1780, 4980]
-        cortex_base: [4980, 7660]
 ...

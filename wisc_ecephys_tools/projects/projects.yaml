@@ -11,6 +11,10 @@ project: shared_sortings_nvme
 project_directory: /nvme/neuropixels/sorting/shared_sortings
 ...
 ---
+project: shared_sortings_uncurated
+project_directory: /Volumes/npx_nfs/shared_sortings_uncurated
+...
+---
 project: hypnogram
 project_directory: /Volumes/npx_nfs/shared_s3
 ...
