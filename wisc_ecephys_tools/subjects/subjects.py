@@ -9,7 +9,7 @@ def get_subjects_directory():
     return Path(DEFAULT_SUBJECTS_DIRECTORY)
 
 
-def get_wne_subject(subjectName):
+def get_sglx_subject(subjectName):
     subjectsDir = get_subjects_directory()
     subjLib = wne.sglx.SGLXSubjectLibrary(subjectsDir)
     return subjLib.get_subject(subjectName)
