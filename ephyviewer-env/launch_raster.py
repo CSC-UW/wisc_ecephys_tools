@@ -7,7 +7,7 @@ import numpy as np
 
 import rich
 
-from ecephys.wne.utils import load_singleprobe_sorting
+from ecephys.wne.sglx.utils import load_singleprobe_sorting
 import wisc_ecephys_tools as wet
 from ecephys.units.ephyviewerutils import add_traceviewer_to_window, add_epochviewer_to_window
 from ecephys.utils import read_htsv
@@ -17,7 +17,7 @@ alias = "full"
 
 
 # Get the available sortings
-ss = wet.get_wne_project("shared_sortings")
+ss = wet.get_sglx_project("shared_sortings")
 s3 = wet.get_wne_project("shared_s3")
 slfp = wet.get_wne_project("seahorse")
 chronic_sortings_dir = ss.get_alias_directory(experiment, alias)
@@ -96,7 +96,7 @@ subject, probe = available_subject_probes[subj_prb_i]
 print(f"\nLoading: {subject}, {probe}\n")
 
 # Load the sorting
-wneSubject = wet.get_wne_subject(subject)
+sglxSubject = wet.get_sglx_subject(subject)
 sorting = "sorting"
 postprocessing = "postpro"
 filters = {
@@ -112,7 +112,7 @@ wneHypnogramProject = s3 if has_hypnogram[subject] else None
 wneAnatomyProject = s3 if has_anatomy[subject][probe] else None
 singleprobe_sorting = load_singleprobe_sorting(
     ss,
-    wneSubject,
+    sglxSubject,
     experiment,
     alias,
     probe,
