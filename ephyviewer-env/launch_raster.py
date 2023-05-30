@@ -276,12 +276,12 @@ for tgt_struct in tgt_struct_acronyms:
                 add_event_list=True,
             )
 
-            window = singleprobe_sorting.add_ephyviewer_spiketrain_views(
-                window,
-                by="depth",
-                tgt_struct_acronyms=[tgt_struct],
-                group_by_structure=True,
-            )
+    window = singleprobe_sorting.add_ephyviewer_spiketrain_views(
+        window,
+        by="depth",
+        tgt_struct_acronyms=[tgt_struct],
+        group_by_structure=True,
+    )
 
 window.show()
 app.exec()
