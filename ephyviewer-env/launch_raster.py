@@ -9,7 +9,11 @@ import rich
 
 from ecephys.wne.sglx.utils import load_singleprobe_sorting
 import wisc_ecephys_tools as wet
-from ecephys.units.ephyviewerutils import add_traceviewer_to_window, add_epochviewer_to_window, add_spatialoff_viewer_to_window
+from ecephys.units.ephyviewerutils import (
+    add_traceviewer_to_window,
+    add_epochviewer_to_window,
+    add_spatialoff_viewer_to_window,
+)
 from ecephys.utils import read_htsv
 
 experiment = "novel_objects_deprivation"
@@ -153,7 +157,9 @@ if has_hypno:
     checkbox.select()
 if has_scorsig:
     var_scorsig = tk.BooleanVar()
-    checkbox = tk.Checkbutton(window, text="Display scoring signals", variable=var_scorsig)
+    checkbox = tk.Checkbutton(
+        window, text="Display scoring signals", variable=var_scorsig
+    )
     checkbox.pack()
 if has_off:
     var_off = tk.BooleanVar()
@@ -161,13 +167,19 @@ if has_off:
     checkbox.pack()
 if has_spatial_off:
     var_spatial_off = tk.BooleanVar()
-    checkbox = tk.Checkbutton(window, text="Display spatial offs", variable=var_spatial_off)
+    checkbox = tk.Checkbutton(
+        window, text="Display spatial offs", variable=var_spatial_off
+    )
     checkbox.pack()
 structs_vars = {}
 for acronym in singleprobe_sorting.structs.acronym.unique():
     N_units = (singleprobe_sorting.properties.acronym == acronym).sum()
     structs_vars[acronym] = tk.BooleanVar()
-    checkbox = tk.Checkbutton(window, text=f"Display structure '{acronym}' (N={N_units})", variable=structs_vars[acronym])
+    checkbox = tk.Checkbutton(
+        window,
+        text=f"Display structure '{acronym}' (N={N_units})",
+        variable=structs_vars[acronym],
+    )
     checkbox.pack()
     if N_units > 10:
         checkbox.select()
@@ -235,11 +247,7 @@ if has_scorsig and var_scorsig.get():
 
 if has_off and var_off.get():
     off_fname = f"{probe}.{off_fname_suffix}"
-    off_df = read_htsv(
-        s3.get_experiment_subject_file(
-            experiment, subject, off_fname
-        )
-    )
+    off_df = read_htsv(s3.get_experiment_subject_file(experiment, subject, off_fname))
     window = add_epochviewer_to_window(
         window,
         off_df,
@@ -248,17 +256,11 @@ if has_off and var_off.get():
         add_event_list=True,
     )
 
-tgt_struct_acronyms = [
-    a for a, v in structs_vars.items() if v.get()
-]
+tgt_struct_acronyms = [a for a, v in structs_vars.items() if v.get()]
 
 if has_spatial_off and var_spatial_off.get():
     off_fname = f"{probe}.{spatial_off_fname_suffix}"
-    off_df = read_htsv(
-        s3.get_experiment_subject_file(
-            experiment, subject, off_fname
-        )
-    )
+    off_df = read_htsv(s3.get_experiment_subject_file(experiment, subject, off_fname))
 
 for tgt_struct in tgt_struct_acronyms:
 
@@ -266,7 +268,9 @@ for tgt_struct in tgt_struct_acronyms:
         for struct in [s for s in off_df.structures.unique() if tgt_struct in s]:
 
             mask = off_df["structures"] == struct
-            struct_row = singleprobe_sorting.structs.set_index("acronym").loc[tgt_struct]
+            struct_row = singleprobe_sorting.structs.set_index("acronym").loc[
+                tgt_struct
+            ]
             ylim = struct_row["lo"], struct_row["hi"]
             window = add_spatialoff_viewer_to_window(
                 window,
