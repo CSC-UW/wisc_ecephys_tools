@@ -4,6 +4,7 @@ import tkinter as tk
 import ephyviewer
 import xarray as xr
 import numpy as np
+from ecephys.wne.constants import DF_OFF_FNAME_SUFFIX
 
 import rich
 
@@ -49,22 +50,32 @@ has_anatomy = {
     }
     for subject, probes in available_sortings.items()
 }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
-off_fname_suffix = f"offs_bystruct_bystate_intermediate.htsv"
+off_fname_glob = f"*global_offs_*"
 has_off_df = {
     subject: {
-        probe: s3.get_experiment_subject_file(
-            experiment, subject, f"{probe}.{off_fname_suffix}"
-        ).exists()
+        probe: len(
+            list(
+                (
+                    s3.get_experiment_subject_directory(experiment, subject) / "offs"
+                ).glob(f"{probe}{off_fname_glob}")
+            )
+        )
+        > 0
         for probe in probes
     }
     for subject, probes in available_sortings.items()
 }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
-spatial_off_fname_suffix = f"spatial_offs_bystruct_bystate_intermediate.htsv"
+spatial_off_fname_glob = f"*spatial_offs_*"
 has_spatial_off_df = {
     subject: {
-        probe: s3.get_experiment_subject_file(
-            experiment, subject, f"{probe}.{spatial_off_fname_suffix}"
-        ).exists()
+        probe: len(
+            list(
+                (
+                    s3.get_experiment_subject_directory(experiment, subject) / "offs"
+                ).glob(f"{probe}{spatial_off_fname_glob}")
+            )
+        )
+        > 0
         for probe in probes
     }
     for subject, probes in available_sortings.items()
@@ -162,15 +173,47 @@ if has_scorsig:
     )
     checkbox.pack()
 if has_off:
-    var_off = tk.BooleanVar()
-    checkbox = tk.Checkbutton(window, text="Display global offs", variable=var_off)
-    checkbox.pack()
+    # One checkbox per off_fname_suffix
+    # Glob "<prb>.<acronym>.global_offs_<suffix>" and extract suffix
+    off_fname_suffixes = np.unique(
+        [
+            ".".join(fpath.name.split(".")[2:])
+            # fname
+            for fpath in (
+                s3.get_experiment_subject_directory(experiment, subject) / "offs"
+            ).glob(f"{probe}*global_offs*")
+        ]
+    )  # Nasty sh*t good luck lol
+    global_off_vars = {}
+    for suffix in off_fname_suffixes:
+        var_off = tk.BooleanVar()
+        checkbox = tk.Checkbutton(
+            window, text=f"Display global offs: {suffix}", variable=var_off
+        )
+        if suffix == DF_OFF_FNAME_SUFFIX:
+            checkbox.select()
+        checkbox.pack()
+        global_off_vars[suffix] = var_off
 if has_spatial_off:
-    var_spatial_off = tk.BooleanVar()
-    checkbox = tk.Checkbutton(
-        window, text="Display spatial offs", variable=var_spatial_off
-    )
-    checkbox.pack()
+    # One checkbox per off_fname_suffix
+    # Glob "<prb>.<acronym>.spatial_offs_<suffix>" and extract suffix
+    spatial_off_fname_suffixes = np.unique(
+        [
+            ".".join(fpath.name.split(".")[2:])
+            # fname
+            for fpath in (
+                s3.get_experiment_subject_directory(experiment, subject) / "offs"
+            ).glob(f"{probe}*spatial_offs*")
+        ]
+    )  # Nasty sh*t good luck lol
+    spatial_off_vars = {}
+    for suffix in spatial_off_fname_suffixes:
+        var_off = tk.BooleanVar()
+        checkbox = tk.Checkbutton(
+            window, text=f"Display spatial offs: {suffix}", variable=var_off
+        )
+        checkbox.pack()
+        spatial_off_vars[suffix] = var_off
 structs_vars = {}
 for acronym in singleprobe_sorting.structs.acronym.unique():
     N_units = (singleprobe_sorting.properties.acronym == acronym).sum()
@@ -245,37 +288,52 @@ if has_scorsig and var_scorsig.get():
     )
 
 
-if has_off and var_off.get():
-    off_fname = f"{probe}.{off_fname_suffix}"
-    off_df = read_htsv(s3.get_experiment_subject_file(experiment, subject, off_fname))
-    window = add_epochviewer_to_window(
-        window,
-        off_df,
-        view_name=f"{off_fname}",
-        name_column="structures",
-        add_event_list=True,
-    )
+if has_off:
+    for suffix, var_off in global_off_vars.items():
+        if not var_off.get():
+            continue
+        offs_df = s3.load_offs_df(
+            experiment,
+            subject,
+            probe,
+            off_fname_suffix=suffix,
+        )
+        window = add_epochviewer_to_window(
+            window,
+            offs_df,
+            view_name=f"{suffix}",
+            name_column="structure",
+            add_event_list=True,
+        )
 
 tgt_struct_acronyms = [a for a, v in structs_vars.items() if v.get()]
 
-if has_spatial_off and var_spatial_off.get():
-    off_fname = f"{probe}.{spatial_off_fname_suffix}"
-    off_df = read_htsv(s3.get_experiment_subject_file(experiment, subject, off_fname))
-
 for tgt_struct in tgt_struct_acronyms:
 
-    if has_spatial_off and var_spatial_off.get():
-        for struct in [s for s in off_df.structures.unique() if tgt_struct in s]:
+    if has_spatial_off:
+        for suffix, var_off in spatial_off_vars.items():
+            if not var_off.get():
+                continue
 
-            mask = off_df["structures"] == struct
+            spatial_offs_df = s3.load_offs_df(
+                experiment,
+                subject,
+                probe,
+                off_fname_suffix=suffix,
+            )
+            spatial_offs_df = spatial_offs_df[
+                spatial_offs_df["structure"] == tgt_struct
+            ]
+
             struct_row = singleprobe_sorting.structs.set_index("acronym").loc[
                 tgt_struct
             ]
             ylim = struct_row["lo"], struct_row["hi"]
+
             window = add_spatialoff_viewer_to_window(
                 window,
-                off_df[mask],
-                view_name=f"Spatial off: {struct}, ylim={ylim}",
+                spatial_offs_df,
+                view_name=f"Spatial off: {tgt_struct}, ylim={ylim}, suffix={suffix}",
                 ylim=ylim,
                 add_event_list=True,
             )
