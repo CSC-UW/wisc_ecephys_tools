@@ -1,21 +1,13 @@
-import pathlib
 import sys
 import tkinter as tk
+
+from ecephys import wne
+from ecephys import units
 import ephyviewer
-import xarray as xr
 import numpy as np
-from ecephys.wne.constants import DF_OFF_FNAME_SUFFIX
-
 import rich
-
-from ecephys.wne.sglx.utils import load_singleprobe_sorting
 import wisc_ecephys_tools as wet
-from ecephys.units.ephyviewerutils import (
-    add_traceviewer_to_window,
-    add_epochviewer_to_window,
-    add_spatialoff_viewer_to_window,
-)
-from ecephys.utils import read_htsv
+import xarray as xr
 
 experiment = "novel_objects_deprivation"
 alias = "full"
@@ -134,9 +126,13 @@ filters = {
     # ...
 }
 
-wneHypnogramProject = s3 if has_hypnogram[subject] else None
+if has_hypnogram[subject]:
+    wneHypnogramProject = s3 if has_hypnogram[subject] else None
+    hg = wneHypnogramProject.load_float_hypnogram(
+        experiment, sglxSubject.name, simplify=True
+    )
 wneAnatomyProject = s3 if has_anatomy[subject][probe] else None
-singleprobe_sorting = load_singleprobe_sorting(
+singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
     ss,
     sglxSubject,
     experiment,
@@ -190,7 +186,7 @@ if has_off:
         checkbox = tk.Checkbutton(
             window, text=f"Display global offs: {suffix}", variable=var_off
         )
-        if suffix == DF_OFF_FNAME_SUFFIX:
+        if suffix == wne.DF_OFF_FNAME_SUFFIX:
             checkbox.select()
         checkbox.pack()
         global_off_vars[suffix] = var_off
@@ -215,7 +211,7 @@ if has_spatial_off:
         checkbox.pack()
         spatial_off_vars[suffix] = var_off
 structs_vars = {}
-for acronym in singleprobe_sorting.structs.acronym.unique():
+for acronym in singleprobe_sorting.structures_by_depth:
     N_units = (singleprobe_sorting.properties.acronym == acronym).sum()
     structs_vars[acronym] = tk.BooleanVar()
     checkbox = tk.Checkbutton(
@@ -236,7 +232,7 @@ window = ephyviewer.MainViewer(
 )
 
 if has_hypno and var_hypno.get():
-    window = singleprobe_sorting.add_ephyviewer_hypnogram_view(window)
+    window = units.ephyviewerutils.add_hypnogram_view_to_window(window, hg)
 
 if has_scorsig and var_scorsig.get():
     print("Loading scoring signals")
@@ -258,7 +254,7 @@ if has_scorsig and var_scorsig.get():
         "display_labels": True,
         "scale_mode": "same_for_all",
     }
-    window = add_traceviewer_to_window(
+    window = units.ephyviewerutils.add_traceviewer_to_window(
         window,
         lfp.data,
         1 / tdiff,
@@ -277,7 +273,7 @@ if has_scorsig and var_scorsig.get():
         "ylim_max": 0.8,
         # "scale_mode": "real_scale",
     }
-    window = add_traceviewer_to_window(
+    window = units.ephyviewerutils.add_traceviewer_to_window(
         window,
         emg.data,
         1 / tdiff,
@@ -298,7 +294,7 @@ if has_off:
             probe,
             off_fname_suffix=suffix,
         )
-        window = add_epochviewer_to_window(
+        window = units.ephyviewerutils.add_epochviewer_to_window(
             window,
             offs_df,
             view_name=f"{suffix}",
@@ -308,8 +304,8 @@ if has_off:
 
 tgt_struct_acronyms = [a for a, v in structs_vars.items() if v.get()]
 
+source_structures = singleprobe_sorting.get_annotation("structure_table")
 for tgt_struct in tgt_struct_acronyms:
-
     if has_spatial_off:
         for suffix, var_off in spatial_off_vars.items():
             if not var_off.get():
@@ -325,12 +321,10 @@ for tgt_struct in tgt_struct_acronyms:
                 spatial_offs_df["structure"] == tgt_struct
             ]
 
-            struct_row = singleprobe_sorting.structs.set_index("acronym").loc[
-                tgt_struct
-            ]
+            struct_row = source_structures.set_index("acronym").loc[tgt_struct]
             ylim = struct_row["lo"], struct_row["hi"]
 
-            window = add_spatialoff_viewer_to_window(
+            window = units.ephyviewerutils.add_spatialoff_viewer_to_window(
                 window,
                 spatial_offs_df,
                 view_name=f"Spatial off: {tgt_struct}, ylim={ylim}, suffix={suffix}",
@@ -338,8 +332,9 @@ for tgt_struct in tgt_struct_acronyms:
                 add_event_list=True,
             )
 
-    window = singleprobe_sorting.add_ephyviewer_spiketrain_views(
+    window = units.ephyviewerutils.add_spiketrain_views_from_sorting(
         window,
+        singleprobe_sorting,
         by="depth",
         tgt_struct_acronyms=[tgt_struct],
         group_by_structure=True,
