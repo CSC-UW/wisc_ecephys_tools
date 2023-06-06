@@ -141,7 +141,6 @@ singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
     sorting=sorting,
     postprocessing=postprocessing,
     wneAnatomyProject=wneAnatomyProject,
-    wneHypnogramProject=wneHypnogramProject,
 )
 singleprobe_sorting = singleprobe_sorting.refine_clusters(
     filters,
