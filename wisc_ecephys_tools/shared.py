@@ -13,7 +13,7 @@ PROJ = wet.get_wne_project(SHARED_PROJECT_NAME)
 
 
 def get_novel_objects_period(
-    experiment: str, subject: wne.sglx.Subject
+    experiment: str, subject: wne.sglx.SGLXSubject
 ) -> tuple[float, float]:
     params = PROJ.load_experiment_subject_params(experiment, subject.name)
     probe = params["hypnogram_probe"]
@@ -28,15 +28,15 @@ def get_novel_objects_period(
 
 
 def get_novel_objects_hypnogram(
-    experiment: str, subject: wne.sglx.Subject
+    experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
-    hg = PROJ.load_float_hypnogram(experiment, subject)
+    hg = PROJ.load_float_hypnogram(experiment, subject.name)
     (nod_start, nod_end) = wet.shared.get_novel_objects_period(experiment, subject)
     return hg.trim(nod_start, nod_end)
 
 
 def get_light_dark_periods(
-    experiment: str, subject: wne.sglx.Subject, as_float: bool = True
+    experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True
 ):
     """Get light/dark periods in chronological order.
 
@@ -95,10 +95,10 @@ def plot_lights_overlay(
     ax.set_xlim(xlim)
 
 
-def get_day2_hypnogram(
-    experiment: str, subject: wne.sglx.Subject
+def get_day1_hypnogram(
+    experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
-    hg = PROJ.load_float_hypnogram(experiment, subject)
+    hg = PROJ.load_float_hypnogram(experiment, subject.name)
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return hg.trim(
@@ -107,10 +107,22 @@ def get_day2_hypnogram(
     )
 
 
-def get_day1_light_period_hypnogram(
-    experiment: str, subject: wne.sglx.Subject
+def get_day2_hypnogram(
+    experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
-    hg = PROJ.load_float_hypnogram(experiment, subject)
+    hg = PROJ.load_float_hypnogram(experiment, subject.name)
+    intervals, labels = get_light_dark_periods(experiment, subject)
+    assert labels == ["on", "off", "on", "off"]
+    return hg.trim(
+        intervals[2][0],  # start of first light period,
+        intervals[3][1],  # end of first dark period
+    )
+
+
+def get_day1_light_period_hypnogram(
+    experiment: str, subject: wne.sglx.SGLXSubject
+) -> hypnogram.FloatHypnogram:
+    hg = PROJ.load_float_hypnogram(experiment, subject.name)
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return hg.trim(
@@ -120,7 +132,7 @@ def get_day1_light_period_hypnogram(
 
 
 def get_day1_dark_period_hypnogram(
-    experiment: str, subject: wne.sglx.Subject
+    experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
     hg = PROJ.load_float_hypnogram(experiment, subject)
     intervals, labels = get_light_dark_periods(experiment, subject)
@@ -132,9 +144,9 @@ def get_day1_dark_period_hypnogram(
 
 
 def get_day2_light_period_hypnogram(
-    experiment: str, subject: wne.sglx.Subject
+    experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
-    hg = PROJ.load_float_hypnogram(experiment, subject)
+    hg = PROJ.load_float_hypnogram(experiment, subject.name)
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return hg.trim(
@@ -144,23 +156,23 @@ def get_day2_light_period_hypnogram(
 
 
 def get_post_deprivation_day2_light_period_hypnogram(
-    experiment: str, subject: wne.sglx.Subject, sleep_deprivation_end: float
+    experiment: str, subject: wne.sglx.SGLXSubject, sleep_deprivation_end: float
 ) -> hypnogram.FloatHypnogram:
     hg = get_day2_light_period_hypnogram(experiment, subject)
     return hg.trim(sleep_deprivation_end, hg["end_time"].max())
 
 
 def get_circadian_match_hypnogram(
-    experiment: str, subject: wne.sglx.Subject, start: float, end: float
+    experiment: str, subject: wne.sglx.SGLXSubject, start: float, end: float
 ) -> hypnogram.FloatHypnogram:
-    hg = PROJ.load_float_hypnogram(experiment, subject)
+    hg = PROJ.load_float_hypnogram(experiment, subject.name)
     match_start = start - pd.to_timedelta("24h").total_seconds()
     match_end = end - pd.to_timedelta("24h").total_seconds()
     return hg.trim(match_start, match_end)
 
 
 def compute_basic_novel_objects_deprivation_experiment_hypnograms(
-    subject: wne.sglx.Subject, duration="1:00:00"
+    subject: wne.sglx.SGLXSubject, duration="1:00:00"
 ) -> dict[str, hypnogram.FloatHypnogram]:
     duration = pd.to_timedelta(duration).total_seconds()
     hgs = dict()

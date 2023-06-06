@@ -1,4 +1,5 @@
 import wisc_ecephys_tools as wet
+from ecephys.utils import read_htsv
 
 
 def get_completed_subject_probes(experiment, alias):
@@ -43,7 +44,38 @@ def get_completed_subject_probes(experiment, alias):
     completed_subject_probes = [
         (subj, prb) for subj, prb in available_subject_probes
         if has_hypnogram[subj]
-        and has_anatomy[subj]
+        and has_anatomy[subj][prb]
     ]
 
     return completed_subject_probes
+
+
+def get_completed_subject_probe_structures(experiment, alias, acronyms_to_ignore=None, acronyms_to_include=None):
+
+    if acronyms_to_ignore is None:
+        acronyms_to_ignore = []
+
+    # Get the available sortings
+    s3 = wet.get_wne_project("shared_s3")
+
+    completed_subject_probes = get_completed_subject_probes(
+        experiment,
+        alias,
+    )
+
+    completed_subject_probe_structures = []
+    for subj, prb in completed_subject_probes:
+        struct = read_htsv(
+            s3.get_experiment_subject_file(
+                experiment, subj, f"{prb}.structures.htsv"
+            )
+        )
+        for acronym in struct.acronym.unique():
+            if acronyms_to_include is not None and acronym not in acronyms_to_include:
+                continue
+            if not acronym in acronyms_to_ignore:
+                completed_subject_probe_structures.append(
+                    (subj, prb, acronym)
+                )
+    
+    return completed_subject_probe_structures

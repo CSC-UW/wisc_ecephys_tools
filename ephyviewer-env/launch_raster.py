@@ -4,12 +4,17 @@ import tkinter as tk
 import ephyviewer
 import xarray as xr
 import numpy as np
+from ecephys.wne.constants import DF_OFF_FNAME_SUFFIX
 
 import rich
 
-from ecephys.wne.utils import load_singleprobe_sorting
+from ecephys.wne.sglx.utils import load_singleprobe_sorting
 import wisc_ecephys_tools as wet
-from ecephys.units.ephyviewerutils import add_traceviewer_to_window, add_epochviewer_to_window
+from ecephys.units.ephyviewerutils import (
+    add_traceviewer_to_window,
+    add_epochviewer_to_window,
+    add_spatialoff_viewer_to_window,
+)
 from ecephys.utils import read_htsv
 
 experiment = "novel_objects_deprivation"
@@ -17,7 +22,7 @@ alias = "full"
 
 
 # Get the available sortings
-ss = wet.get_wne_project("shared_sortings")
+ss = wet.get_sglx_project("shared_sortings")
 s3 = wet.get_wne_project("shared_s3")
 slfp = wet.get_wne_project("seahorse")
 chronic_sortings_dir = ss.get_alias_directory(experiment, alias)
@@ -45,11 +50,32 @@ has_anatomy = {
     }
     for subject, probes in available_sortings.items()
 }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+off_fname_glob = f"*global_offs_*"
 has_off_df = {
     subject: {
-        probe: s3.get_experiment_subject_file(
-            experiment, subject, f"{probe}.offs.htsv"
-        ).exists()
+        probe: len(
+            list(
+                (
+                    s3.get_experiment_subject_directory(experiment, subject) / "offs"
+                ).glob(f"{probe}{off_fname_glob}")
+            )
+        )
+        > 0
+        for probe in probes
+    }
+    for subject, probes in available_sortings.items()
+}  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+spatial_off_fname_glob = f"*spatial_offs_*"
+has_spatial_off_df = {
+    subject: {
+        probe: len(
+            list(
+                (
+                    s3.get_experiment_subject_directory(experiment, subject) / "offs"
+                ).glob(f"{probe}{spatial_off_fname_glob}")
+            )
+        )
+        > 0
         for probe in probes
     }
     for subject, probes in available_sortings.items()
@@ -69,7 +95,8 @@ sortings_summary = {
         "anatomy": has_anatomy[subject],
         "hypnogram": has_hypnogram[subject],
         "scoring_sigs": has_scoring_sigs[subject],
-        "offs": has_off_df[subject]
+        "global offs": has_off_df[subject],
+        "spatial offs": has_spatial_off_df[subject],
     }
     for subject in available_sortings
 }
@@ -95,7 +122,7 @@ subject, probe = available_subject_probes[subj_prb_i]
 print(f"\nLoading: {subject}, {probe}\n")
 
 # Load the sorting
-wneSubject = wet.get_wne_subject(subject)
+sglxSubject = wet.get_sglx_subject(subject)
 sorting = "sorting"
 postprocessing = "postpro"
 filters = {
@@ -111,7 +138,7 @@ wneHypnogramProject = s3 if has_hypnogram[subject] else None
 wneAnatomyProject = s3 if has_anatomy[subject][probe] else None
 singleprobe_sorting = load_singleprobe_sorting(
     ss,
-    wneSubject,
+    sglxSubject,
     experiment,
     alias,
     probe,
@@ -127,6 +154,7 @@ singleprobe_sorting = singleprobe_sorting.refine_clusters(
 
 
 has_off = has_off_df[subject][probe]
+has_spatial_off = has_spatial_off_df[subject][probe]
 has_hypno = has_hypnogram[subject]
 has_scorsig = has_scoring_sigs[subject]
 
@@ -140,18 +168,61 @@ if has_hypno:
     checkbox.select()
 if has_scorsig:
     var_scorsig = tk.BooleanVar()
-    checkbox = tk.Checkbutton(window, text="Display scoring signals", variable=var_scorsig)
+    checkbox = tk.Checkbutton(
+        window, text="Display scoring signals", variable=var_scorsig
+    )
     checkbox.pack()
-    checkbox.select()
 if has_off:
-    var_off = tk.BooleanVar()
-    checkbox = tk.Checkbutton(window, text="Display offs", variable=var_off)
-    checkbox.pack()
+    # One checkbox per off_fname_suffix
+    # Glob "<prb>.<acronym>.global_offs_<suffix>" and extract suffix
+    off_fname_suffixes = np.unique(
+        [
+            ".".join(fpath.name.split(".")[2:])
+            # fname
+            for fpath in (
+                s3.get_experiment_subject_directory(experiment, subject) / "offs"
+            ).glob(f"{probe}*global_offs*")
+        ]
+    )  # Nasty sh*t good luck lol
+    global_off_vars = {}
+    for suffix in off_fname_suffixes:
+        var_off = tk.BooleanVar()
+        checkbox = tk.Checkbutton(
+            window, text=f"Display global offs: {suffix}", variable=var_off
+        )
+        if suffix == DF_OFF_FNAME_SUFFIX:
+            checkbox.select()
+        checkbox.pack()
+        global_off_vars[suffix] = var_off
+if has_spatial_off:
+    # One checkbox per off_fname_suffix
+    # Glob "<prb>.<acronym>.spatial_offs_<suffix>" and extract suffix
+    spatial_off_fname_suffixes = np.unique(
+        [
+            ".".join(fpath.name.split(".")[2:])
+            # fname
+            for fpath in (
+                s3.get_experiment_subject_directory(experiment, subject) / "offs"
+            ).glob(f"{probe}*spatial_offs*")
+        ]
+    )  # Nasty sh*t good luck lol
+    spatial_off_vars = {}
+    for suffix in spatial_off_fname_suffixes:
+        var_off = tk.BooleanVar()
+        checkbox = tk.Checkbutton(
+            window, text=f"Display spatial offs: {suffix}", variable=var_off
+        )
+        checkbox.pack()
+        spatial_off_vars[suffix] = var_off
 structs_vars = {}
 for acronym in singleprobe_sorting.structs.acronym.unique():
     N_units = (singleprobe_sorting.properties.acronym == acronym).sum()
     structs_vars[acronym] = tk.BooleanVar()
-    checkbox = tk.Checkbutton(window, text=f"Display structure '{acronym}' (N={N_units})", variable=structs_vars[acronym])
+    checkbox = tk.Checkbutton(
+        window,
+        text=f"Display structure '{acronym}' (N={N_units})",
+        variable=structs_vars[acronym],
+    )
     checkbox.pack()
     if N_units > 10:
         checkbox.select()
@@ -166,20 +237,6 @@ window = ephyviewer.MainViewer(
 
 if has_hypno and var_hypno.get():
     window = singleprobe_sorting.add_ephyviewer_hypnogram_view(window)
-
-if has_off and var_off.get():
-    off_df = read_htsv(
-        s3.get_experiment_subject_file(
-            experiment, subject, f"{probe}.offs.htsv"
-        )
-    )
-    window = add_epochviewer_to_window(
-        window,
-        off_df,
-        view_name="Offs",
-        name_column="structures",
-        add_event_list=True,
-    )
 
 if has_scorsig and var_scorsig.get():
     print("Loading scoring signals")
@@ -230,15 +287,63 @@ if has_scorsig and var_scorsig.get():
         view_params=view_params,
     )
 
-tgt_struct_acronyms = [
-    a for a, v in structs_vars.items() if v.get()
-]
-window = singleprobe_sorting.add_ephyviewer_spiketrain_views(
-    window,
-    by="depth",
-    tgt_struct_acronyms=tgt_struct_acronyms,
-    group_by_structure=True,
-)
+
+if has_off:
+    for suffix, var_off in global_off_vars.items():
+        if not var_off.get():
+            continue
+        offs_df = s3.load_offs_df(
+            experiment,
+            subject,
+            probe,
+            off_fname_suffix=suffix,
+        )
+        window = add_epochviewer_to_window(
+            window,
+            offs_df,
+            view_name=f"{suffix}",
+            name_column="structure",
+            add_event_list=True,
+        )
+
+tgt_struct_acronyms = [a for a, v in structs_vars.items() if v.get()]
+
+for tgt_struct in tgt_struct_acronyms:
+
+    if has_spatial_off:
+        for suffix, var_off in spatial_off_vars.items():
+            if not var_off.get():
+                continue
+
+            spatial_offs_df = s3.load_offs_df(
+                experiment,
+                subject,
+                probe,
+                off_fname_suffix=suffix,
+            )
+            spatial_offs_df = spatial_offs_df[
+                spatial_offs_df["structure"] == tgt_struct
+            ]
+
+            struct_row = singleprobe_sorting.structs.set_index("acronym").loc[
+                tgt_struct
+            ]
+            ylim = struct_row["lo"], struct_row["hi"]
+
+            window = add_spatialoff_viewer_to_window(
+                window,
+                spatial_offs_df,
+                view_name=f"Spatial off: {tgt_struct}, ylim={ylim}, suffix={suffix}",
+                ylim=ylim,
+                add_event_list=True,
+            )
+
+    window = singleprobe_sorting.add_ephyviewer_spiketrain_views(
+        window,
+        by="depth",
+        tgt_struct_acronyms=[tgt_struct],
+        group_by_structure=True,
+    )
 
 window.show()
 app.exec()

@@ -16,6 +16,7 @@ import os
 from pathlib import Path
 
 from ecephys import wne
+from ecephys.wne import sglx
 
 # You could name a project the same thing as an experiment
 # You could name a project "Common" or "Scoring" or "Sorting"
@@ -28,6 +29,16 @@ def get_projects_file(
     filename=DEFAULT_PROJECTS_FILENAME, projects_dir=DEFAULT_PROJECTS_DIRECTORY
 ):
     return Path(os.path.join(projects_dir, filename))
+
+
+def get_sglx_project(
+    project_name,
+    filename=DEFAULT_PROJECTS_FILENAME,
+    projects_dir=DEFAULT_PROJECTS_DIRECTORY,
+):
+    projects_file = get_projects_file(filename=filename, projects_dir=projects_dir)
+    projects_library = sglx.SGLXProjectLibrary(projects_file)
+    return projects_library.get_project(project_name=project_name)
 
 
 def get_wne_project(

@@ -46,4 +46,7 @@ project_directory: /Volumes/scratch/neuropixels/data/homeostasis
 project: test_project
 project_directory: /nvme/neuropixels/sorting/test_project
 ...
+---
+project: spatial_offs_test
+project_directory: /Volumes/npx_nfs/nobak/offs
 
