@@ -303,7 +303,7 @@ if has_off:
 
 tgt_struct_acronyms = [a for a, v in structs_vars.items() if v.get()]
 
-source_structures = singleprobe_sorting.get_annotation("structure_table")
+source_structures = singleprobe_sorting.si_obj.get_annotation("structure_table")
 for tgt_struct in tgt_struct_acronyms:
     if has_spatial_off:
         for suffix, var_off in spatial_off_vars.items():
