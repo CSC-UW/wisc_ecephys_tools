@@ -19,6 +19,7 @@ classifiers = [
 
 dependencies = [
     "ecephys",
+    "bg_atlasapi",
 ]
 
 [project.optional-dependencies]
