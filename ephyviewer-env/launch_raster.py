@@ -293,6 +293,8 @@ if has_off:
             probe,
             off_fname_suffix=suffix,
         )
+        if not len(offs_df):
+            continue
         window = units.ephyviewerutils.add_epochviewer_to_window(
             window,
             offs_df,
@@ -319,6 +321,9 @@ for tgt_struct in tgt_struct_acronyms:
             spatial_offs_df = spatial_offs_df[
                 spatial_offs_df["structure"] == tgt_struct
             ]
+
+            if not len(spatial_offs_df):
+                continue
 
             struct_row = source_structures.set_index("acronym").loc[tgt_struct]
             ylim = struct_row["lo"], struct_row["hi"]
