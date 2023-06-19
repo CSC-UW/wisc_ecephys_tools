@@ -20,6 +20,8 @@ classifiers = [
 dependencies = [
     "ecephys",
     "bg_atlasapi",
+    "altair",
+    "thefuzz",
 ]
 
 [project.optional-dependencies]
