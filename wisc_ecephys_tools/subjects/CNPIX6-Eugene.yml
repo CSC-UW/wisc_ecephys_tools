@@ -9,18 +9,6 @@ experiments:
     recording_session_ids:
       - 9-24-2020
     aliases:
-      light_period_circadian_match:
-        - start_file: 9-24-2020_BL_24hs_g0_t0
-          end_file: 9-24-2020_BL_24hs5_g0_t0
-      sleep_deprivation:
-        - start_file: 9-24-2020_SD_24hs_g0_t0
-          end_file: 9-24-2020_SD_24hs8_g0_t1
-      recovery_sleep:
-        - start_file: 9-24-2020_SR_24hs_g0_t0
-          end_file: 9-24-2020_SR_24hs1_g0_t0
-      light_period:
-        - start_file: 9-24-2020_SD_24hs_g0_t0
-          end_file: 9-24-2020_SR_24hs1_g0_t0
       full:
         - start_file: 9-24-2020_BL_24hs_g0_t0
           end_file: 9-24-2020_SR_24hs5_g0_t2

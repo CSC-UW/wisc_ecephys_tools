@@ -22,68 +22,15 @@ experiments:
       - 4-12-2022
       - 4-13-2022
     aliases:
-      light_period:
-        - start_file: 4-13-2022_g0_t0
-          end_file: 4-13-2022_g0_t5
-      light_period_circadian_match:
-        - start_file: 4-12-2022_g0_t0
-          end_file: 4-12-2022_g0_t5
       full:
         - start_file: 4-12-2022_g0_t0
           end_file: 4-13-2022_g0_t11
-      sleep_deprivation:
-        - start_file: 4-13-2022_g0_t0
-          end_file: 4-13-2022_g0_t2
-      recovery_sleep:
-        - start_file: 4-13-2022_g0_t3
-          end_file: 4-13-2022_g0_t5
-    probes:
-      imec0: # Frontal
-        ##### Depths #####
-        # TODO
-      imec1:
-        imec_map: LongCol_1shank
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [0, 382, 305]
-        scoring: [187, 287, 373]
-        initial_spw_sink_peak: [179]
-        superficial_ctx: [327, 329, 331, 333, 335]
-        ##### Depths #####
-        # TODO
-        hippocampus: [4100, 6140] # Added by Graham for SPWs
-        white_matter: [6140, 6340] # Added by Graham for SPWs
   conveyor_over_water:
     recording_session_ids:
       - 4-18-2022
       - 4-19-2022
     aliases:
-      light_period:
-        - start_file: 4-19-2022_g0_t0
-          end_file: 4-19-2022_g0_t5
-      light_period_circadian_match:
-        - start_file: 4-18-2022_g0_t0
-          end_file: 4-18-2022_g1_t3
       full:
         - start_file: 4-18-2022_g0_t0
           end_file: 4-19-2022_g0_t11
-      recovery_sleep:
-        - start_file: 4-19-2022_g0_t3
-          end_file: 4-19-2022_g0_t5
-    probes:
-      imec0: # Frontal
-        ##### Depths #####
-        # TODO
-      imec1: # Parietal
-        imec_map: LongCol_1shank #TODO: Deprecated, remove
-        ##### Channels #####
-        internal_reference: [191] # TODO: Deprecate.
-        emg_from_lfp: [0, 382, 305] # TODO: Deprecate.
-        scoring: [183, 283, 369] #TODO: Deprecate
-        initial_spw_sink_peak: [175] #TODO: Deprecated, remove.
-        superficial_ctx: [323, 325, 327, 329, 331] #TODO: Deprecate
-        ##### Depths #####
-        # TODO
-        hippocampus: [4100, 6140] # Added by Graham for SPWs. Deprecate
-        white_matter: [6140, 6340] # Added by Graham for SPWs. Deprecate
 ...

@@ -40,12 +40,6 @@ experiments:
       full:
         - start_file: 10-12-2022_g0_t0
           end_file: 10-13-2022_g2_t9
-      recovery_sleep:
-        - start_file: 10-13-2022_g2_t1
-          end_file: 10-13-2022_g2_t3
-      patch:
-        - start_file: 10-13-2022_g0_t2
-          end_file: 10-13-2022_g0_t2
   conveyor_over_water:
     recording_session_ids:
       - 10-17-2022
@@ -54,9 +48,6 @@ experiments:
       full:
         - start_file: 10-17-2022_g0_t0
           end_file: 10-18-2022_g0_t11
-      recovery_sleep:
-        - start_file: 10-18-2022_g0_t3
-          end_file: 10-18-2022_g0_t5
   conveyor_then_novelty:
     recording_session_ids:
       - 10-20-2022
@@ -65,9 +56,6 @@ experiments:
       full:
         - start_file: 10-20-2022_g0_t0
           end_file: 10-21-2022_g0_t11
-      recovery_sleep:
-        - start_file: 10-21-2022_g0_t4
-          end_file: 10-21-2022_g0_t7
   sevoflurane:
     recording_session_ids:
       - 10-24-2022

@@ -9,38 +9,7 @@ experiments:
     recording_session_ids:
       - 3-1-2021
     aliases:
-      light_period_circadian_match:
-        - start_file: 3-1-2021_g0_t0
-          end_file: 3-1-2021_C_g0_t8
-      sleep_deprivation:
-        # - start_file: 3-2-2021_A_g0_t0
-        #   end_file: 3-2-2021_E_g0_t0
-        - start_file: 3-2-2021_A_g0_t0
-          end_file: 3-2-2021_A_g0_t0
-        - start_file: 3-2-2021_B_g0_t0
-          end_file: 3-2-2021_B_g0_t1
-        - start_file: 3-2-2021_C_g0_t0
-          end_file: 3-2-2021_C_g0_t0
-        - start_file: 3-2-2021_D_g0_t0
-          end_file: 3-2-2021_D_g0_t2
-        - start_file: 3-2-2021_E_g0_t0
-          end_file: 3-2-2021_E_g0_t0
-      recovery_sleep:
-        - start_file: 3-2-2021_F_g0_t0
-          end_file: 3-2-2021_F_g0_t4
-        - start_file: 3-2-2021_G_g0_t0
-          end_file: 3-2-2021_G_g0_t0
-      light_period:
-        - start_file: 3-2-2021_A_g0_t0
-          end_file: 3-2-2021_G_g0_t0
       full:
         - start_file: 3-1-2021_g0_t0
           end_file: 3-2-2021_O_g0_t0
-      sleep-homeostasis-2h:
-        # baseline-sleep-2h-circadian-match
-        - start_file: 3-1-2021_C_g0_t2
-          end_file: 3-1-2021_C_g0_t3
-        # recovery_sleep
-        - start_file: 3-2-2021_F_g0_t0
-          end_file: 3-2-2021_F_g0_t1
 ...

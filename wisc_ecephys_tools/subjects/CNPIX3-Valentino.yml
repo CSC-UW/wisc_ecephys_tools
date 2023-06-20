@@ -14,28 +14,9 @@ experiments:
       - 2-19-2020
       - 2-20-2020
     aliases:
-      light_period_circadian_match:
-        - start_file: 2-19-2020_g1_t0
-          end_file: 2-19-2020_g1_t5
-      sleep_deprivation:
-        - start_file: 2-20-2020_g0_t0
-          end_file: 2-20-2020_g0_t2
-      recovery_sleep:
-        - start_file: 2-20-2020_g0_t3
-          end_file: 2-20-2020_g0_t5
-      light_period:
-        - start_file: 2-20-2020_g0_t0
-          end_file: 2-20-2020_g0_t5
       full:
         - start_file: 2-19-2020_g1_t0
           end_file: 2-19-2020_g1_t11
         - start_file: 2-20-2020_g0_t0
           end_file: 2-20-2020_g0_t11
-      sleep-homeostasis-2h:
-        # baseline-sleep-2h-circadian-match
-        - start_file: 2-19-2020_g1_t3
-          end_file: 2-19-2020_g1_t3
-        # recovery_sleep
-        - start_file: 2-20-2020_g0_t3.imec0
-          end_file: 2-20-2020_g0_t3.imec0
 ...

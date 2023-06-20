@@ -9,34 +9,12 @@ recording_sessions:
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-18-2020/SpikeGLX/
     imSyncType: square_pulse
 experiments:
-  novel_objects_deprivation: &NOD
+  novel_objects_deprivation:
     recording_session_ids:
       - 3-17-2020
       - 3-18-2020
     aliases:
-      light_period_circadian_match:
-        - start_file: 3-17-2020_g0_t0
-          end_file: 3-17-2020_g0_t5
-      sleep_deprivation:
-        - start_file: 3-18-2020_g0_t0
-          end_file: 3-18-2020_g0_t2
-      recovery_sleep:
-        - start_file: 3-18-2020_g0_t3
-          end_file: 3-18-2020_g0_t5
-      light_period:
-        - start_file: 3-18-2020_g0_t0
-          end_file: 3-18-2020_g0_t5
       full:
         - start_file: 3-17-2020_g0_t0
-          end_file: 3-18-2020_g0_t9
-      sleep-homeostasis-2h:
-        # baseline-sleep-2h-circadian-match
-        - start_file: 3-17-2020_g0_t3
-          end_file: 3-17-2020_g0_t3
-        # recovery_sleep
-        - start_file: 3-18-2020_g0_t3
-          end_file: 3-18-2020_g0_t3
-      patch:
-        - start_file: 3-18-2020_g0_t0
           end_file: 3-18-2020_g0_t9
 ...

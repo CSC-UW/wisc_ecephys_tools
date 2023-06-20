@@ -14,26 +14,7 @@ experiments:
       - 6-20-2021
       - 6-21-2021
     aliases:
-      light_period_circadian_match:
-        - start_file: 6-20-2021_g0_t0
-          end_file: 6-20-2021_g0_t5
-      sleep_deprivation:
-        - start_file: 6-21-2021_g0_t0
-          end_file: 6-21-2021_g0_t2
-      recovery_sleep:
-        - start_file: 6-21-2021_g1_t0
-          end_file: 6-21-2021_g1_t2
-      light_period:
-        - start_file: 6-21-2021_g0_t0
-          end_file: 6-21-2021_g1_t2
       full:
         - start_file: 6-20-2021_g0_t0
           end_file: 6-21-2021_g1_t8
-      sleep-homeostasis-2h:
-        # baseline-sleep-2h-circadian-match
-        - start_file: 6-20-2021_g0_t3
-          end_file: 6-20-2021_g0_t3
-        # recovery_sleep
-        - start_file: 6-21-2021_g1_t0
-          end_file: 6-21-2021_g1_t0
 ...
