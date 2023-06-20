@@ -3,11 +3,11 @@ recording_sessions:
   - id: 2-19-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX3-Valentino/2-19-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX3-Valentino/2-19-2020/SpikeGLX/
-    imSyncType: square_pulse
+    imSyncType: no_sync
   - id: 2-20-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX3-Valentino/2-20-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX3-Valentino/2-20-2020/SpikeGLX/
-    imSyncType: square_pulse
+    imSyncType: no_sync
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
