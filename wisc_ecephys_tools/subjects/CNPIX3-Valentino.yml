@@ -3,9 +3,11 @@ recording_sessions:
   - id: 2-19-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX3-Valentino/2-19-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX3-Valentino/2-19-2020/SpikeGLX/
+    imSyncType: square_pulse
   - id: 2-20-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX3-Valentino/2-20-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX3-Valentino/2-20-2020/SpikeGLX/
+    imSyncType: square_pulse
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -36,50 +38,4 @@ experiments:
         # recovery_sleep
         - start_file: 2-20-2020_g0_t3.imec0
           end_file: 2-20-2020_g0_t3.imec0
-    probes:
-      imec0:
-        imec_map: CheckPat_1shank #TODO: Remove
-        ##### Channels #####
-        internal_reference: [191] #TODO: Remove
-        initial_spw_sink_peak: [153] #TODO: Remove
-        emg_from_lfp: [0, 383, 381]
-        scoring: [169, 310, 381]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        ##### Depths #####
-        white_matter: [6100, 6260] # Added by Graham for SPWRs
-  sevo-dex:
-    probes:
-      imec0:
-        internal_reference: [191]
-        emg_from_lfp: [0, 383, 381]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        stratum_pyramidale_inversion: [193] # Manually ID'd
-  ketamine-90mg:
-    probes:
-      imec0:
-        internal_reference: [191]
-        emg_from_lfp: [0, 383, 381]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        stratum_pyramidale_inversion: [198] # Manually ID'd
-  sevoflurane:
-    probes:
-      imec0:
-        internal_reference: [191]
-        emg_from_lfp: [0, 383, 381]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        stratum_pyrmidale_inversion: [206] #Manually ID'd
-  atropine:
-    probes:
-      imec0:
-        internal_reference: [191]
-        emg_from_lfp: [0, 383, 381]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        stratum_pyramidale_inversion: [213] # Manually ID'd
-  isoflurane:
-    probes:
-      imec0:
-        internal_reference: [191]
-        emg_from_lfp: [0, 383, 381]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        stratum_pyramidale_inversion: [189] # Manually ID'd
 ...

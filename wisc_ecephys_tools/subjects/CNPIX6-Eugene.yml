@@ -3,6 +3,7 @@ recording_sessions:
   - id: 9-24-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX6-Eugene/9-24-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX6-Eugene/9-24-2020/SpikeGLX/
+    imSyncType: square_pulse
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -23,13 +24,4 @@ experiments:
       full:
         - start_file: 9-24-2020_BL_24hs_g0_t0
           end_file: 9-24-2020_SR_24hs5_g0_t2
-    probes:
-      imec0: # Parietal
-        imec_map: LongCol_1shank
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [0, 382, 381]
-        scoring: [187, 309, 381]
-        initial_spw_sink_peak: [189]
-        superficial_ctx: [375, 377, 379, 381, 383]
 ...

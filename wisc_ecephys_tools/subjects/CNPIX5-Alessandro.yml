@@ -3,9 +3,11 @@ recording_sessions:
   - id: 8-24-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX5-Alessandro/8-24-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX5-Alessandro/8-24-2020/SpikeGLX/
+    imSyncType: random
   - id: 8-25-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX5-Alessandro/8-25-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX5-Alessandro/8-25-2020/SpikeGLX/
+    imSyncType: random
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -34,25 +36,4 @@ experiments:
         # recovery_sleep
         - start_file: 8-25-2020_g0_t2
           end_file: 8-25-2020_g0_t3
-    probes:
-      imec0:
-        imec_map: LongCol_1shank
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [0, 382, 381]
-        scoring: [149, 239, 381]
-        initial_spw_sink_peak: [151]
-        superficial_ctx: [375, 377, 379, 381, 383]
-        ##### Depths #####
-        white_matter: [5920, 6080] # Added by Graham for SPWs
-        hippocampus: [3700, 5900] # Added by Graham for SPWs
-  dexmedetomidine-eStim:
-    probes:
-      imec0:
-        internal_reference: [191]
-        emg_from_lfp: [0, 358, 383]
-        superficial_ctx: [375, 377, 379, 381, 383]
-        stratum_pyramidale_inversion: [175] # Manually ID'd
-        stratum_radiatum: [155, 157, 159, 161] # 140um to 200um from SPI.
-        scoring: [157, 261, 375]
 ...

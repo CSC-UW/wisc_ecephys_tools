@@ -3,9 +3,11 @@ recording_sessions:
   - id: 12-12-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX7-Giuseppe/12-12-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX7-Giuseppe/12-12-2020/SpikeGLX/
+    imSyncType: barcode
   - id: 12-13-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX7-Giuseppe/12-13-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX7-Giuseppe/12-13-2020/SpikeGLX/
+    imSyncType: barcode
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -34,32 +36,4 @@ experiments:
         # recovery_sleep
         - start_file: 12-13-2020_SR_18hs_g0_t0
           end_file: 12-13-2020_SR_18hs_g0_t1
-    probes:
-      imec0: # Frontal
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [10, 382, 289]
-        scoring: [274, 320, 137, 233]
-        ##### Depths #####
-        # Cortex
-        cortex_inner: [1920, 6570.0]  # Neo Cortex 4850 um, 242 channels, 200um errror from these values
-        cortex_base: [1720, 6570.0]  # Neo Cortex 4850 um, 242 channels, 200um errror from these values
-        neocortex_inner: [1920, 6570.0]  # Neo Cortex 4850 um, 242 channels, 200um errror from these values
-        neocortex_base: [1720, 6570.0]  # Neo Cortex 4850 um, 242 channels, 200um errror from these values
-        # What is this?
-        DTr_base: [880.0, 1700.0] # Dorsal transition zone 840 um, 42 channels, Dtr (from tip) = 45:86, 200um error from these values
-        # Olfactory
-        AO_base: [0.0, 860.0] # Anterior Olfactory area 897 um, 44 Channels, AO (from tip) = 1:44, AO (from surf) = 1:X, 200um error from these values
-        # NB: Different frontal probe implantation
-      imec1: # Posterior
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [0, 382, 301]
-        scoring: [159, 263, 309]
-        ##### Depths #####
-        hypothalamus_base: [0, 780]
-        thalamus_base: [780, 3880]
-        hippocampus_base: [3880, 5980]
-        cortex_base: [5980, 7660]
-        # NB Different parietal probe implantation
 ...

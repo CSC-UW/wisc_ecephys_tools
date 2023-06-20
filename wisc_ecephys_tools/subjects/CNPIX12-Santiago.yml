@@ -3,15 +3,19 @@ recording_sessions:
   - id: 10-31-2021
     ap: /Volumes/NeuropixelNAS2-data2/CNPIX12-Santiago/10-31-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS2-data2/CNPIX12-Santiago/10-31-2021/SpikeGLX/
+    imSyncType: square_pulse
   - id: 11-1-2021
     ap: /Volumes/NeuropixelNAS2-data2/CNPIX12-Santiago/11-1-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS2-data2/CNPIX12-Santiago/11-1-2021/SpikeGLX/
+    imSyncType: square_pulse
   - id: 11-3-2021
     ap: /Volumes/NeuropixelNAS2-data2/CNPIX12-Santiago/11-3-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS2-data2/CNPIX12-Santiago/11-3-2021/SpikeGLX/
+    imSyncType: square_pulse
   - id: 11-4-2021
     ap: /Volumes/NeuropixelNAS2-data2/CNPIX12-Santiago/11-4-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS2-data2/CNPIX12-Santiago/11-4-2021/SpikeGLX/
+    imSyncType: barcode
 experiments:
   novel_objects_deprivation:
     recording_session_ids:

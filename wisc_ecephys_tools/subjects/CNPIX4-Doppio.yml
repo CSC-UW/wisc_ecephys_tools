@@ -3,9 +3,11 @@ recording_sessions:
   - id: 3-17-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-17-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-17-2020/SpikeGLX/
+    imSyncType: square_pulse
   - id: 3-18-2020
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-18-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-18-2020/SpikeGLX/
+    imSyncType: square_pulse
 experiments:
   novel_objects_deprivation: &NOD
     recording_session_ids:
@@ -37,71 +39,4 @@ experiments:
       patch:
         - start_file: 3-18-2020_g0_t0
           end_file: 3-18-2020_g0_t9
-    probes:
-      imec0: # Parietal
-        imec_map: CheckPat_1shank
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [0, 383, 381]
-        scoring: [150, 310, 381]
-        initial_spw_sink_peak: [149]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        stratum_pyrimidale_inversion: [166] # Manually ID'd
-        ##### Depths #####
-        # Cortex
-        cortex_inner: [6160, 7460]  # Medial parietal associative cortex. Accounts for 200um error
-        cortex_base: [5960, 7460]  # Medial parietal associative cortex. 200um error from these values
-        MPPtA_base: [5960, 7460]  # Medial parietal associative cortex. 200um error from these values
-        # Hippocampus
-        hippocampus_inner: [4200, 5740]  # Accounts for 200um error
-        hippocampus_base: [4000, 5940]  # 200um error from these values
-        # thal
-        thalamus_inner: [780, 3780]  # Accounts for 200um error
-        thalamus_base: [580, 3980]  # 200um error from these values
-        LPMR_base: [3060, 3960]  # Lateral Posterior MedioRostral thal nucleux. LPMR (from tip) = 154:199-200, LPMR (from surf) = 210:163. 200um error from these values
-        Po_base: [1620, 3040]  # Posterior Thal. nucleus. Po (from tip) = 82: 153, Po (from surf) = 162: 91. 200um error from these values
-        VPM_base: [580, 1600]  # Ventral posteromedial nucleus. VPM (from tip) = 30:80-81, VPM (from surf) = 90: 39, 200um error from these values
-        # hypo thalamus
-        hypothalamus_inner: [0, 360]  # Accounts for 200um error.
-        hypothalamus_base: [0, 560]  # 200um error from these values.
-        ZI_base: [0, 560]  # Zona Incerta. ZI = 1:29 from tip. 200um error from these values.
-        white_matter: [5920, 6080] # Added by Graham for SPWs
-        hippocampus: [3700, 5900] # Added by Graham for SPWs
-      imec1: # Frontal
-        ##### Depths #####
-        # Neocortex
-        cortex_inner: [1820.0, 6540.0]
-        cortex_base: [1620.0, 6540.0]
-        M2_base: [4780.0, 6540.0] # Secondary motor Cx = 1754 um, 88 channels , M2(from tip) = 240:328, 200um error from these values,,
-        A32D_base: [3220.0, 4760.0] # Cingulate Cx = 1540 um, 77 channels , A32D (from tip) = 162:239, 200um error from these values,,
-        A32V_base: [1660.0, 3200.0] # Cingulate Cx = 1540 um, 77 channels , A32V (from tip) = 84:161, 200um error from these values,
-        # Olfactory cortex
-        olfactory_cortex_base: [0.0, 1640.0]
-        DP_base: [1040.0, 1640.0]  # Dorsal peduncular Cx 591 um 30 channels DP (from tip) = 53:83. 200um error from these values
-        TT_base: [0, 1020.0]  # Tenia tecta 1040 um 52 Channels ,TT (from tip) = 1:52, 200um error from these values.
-  isoflurane: *NOD
-  sevoflurane: &Sevo
-    probes:
-      imec0:
-        internal_reference: [191]
-        emg_from_lfp: [0, 383, 381]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        stratum_pyrmidale_inversion: [170] # Manually ID'd
-  dexmedetomidine: *Sevo
-  atropine-10mg:
-    probes:
-      imec0:
-        internal_reference: [191]
-        emg_from_lfp: [0, 383, 381]
-        superficial_ctx: [374, 377, 378, 381, 382]
-        stratum_pyrmidale_inversion: [169] # Manually ID'd
-  ketamine-120mg:
-    probes:
-      imec1:
-          internal_reference: [191]
-          emg_from_lfp: [0, 383, 381]
-          superficial_ctx: [374, 377, 378, 381, 382]
-          stratum_pyrimidale_inversion: [97] # Manually ID'd
-          stratum_radiatum: [77, 78, 81, 82] # 140 um to 200 um from inversion
-          scoring: [81, 194, 382]
 ...

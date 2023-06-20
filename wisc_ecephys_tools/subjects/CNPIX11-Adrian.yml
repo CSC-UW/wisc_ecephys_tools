@@ -3,15 +3,19 @@ recording_sessions:
   - id: 8-27-2021
     ap: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-27-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-27-2021/SpikeGLX/
+    imSyncType: barcode
   - id: 8-28-2021
     ap: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-28-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-28-2021/SpikeGLX/
+    imSyncType: barcode
   - id: 8-30-2021
     ap: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-30-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-30-2021/SpikeGLX/
+    imSyncType: barcode
   - id: 8-31-2021
     ap: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-31-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS2-data2/CNPIX11-Adrian/8-31-2021/SpikeGLX/
+    imSyncType: barcode
 experiments:
   conveyor_over_water:
     recording_session_ids:
@@ -33,27 +37,6 @@ experiments:
       full:
         - start_file: 8-27-2021_g2_t0
           end_file: 8-28-2021_g0_t11
-    probes:
-      imec0: # Frontal
-        ##### Depths ######
-        neocortex_base: [2720, 6780]  # 137:340. Consistent with cluster distrib
-        cortex_base: [2720, 6780]  # 137:340. Consistent with cluster distrib
-        # TODO: M2/A32V/A32D
-        olfactory_cortex_base: [0, 2700]  # 1:136. NB:No cluster above 1750um.
-      imec1:
-        imec_map: LongCol_1shank
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [0, 382, 321]
-        superficial_ctx: [313, 315, 317, 319, 321] # Actually deep CTX
-        stratum_pyramidale_inversion: [207] # Manually ID'd
-        stratum_radiatum: [187, 189, 191, 193]
-        initial_spw_sink_peak: [193]
-        scoring: [189, 321]
-        ##### Depths ######
-        # TODO
-        white_matter: [6320, 6480] # Added by Graham for SPWs
-        hippocampus: [4100, 6300] # Added by Graham for SPWs
   novel_objects_deprivation:
     recording_session_ids:
       - 8-30-2021
@@ -81,36 +64,4 @@ experiments:
         # recovery_sleep
         - start_file: 8-31-2021_g0_t3
           end_file: 8-31-2021_g0_t3
-    probes:
-      imec0: # Frontal
-        ##### Depths ######
-        # TODO detailed histology (this was quick reconstruction)
-        # Neocortex
-        cortex_base: [2720.0, 6780.0] # Neocortex(from tip) = 137:340, 200um error from these values,
-        neocortex_base: [2720.0, 6780.0] # Neocortex(from tip) = 137:340, 200um error from these values,
-        # Olfactory cortex
-        olfactory_cortex_base: [2720.0, 6780.0] # Olfactory area(from tip) = 1:136, 200um error from these values,
-      imec1: # Parietal
-        imec_map: LongCol_1shank
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [0, 382, 321]
-        superficial_ctx: [313, 315, 317, 319, 321] # Actually deep CTX
-        stratum_pyramidale_inversion: [205] # Manually ID'd
-        stratum_radiatum: [185, 187, 189, 191]
-        initial_spw_sink_peak: [193]
-        scoring: [189, 321]
-        ##### Depths #####
-        # TODO detailed histology (this was quick reconstruction)
-        # Cortex
-        cortex_base: [6100.0, 7660]  # 306:384. 200um error from these values
-        # Hippocampus
-        hippocampus_base: [4160, 6080]  #  from tip: 209:305. 200um error from these values.
-        # thal
-        thalamus_base: [1000, 4140]  # 51:208 from tip. 200um error from these values.
-        # hypo thalamus
-        hypothalamus_base: [0, 980]  # 200um error from these values.
-        ZI_base: [0, 980]  # Zona Incerta. ZI (from tip) = 1: 50. 200um error from these values
-        white_matter: [6320, 6480] # Added by Graham for SPWs
-        hippocampus: [4100, 6300] # Added by Graham for SPWs
 ...

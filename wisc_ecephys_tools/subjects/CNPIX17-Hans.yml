@@ -2,27 +2,35 @@ recording_sessions:
   - id: 10-13-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-13-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-13-2022/SpikeGLX
+    imSyncType: barcode
   - id: 10-14-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-14-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-14-2022/SpikeGLX
+    imSyncType: barcode
   - id: 10-17-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-17-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-17-2022/SpikeGLX
+    imSyncType: barcode
   - id: 10-18-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-18-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-18-2022/SpikeGLX
+    imSyncType: barcode
   - id: 10-20-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-20-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-20-2022/SpikeGLX
+    imSyncType: barcode
   - id: 10-21-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-21-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-21-2022/SpikeGLX
+    imSyncType: barcode
   - id: 10-24-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-24-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-24-2022/SpikeGLX
+    imSyncType: barcode
   - id: 10-25-2022
     ap: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-25-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data3/CNPIX17-Hans/10-25-2022/SpikeGLX
+    imSyncType: barcode
 experiments:
   novel_objects_deprivation:
     recording_session_ids:

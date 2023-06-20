@@ -3,9 +3,11 @@ recording_sessions:
   - id: 1-5-2022
     ap: /Volumes/NeuropixelNAS2-data1/CNPIX13-Al/1-5-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data1/CNPIX13-Al/1-5-2022/SpikeGLX
+    imSyncType: barcode
   - id: 1-6-2022
     ap: /Volumes/NeuropixelNAS2-data1/CNPIX13-Al/1-6-2022/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data1/CNPIX13-Al/1-6-2022/SpikeGLX
+    imSyncType: barcode
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -21,14 +23,4 @@ experiments:
       recovery_sleep:
         - start_file: 1-5-2022_g0_t3
           end_file: 1-5-2022_g0_t5
-    probes:
-      imec0:  # Frontal (orbitofrontal cortex implantation)
-        imec_map: LongCol_1shank
-        ##### Channels #####
-        internal_reference: [191]
-        emg_from_lfp: [74, 348, 349]
-        scoring: [355, 249, 141, 376]
-        ##### Depths #####
-        # TODO
-      imec1: {} # Parietal exists but is "bad"
 ...
