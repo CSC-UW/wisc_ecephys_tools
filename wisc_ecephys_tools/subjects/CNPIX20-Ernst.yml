@@ -15,6 +15,10 @@ recording_sessions:
     ap: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/2-9-2023/SpikeGLX
     lf: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/2-9-2023/SpikeGLX
     imSyncType: barcode
+  - id: 2-15-2023
+    ap: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/2-15-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS2-data4/CNPIX20-Ernst/2-15-2023/SpikeGLX
+    imSyncType: barcode
 experiments:
   auditory_stim:
     recording_session_ids:
@@ -45,3 +49,10 @@ experiments:
       full:
         - start_file: 2-9-2023_g0_t0
           end_file: 2-9-2023_g0_t24
+  sevoflurane:
+    recording_session_ids:
+      - 2-15-2023
+    aliases:
+      full:
+        - start_file: 2-15-2023_g0_t0
+          end_file: 2-15-2023_g0_t2
