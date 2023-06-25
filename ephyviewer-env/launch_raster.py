@@ -82,8 +82,13 @@ has_scoring_sigs = {
     )
     for subject in available_sortings
 }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
-has_sharp_waves = {
-    subject: slfp.get_experiment_subject_file(experiment, subject, "spws.pqt").exists()
+has_sharp_wave_ripples = {
+    subject: (
+        slfp.get_experiment_subject_file(experiment, subject, "spws.pqt").exists()
+        and slfp.get_experiment_subject_file(
+            experiment, subject, "ripples.pqt"
+        ).exists()
+    )
     for subject in available_sortings
 }
 
@@ -95,7 +100,7 @@ sortings_summary = {
         "scoring_sigs": has_scoring_sigs[subject],
         "global offs": has_off_df[subject],
         "spatial offs": has_spatial_off_df[subject],
-        "spws": has_sharp_waves[subject],
+        "spwrs": has_sharp_wave_ripples[subject],
     }
     for subject in available_sortings
 }
@@ -159,7 +164,7 @@ has_off = has_off_df[subject][probe]
 has_spatial_off = has_spatial_off_df[subject][probe]
 has_hypno = has_hypnogram[subject]
 has_scorsig = has_scoring_sigs[subject]
-has_spws = has_sharp_waves[subject]
+has_spwrs = has_sharp_wave_ripples[subject]
 
 # GUI to select views to load
 window = tk.Tk()
@@ -218,9 +223,11 @@ if has_spatial_off:
         checkbox.pack()
         spatial_off_vars[suffix] = var_off
 structs_vars = {}
-if has_spws:
-    var_spws = tk.BooleanVar()
-    checkbox = tk.Checkbutton(window, text="Display sharp waves", variable=var_spws)
+if has_spwrs:
+    var_spwrs = tk.BooleanVar()
+    checkbox = tk.Checkbutton(
+        window, text="Display sharp waves and ripples", variable=var_spwrs
+    )
     checkbox.pack()
 for acronym in singleprobe_sorting.structures_by_depth:
     N_units = (singleprobe_sorting.properties.acronym == acronym).sum()
@@ -315,10 +322,8 @@ if has_off:
             add_event_list=True,
         )
 
-if has_spws and var_spws.get():
-    print("Loading sharp waves")
-    spw_file = slfp.get_experiment_subject_file(experiment, subject, "spws.pqt")
-    spws = pd.read_parquet(spw_file).sort_values("start_time").reset_index(drop=True)
+if has_spwrs and var_spwrs.get():
+    print("Loading sharp waves and ripples")
 
     def get_ephyviewer_epochs_dict(df: pd.DataFrame, name: str) -> tuple[dict, dict]:
         durations = (df["end_time"] - df["start_time"]).values
@@ -327,13 +332,24 @@ if has_spws and var_spws.get():
 
         return {"time": times, "duration": durations, "label": labels, "name": name}
 
-    epochs = get_ephyviewer_epochs_dict(spws, "SPW")
-    epoch_source = ephyviewer.InMemoryEpochSource(all_epochs=[epochs])
-    epoch_view = ephyviewer.EpochViewer(source=epoch_source, name="Events")
+    spw_file = slfp.get_experiment_subject_file(experiment, subject, "spws.pqt")
+    spws = pd.read_parquet(spw_file).sort_values("start_time").reset_index(drop=True)
+    spw_epochs = get_ephyviewer_epochs_dict(spws, "SPW")
+
+    ripples_file = slfp.get_experiment_subject_file(experiment, subject, "ripples.pqt")
+    ripples = (
+        pd.read_parquet(ripples_file).sort_values("start_time").reset_index(drop=True)
+    )
+    ripple_epochs = get_ephyviewer_epochs_dict(ripples, "Ripple")
+
+    epoch_source = ephyviewer.InMemoryEpochSource(
+        all_epochs=[spw_epochs, ripple_epochs]
+    )
+    epoch_view = ephyviewer.EpochViewer(source=epoch_source, name="SPWRs")
     window.add_view(epoch_view, location="bottom", orientation="vertical")
 
-    event_view = ephyviewer.EventList(source=epoch_source, name="Event List")
-    window.add_view(event_view, orientation="horizontal")
+    # event_view = ephyviewer.EventList(source=epoch_source, name="Event List")
+    # window.add_view(event_view, orientation="horizontal")
 
 tgt_struct_acronyms = [a for a, v in structs_vars.items() if v.get()]
 
