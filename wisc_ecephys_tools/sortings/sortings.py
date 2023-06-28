@@ -23,10 +23,9 @@ def get_subject_probe_list(experiment: str, alias: str) -> list[tuple[str, str]]
     """Return [(<subj>, <prb>)] list of completed sortings."""
 
     # Get the available sortings
-    ss = wet.get_wne_project("shared_sortings")
     s3 = wet.get_wne_project("shared_s3")
 
-    sortings_dir = ss.get_alias_directory(experiment, alias)
+    sortings_dir = s3.get_alias_directory(experiment, alias)
 
     available_sortings = {
         subj.name: [x.name.removeprefix("sorting.") for x in sorted(subj.glob("sorting.imec*"))]

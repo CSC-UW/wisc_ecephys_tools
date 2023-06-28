@@ -15,10 +15,9 @@ alias = "full"
 
 
 # Get the available sortings
-ss = wet.get_sglx_project("shared_sortings")
-s3 = wet.get_wne_project("shared_s3")
+s3 = wet.get_sglx_project("shared_s3")
 slfp = wet.get_wne_project("seahorse")
-chronic_sortings_dir = ss.get_alias_directory(experiment, alias)
+chronic_sortings_dir = s3.get_alias_directory(experiment, alias)
 available_sortings = {
     subj.name: [
         x.name.removeprefix("sorting.") for x in sorted(subj.glob("sorting.imec*"))
@@ -145,14 +144,13 @@ if has_hypnogram[subject]:
     )
 wneAnatomyProject = s3 if has_anatomy[subject][probe] else None
 singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
-    ss,
+    s3,
     sglxSubject,
     experiment,
     alias,
     probe,
     sorting=sorting,
     postprocessing=postprocessing,
-    wneAnatomyProject=wneAnatomyProject,
 )
 singleprobe_sorting = singleprobe_sorting.refine_clusters(
     filters,
