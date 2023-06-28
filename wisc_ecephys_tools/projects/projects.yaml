@@ -1,6 +1,6 @@
 ---
 project: shared_sortings
-project_directory: /Volumes/npx_nfs/shared_sortings
+project_directory: /Volumes/npx_nfs/shared_s3
 ...
 ---
 project: shared_sortings_ssd
@@ -12,7 +12,7 @@ project_directory: /nvme/neuropixels/sorting/shared_sortings
 ...
 ---
 project: shared_sortings_uncurated
-project_directory: /Volumes/npx_nfs/shared_sortings_uncurated
+project_directory: /Volumes/npx_nfs/nobak/shared_sortings_uncurated
 ...
 ---
 project: hypnogram
