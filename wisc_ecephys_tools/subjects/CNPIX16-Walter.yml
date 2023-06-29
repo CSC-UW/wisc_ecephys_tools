@@ -16,5 +16,5 @@ experiments:
     aliases:
       full:
         - start_file: 9-29-2022_g0_t0
-          end_file: 9-30-2022_g0_t11
+          end_file: 9-30-2022_g0_t5
 ...
