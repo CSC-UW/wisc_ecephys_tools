@@ -151,6 +151,7 @@ singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
     probe,
     sorting=sorting,
     postprocessing=postprocessing,
+    allow_no_sync_file=True,
 )
 singleprobe_sorting = singleprobe_sorting.refine_clusters(
     filters,
