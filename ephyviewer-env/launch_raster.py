@@ -10,98 +10,120 @@ import rich
 import wisc_ecephys_tools as wet
 import xarray as xr
 
-experiment = "novel_objects_deprivation"
-alias = "full"
+experiment_alias_list = [
+    ("novel_objects_deprivation", "full"),
+    ("sst-experiment", "full"),
+    ("auditory_stim", "full"),
+    ("discoflow-day1", "full"),
+    ("discoflow-day2", "full"),
+]
 
 
-# Get the available sortings
+def get_available_sortings(experiment, alias):
+    # Get the available sortings
+    s3 = wet.get_sglx_project("shared_s3")
+    sortings_dir = s3.get_alias_directory(experiment, alias)
+    return {
+        subj.name: [
+            x.name.removeprefix("sorting.") for x in sorted(subj.glob("sorting.imec*"))
+        ]
+        for subj in sortings_dir.iterdir()
+        if subj.is_dir()
+    }  # e.g. {'CNPIX4-Doppio': ['imec0', 'imec1], 'CNPIX9-Luigi: ['imec0], ...}
+
+
+# Get the available sortings, per experiment
 s3 = wet.get_sglx_project("shared_s3")
 slfp = wet.get_wne_project("seahorse")
-chronic_sortings_dir = s3.get_alias_directory(experiment, alias)
 available_sortings = {
-    subj.name: [
-        x.name.removeprefix("sorting.") for x in sorted(subj.glob("sorting.imec*"))
-    ]
-    for subj in chronic_sortings_dir.iterdir()
-    if subj.is_dir()
-}  # e.g. {'CNPIX4-Doppio': ['imec0', 'imec1], 'CNPIX9-Luigi: ['imec0], ...}
-
-# Collect info about the various sortings, for display, and for determing parameters to use when loading
-has_hypnogram = {
-    subject: s3.get_experiment_subject_file(
-        experiment, subject, "hypnogram.htsv"
-    ).exists()
-    for subject in available_sortings
-}  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
-has_anatomy = {
-    subject: {
-        probe: s3.get_experiment_subject_file(
-            experiment, subject, f"{probe}.structures.htsv"
-        ).exists()
-        for probe in probes
-    }
-    for subject, probes in available_sortings.items()
-}  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
-off_fname_glob = f"*global_offs_*"
-has_off_df = {
-    subject: {
-        probe: len(
-            list(
-                (
-                    s3.get_experiment_subject_directory(experiment, subject) / "offs"
-                ).glob(f"{probe}{off_fname_glob}")
-            )
-        )
-        > 0
-        for probe in probes
-    }
-    for subject, probes in available_sortings.items()
-}  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
-spatial_off_fname_glob = f"*spatial_offs_*"
-has_spatial_off_df = {
-    subject: {
-        probe: len(
-            list(
-                (
-                    s3.get_experiment_subject_directory(experiment, subject) / "offs"
-                ).glob(f"{probe}{spatial_off_fname_glob}")
-            )
-        )
-        > 0
-        for probe in probes
-    }
-    for subject, probes in available_sortings.items()
-}  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
-has_scoring_sigs = {
-    subject: all(
-        [
-            slfp.get_experiment_subject_file(experiment, subject, fname).exists()
-            for fname in ["scoring_lfp.zarr", "scoring_emg.zarr"]
-        ]
-    )
-    for subject in available_sortings
-}  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
-has_sharp_wave_ripples = {
-    subject: (
-        slfp.get_experiment_subject_file(experiment, subject, "spws.pqt").exists()
-        and slfp.get_experiment_subject_file(
-            experiment, subject, "ripples.pqt"
-        ).exists()
-    )
-    for subject in available_sortings
+    (experiment, alias): get_available_sortings(experiment, alias)
+    for experiment, alias in experiment_alias_list
 }
 
-sortings_summary = {
-    subject: {
-        "probes": available_sortings[subject],
-        "anatomy": has_anatomy[subject],
-        "hypnogram": has_hypnogram[subject],
-        "scoring_sigs": has_scoring_sigs[subject],
-        "global offs": has_off_df[subject],
-        "spatial offs": has_spatial_off_df[subject],
-        "spwrs": has_sharp_wave_ripples[subject],
+# Collect info about the various sortings, for display, and for determing parameters to use when loading
+has_hypnogram = {}
+has_anatomy = {}
+has_off_df = {}
+has_spatial_off_df = {}
+has_scoring_sigs = {}
+has_sharp_wave_ripples = {}
+for experiment, alias in experiment_alias_list:
+    has_hypnogram[(experiment, alias)] = {
+        subject: s3.get_experiment_subject_file(
+            experiment, subject, "hypnogram.htsv"
+        ).exists()
+        for subject in available_sortings[(experiment, alias)]
+    }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+    has_anatomy[(experiment, alias)] = {
+        subject: {
+            probe: s3.get_experiment_subject_file(
+                experiment, subject, f"{probe}.structures.htsv"
+            ).exists()
+            for probe in probes
+        }
+        for subject, probes in available_sortings[(experiment, alias)].items()
+    }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+    off_fname_glob = f"*global_offs_*"
+    has_off_df[(experiment, alias)] = {
+        subject: {
+            probe: len(
+                list(
+                    (
+                        s3.get_experiment_subject_directory(experiment, subject) / "offs"
+                    ).glob(f"{probe}{off_fname_glob}")
+                )
+            )
+            > 0
+            for probe in probes
+        }
+        for subject, probes in available_sortings[(experiment, alias)].items()
+    }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+    spatial_off_fname_glob = f"*spatial_offs_*"
+    has_spatial_off_df[(experiment, alias)] = {
+        subject: {
+            probe: len(
+                list(
+                    (
+                        s3.get_experiment_subject_directory(experiment, subject) / "offs"
+                    ).glob(f"{probe}{spatial_off_fname_glob}")
+                )
+            ) > 0
+            for probe in probes
+        }
+        for subject, probes in available_sortings[(experiment, alias)].items()
+    }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+    has_scoring_sigs[(experiment, alias)] = {
+        subject: all(
+            [
+                slfp.get_experiment_subject_file(experiment, subject, fname).exists()
+                for fname in ["scoring_lfp.zarr", "scoring_emg.zarr"]
+            ]
+        )
+        for subject in available_sortings[(experiment, alias)]
+    }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
+    has_sharp_wave_ripples[(experiment, alias)] = {
+        subject: (
+            slfp.get_experiment_subject_file(experiment, subject, "spws.pqt").exists()
+            and slfp.get_experiment_subject_file(
+                experiment, subject, "ripples.pqt"
+            ).exists()
+        )
+        for subject in available_sortings[(experiment, alias)]
     }
-    for subject in available_sortings
+
+sortings_summary = {
+    (experiment, alias): {
+        subject: {
+            "probes": available_sortings[(experiment, alias)][subject],
+            "anatomy": has_anatomy[(experiment, alias)][subject],
+            "hypnogram": has_hypnogram[(experiment, alias)][subject],
+            "scoring_sigs": has_scoring_sigs[(experiment, alias)][subject],
+            "global offs": has_off_df[(experiment, alias)][subject],
+            "spatial offs": has_spatial_off_df[(experiment, alias)][subject],
+            "spwrs": has_sharp_wave_ripples[(experiment, alias)][subject],
+        }
+        for subject in available_sortings[experiment, alias]
+    } for experiment, alias in experiment_alias_list
 }
 
 # Simple GUI dialog for getting the desired probe
@@ -110,19 +132,40 @@ tk.Label(root, text="Available sortings").pack()
 txt = tk.Text(root)
 txt.insert(tk.END, rich.pretty.pretty_repr(sortings_summary))
 txt.pack(anchor="w")
+# Position radio buttons within scrollable frame (too many sortings !): https://stackoverflow.com/a/71682458
+outer_frame = tk.Frame(root)  # Contains canvas and scrollbar
+outer_frame.pack(fill=tk.BOTH, expand=1)
+# canvas
+my_canvas = tk.Canvas(outer_frame)
+my_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
+# scrollbar
+my_scrollbar = tk.Scrollbar(outer_frame, orient=tk.VERTICAL, command=my_canvas.yview)
+my_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+# Frame within canvas, containing buttons
+second_frame = tk.Frame(my_canvas, width = 1000, height = 100)
+# configure the scrollable canvas
+my_canvas.configure(yscrollcommand=my_scrollbar.set)
+my_canvas.bind(
+    '<Configure>', lambda e: my_canvas.configure(scrollregion=my_canvas.bbox("all"))
+)
+my_canvas.configure(scrollregion = my_canvas.bbox("all"))
 v = tk.IntVar()
-available_subject_probes = [(None, None)]
-for subj, prbs in available_sortings.items():
-    available_subject_probes += [(subj, prb) for prb in prbs]
-for i, (subj, prb) in enumerate(available_subject_probes):
-    tk.Radiobutton(root, text=f"{subj}, {prb}", variable=v, value=i).pack(anchor="w")
+available_subject_probes = [(None, None, None, None)]
+for experiment, alias in available_sortings:
+    for subj, prbs in available_sortings[(experiment, alias)].items():
+        available_subject_probes += [(experiment, alias, subj, prb) for prb in prbs]
+for i, (experiment, alias, subj, prb) in enumerate(available_subject_probes):
+    tk.Radiobutton(second_frame, text=f"{experiment}, {alias} : {subj}, {prb}", variable=v, value=i).pack(anchor="w")
 tk.Button(text="Submit", command=root.destroy).pack()
+my_canvas.create_window((0, 0), window=second_frame, anchor="nw")
+
+
 root.mainloop()
 subj_prb_i = v.get()
 if subj_prb_i == 0:  # If window was closed without making a selection
     sys.exit()
-subject, probe = available_subject_probes[subj_prb_i]
-print(f"\nLoading: {subject}, {probe}\n")
+experiment, alias, subject, probe = available_subject_probes[subj_prb_i]
+print(f"\nLoading: {experiment}, {alias}, {subject}, {probe}\n")
 
 # Load the sorting
 sglxSubject = wet.get_sglx_subject(subject)
@@ -137,12 +180,12 @@ filters = {
     # ...
 }
 
-if has_hypnogram[subject]:
-    wneHypnogramProject = s3 if has_hypnogram[subject] else None
+if has_hypnogram[(experiment, alias)][subject]:
+    wneHypnogramProject = s3 if has_hypnogram[(experiment, alias)][subject] else None
     hg = wneHypnogramProject.load_float_hypnogram(
         experiment, sglxSubject.name, simplify=True
     )
-wneAnatomyProject = s3 if has_anatomy[subject][probe] else None
+wneAnatomyProject = s3 if has_anatomy[(experiment, alias)][subject][probe] else None
 singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
     s3,
     sglxSubject,
@@ -151,6 +194,7 @@ singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
     probe,
     sorting=sorting,
     postprocessing=postprocessing,
+    allow_no_sync_file=True,
 )
 singleprobe_sorting = singleprobe_sorting.refine_clusters(
     filters,
@@ -158,11 +202,11 @@ singleprobe_sorting = singleprobe_sorting.refine_clusters(
 )
 
 
-has_off = has_off_df[subject][probe]
-has_spatial_off = has_spatial_off_df[subject][probe]
-has_hypno = has_hypnogram[subject]
-has_scorsig = has_scoring_sigs[subject]
-has_spwrs = has_sharp_wave_ripples[subject]
+has_off = has_off_df[(experiment, alias)][subject][probe]
+has_spatial_off = has_spatial_off_df[(experiment, alias)][subject][probe]
+has_hypno = has_hypnogram[(experiment, alias)][subject]
+has_scorsig = has_scoring_sigs[(experiment, alias)][subject]
+has_spwrs = has_sharp_wave_ripples[(experiment, alias)][subject]
 
 # GUI to select views to load
 window = tk.Tk()
