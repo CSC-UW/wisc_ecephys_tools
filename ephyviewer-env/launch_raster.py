@@ -1,14 +1,14 @@
 import sys
 import tkinter as tk
 
-from ecephys import wne
-from ecephys import units
-import ephyviewer
 import numpy as np
 import pandas as pd
 import rich
-import wisc_ecephys_tools as wet
 import xarray as xr
+
+import ephyviewer
+import wisc_ecephys_tools as wet
+from ecephys import units, utils, wne
 
 experiment_alias_list = [
     ("novel_objects_deprivation", "full"),
@@ -47,6 +47,7 @@ has_off_df = {}
 has_spatial_off_df = {}
 has_scoring_sigs = {}
 has_sharp_wave_ripples = {}
+has_stimulus_times = {}
 for experiment, alias in experiment_alias_list:
     has_hypnogram[(experiment, alias)] = {
         subject: s3.get_experiment_subject_file(
@@ -69,7 +70,8 @@ for experiment, alias in experiment_alias_list:
             probe: len(
                 list(
                     (
-                        s3.get_experiment_subject_directory(experiment, subject) / "offs"
+                        s3.get_experiment_subject_directory(experiment, subject)
+                        / "offs"
                     ).glob(f"{probe}{off_fname_glob}")
                 )
             )
@@ -84,10 +86,12 @@ for experiment, alias in experiment_alias_list:
             probe: len(
                 list(
                     (
-                        s3.get_experiment_subject_directory(experiment, subject) / "offs"
+                        s3.get_experiment_subject_directory(experiment, subject)
+                        / "offs"
                     ).glob(f"{probe}{spatial_off_fname_glob}")
                 )
-            ) > 0
+            )
+            > 0
             for probe in probes
         }
         for subject, probes in available_sortings[(experiment, alias)].items()
@@ -110,6 +114,14 @@ for experiment, alias in experiment_alias_list:
         )
         for subject in available_sortings[(experiment, alias)]
     }
+    has_stimulus_times[(experiment, alias)] = {
+        subject: (
+            s3.get_experiment_subject_file(
+                experiment, subject, "stimulus_times.htsv"
+            ).exists()
+        )
+        for subject in available_sortings[(experiment, alias)]
+    }
 
 sortings_summary = {
     (experiment, alias): {
@@ -121,9 +133,11 @@ sortings_summary = {
             "global offs": has_off_df[(experiment, alias)][subject],
             "spatial offs": has_spatial_off_df[(experiment, alias)][subject],
             "spwrs": has_sharp_wave_ripples[(experiment, alias)][subject],
+            "stimulus times": has_stimulus_times[(experiment, alias)][subject],
         }
         for subject in available_sortings[experiment, alias]
-    } for experiment, alias in experiment_alias_list
+    }
+    for experiment, alias in experiment_alias_list
 }
 
 # Simple GUI dialog for getting the desired probe
@@ -142,20 +156,22 @@ my_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
 my_scrollbar = tk.Scrollbar(outer_frame, orient=tk.VERTICAL, command=my_canvas.yview)
 my_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 # Frame within canvas, containing buttons
-second_frame = tk.Frame(my_canvas, width = 1000, height = 100)
+second_frame = tk.Frame(my_canvas, width=1000, height=100)
 # configure the scrollable canvas
 my_canvas.configure(yscrollcommand=my_scrollbar.set)
 my_canvas.bind(
-    '<Configure>', lambda e: my_canvas.configure(scrollregion=my_canvas.bbox("all"))
+    "<Configure>", lambda e: my_canvas.configure(scrollregion=my_canvas.bbox("all"))
 )
-my_canvas.configure(scrollregion = my_canvas.bbox("all"))
+my_canvas.configure(scrollregion=my_canvas.bbox("all"))
 v = tk.IntVar()
 available_subject_probes = [(None, None, None, None)]
 for experiment, alias in available_sortings:
     for subj, prbs in available_sortings[(experiment, alias)].items():
         available_subject_probes += [(experiment, alias, subj, prb) for prb in prbs]
 for i, (experiment, alias, subj, prb) in enumerate(available_subject_probes):
-    tk.Radiobutton(second_frame, text=f"{experiment}, {alias} : {subj}, {prb}", variable=v, value=i).pack(anchor="w")
+    tk.Radiobutton(
+        second_frame, text=f"{experiment}, {alias} : {subj}, {prb}", variable=v, value=i
+    ).pack(anchor="w")
 tk.Button(text="Submit", command=root.destroy).pack()
 my_canvas.create_window((0, 0), window=second_frame, anchor="nw")
 
@@ -207,6 +223,7 @@ has_spatial_off = has_spatial_off_df[(experiment, alias)][subject][probe]
 has_hypno = has_hypnogram[(experiment, alias)][subject]
 has_scorsig = has_scoring_sigs[(experiment, alias)][subject]
 has_spwrs = has_sharp_wave_ripples[(experiment, alias)][subject]
+has_stims = has_stimulus_times[(experiment, alias)][subject]
 
 # GUI to select views to load
 window = tk.Tk()
@@ -270,6 +287,10 @@ if has_spwrs:
     checkbox = tk.Checkbutton(
         window, text="Display sharp waves and ripples", variable=var_spwrs
     )
+    checkbox.pack()
+if has_stims:
+    var_stims = tk.BooleanVar()
+    checkbox = tk.Checkbutton(window, text="Display stimulus times", variable=var_stims)
     checkbox.pack()
 for acronym in singleprobe_sorting.structures_by_depth:
     N_units = (singleprobe_sorting.properties.acronym == acronym).sum()
@@ -392,6 +413,31 @@ if has_spwrs and var_spwrs.get():
 
     # event_view = ephyviewer.EventList(source=epoch_source, name="Event List")
     # window.add_view(event_view, orientation="horizontal")
+
+if has_stims and var_stims.get():
+    print("Loading stimulus times")
+
+    stims_file = s3.get_experiment_subject_file(
+        experiment, subject, "stimulus_times.htsv"
+    )
+    stims = utils.read_htsv(stims_file)
+
+    def get_ephyviewer_epochs_dict(df: pd.DataFrame, name: str) -> tuple[dict, dict]:
+        durations = (df["offset"] - df["onset"]).values
+        labels = np.array([f"{name} {i}" for i in df.index.values])
+        times = df["onset"].values
+
+        return {"time": times, "duration": durations, "label": labels, "name": name}
+
+    stim_epochs = get_ephyviewer_epochs_dict(stims, "Stim")
+
+    epoch_source = ephyviewer.InMemoryEpochSource(all_epochs=[stim_epochs])
+    epoch_view = ephyviewer.EpochViewer(source=epoch_source, name="Stims")
+    window.add_view(epoch_view, location="bottom", orientation="vertical")
+
+    # Add event list for navigation
+    view = ephyviewer.EventList(source=epoch_source, name=f"Stims list")
+    window.add_view(view, orientation="horizontal", split_with="Stims")
 
 tgt_struct_acronyms = [a for a, v in structs_vars.items() if v.get()]
 
