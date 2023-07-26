@@ -39,6 +39,7 @@ experiments:
       full:
         - start_file: 12-9-2022_g0_t0
           end_file: 12-9-2022_g0_t5
+    tdt_block_path: /Volumes/NeuropixelNAS2-data3/CNPIX18-Pier/12-9-2022/TDT/SITSAuditoryStim-221204-185634/Pierre-221209-091301
   novel_objects_deprivation:
     recording_session_ids:
       - 12-5-2022
