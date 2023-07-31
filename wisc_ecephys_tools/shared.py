@@ -109,6 +109,12 @@ def plot_lights_overlay(
     ax.set_xlim(xlim)
 
 
+def get_full_hypnogram(
+    experiment: str, subject: wne.sglx.SGLXSubject
+) -> hypnogram.FloatHypnogram:
+    return PROJ.load_float_hypnogram(experiment, subject.name)
+
+
 def get_day1_hypnogram(
     experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
