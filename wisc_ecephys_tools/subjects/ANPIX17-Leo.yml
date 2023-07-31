@@ -3,6 +3,7 @@ recording_sessions:
   - id: 9-2-2021
     ap: /Volumes/NeuropixelNAS1/ANPIX17-Leo/9-2-2021/SpikeGLX/
     lf: /Volumes/NeuropixelNAS1/ANPIX17-Leo/9-2-2021/SpikeGLX/
+    imSyncType: barcode
 experiments:
   discoflow-day1:
     recording_session_ids:
@@ -11,23 +12,4 @@ experiments:
       full:
         - start_file: 9-2-2021_g0_t0
           end_file: 9-2-2021_g0_t0
-    probes:
-      imec0:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec2:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec3:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec5:
-        imec_map: Default_1shank
-        internal_reference: [191]
 ...
