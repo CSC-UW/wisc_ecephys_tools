@@ -1,0 +1,24 @@
+---
+recording_sessions:
+  - id: 7-18-2023
+    ap: /Volumes/NeuropixelNAS1/ANPIX34-Joker/7-18-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX34-Joker/7-18-2023/SpikeGLX
+  - id: 7-19-2023
+    ap: /Volumes/NeuropixelNAS1/ANPIX34-Joker/7-19-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX34-Joker/7-19-2023/SpikeGLX
+experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 7-18-2023
+    aliases:
+      full:
+        - start_file: 7-18-2023_g0_t0
+          end_file: 7-18-2023_g0_t0
+  discoflow-day2:
+    recording_session_ids:
+      - 7-19-2023
+    aliases:
+      full:
+        - start_file: 7-19-2023_g0_t0
+          end_file: 7-19-2023_g0_t0
+...
