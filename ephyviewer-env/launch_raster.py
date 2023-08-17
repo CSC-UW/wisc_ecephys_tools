@@ -1,3 +1,4 @@
+# TODO: Should we remove all usage of 'alias'? Is it ever not "full"?
 import sys
 import tkinter as tk
 
@@ -206,8 +207,8 @@ singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
     s3,
     sglxSubject,
     experiment,
-    alias,
     probe,
+    alias=alias,
     sorting=sorting,
     postprocessing=postprocessing,
     allow_no_sync_file=True,
