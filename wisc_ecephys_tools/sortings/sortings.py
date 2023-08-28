@@ -73,11 +73,17 @@ def get_subject_probe_structure_list(
     if select_descendants_of is not None:
         unrecognized = [a for a in select_descendants_of if not a in atlas.lookup_df.acronym.values]
         if any(unrecognized):
-            raise ValueError(f"Unrecognized acronyms in `select_descendants_of` kwarg: {unrecognized}.")
+            raise ValueError(
+                f"Unrecognized acronyms in `select_descendants_of` kwarg: {unrecognized}.\n"
+                f"Available acronyms: {sorted(atlas.lookup_df.acronym.values)}"
+            )
     if exclude_descendants_of is not None:
         unrecognized = [a for a in exclude_descendants_of if not a in atlas.lookup_df.acronym.values]
         if any(unrecognized):
-            raise ValueError(f"Unrecognized acronyms in `exclude_descandants_of` kwarg: {unrecognized}.")
+            raise ValueError(
+                f"Unrecognized acronyms in `exclude_descendants_of` kwarg: {unrecognized}.\n"
+                f"Available acronyms: {sorted(atlas.lookup_df.acronym.values)}"
+            )
 
     # Get the available sortings
     s3 = wet.get_wne_project("shared_s3")
@@ -88,9 +94,13 @@ def get_subject_probe_structure_list(
     )
 
     completed_subject_probe_structures = []
+    unrecognized_structs = []
     for subj, prb in completed_subject_probes:
         struct = read_htsv(s3.get_experiment_subject_file(experiment, subj, f"{prb}.structures.htsv"))
         for acronym in struct.acronym.unique():
+            if not acronym in atlas.lookup_df.acronym.values:
+                unrecognized_structs.append(acronym)
+                continue
             ancestors = atlas.get_structure_ancestors(acronym)
             if exclude_descendants_of is not None:
                 if acronym in exclude_descendants_of or any(
@@ -103,5 +113,11 @@ def get_subject_probe_structure_list(
                 ):
                     continue
             completed_subject_probe_structures.append((subj, prb, acronym))
+    
+    if unrecognized_structs:
+        import warnings
+        warnings.warn(
+            f"The following structures were unrecognized and ignored across all datasets: {unrecognized_structs}"
+        )
 
     return completed_subject_probe_structures
