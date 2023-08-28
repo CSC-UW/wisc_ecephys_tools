@@ -26,7 +26,9 @@ parser = argparse.ArgumentParser(
 parser.add_argument("--run", action="store_true", help="If present, we run the command in each pane.")
 parser.add_argument("experiment", type=str, help="Name of experiment we search sortings for")
 parser.add_argument("alias", type=str, help="Name of alias we search sortings for")
-parser.add_argument("command_prefix", type=str, help="Command to write in the pane. `'subj,prb'` is appended for each pane.")
+parser.add_argument(
+    "command_prefix", type=str, help="Command to write in the pane. `'subj,prb'` is appended for each pane."
+)
 args = parser.parse_args()
 
 MAX_PANES_PER_WINDOW = 20

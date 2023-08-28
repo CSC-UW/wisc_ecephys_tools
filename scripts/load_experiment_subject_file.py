@@ -9,7 +9,7 @@ experiment = "discoflow-day1"
 wneSharedProject = wet.get_wne_project(sharedDataProjectName)
 
 fpath = wneSharedProject.get_experiment_subject_file(
-    experiment=experiment, 
+    experiment=experiment,
     subject=subjectName,
     fname="ephys_stimulus_times.csv",
 )

@@ -16,9 +16,7 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
 )
 parser.add_argument("experiment", type=str, help="Name of experiment we run off for.")
-parser.add_argument(
-    "alias", type=str, help="Name of alias we run off for."
-)  # TODO: Remove? Not used?
+parser.add_argument("alias", type=str, help="Name of alias we run off for.")  # TODO: Remove? Not used?
 parser.add_argument(
     "subject_probe",
     type=str,
@@ -50,9 +48,7 @@ on_off_params = {
     "history_window_nbins": 3,  # Size of history window IN BINS
     "n_iter_EM": 200,  # Number of iterations for EM
     "n_iter_newton_ralphson": 100,
-    "init_A": np.array(
-        [[0.1, 0.9], [0.01, 0.99]]
-    ),  # Initial transition probability matrix
+    "init_A": np.array([[0.1, 0.9], [0.01, 0.99]]),  # Initial transition probability matrix
     # "init_state_estimate_method": "liberal",  # Method to find inital OFF states to fit GLM model with. Ignored if init_mu/alphaa/betaa are specified. Either of 'conservative'/'liberal'/'intermediate'
     "init_state_estimate_method": "conservative",  # Method to find inital OFF states to fit GLM model with. Ignored if init_mu/alphaa/betaa are specified. Either of 'conservative'/'liberal'/'intermediate'
     "init_mu": None,  # ~ OFF rate. Fitted to data if None
@@ -78,9 +74,7 @@ spatial_params = None
 # }  # Only if spatial_detection = True
 
 # tgt_structure_acronyms=["Po", "VM"]
-tgt_structure_acronyms = (
-    None  # List of acronyms of structures to include. All structures if None
-)
+tgt_structure_acronyms = None  # List of acronyms of structures to include. All structures if None
 # structure_acronyms_to_ignore = []
 structure_acronyms_to_ignore = [
     "CLA",
@@ -159,9 +153,7 @@ hg = hypnogramProject.load_float_hypnogram(experiment, sglxSubject.name, simplif
 
 # Remove structures to ignore
 all_structures = sorting.structures_by_depth
-sorting = sorting.select_structures(
-    [s for s in all_structures if not s in structure_acronyms_to_ignore]
-)
+sorting = sorting.select_structures([s for s in all_structures if not s in structure_acronyms_to_ignore])
 print("Structures to run:", sorting.structures_by_depth)
 
 for acronym in sorting.structures_by_depth:

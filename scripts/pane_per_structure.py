@@ -9,6 +9,7 @@ example:
 
 python pane_per_structure.py experiment alias "conda activate ecephys && python run_off_detection experiment alias "
 python pane_per_structure.py --run experiment alias "conda activate ecephys && python run_off_detection experiment alias "
+python pane_per_structure.py --run --descendants_of Cx experiment alias "conda activate ecephys && python run_off_detection experiment alias "
 
 This will create several panes (one for each probe) and type (or execute, if the "--run" flag
 is specified) in each:
@@ -26,7 +27,10 @@ parser = argparse.ArgumentParser(
 parser.add_argument("--run", action="store_true", help="If present, we run the command in each pane.")
 parser.add_argument("experiment", type=str, help="Name of experiment we search sortings for")
 parser.add_argument("alias", type=str, help="Name of alias we search sortings for")
-parser.add_argument("command_prefix", type=str, help="Command to write in the pane. `'subj,prb,acronym'` is appended for each pane.")
+parser.add_argument("--descendants_of", required=False, type=str, help="Acronym of atlas structure (eg 'Cx') restricting the returned structures")
+parser.add_argument(
+    "command_prefix", type=str, help="Command to write in the pane. `'subj,prb,acronym'` is appended for each pane."
+)
 args = parser.parse_args()
 
 MAX_PANES_PER_WINDOW = 20
@@ -36,6 +40,7 @@ MAX_PANES_PER_WINDOW = 20
 subject_probes_structures = get_subject_probe_structure_list(
     args.experiment,
     args.alias,
+    select_descendants_of=[args.descendants_of],
 )
 
 # Add space to prefix string if there isn't any
