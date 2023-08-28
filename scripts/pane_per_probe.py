@@ -45,6 +45,7 @@ for i, val in enumerate(subject_probes_list):
 
     if not (i + 1) % MAX_PANES_PER_WINDOW:
         subprocess.run(f"tmux new-window", shell=True)
+    pane_i = (i + 1) % MAX_PANES_PER_WINDOW
 
     # Split the current pane into a new pane and run a command in it
     subprocess.run(f"tmux split-window", shell=True)
@@ -55,7 +56,7 @@ for i, val in enumerate(subject_probes_list):
 
     if args.run:
         # Append the value to the command line and execute it
-        subprocess.run(f"tmux send-keys -t {i+1} '{prefix}{suffix}' Enter", shell=True)
+        subprocess.run(f"tmux send-keys -t {pane_i} '{prefix}{suffix}' Enter", shell=True)
     else:
         # Append the value to the command line without executing it
-        subprocess.run(f"tmux send-keys -t {i+1} '{prefix}{suffix}'", shell=True)
+        subprocess.run(f"tmux send-keys -t {pane_i} '{prefix}{suffix}'", shell=True)
