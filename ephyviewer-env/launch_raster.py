@@ -48,6 +48,7 @@ has_off_df = {}
 has_spatial_off_df = {}
 has_scoring_sigs = {}
 has_sharp_wave_ripples = {}
+has_mu_spindles = {}
 has_stimulus_times = {}
 for experiment, alias in experiment_alias_list:
     has_hypnogram[(experiment, alias)] = {
@@ -115,6 +116,18 @@ for experiment, alias in experiment_alias_list:
         )
         for subject in available_sortings[(experiment, alias)]
     }
+    has_mu_spindles[(experiment, alias)] = {
+        subject: {
+            probe: len(
+                list(
+                    slfp.get_experiment_subject_directory(experiment, subject).glob(f"{probe}*mu_spindles*")
+                )
+            )
+            > 0
+            for probe in probes
+        }
+        for subject, probes in available_sortings[(experiment, alias)].items()
+    }
     has_stimulus_times[(experiment, alias)] = {
         subject: (
             s3.get_experiment_subject_file(
@@ -134,6 +147,7 @@ sortings_summary = {
             "global offs": has_off_df[(experiment, alias)][subject],
             "spatial offs": has_spatial_off_df[(experiment, alias)][subject],
             "spwrs": has_sharp_wave_ripples[(experiment, alias)][subject],
+            "mu_spindles": has_mu_spindles[(experiment, alias)][subject],
             "stimulus times": has_stimulus_times[(experiment, alias)][subject],
         }
         for subject in available_sortings[experiment, alias]
@@ -224,6 +238,7 @@ has_spatial_off = has_spatial_off_df[(experiment, alias)][subject][probe]
 has_hypno = has_hypnogram[(experiment, alias)][subject]
 has_scorsig = has_scoring_sigs[(experiment, alias)][subject]
 has_spwrs = has_sharp_wave_ripples[(experiment, alias)][subject]
+has_mu_spindles = has_mu_spindles[(experiment, alias)][subject][probe]
 has_stims = has_stimulus_times[(experiment, alias)][subject]
 
 # GUI to select views to load
@@ -287,6 +302,12 @@ if has_spwrs:
     var_spwrs = tk.BooleanVar()
     checkbox = tk.Checkbutton(
         window, text="Display sharp waves and ripples", variable=var_spwrs
+    )
+    checkbox.pack()
+if has_mu_spindles:
+    var_muspins = tk.BooleanVar()
+    checkbox = tk.Checkbutton(
+        window, text="Display multi-unit-based spindle detection", variable=var_muspins
     )
     checkbox.pack()
 if has_stims:
@@ -414,6 +435,28 @@ if has_spwrs and var_spwrs.get():
 
     # event_view = ephyviewer.EventList(source=epoch_source, name="Event List")
     # window.add_view(event_view, orientation="horizontal")
+
+if has_mu_spindles and var_muspins.get():
+    print("Loading MU-spindles")
+
+    muspin_files = slfp.get_experiment_subject_directory(experiment, subject).glob(
+        f"{probe}.*.mu_spindles.pqt"
+    )
+    muspindles = pd.concat([
+        pd.read_parquet(muspin_file)
+        for muspin_file in muspin_files
+    ]).sort_values(by="Start").reset_index(drop=True)
+    muspindles["start_time"] = muspindles["Start"]
+    muspindles["duration"] = muspindles["End"] - muspindles["Start"]
+
+    window = units.ephyviewerutils.add_epochviewer_to_window(
+        window,
+        muspindles,
+        view_name="MU-based spindles",
+        name_column="Structure",
+        add_event_list=True
+    )
+
 
 if has_stims and var_stims.get():
     print("Loading stimulus times")
