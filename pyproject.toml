@@ -18,7 +18,6 @@ classifiers = [
 ]
 
 dependencies = [
-    "ecephys",
     "bg_atlasapi",
     "altair",
     "thefuzz",
