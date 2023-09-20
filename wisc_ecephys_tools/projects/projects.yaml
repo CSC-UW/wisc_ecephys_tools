@@ -1,18 +1,18 @@
 ---
-project: shared_sortings
+project: shared
 project_directory: /Volumes/npx_nfs/shared_s3
 ...
 ---
-project: shared_sortings_ssd
-project_directory: /ssd-raid0/neuropixels/sorting/shared_sortings
+project: shared_ssd
+project_directory: /ssd-raid0/neuropixels/shared
 ...
 ---
-project: shared_sortings_nvme
-project_directory: /nvme/neuropixels/sorting/shared_sortings
+project: shared_nvme
+project_directory: /nvme/neuropixels/shared
 ...
 ---
-project: shared_sortings_uncurated
-project_directory: /Volumes/npx_nfs/nobak/shared_sortings_uncurated
+project: shared_nobak
+project_directory: /Volumes/npx_nfs/nobak/shared
 ...
 ---
 project: hypnogram
@@ -35,16 +35,12 @@ project: discoflow
 project_directory: /Volumes/npx_nfs/nobak/discoflow
 ...
 ---
-project: nucleated_rebooting
-project_directory: /Volumes/scratch/neuropixels/data/nucleated_rebooting
-...
----
 project: homeostasis
 project_directory: /Volumes/scratch/neuropixels/data/homeostasis
 ...
 ---
 project: test_project
-project_directory: /nvme/neuropixels/sorting/test_project
+project_directory: /nvme/neuropixels/test_project
 ...
 ---
 project: spatial_offs_test
@@ -53,3 +49,4 @@ project_directory: /Volumes/npx_nfs/nobak/offs
 ---
 project: off_det_analysis
 project_directory: /Volumes/npx_nfs/nobak/offs/analysis
+...
