@@ -5,7 +5,7 @@ from pathlib import Path
 
 from bg_atlasapi.bg_atlas import BrainGlobeAtlas
 
-SHARED_PROJECT_NAME = "shared_s3"
+SHARED_PROJECT_NAME = "shared"
 PROJ = wet.get_wne_project(SHARED_PROJECT_NAME)
 BRAINGLOBE_DIR = PROJ.get_project_directory() / ".brainglobe"
 DF_ATLAS = "whs_sd_rat_39um"
@@ -23,25 +23,31 @@ def get_subject_probe_list(experiment: str, alias: str) -> list[tuple[str, str]]
     """Return [(<subj>, <prb>)] list of completed sortings."""
 
     # Get the available sortings
-    s3 = wet.get_wne_project("shared_s3")
+    s3 = wet.get_wne_project("shared")
 
     sortings_dir = s3.get_alias_directory(experiment, alias)
 
     available_sortings = {
-        subj.name: [x.name.removeprefix("sorting.") for x in sorted(subj.glob("sorting.imec*"))]
+        subj.name: [
+            x.name.removeprefix("sorting.") for x in sorted(subj.glob("sorting.imec*"))
+        ]
         for subj in sortings_dir.iterdir()
         if subj.is_dir()
     }  # e.g. {'CNPIX4-Doppio': ['imec0', 'imec1], 'CNPIX9-Luigi: ['imec0], ...}
 
     # Collect info about the various sortings, for display, and for determing parameters to use when loading
     has_hypnogram = {
-        subject: s3.get_experiment_subject_file(experiment, subject, "hypnogram.htsv").exists()
+        subject: s3.get_experiment_subject_file(
+            experiment, subject, "hypnogram.htsv"
+        ).exists()
         for subject in available_sortings
     }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
 
     has_anatomy = {
         subject: {
-            probe: s3.get_experiment_subject_file(experiment, subject, f"{probe}.structures.htsv").exists()
+            probe: s3.get_experiment_subject_file(
+                experiment, subject, f"{probe}.structures.htsv"
+            ).exists()
             for probe in probes
         }
         for subject, probes in available_sortings.items()
@@ -52,7 +58,9 @@ def get_subject_probe_list(experiment: str, alias: str) -> list[tuple[str, str]]
         available_subject_probes += [(subj, prb) for prb in prbs]
 
     completed_subject_probes = [
-        (subj, prb) for subj, prb in available_subject_probes if has_hypnogram[subj] and has_anatomy[subj][prb]
+        (subj, prb)
+        for subj, prb in available_subject_probes
+        if has_hypnogram[subj] and has_anatomy[subj][prb]
     ]
 
     return completed_subject_probes
@@ -71,14 +79,18 @@ def get_subject_probe_structure_list(
         atlas = get_atlas()
 
     if select_descendants_of is not None:
-        unrecognized = [a for a in select_descendants_of if not a in atlas.lookup_df.acronym.values]
+        unrecognized = [
+            a for a in select_descendants_of if not a in atlas.lookup_df.acronym.values
+        ]
         if any(unrecognized):
             raise ValueError(
                 f"Unrecognized acronyms in `select_descendants_of` kwarg: {unrecognized}.\n"
                 f"Available acronyms: {sorted(atlas.lookup_df.acronym.values)}"
             )
     if exclude_descendants_of is not None:
-        unrecognized = [a for a in exclude_descendants_of if not a in atlas.lookup_df.acronym.values]
+        unrecognized = [
+            a for a in exclude_descendants_of if not a in atlas.lookup_df.acronym.values
+        ]
         if any(unrecognized):
             raise ValueError(
                 f"Unrecognized acronyms in `exclude_descendants_of` kwarg: {unrecognized}.\n"
@@ -96,7 +108,9 @@ def get_subject_probe_structure_list(
     completed_subject_probe_structures = []
     unrecognized_structs = []
     for subj, prb in completed_subject_probes:
-        struct = read_htsv(s3.get_experiment_subject_file(experiment, subj, f"{prb}.structures.htsv"))
+        struct = read_htsv(
+            s3.get_experiment_subject_file(experiment, subj, f"{prb}.structures.htsv")
+        )
         for acronym in struct.acronym.unique():
             if not acronym in atlas.lookup_df.acronym.values:
                 unrecognized_structs.append(acronym)
@@ -113,9 +127,10 @@ def get_subject_probe_structure_list(
                 ):
                     continue
             completed_subject_probe_structures.append((subj, prb, acronym))
-    
+
     if unrecognized_structs:
         import warnings
+
         warnings.warn(
             f"The following structures were unrecognized and ignored across all datasets: {unrecognized_structs}"
         )

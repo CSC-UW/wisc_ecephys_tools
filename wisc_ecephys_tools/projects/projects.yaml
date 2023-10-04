@@ -23,10 +23,6 @@ project: anatomy
 project_directory: /Volumes/npx_nfs/shared_s3
 ...
 ---
-project: shared_s3
-project_directory: /Volumes/npx_nfs/shared_s3
-...
----
 project: seahorse
 project_directory: /Volumes/npx_nfs/nobak/seahorse
 ...

@@ -8,7 +8,7 @@ from ecephys import wne
 import wisc_ecephys_tools as wet
 
 NOD = "novel_objects_deprivation"
-SHARED_PROJECT_NAME = "shared_s3"
+SHARED_PROJECT_NAME = "shared"
 PROJ = wet.get_wne_project(SHARED_PROJECT_NAME)
 
 
@@ -168,7 +168,7 @@ def get_circadian_match_hypnogram(
     hg = PROJ.load_float_hypnogram(experiment, subject.name)
     match_start = start - pd.to_timedelta("24h").total_seconds()
     match_end = end - pd.to_timedelta("24h").total_seconds()
-    return hg.trim(match_start, match_end)
+    return hg.trim(match_start, match_end).keep_states(["NREM"])
 
 
 def compute_basic_novel_objects_deprivation_experiment_hypnograms(
