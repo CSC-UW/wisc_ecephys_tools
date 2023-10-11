@@ -1,0 +1,24 @@
+---
+recording_sessions:
+  - id: 10-05-2023
+    ap: /Volumes/NeuropixelNAS1/ANPIX36-Russell/10-05-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX36-Russell/10-05-2023/SpikeGLX
+  - id: 10-06-2023
+    ap: /Volumes/NeuropixelNAS1/ANPIX36-Russell/10-06-2023/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX36-Russell/10-06-2023/SpikeGLX
+experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 10-05-2023
+    aliases:
+      full:
+        - start_file: 10-05-2023_g0_t0
+          end_file: 10-05-2023_g0_t0
+  discoflow-day2:
+    recording_session_ids:
+      - 10-06-2023
+    aliases:
+      full:
+        - start_file: 10-06-2023_g0_t0
+          end_file: 10-06-2023_g0_t0
+...
