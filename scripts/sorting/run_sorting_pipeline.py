@@ -26,6 +26,7 @@ from docopt import docopt
 
 import wisc_ecephys_tools as wet
 from ecephys import utils
+from ecephys.wne import constants
 from ecephys.wne.sglx.pipeline.sorting_pipeline import SpikeInterfaceSortingPipeline
 
 BASENAME_DF = "sorting"
@@ -42,18 +43,7 @@ if __name__ == "__main__":
 
         sglxSubject = wet.get_sglx_subject(subjectName)
         sglxProject = wet.get_sglx_project(args["--projectName"])
-
-        # Pull exclusions
-        exclusionsProject = wet.get_sglx_project(EXCLUSIONS_PROJECT)
-        exclusionsPath = exclusionsProject.get_experiment_subject_directory(
-            args["--experimentName"], sglxSubject.name
-        )/"exclusions.htsv"
-        if exclusionsPath.exists():
-            exclusions = utils.read_htsv(exclusionsPath)
-        else:
-            raise FileNotFoundError(
-                f"--exclusionsProject was specified but no exclusion found at {exclusionsPath}"
-            )
+        exclusionsProject = wet.get_wne_project(EXCLUSIONS_PROJECT)
 
         if not args["--from_folder"]:
 
@@ -67,7 +57,7 @@ if __name__ == "__main__":
                 rerun_existing=RERUN_EXISTING_DF,
                 n_jobs=int(args["--n_jobs"]),
                 options_source=args["--optionsPath"],
-                exclusions=exclusions,
+                exclusions_source=exclusionsProject,
             )
         
         else:
