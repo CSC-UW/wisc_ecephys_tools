@@ -21,4 +21,11 @@ experiments:
       full:
         - start_file: 10-06-2023_g0_t0
           end_file: 10-06-2023_g0_t0
+  discoflow-day3:
+    recording_session_ids:
+      - 10-07-2023
+    aliases:
+      full:
+        - start_file: 10-07-2023_g0_t0
+          end_file: 10-07-2023_g0_t0
 ...
