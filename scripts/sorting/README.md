@@ -161,7 +161,7 @@ The way to go about this is to define exclusion files. For consistency across so
 The expected filename is `<probe>.ap.artifacts.htsv`, and they should be tab-separated as follows:
 
 ```
-fname	start_time	end_time	type
+fname	fileStartTime	fileEndTime	type
 9-29-2022_g0_t5.imec0.ap.bin	5340.0	7200.0	flat
 9-30-2022_g0_t2.imec0.ap.bin	6324.0	6329.0	artifact
 9-30-2022_g0_t5.imec0.ap.bin	3200.0	7200.0	flat
