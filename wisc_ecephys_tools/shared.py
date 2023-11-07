@@ -134,7 +134,7 @@ def get_day1_light_period_hypnogram(
 def get_day1_dark_period_hypnogram(
     experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
-    hg = PROJ.load_float_hypnogram(experiment, subject)
+    hg = PROJ.load_float_hypnogram(experiment, subject.name)
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return hg.trim(
@@ -152,6 +152,18 @@ def get_day2_light_period_hypnogram(
     return hg.trim(
         intervals[2][0],  # start of second light period
         intervals[2][1],  # end of second light period
+    )
+
+
+def get_day2_dark_period_hypnogram(
+    experiment: str, subject: wne.sglx.SGLXSubject
+) -> hypnogram.FloatHypnogram:
+    hg = PROJ.load_float_hypnogram(experiment, subject.name)
+    intervals, labels = get_light_dark_periods(experiment, subject)
+    assert labels == ["on", "off", "on", "off"]
+    return hg.trim(
+        intervals[3][0],  # start of second dark period
+        intervals[3][1],  # end of second dark period
     )
 
 
