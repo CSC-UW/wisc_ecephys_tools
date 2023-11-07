@@ -71,28 +71,48 @@ def plot_lights_overlay(
     intervals: list[tuple],
     interval_labels: list[str],
     ax: plt.Axes,
-    ymin=0.98,
-    ymax=1.0,
+    ymin=1.0,
+    ymax=1.02,
     alpha=1.0,
+    zorder=1000,
     colors={"on": "yellow", "off": "gray"},  # Keys are from interval_labels
 ):
     """Take intervals and labels, as returned by `get_light_dark_periods()`, and use these to overlay
-    the light/dark cycle onto a plot."""
+    the light/dark cycle onto a plot.
+    
+    Examples
+    --------
+    >>> fig, ax = plt.subplots()
+    Overlay into background, span whole plot axis
+    >>> plot_lights_overlay(intervals, interval_labels, ax=ax, ymin=0, ymax=1, alpha=0.3)
+    Overlay into foreground, outside of plot yaxis (but within plot xaxis)
+    >>> plot_lights_overlay(intervals, interval_labels, ax=ax, ymin=1.0, ymax=1.02, alpha=1.0)
+    """
     xlim = ax.get_xlim()
 
     for (tOn, tOff), lbl in zip(intervals, interval_labels):
+        # clip manually on xaxis so we can set clip_on=False for yaxis
+        tOn = max(tOn, xlim[0])
+        tOff = min(tOff, xlim[1])
         ax.axvspan(
             tOn,
             tOff,
             alpha=alpha,
             color=colors[lbl],
-            zorder=1000,
+            zorder=zorder,
             ec="none",
             ymin=ymin,
             ymax=ymax,
+            clip_on=False,
         )
 
     ax.set_xlim(xlim)
+
+
+def get_full_hypnogram(
+    experiment: str, subject: wne.sglx.SGLXSubject
+) -> hypnogram.FloatHypnogram:
+    return PROJ.load_float_hypnogram(experiment, subject.name)
 
 
 def get_day1_hypnogram(

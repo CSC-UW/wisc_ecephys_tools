@@ -12,7 +12,7 @@
 1. Subject information and exclusions
     - Modify/add subject file in `wisc_ecephys_tools/subjects` directory
     - Refresh cache and push updated subject file and cache if all looks good
-    - Update/save `exclusions.htsv` file in `shared` project's _experiment_subject_ directory.
+    - Update/save `{probe}.ap.artifacts.htsv` file in `shared` project's _experiment_subject_ directory.
 2. Estimate motion
     - Run initial estimate_motion, with `--optionsPath` and `--prepro_only` 
     options
@@ -156,31 +156,27 @@ Don't forget to push updates.
 
 You might want to exclude some bouts from your data, for instance prolonged epochs of zeros which might make kilosort error, or clear artifactual bouts.
 
-The way to go about this is to define exclusion files. For consistency across sortings and aliases, we define exclusions at the level of the whole experiment, and save them in a shared location. Hence, the exclusions should be saved in the `experiment_subject_directory` of the `shared` project: (eg: `/Volumes/npx_nfs/shared_s3/novel_objects_deprivation/CNPIX16-Walter/exclusions.htsv`) (next to the hypnograms, prb_sync infos, etc).
+The way to go about this is to define exclusion files. For consistency across sortings and aliases, we define exclusions at the level of the whole experiment, and save them in a shared location. Hence, the exclusions should be saved in the `experiment_subject_directory` of the `shared` project: (eg: `/Volumes/npx_nfs/shared_s3/novel_objects_deprivation/CNPIX16-Walter/imec0.ap.artifacts.htsv`) (next to the hypnograms, prb_sync infos, etc).
 
-The expected filename is `exclusions.htsv`, and they should be tab-separated as follows:
+The expected filename is `<probe>.ap.artifacts.htsv`, and they should be tab-separated as follows:
 
 ```
 fname	start_time	end_time	type
 9-29-2022_g0_t5.imec0.ap.bin	5340.0	7200.0	flat
-9-29-2022_g0_t5.imec0.lf.bin	5340.0	7200.0	flat
 9-30-2022_g0_t2.imec0.ap.bin	6324.0	6329.0	artifact
-9-30-2022_g0_t2.imec0.lf.bin	6324.0	6329.0	artifact
 9-30-2022_g0_t5.imec0.ap.bin	3200.0	7200.0	flat
 9-30-2022_g0_t5.imec0.lf.bin	3200.0	7200.0	flat
 ```
 
-Note that we save in the same file both LF and AP exclustions, for ALL the bin files of the experiment.
-
 NB: 
-- Even if you don't want to specify exclusions, add an empty `exclusions.htsv` file in the expected location anyway, or the pipeline will fail. This is more annoying but less error-prone.
+- Even if you don't want to specify exclusions, add an empty `<probe>.ap.artifacts.htsv` file in the expected location anyway, or the pipeline will fail. This is more annoying but less error-prone.
 - If you modify exclusions, you should NOT use the `--from_folder` script option, as this will load previously used exclusions/segments rather than recomputing them
 
 #### Summary:
 
 - Modify/add subject file in `wisc_ecephys_tools/subjects` directory
 - Refresh cache and push updated subject file and cache if all looks good
-- Update/save `exclusions.htsv` file in `shared` project's _experiment_subject_ directory.
+- Update/save `<probe>.ap.artifacts.htsv` file in `shared` project's _experiment_subject_ directory.
 
 
 # Run preprocessing: estimate motion
@@ -306,9 +302,16 @@ conda activate my-sorting-env; python run_sorting_pipeline.py --projectName shar
 
 The slow step here is the preprocessing/copying of the raw data into a `recording.dat` file.
 
-You need to make sure that there's enough room on the drive before running this step.
+NB: 
+- You need to make sure that there's enough room on the drive to copy the full recording before running this step
+- You also need to make sure the GPU is free. It's unclear exactly how many sortings can be run in parallel but in general:
+    - 2 chronic (48h) probes at the same time is too much
+    - 1 chronic probe & 1 acute (2h) probe is fine
+    - 2 or 3 acute probes at the same time is fine.
+You can check current GPU usage with `nvidia-smi`. Note that the preprocessing/motion estimation step can be run in parallel without limitation (except that caused by heavy CPU or Disk-IO usage)
 
-To ensure the sorting finishes, you can make sure that the `params.py` file at `sorting_dir/si_output/sorter_output/params.py` is NOT empty
+
+To ensure that kilosort finished properly, you can make sure that the `params.py` file at `sorting_dir/si_output/sorter_output/params.py` is NOT empty. It can happen that the `spike_times.npy` (and others) files exists but is empty if kilosort crashed towards the end.
 
 # Curate
 

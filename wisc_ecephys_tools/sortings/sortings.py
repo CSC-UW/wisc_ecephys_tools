@@ -98,7 +98,7 @@ def get_subject_probe_structure_list(
             )
 
     # Get the available sortings
-    s3 = wet.get_wne_project("shared_s3")
+    s3 = wet.get_wne_project(SHARED_PROJECT_NAME)
 
     completed_subject_probes = get_subject_probe_list(
         experiment,
