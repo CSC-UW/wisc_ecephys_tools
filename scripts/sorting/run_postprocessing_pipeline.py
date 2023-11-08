@@ -43,7 +43,7 @@ if __name__ == "__main__":
         sglxProject = wet.get_sglx_project(args["--projectName"])
 
         # Output dirname from options filename
-        postprocessing_name = args["--optionsPath"].replace(".yaml", "").replace(".yml", "")
+        postprocessing_name = args["--optionsPath"].name.replace(".yaml", "").replace(".yml", "")
 
         # Pull hypno
         if args["--hypnogramProject"]:
