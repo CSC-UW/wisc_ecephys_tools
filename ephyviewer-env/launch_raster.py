@@ -17,6 +17,7 @@ experiment_alias_list = [
     ("auditory_stim", "full"),
     ("discoflow-day1", "full"),
     ("discoflow-day2", "full"),
+    ("discoflow-day3", "full"),
 ]
 
 
