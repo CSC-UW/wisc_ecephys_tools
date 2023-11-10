@@ -22,7 +22,7 @@ experiment_alias_list = [
 
 def get_available_sortings(experiment, alias):
     # Get the available sortings
-    s3 = wet.get_sglx_project("shared_s3")
+    s3 = wet.get_sglx_project("shared")
     sortings_dir = s3.get_alias_directory(experiment, alias)
     return {
         subj.name: [
@@ -34,7 +34,7 @@ def get_available_sortings(experiment, alias):
 
 
 # Get the available sortings, per experiment
-s3 = wet.get_sglx_project("shared_s3")
+s3 = wet.get_sglx_project("shared")
 slfp = wet.get_wne_project("seahorse")
 available_sortings = {
     (experiment, alias): get_available_sortings(experiment, alias)
