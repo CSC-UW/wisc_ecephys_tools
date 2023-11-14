@@ -10,6 +10,7 @@ import xarray as xr
 import ephyviewer
 import wisc_ecephys_tools as wet
 from ecephys import units, utils, wne
+from ecephys.wne import utils as wne_utils
 
 experiment_alias_list = [
     ("novel_objects_deprivation", "full"),
@@ -214,8 +215,8 @@ filters = {
 
 if has_hypnogram[(experiment, alias)][subject]:
     wneHypnogramProject = s3 if has_hypnogram[(experiment, alias)][subject] else None
-    hg = wneHypnogramProject.load_float_hypnogram(
-        experiment, sglxSubject.name, simplify=True
+    hg = wne_utils.load_raw_float_hypnogram(
+        wneHypnogramProject, experiment, sglxSubject.name, simplify=True
     )
 wneAnatomyProject = s3 if has_anatomy[(experiment, alias)][subject][probe] else None
 singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
