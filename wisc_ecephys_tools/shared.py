@@ -238,8 +238,8 @@ def get_circadian_match_hypnogram(
 def compute_basic_novel_objects_deprivation_experiment_hypnograms(
     subject: wne.sglx.SGLXSubject, 
     probes: list[str],
-    sources: list[str]
-    duration="1:00:00"
+    sources: list[str],
+    duration="1:00:00",
 ) -> dict[str, hypnogram.FloatHypnogram]:
     """
     Load NOD FloatHypnograms reconciled with LF/AP/sorting artifacts & NoData.
