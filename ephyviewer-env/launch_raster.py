@@ -327,6 +327,9 @@ for acronym in singleprobe_sorting.structures_by_depth:
     checkbox.pack()
     if N_units > 10:
         checkbox.select()
+var_pool = tk.BooleanVar()
+checkbox = tk.Checkbutton(window, text="Pool selected structures in the same panel", variable=var_pool)
+checkbox.pack()
 tk.Button(text="Submit", command=window.destroy).pack()
 window.mainloop()
 
@@ -518,12 +521,26 @@ for tgt_struct in tgt_struct_acronyms:
                 add_event_list=True,
             )
 
+    if not var_pool.get():
+        # Separate view for each structure
+        # Below each spatial off
+        window = units.ephyviewerutils.add_spiketrain_views_from_sorting(
+            window,
+            singleprobe_sorting,
+            by="depth",
+            tgt_struct_acronyms=[tgt_struct],
+            group_by_structure=True,
+        )
+
+if var_pool.get():
+    # Same view for all structures,
+    # below all offs
     window = units.ephyviewerutils.add_spiketrain_views_from_sorting(
         window,
         singleprobe_sorting,
         by="depth",
-        tgt_struct_acronyms=[tgt_struct],
-        group_by_structure=True,
+        tgt_struct_acronyms=tgt_struct_acronyms,
+        group_by_structure=False,
     )
 
 window.show()
