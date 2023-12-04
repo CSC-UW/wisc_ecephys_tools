@@ -541,7 +541,7 @@ for tgt_struct in tgt_struct_acronyms:
             group_by_structure=True,
         )
 
-if var_pool.get():
+if var_pool.get() and len(tgt_struct_acronyms):
     # Same view for all structures,
     # below all offs
     window = units.ephyviewerutils.add_spiketrain_views_from_sorting(
