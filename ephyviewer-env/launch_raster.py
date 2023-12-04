@@ -11,6 +11,11 @@ import ephyviewer
 import wisc_ecephys_tools as wet
 from ecephys import units, utils, wne
 from ecephys.wne import utils as wne_utils
+from ephyviewer import mkQApp, MainViewer, TraceViewer, CsvEpochSource, EpochEncoder
+from ecephys.wne import constants
+import matplotlib
+from ecephys.plot import state_colors
+
 
 experiment_alias_list = [
     ("novel_objects_deprivation", "full"),
@@ -257,6 +262,9 @@ if has_scorsig:
         window, text="Display scoring signals", variable=var_scorsig
     )
     checkbox.pack()
+var_hypno_encoder = tk.BooleanVar()
+checkbox = tk.Checkbutton(window, text="Allow hypnogram edits", variable=var_hypno_encoder)
+checkbox.pack()
 if has_off:
     # One checkbox per off_fname_suffix
     # Glob "<prb>.<acronym>.global_offs_<suffix>" and extract suffix
@@ -341,6 +349,7 @@ window = ephyviewer.MainViewer(
 
 if has_hypno and var_hypno.get():
     window = units.ephyviewerutils.add_hypnogram_view_to_window(window, hg)
+
 
 if has_scorsig and var_scorsig.get():
     print("Loading scoring signals")
@@ -542,6 +551,24 @@ if var_pool.get():
         tgt_struct_acronyms=tgt_struct_acronyms,
         group_by_structure=False,
     )
+
+if var_hypno_encoder.get():
+    print("Add hypnogram edits encoder")
+    edits_fpath = s3.get_experiment_subject_file(
+        experiment, subject, 'hypnogram_ephyviewer_edits.csv'
+    )
+
+    states = constants.EPHYVIEWER_STATE_ORDER
+    source_epoch = CsvEpochSource(
+        edits_fpath,
+        states,
+        color_labels=[matplotlib.colors.rgb2hex( state_colors[state]) for state in states]
+    )
+    encoder_view = EpochEncoder(
+        source=source_epoch, name='Hypnogram edits'
+    )
+    encoder_view.params["label_fill_color"] = "#00000000" # Full transparent
+    window.add_view(encoder_view)
 
 window.show()
 app.exec()
