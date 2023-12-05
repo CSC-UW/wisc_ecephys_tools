@@ -11,6 +11,7 @@ import ephyviewer
 import wisc_ecephys_tools as wet
 from ecephys import units, utils, wne
 from ecephys.wne import utils as wne_utils
+from ecephys.wne.sglx import utils as sglx_utils
 from ephyviewer import mkQApp, MainViewer, TraceViewer, CsvEpochSource, EpochEncoder
 from ecephys.wne import constants
 import matplotlib
@@ -220,8 +221,17 @@ filters = {
 
 if has_hypnogram[(experiment, alias)][subject]:
     wneHypnogramProject = s3 if has_hypnogram[(experiment, alias)][subject] else None
-    hg = wne_utils.load_raw_float_hypnogram(
-        wneHypnogramProject, experiment, sglxSubject.name, simplify=True
+    # hg = wne_utils.load_raw_float_hypnogram(
+    #     wneHypnogramProject, experiment, sglxSubject.name, simplify=True
+    # )
+    hg = sglx_utils.load_reconciled_float_hypnogram(
+        wneHypnogramProject,
+        experiment,
+        sglxSubject,
+        probes=[],
+        sources=[],
+        reconcile_ephyviewer_edits=True,
+        simplify=True
     )
 wneAnatomyProject = s3 if has_anatomy[(experiment, alias)][subject][probe] else None
 singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
@@ -555,7 +565,7 @@ if var_pool.get() and len(tgt_struct_acronyms):
 if var_hypno_encoder.get():
     print("Add hypnogram edits encoder")
     edits_fpath = s3.get_experiment_subject_file(
-        experiment, subject, 'hypnogram_ephyviewer_edits.csv'
+        experiment, subject, constants.HYPNOGRAM_EPHYVIEWER_EDITS_FNAME
     )
 
     states = constants.EPHYVIEWER_STATE_ORDER
