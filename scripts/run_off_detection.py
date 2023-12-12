@@ -4,6 +4,8 @@ from ecephys.wne.sglx.utils import load_singleprobe_sorting
 import numpy as np
 import argparse
 
+assert False, "TODO"
+
 # Parse experiment, alias, subjectName, probe from command line
 example_text = """
 example:
@@ -44,17 +46,6 @@ split_by_state = True
 
 on_off_method = "hmmem"
 on_off_params = {
-    "binsize": 0.010,  # (s) (Discrete algorithm)
-    "history_window_nbins": 3,  # Size of history window IN BINS
-    "n_iter_EM": 200,  # Number of iterations for EM
-    "n_iter_newton_ralphson": 100,
-    "init_A": np.array([[0.1, 0.9], [0.01, 0.99]]),  # Initial transition probability matrix
-    # "init_state_estimate_method": "liberal",  # Method to find inital OFF states to fit GLM model with. Ignored if init_mu/alphaa/betaa are specified. Either of 'conservative'/'liberal'/'intermediate'
-    "init_state_estimate_method": "conservative",  # Method to find inital OFF states to fit GLM model with. Ignored if init_mu/alphaa/betaa are specified. Either of 'conservative'/'liberal'/'intermediate'
-    "init_mu": None,  # ~ OFF rate. Fitted to data if None
-    "init_alphaa": None,  # ~ difference between ON and OFF rate. Fitted to data if None
-    "init_betaa": None,  # ~ Weight of recent history firing rate. Fitted to data if None,
-    "gap_threshold": 0.050,  # Merge active states separated by less than gap_threhsold
 }
 
 spatial_detection = False
