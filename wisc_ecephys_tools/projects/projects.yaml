@@ -23,6 +23,10 @@ project: anatomy
 project_directory: /Volumes/npx_nfs/shared_s3
 ...
 ---
+project: offs
+project_directory: /Volumes/npx_nfs/nobak/offs
+...
+---
 project: seahorse
 project_directory: /Volumes/npx_nfs/nobak/seahorse
 ...
@@ -44,9 +48,9 @@ project_directory: /nvme/neuropixels/test_project
 ...
 ---
 project: spatial_offs_test
-project_directory: /Volumes/npx_nfs/nobak/offs
+project_directory: /Volumes/npx_nfs/nobak/Jack/offs
 ...
 ---
 project: off_det_analysis
-project_directory: /Volumes/npx_nfs/nobak/offs/analysis
+project_directory: /Volumes/npx_nfs/nobak/Jack/offs/analysis
 ...
