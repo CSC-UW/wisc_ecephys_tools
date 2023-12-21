@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
 )
 parser.add_argument("experiment", type=str, help="Name of experiment we run off for.")
-parser.add_argument("states_to_pool", type=str, help="Target states. Pooled together eg `NREM` or `N1,N2,NREM`")
+parser.add_argument("pooled_states", type=str, help="Target states. Pooled together eg `NREM` or `N1,N2,NREM`")
 parser.add_argument(
     "subject_probe_structure", type=str, help="Target structure. Comma-separated string of the form `'<subjectName>,<probe>,<struct>'"
 )
@@ -26,7 +26,7 @@ args = parser.parse_args()
 
 experiment = args.experiment
 subjectName, probe, structure = args.subject_probe_structure.split(",")
-states_to_pool = args.states_to_pool.split(",")
+pooled_states = args.pooled_states.split(",")
 
 # Data
 filters = {
@@ -95,7 +95,7 @@ def main():
         ["sorting"],
         reconcile_ephyviewer_edits=True,
         simplify=True,
-    ).keep_states(states_to_pool)
+    ).keep_states(pooled_states)
 
     properties = sorting.properties
     all_trains = sorting.get_cluster_trains(
@@ -132,16 +132,24 @@ def main():
     )
     out_dir.mkdir(exist_ok=True, parents=True)
 
-    off_fname = f"{probe}.{structure}.{args.states_to_pool}.spatial_off_df.pickle"
+    off_fname = f"{probe}.{structure}.{args.pooled_states}.spatial_off_df.pickle"
+    model.off_df["pooled_states"] = args.pooled_states
     with open(out_dir/off_fname, 'wb') as f:
         pickle.dump(model.off_df, f)
 
-    all_windows_on_off_fname = f"{probe}.{structure}.{args.states_to_pool}.all_windows_on_off_df.pickle"
+    all_windows_on_off_fname = f"{probe}.{structure}.{args.pooled_states}.all_windows_on_off_df.pickle"
+    model.all_windows_on_off_df["pooled_states"] = args.pooled_states
     with open(out_dir/all_windows_on_off_fname, 'wb') as f:
         pickle.dump(model.all_windows_on_off_df, f)
 
-    windows_fname = f"{probe}.{structure}.{args.states_to_pool}.windows_df.csv"
-    model.windows_df.to_csv(out_dir/windows_fname)
+    windows_fname = f"{probe}.{structure}.{args.pooled_states}.windows_df.pickle"
+    model.windows_df["pooled_states"] = args.pooled_states
+    with open(out_dir/windows_fname, 'wb') as f:
+        pickle.dump(model.windows_df, f)
+
+    windows_info_fname = f"{probe}.{structure}.{args.pooled_states}.windows_output_infos.pickle"
+    with open(out_dir/windows_info_fname, 'wb') as f:
+        pickle.dump(model.windows_output_infos, f)
 
 if __name__ == "__main__":
     main()
