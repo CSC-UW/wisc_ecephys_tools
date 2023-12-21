@@ -43,7 +43,7 @@ def get_available_sortings(experiment, alias):
 
 # Get the available sortings, per experiment
 s3 = wet.get_sglx_project("shared")
-slfp = wet.get_wne_project("seahorse")
+nb = wet.get_sglx_project("shared_nobak")
 available_sortings = {
     (experiment, alias): get_available_sortings(experiment, alias)
     for experiment, alias in experiment_alias_list
@@ -109,7 +109,7 @@ for experiment, alias in experiment_alias_list:
     has_scoring_sigs[(experiment, alias)] = {
         subject: all(
             [
-                slfp.get_experiment_subject_file(experiment, subject, fname).exists()
+                nb.get_experiment_subject_file(experiment, subject, fname).exists()
                 for fname in ["scoring_lfp.zarr", "scoring_emg.zarr"]
             ]
         )
@@ -117,9 +117,11 @@ for experiment, alias in experiment_alias_list:
     }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
     has_sharp_wave_ripples[(experiment, alias)] = {
         subject: (
-            slfp.get_experiment_subject_file(experiment, subject, "spws.pqt").exists()
-            and slfp.get_experiment_subject_file(
-                experiment, subject, "ripples.pqt"
+            nb.get_experiment_subject_file(
+                experiment, subject, "postprocessed_spws.pqt"
+            ).exists()
+            and nb.get_experiment_subject_file(
+                experiment, subject, "postprocessed_ripples.pqt"
             ).exists()
         )
         for subject in available_sortings[(experiment, alias)]
@@ -128,7 +130,9 @@ for experiment, alias in experiment_alias_list:
         subject: {
             probe: len(
                 list(
-                    slfp.get_experiment_subject_directory(experiment, subject).glob(f"{probe}*mu_spindles*")
+                    nb.get_experiment_subject_directory(experiment, subject).glob(
+                        f"{probe}*mu_spindles*"
+                    )
                 )
             )
             > 0
@@ -231,7 +235,7 @@ if has_hypnogram[(experiment, alias)][subject]:
         probes=[],
         sources=[],
         reconcile_ephyviewer_edits=True,
-        simplify=True
+        simplify=True,
     )
 wneAnatomyProject = s3 if has_anatomy[(experiment, alias)][subject][probe] else None
 singleprobe_sorting = wne.sglx.utils.load_singleprobe_sorting(
@@ -273,7 +277,9 @@ if has_scorsig:
     )
     checkbox.pack()
 var_hypno_encoder = tk.BooleanVar()
-checkbox = tk.Checkbutton(window, text="Allow hypnogram edits", variable=var_hypno_encoder)
+checkbox = tk.Checkbutton(
+    window, text="Allow hypnogram edits", variable=var_hypno_encoder
+)
 checkbox.pack()
 if has_off:
     # One checkbox per off_fname_suffix
@@ -346,7 +352,9 @@ for acronym in singleprobe_sorting.structures_by_depth:
     if N_units > 10:
         checkbox.select()
 var_pool = tk.BooleanVar()
-checkbox = tk.Checkbutton(window, text="Pool selected structures in the same panel", variable=var_pool)
+checkbox = tk.Checkbutton(
+    window, text="Pool selected structures in the same panel", variable=var_pool
+)
 checkbox.pack()
 tk.Button(text="Submit", command=window.destroy).pack()
 window.mainloop()
@@ -364,11 +372,11 @@ if has_hypno and var_hypno.get():
 if has_scorsig and var_scorsig.get():
     print("Loading scoring signals")
     lfp = xr.open_dataarray(
-        slfp.get_experiment_subject_file(experiment, subject, "scoring_lfp.zarr"),
+        nb.get_experiment_subject_file(experiment, subject, "scoring_lfp.zarr"),
         engine="zarr",
     )
     emg = xr.open_dataarray(
-        slfp.get_experiment_subject_file(experiment, subject, "scoring_emg.zarr"),
+        nb.get_experiment_subject_file(experiment, subject, "scoring_emg.zarr"),
         engine="zarr",
     )
 
@@ -441,11 +449,11 @@ if has_spwrs and var_spwrs.get():
 
         return {"time": times, "duration": durations, "label": labels, "name": name}
 
-    spw_file = slfp.get_experiment_subject_file(experiment, subject, "spws.pqt")
+    spw_file = nb.get_experiment_subject_file(experiment, subject, "spws.pqt")
     spws = pd.read_parquet(spw_file).sort_values("start_time").reset_index(drop=True)
     spw_epochs = get_ephyviewer_epochs_dict(spws, "SPW")
 
-    ripples_file = slfp.get_experiment_subject_file(experiment, subject, "ripples.pqt")
+    ripples_file = nb.get_experiment_subject_file(experiment, subject, "ripples.pqt")
     ripples = (
         pd.read_parquet(ripples_file).sort_values("start_time").reset_index(drop=True)
     )
@@ -463,13 +471,14 @@ if has_spwrs and var_spwrs.get():
 if has_mu_spindles and var_muspins.get():
     print("Loading MU-spindles")
 
-    muspin_files = slfp.get_experiment_subject_directory(experiment, subject).glob(
+    muspin_files = nb.get_experiment_subject_directory(experiment, subject).glob(
         f"{probe}.*.mu_spindles.pqt"
     )
-    muspindles = pd.concat([
-        pd.read_parquet(muspin_file)
-        for muspin_file in muspin_files
-    ]).sort_values(by="Start").reset_index(drop=True)
+    muspindles = (
+        pd.concat([pd.read_parquet(muspin_file) for muspin_file in muspin_files])
+        .sort_values(by="Start")
+        .reset_index(drop=True)
+    )
     muspindles["start_time"] = muspindles["Start"]
     muspindles["duration"] = muspindles["End"] - muspindles["Start"]
 
@@ -478,7 +487,7 @@ if has_mu_spindles and var_muspins.get():
         muspindles,
         view_name="MU-based spindles",
         name_column="Structure",
-        add_event_list=True
+        add_event_list=True,
     )
 
 
@@ -572,12 +581,12 @@ if var_hypno_encoder.get():
     source_epoch = CsvEpochSource(
         edits_fpath,
         states,
-        color_labels=[matplotlib.colors.rgb2hex( state_colors[state]) for state in states]
+        color_labels=[
+            matplotlib.colors.rgb2hex(state_colors[state]) for state in states
+        ],
     )
-    encoder_view = EpochEncoder(
-        source=source_epoch, name='Hypnogram edits'
-    )
-    encoder_view.params["label_fill_color"] = "#00000000" # Full transparent
+    encoder_view = EpochEncoder(source=source_epoch, name="Hypnogram edits")
+    encoder_view.params["label_fill_color"] = "#00000000"  # Full transparent
     window.add_view(encoder_view)
 
 window.show()
