@@ -449,11 +449,15 @@ if has_spwrs and var_spwrs.get():
 
         return {"time": times, "duration": durations, "label": labels, "name": name}
 
-    spw_file = nb.get_experiment_subject_file(experiment, subject, "spws.pqt")
+    spw_file = nb.get_experiment_subject_file(
+        experiment, subject, "postprocessed_spws.pqt"
+    )
     spws = pd.read_parquet(spw_file).sort_values("start_time").reset_index(drop=True)
     spw_epochs = get_ephyviewer_epochs_dict(spws, "SPW")
 
-    ripples_file = nb.get_experiment_subject_file(experiment, subject, "ripples.pqt")
+    ripples_file = nb.get_experiment_subject_file(
+        experiment, subject, "postprocessed_ripples.pqt"
+    )
     ripples = (
         pd.read_parquet(ripples_file).sort_values("start_time").reset_index(drop=True)
     )
