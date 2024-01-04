@@ -23,8 +23,8 @@ project: anatomy
 project_directory: /Volumes/npx_nfs/shared_s3
 ...
 ---
-project: offs
-project_directory: /Volumes/npx_nfs/nobak/offs
+project: offproj
+project_directory: /Volumes/npx_nfs/nobak/offproj
 ...
 ---
 project: seahorse
