@@ -3,9 +3,11 @@ recording_sessions:
   - id: 04-18-2022
     ap: /Volumes/NeuropixelNAS1/ANPIX29-Madoc/04-18-2022/SpikeGLX/
     lf: /Volumes/NeuropixelNAS1/ANPIX29-Madoc/04-18-2022/SpikeGLX/
+    imSyncType: barcode
   - id: 04-19-2022
     ap: /Volumes/NeuropixelNAS1/ANPIX29-Madoc/04-19-2022/SpikeGLX/
     lf: /Volumes/NeuropixelNAS1/ANPIX29-Madoc/04-19-2022/SpikeGLX/
+    imSyncType: barcode
 experiments:
   discoflow-day1:
     recording_session_ids:
