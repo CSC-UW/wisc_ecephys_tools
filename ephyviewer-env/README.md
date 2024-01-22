@@ -31,4 +31,4 @@ pip install -e ./ephyviewer
 pip install -e ./ecephys
 pip install -e ./wisc_ecephys_tools
 ```
-5. Move `launch_raster.sh` to desktop, add +x, and edit paths if necessary. 
+5. Move `launch_raster.sh` to desktop, add +x, and edit paths if necessary. In particular, pay attention to whether you are using miniconda or miniforge! Paths are different! 
