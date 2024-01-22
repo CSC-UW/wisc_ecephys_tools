@@ -5,21 +5,8 @@ For extracellular electrophysiology code that is specific to the Wisconsin Insti
 Generic code that might be immediately useful to people outside WISC should go in [`ecephys`](https://github.com/CSC-UW/ecephys).
 
 ## Installation
-This will also install [`ecephys`](https://github.com/CSC-UW/ecephys) as a local, editable sibling directory.
-```
-git clone https://github.com/CSC-UW/ecephys.git
-git clone https://github.com/CSC-UW/wisc_ecephys_tools.git
-
-conda create -n myenv python=3
-conda activate myenv
-
-cd ecephys
-pip install -e .
-
-cd ..
-cd wisc_ecephys_tools
-pip install -e .
-```
+*Updated 1/22/2024 -- May be more recent than `CSC-UW/ece-env`.* 
+[`ecephys`](https://github.com/CSC-UW/ecephys) is required. Read and satisfy those requirements, paying particular attention to the `ephyviewer` bit, if you intend to use that. 
 
 If you run into issues with h5py/hdf5 version compatibility within ipython/jupyter (but not python):
 ```
