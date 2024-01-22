@@ -24,19 +24,11 @@ cd ..
 4. Install QT
 Note: As far as I can tell, there is nothing that requires Qt5 specifically. Qt6 should be fine. Qt5 tools should be supported in Python >=3.10, and even 3.12 + Qt6 should be possible.
 
-Python 3.10 + Qt5 (NOT WORKING!)
+Python >3.11 + Qt6
 ```
-# Conda's qtpy and qtconsole packages should work with either Qt5 or Qt6, but conda's pyqt is Qt5 only! Misleadingly named!
-mamba create -n ephyviewer python=3.10 pyqt qtpy qtconsole
+mamba create -n ephyviewer python=3.11
 mamba activate ephyviewer
-pip install pyqt5
-```
-
-Python >3.10 + Qt6 (NOT TESTED!)
-```
-mamba create -n ephyviewer python=3
-mamba activate ephyviewer
-pip install pyqt6
+pip install PySide6
 
 5. Install the rest
 ```
