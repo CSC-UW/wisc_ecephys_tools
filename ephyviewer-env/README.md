@@ -21,14 +21,28 @@ cd spikeinterface
 git checkout wisc/dev
 cd ..
 ```
-4. Install
+4. Install QT
+Note: As far as I can tell, there is nothing that requires Qt5 specifically. Qt6 should be fine. Qt5 tools should be supported in Python >=3.10, and even 3.12 + Qt6 should be possible.
+
+Python 3.10 + Qt5 (NOT WORKING!)
 ```
-mamba create -n ephyviewer python=3.11
+# Conda's qtpy and qtconsole packages should work with either Qt5 or Qt6, but conda's pyqt is Qt5 only! Misleadingly named!
+mamba create -n ephyviewer python=3.10 pyqt qtpy qtconsole
 mamba activate ephyviewer
-pip install pyside6
+pip install pyqt5
+```
+
+Python >3.10 + Qt6 (NOT TESTED!)
+```
+mamba create -n ephyviewer python=3
+mamba activate ephyviewer
+pip install pyqt6
+
+5. Install the rest
+```
 pip install -e ./spikeinterface
 pip install -e ./ephyviewer
 pip install -e ./ecephys
 pip install -e ./wisc_ecephys_tools
 ```
-5. Move `launch_raster.sh` to desktop, add +x, and edit paths if necessary. In particular, pay attention to whether you are using miniconda or miniforge! Paths are different! 
+Move `launch_raster.sh` to desktop, add +x, and edit paths if necessary. In particular, pay attention to whether you are using miniconda or miniforge! Paths are different! 
