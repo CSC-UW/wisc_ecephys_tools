@@ -1,0 +1,26 @@
+---
+recording_sessions:
+  - id: 02-20-2024
+    ap: /Volumes/NeuropixelNAS1/ANPIX42-Jabba/02-20-2024/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX42-Jabba/02-20-2024/SpikeGLX
+    imSyncType: barcode
+  - id: 02-21-2024
+    ap: /Volumes/NeuropixelNAS1/ANPIX42-Jabba/02-21-2024/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX42-Jabba/02-21-2024/SpikeGLX
+    imSyncType: barcode
+experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 02-20-2024
+    aliases:
+      full:
+        - start_file: 02-20-2024_g0_t0
+          end_file: 02-20-2024_g0_t0
+  discoflow-day2:
+    recording_session_ids:
+      - 02-21-2024
+    aliases:
+      full:
+        - start_file: 02-21-2024_g0_t0
+          end_file: 02-21-2024_g0_t0
+...
