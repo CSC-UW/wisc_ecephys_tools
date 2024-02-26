@@ -18,9 +18,7 @@ PROJ = wet.get_sglx_project(SHARED_PROJECT_NAME)
 ##################################
 
 
-def get_light_dark_periods(
-    experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True
-):
+def get_light_dark_periods(experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True):
     """Get light/dark periods in chronological order.
 
     Examples:
@@ -32,17 +30,11 @@ def get_light_dark_periods(
     labels = ["on", "off", "on", "off"]
     """
     params = PROJ.load_experiment_subject_params(experiment, subject.name)
-    on = pd.DataFrame(
-        {"time": [pd.to_datetime(x) for x in params["lightsOn"]], "transition": "on"}
-    )
-    off = pd.DataFrame(
-        {"time": [pd.to_datetime(x) for x in params["lightsOff"]], "transition": "off"}
-    )
+    on = pd.DataFrame({"time": [pd.to_datetime(x) for x in params["lightsOn"]], "transition": "on"})
+    off = pd.DataFrame({"time": [pd.to_datetime(x) for x in params["lightsOff"]], "transition": "off"})
     df = pd.concat([on, off]).sort_values("time").reset_index(drop=True)
     if as_float:
-        df["time"] = subject.dt2t(
-            experiment, params["hypnogram_probe"], df["time"].values
-        )
+        df["time"] = subject.dt2t(experiment, params["hypnogram_probe"], df["time"].values)
 
     periods = list(it.pairwise(df.itertuples()))
     intervals = [(start.time, end.time) for start, end in periods]
@@ -62,7 +54,7 @@ def plot_lights_overlay(
 ):
     """Take intervals and labels, as returned by `get_light_dark_periods()`, and use these to overlay
     the light/dark cycle onto a plot.
-    
+
     Examples
     --------
     >>> fig, ax = plt.subplots()
@@ -92,9 +84,7 @@ def plot_lights_overlay(
     ax.set_xlim(xlim)
 
 
-def get_novel_objects_period(
-    experiment: str, subject: wne.sglx.SGLXSubject
-) -> tuple[float, float]:
+def get_novel_objects_period(experiment: str, subject: wne.sglx.SGLXSubject) -> tuple[float, float]:
     params = PROJ.load_experiment_subject_params(experiment, subject.name)
     probe = params["hypnogram_probe"]
 
@@ -163,6 +153,7 @@ def get_day1_hypnogram(
         intervals[1][1],  # end of first dark period
     )
 
+
 def get_day2_hypnogram(
     full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
@@ -228,7 +219,7 @@ def get_post_deprivation_day2_light_period_hypnogram(
 
 
 def get_circadian_match_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject, start: float, end: float
+    full_hg: hypnogram.FloatHypnogram, start: float, end: float
 ) -> hypnogram.FloatHypnogram:
     match_start = start - pd.to_timedelta("24h").total_seconds()
     match_end = end - pd.to_timedelta("24h").total_seconds()
@@ -236,7 +227,7 @@ def get_circadian_match_hypnogram(
 
 
 def compute_basic_novel_objects_deprivation_experiment_hypnograms(
-    subject: wne.sglx.SGLXSubject, 
+    subject: wne.sglx.SGLXSubject,
     probes: list[str],
     sources: list[str],
     duration="1:00:00",
@@ -262,9 +253,7 @@ def compute_basic_novel_objects_deprivation_experiment_hypnograms(
     duration = pd.to_timedelta(duration).total_seconds()
     hgs = dict()
 
-    full_hg = get_full_reconciled_hypnogram(
-        NOD, subject, probes, sources
-    )
+    full_hg = get_full_reconciled_hypnogram(NOD, subject, probes, sources)
 
     hgs["Full 48h"] = full_hg
 
@@ -272,9 +261,7 @@ def compute_basic_novel_objects_deprivation_experiment_hypnograms(
     hgs["Early NOD"] = nod_hg.keep_first(duration)
     hgs["Late NOD"] = nod_hg.keep_last(duration)
 
-    pdd2_hg = get_post_deprivation_day2_light_period_hypnogram(
-        full_hg, NOD, subject
-    )
+    pdd2_hg = get_post_deprivation_day2_light_period_hypnogram(full_hg, NOD, subject)
     rslp_hg = pdd2_hg.keep_states(["NREM"])
     hgs["Early Recovery NREM"] = rslp_hg.keep_first(duration)
     hgs["Late Recovery NREM"] = rslp_hg.keep_last(duration)
@@ -289,8 +276,6 @@ def compute_basic_novel_objects_deprivation_experiment_hypnograms(
     hgs["Early Recovery NREM match"] = match_hg
 
     hgs["Early Baseline NREM"] = (
-        get_day1_light_period_hypnogram(full_hg, NOD, subject)
-        .keep_states(["NREM"])
-        .keep_first(duration)
+        get_day1_light_period_hypnogram(full_hg, NOD, subject).keep_states(["NREM"]).keep_first(duration)
     )
     return hgs
