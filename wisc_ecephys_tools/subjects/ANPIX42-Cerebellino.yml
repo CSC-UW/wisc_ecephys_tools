@@ -1,0 +1,42 @@
+---
+recording_sessions:
+  - id: 02-27-2024
+    ap: /Volumes/NeuropixelNAS1/ANPIX43-Cerebellino/02-27-2024/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX43-Cerebellino/02-27-2024/SpikeGLX
+    imSyncType: barcode
+  - id: 02-28-2024
+    ap: /Volumes/NeuropixelNAS1/ANPIX43-Cerebellino/02-28-2024/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX43-Cerebellino/02-28-2024/SpikeGLX
+    imSyncType: barcode
+  - id: 02-28-2024_SP
+    ap: /Volumes/NeuropixelNAS1/ANPIX43-Cerebellino/02-28-2024_SP/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX43-Cerebellino/02-28-2024_SP/SpikeGLX
+    imSyncType: barcode
+  - id: 02-28-2024_RT
+    ap: /Volumes/NeuropixelNAS1/ANPIX43-Cerebellino/02-28-2024_RT/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX43-Cerebellino/02-28-2024_RT/SpikeGLX
+    imSyncType: barcode
+experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 02-27-2024
+    aliases:
+      full:
+        - start_file: 02-27-2024_g0_t0
+          end_file: 02-27-2024_g0_t0
+  discoflow-day2:
+    recording_session_ids:
+      - 02-28-2024
+      - 02-28-2024_SP
+    aliases:
+      full:
+        - start_file: 02-28-2024_g0_t0
+          end_file: 02-28-2024_SP_g0_t0
+  discoflow-day3:
+    recording_session_ids:
+      - 02-28-2024_RT
+    aliases:
+      full:
+        - start_file: 02-28-2024_RT_g0_t0
+          end_file: 02-28-2024_RT_g0_t0
+...
