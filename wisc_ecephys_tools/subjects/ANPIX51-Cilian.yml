@@ -1,0 +1,31 @@
+---
+recording_sessions:
+  - id: 04-05-2024
+    ap: /Volumes/NeuropixelNAS1/ANPIX51-Cilian/04-05-2024/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX51-Cilian/04-05-2024/SpikeGLX
+    imSyncType: barcode
+  - id: 04-06-2024
+    ap: /Volumes/NeuropixelNAS1/ANPIX51-Cilian/04-06-2024/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX51-Cilian/04-06-2024/SpikeGLX
+    imSyncType: barcode
+  - id: 04-06-2024_SP
+    ap: /Volumes/NeuropixelNAS1/ANPIX51-Cilian/04-06-2024_SP/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX51-Cilian/04-06-2024_SP/SpikeGLX
+    imSyncType: barcode
+experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 04-05-2024
+    aliases:
+      full:
+        - start_file: 04-05-2024_g0_t0
+          end_file: 04-05-2024_g0_t0
+  discoflow-day2:
+    recording_session_ids:
+      - 04-06-2024
+      - 04-06-2024_SP
+    aliases:
+      full:
+        - start_file: 04-06-2024_g0_t0
+          end_file: 04-06-2024_SP_g0_t0
+...
