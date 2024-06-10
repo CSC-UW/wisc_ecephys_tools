@@ -255,7 +255,7 @@ def compute_basic_novel_objects_deprivation_experiment_hypnograms(
 
     full_hg = get_full_reconciled_hypnogram(NOD, subject, probes, sources)
 
-    hgs["Full 48h"] = full_hg
+    hgs["Full 48h"] = full_hg.keep_states(["NREM", "Wake", "REM"])
 
     nod_hg = get_novel_objects_hypnogram(full_hg, NOD, subject).keep_states(["Wake"])
     hgs["Early NOD"] = nod_hg.keep_first(duration)
