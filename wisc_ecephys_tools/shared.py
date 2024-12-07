@@ -102,6 +102,7 @@ def get_novel_objects_period(experiment: str, subject: wne.sglx.SGLXSubject) -> 
 ##################################
 
 
+# SUS: Why does this exist? Why not just use `load_reconciled_float_hypnogram` directly?
 def get_full_reconciled_hypnogram(
     experiment: str, subject: wne.sglx.SGLXSubject, probes: list[str], sources: list[str]
 ) -> hypnogram.FloatHypnogram:
