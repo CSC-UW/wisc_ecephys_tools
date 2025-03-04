@@ -1,16 +1,15 @@
 import itertools as it
 
 import matplotlib.pyplot as plt
-from ecephys.wne.sglx.utils import load_reconciled_float_hypnogram
 import pandas as pd
 
-from ecephys import hypnogram
-from ecephys import wne
-import wisc_ecephys_tools as wet
+import wisc_ecephys_tools.projects as projects
+from ecephys import hypnogram, wne
+from ecephys.wne.sglx.utils import load_reconciled_float_hypnogram
 
 NOD = "novel_objects_deprivation"
 SHARED_PROJECT_NAME = "shared"
-PROJ = wet.get_sglx_project(SHARED_PROJECT_NAME)
+PROJ = projects.get_sglx_project(SHARED_PROJECT_NAME)
 
 
 ##################################
@@ -18,7 +17,9 @@ PROJ = wet.get_sglx_project(SHARED_PROJECT_NAME)
 ##################################
 
 
-def get_light_dark_periods(experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True):
+def get_light_dark_periods(
+    experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True
+):
     """Get light/dark periods in chronological order.
 
     Examples:
@@ -30,11 +31,17 @@ def get_light_dark_periods(experiment: str, subject: wne.sglx.SGLXSubject, as_fl
     labels = ["on", "off", "on", "off"]
     """
     params = PROJ.load_experiment_subject_params(experiment, subject.name)
-    on = pd.DataFrame({"time": [pd.to_datetime(x) for x in params["lightsOn"]], "transition": "on"})
-    off = pd.DataFrame({"time": [pd.to_datetime(x) for x in params["lightsOff"]], "transition": "off"})
+    on = pd.DataFrame(
+        {"time": [pd.to_datetime(x) for x in params["lightsOn"]], "transition": "on"}
+    )
+    off = pd.DataFrame(
+        {"time": [pd.to_datetime(x) for x in params["lightsOff"]], "transition": "off"}
+    )
     df = pd.concat([on, off]).sort_values("time").reset_index(drop=True)
     if as_float:
-        df["time"] = subject.dt2t(experiment, params["hypnogram_probe"], df["time"].values)
+        df["time"] = subject.dt2t(
+            experiment, params["hypnogram_probe"], df["time"].values
+        )
 
     periods = list(it.pairwise(df.itertuples()))
     intervals = [(start.time, end.time) for start, end in periods]
@@ -84,7 +91,9 @@ def plot_lights_overlay(
     ax.set_xlim(xlim)
 
 
-def get_novel_objects_period(experiment: str, subject: wne.sglx.SGLXSubject) -> tuple[float, float]:
+def get_novel_objects_period(
+    experiment: str, subject: wne.sglx.SGLXSubject
+) -> tuple[float, float]:
     params = PROJ.load_experiment_subject_params(experiment, subject.name)
     probe = params["hypnogram_probe"]
 
@@ -104,7 +113,10 @@ def get_novel_objects_period(experiment: str, subject: wne.sglx.SGLXSubject) -> 
 
 # SUS: Why does this exist? Why not just use `load_reconciled_float_hypnogram` directly?
 def get_full_reconciled_hypnogram(
-    experiment: str, subject: wne.sglx.SGLXSubject, probes: list[str], sources: list[str]
+    experiment: str,
+    subject: wne.sglx.SGLXSubject,
+    probes: list[str],
+    sources: list[str],
 ) -> hypnogram.FloatHypnogram:
     """
     Load FloatHypnogram reconciled with LF/AP/sorting artifacts & NoData.
@@ -140,7 +152,7 @@ def get_full_reconciled_hypnogram(
 def get_novel_objects_hypnogram(
     full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
 ) -> hypnogram.FloatHypnogram:
-    (nod_start, nod_end) = wet.shared.get_novel_objects_period(experiment, subject)
+    (nod_start, nod_end) = get_novel_objects_period(experiment, subject)
     return full_hg.trim(nod_start, nod_end)
 
 
@@ -277,6 +289,8 @@ def compute_basic_novel_objects_deprivation_experiment_hypnograms(
     hgs["Early Recovery NREM match"] = match_hg
 
     hgs["Early Baseline NREM"] = (
-        get_day1_light_period_hypnogram(full_hg, NOD, subject).keep_states(["NREM"]).keep_first(duration)
+        get_day1_light_period_hypnogram(full_hg, NOD, subject)
+        .keep_states(["NREM"])
+        .keep_first(duration)
     )
     return hgs

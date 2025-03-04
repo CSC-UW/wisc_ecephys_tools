@@ -1,10 +1,10 @@
-from ecephys.wne.sglx.subjects import SGLXSubjectLibrary
 import pandas as pd
-import wisc_ecephys_tools as wet
 
+import wisc_ecephys_tools.subjects as subjects
+from ecephys.wne.sglx.subjects import SGLXSubjectLibrary
 
 if __name__ == "__main__":
-    lib = SGLXSubjectLibrary(wet.get_subjects_directory())
+    lib = SGLXSubjectLibrary(subjects.get_subjects_directory())
 
     previous_cache = lib.read_cache()
 

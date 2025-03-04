@@ -1,12 +1,13 @@
-import wisc_ecephys_tools as wet
-from typing import Union
-from ecephys.utils import read_htsv
 from pathlib import Path
+from typing import Union
 
 from bg_atlasapi.bg_atlas import BrainGlobeAtlas
 
+import wisc_ecephys_tools.projects as projects
+from ecephys.utils import read_htsv
+
 SHARED_PROJECT_NAME = "shared"
-PROJ = wet.get_wne_project(SHARED_PROJECT_NAME)
+PROJ = projects.get_wne_project(SHARED_PROJECT_NAME)
 BRAINGLOBE_DIR = PROJ.get_project_directory() / ".brainglobe"
 DF_ATLAS = "whs_sd_rat_39um"
 
@@ -23,7 +24,7 @@ def get_subject_probe_list(experiment: str, alias: str) -> list[tuple[str, str]]
     """Return [(<subj>, <prb>)] list of completed sortings."""
 
     # Get the available sortings
-    s3 = wet.get_wne_project("shared")
+    s3 = projects.get_wne_project("shared")
 
     sortings_dir = s3.get_alias_directory(experiment, alias)
 
@@ -80,7 +81,7 @@ def get_subject_probe_structure_list(
 
     if select_descendants_of is not None:
         unrecognized = [
-            a for a in select_descendants_of if not a in atlas.lookup_df.acronym.values
+            a for a in select_descendants_of if a not in atlas.lookup_df.acronym.values
         ]
         if any(unrecognized):
             raise ValueError(
@@ -89,7 +90,7 @@ def get_subject_probe_structure_list(
             )
     if exclude_descendants_of is not None:
         unrecognized = [
-            a for a in exclude_descendants_of if not a in atlas.lookup_df.acronym.values
+            a for a in exclude_descendants_of if a not in atlas.lookup_df.acronym.values
         ]
         if any(unrecognized):
             raise ValueError(
@@ -98,7 +99,7 @@ def get_subject_probe_structure_list(
             )
 
     # Get the available sortings
-    s3 = wet.get_wne_project(SHARED_PROJECT_NAME)
+    s3 = projects.get_wne_project(SHARED_PROJECT_NAME)
 
     completed_subject_probes = get_subject_probe_list(
         experiment,
@@ -112,7 +113,7 @@ def get_subject_probe_structure_list(
             s3.get_experiment_subject_file(experiment, subj, f"{prb}.structures.htsv")
         )
         for acronym in struct.acronym.unique():
-            if not acronym in atlas.lookup_df.acronym.values:
+            if acronym not in atlas.lookup_df.acronym.values:
                 unrecognized_structs.append(acronym)
                 continue
             ancestors = atlas.get_structure_ancestors(acronym)
