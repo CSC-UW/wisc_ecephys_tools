@@ -7,34 +7,17 @@ authors = [
 description = "Private internal tools specific to the Wisconsin Institute for Sleep and Consciousness (WISC)"
 readme = "README.md"
 requires-python = ">=3.9,<4.0"
-classifiers = [
-    "Programming Language :: Python :: 3 :: Only",
-    "License :: OSI Approved :: MIT License",
-    "Intended Audience :: Science/Research",
-    "Operating System :: POSIX :: Linux",
-    "Operating System :: Microsoft :: Windows",
-    "Operating System :: MacOS",
-    "Operating System :: OS Independent"
-]
-
 dependencies = [
     "bg_atlasapi",
     "altair",
     "thefuzz",
 ]
 
-[project.optional-dependencies]
-
+[dependency-groups]
 dev = [
-    "black",
+    "ruff"
 ]
 
 [build-system]
-requires = ["setuptools>=62.0"]
-build-backend = "setuptools.build_meta"
-
-[tool.black]
-line-length = 120
-
-[tool.setuptools]
-packages = ["wisc_ecephys_tools"]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
