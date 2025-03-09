@@ -1,3 +1,12 @@
+* Updated 3/8/2025 *
+
+| :warning: WARNING            |
+|:-----------------------------|
+| This information is outdated.|
+
+This should be updated to use uv. Also, these instructions are from a time when most of the actual app logic was in ecephys. 
+
+# Instructions
 On e.g. `tononi-2`:
 
 1. Install mambaforge
