@@ -8,7 +8,7 @@ description = "Private internal tools specific to the Wisconsin Institute for Sl
 readme = "README.md"
 requires-python = ">=3.9,<4.0"
 dependencies = [
-    "bg_atlasapi",
+    "brainglobe-atlasapi",
     "altair",
     "thefuzz",
     "ecephys",
