@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Union
 
-from bg_atlasapi.bg_atlas import BrainGlobeAtlas
+from brainglobe_atlasapi import BrainGlobeAtlas
 
 import wisc_ecephys_tools.projects as projects
 from ecephys.utils import read_htsv
