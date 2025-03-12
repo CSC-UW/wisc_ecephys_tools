@@ -19,13 +19,15 @@ Options:
   --optionsPath==<opts>              Path to options file (applied to all input datasets)
   --n_jobs=<n_jobs>                  Number of jobs for all spikeinterface functions. [default: 10]
 """
-from docopt import docopt
+
 from pathlib import Path
 
-import wisc_ecephys_tools as wet
-from ecephys.wne.sglx.pipeline.postprocessing_pipeline import (
+from docopt import docopt
+from lnsp.postprocessing_pipeline import (
     SpikeInterfacePostprocessingPipeline,
 )
+
+import wisc_ecephys_tools as wet
 
 BASENAME_DF = "sorting"
 RERUN_EXISTING_DF = False
@@ -44,7 +46,9 @@ if __name__ == "__main__":
         sglxProject = wet.get_sglx_project(args["--projectName"])
 
         # Output dirname from options filename
-        postprocessing_name = Path(args["--optionsPath"]).name.replace(".yaml", "").replace(".yml", "")
+        postprocessing_name = (
+            Path(args["--optionsPath"]).name.replace(".yaml", "").replace(".yml", "")
+        )
 
         # Pull hypno
         if args["--hypnogramProject"]:
@@ -71,4 +75,4 @@ if __name__ == "__main__":
 
         postpro_pipeline.run_postprocessing()
 
-        print(f"\n\n ...Done!")
+        print("\n\n ...Done!")

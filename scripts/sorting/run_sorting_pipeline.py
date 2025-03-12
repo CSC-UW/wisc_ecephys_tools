@@ -19,15 +19,11 @@ Options:
   --n_jobs=<n_jobs>                  Number of jobs for all spikeinterface functions. [default: 10]
 
 """
-from pathlib import Path
 
-import pandas as pd
 from docopt import docopt
+from lnsp.sorting_pipeline import SpikeInterfaceSortingPipeline
 
 import wisc_ecephys_tools as wet
-from ecephys import utils
-from ecephys.wne import constants
-from ecephys.wne.sglx.pipeline.sorting_pipeline import SpikeInterfaceSortingPipeline
 
 BASENAME_DF = "sorting"
 RERUN_EXISTING_DF = False
@@ -46,7 +42,6 @@ if __name__ == "__main__":
         exclusionsProject = wet.get_wne_project(EXCLUSIONS_PROJECT)
 
         if not args["--from_folder"]:
-
             sorting_pipeline = SpikeInterfaceSortingPipeline(
                 sglxProject,
                 sglxSubject,
@@ -59,10 +54,11 @@ if __name__ == "__main__":
                 options_source=args["--optionsPath"],
                 exclusions_source=exclusionsProject,
             )
-        
-        else:
 
-            assert not args["--optionsPath"], "Should not specify '--optionsPath' argument if using '--from_folder' option."
+        else:
+            assert not args["--optionsPath"], (
+                "Should not specify '--optionsPath' argument if using '--from_folder' option."
+            )
             sorting_pipeline = SpikeInterfaceSortingPipeline.load_from_folder(
                 sglxProject,
                 sglxSubject,
@@ -92,4 +88,4 @@ if __name__ == "__main__":
         print(f"Pipeline opts: {sorting_pipeline._opts}\n")
         print(f"Raw recording:\n {sorting_pipeline._raw_si_recording}\n")
 
-        print(f"\n\n ...Done!")
+        print("\n\n ...Done!")
