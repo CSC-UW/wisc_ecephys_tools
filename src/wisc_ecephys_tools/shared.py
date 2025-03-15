@@ -5,7 +5,6 @@ import pandas as pd
 
 import wisc_ecephys_tools.projects as projects
 from ecephys import hypnogram, wne
-from ecephys.wne.sglx.utils import load_reconciled_float_hypnogram
 
 NOD = "novel_objects_deprivation"
 SHARED_PROJECT_NAME = "shared"
@@ -137,7 +136,7 @@ def get_full_reconciled_hypnogram(
         artifact file.  For "sorting" source, NoData bouts are loaded from the
         sorting segments table.
     """
-    return load_reconciled_float_hypnogram(
+    return wne.sglx.siutils.load_reconciled_float_hypnogram(
         PROJ,
         experiment,
         subject,
