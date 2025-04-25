@@ -12,6 +12,7 @@ Only projects.yaml is required to resolve paths?
     - experiment_subject_dir/ (e.g. ANPIX11-Adrian/)
 
 """
+
 import os
 from pathlib import Path
 
@@ -35,7 +36,7 @@ def get_sglx_project(
     project_name,
     filename=DEFAULT_PROJECTS_FILENAME,
     projects_dir=DEFAULT_PROJECTS_DIRECTORY,
-):
+) -> sglx.SGLXProject:
     projects_file = get_projects_file(filename=filename, projects_dir=projects_dir)
     projects_library = sglx.SGLXProjectLibrary(projects_file)
     return projects_library.get_project(project_name=project_name)
@@ -45,7 +46,7 @@ def get_wne_project(
     project_name,
     filename=DEFAULT_PROJECTS_FILENAME,
     projects_dir=DEFAULT_PROJECTS_DIRECTORY,
-):
+) -> wne.Project:
     projects_file = get_projects_file(filename=filename, projects_dir=projects_dir)
     projects_library = wne.ProjectLibrary(projects_file)
     return projects_library.get_project(project_name=project_name)
