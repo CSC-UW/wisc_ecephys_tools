@@ -278,7 +278,8 @@ def compute_statistical_condition_hypnograms(
     cons_hg: hypnogram.FloatHypnogram,
     experiment: str,
     sglx_subject: wne.sglx.SGLXSubject,
-    ext_wake_kwargs: dict[str, float] = {},
+    extended_wake_kwargs: dict[str, float] = {},
+    circadian_match_tolerance: float = 30 * 60,  # 30 minutes
 ) -> dict[str, hypnogram.FloatHypnogram]:
     """Compute hypnograms for different statistical conditions.
 
@@ -296,6 +297,9 @@ def compute_statistical_condition_hypnograms(
         The subject to compute hypnograms for
     ext_wake_kwargs : dict[str, float]
         Keyword arguments to pass to `get_extended_wake_hypnogram`
+    circadian_match_tol : float
+        Tolerance for circadian match hypnogram, in seconds. Helpful in case there is
+        not much sleep during the strict match window. Default is 30 minutes.
 
     Returns
     -------
@@ -323,7 +327,7 @@ def compute_statistical_condition_hypnograms(
     hgs["last_bsl_rem"] = d1dp_hg.keep_states(["REM"]).keep_last(rem_duration)
 
     ext_hg = get_extended_wake_hypnogram(
-        lib_hg, experiment, sglx_subject, **ext_wake_kwargs
+        lib_hg, experiment, sglx_subject, **extended_wake_kwargs
     )
     if ext_hg is None:
         ewk_hg = None
@@ -388,16 +392,15 @@ def compute_statistical_condition_hypnograms(
     hgs["late_rec_nrem"] = pdd2lp_hg.keep_states(["NREM"]).keep_last(nrem_duration)
     hgs["late_rec_rem"] = pdd2lp_hg.keep_states(["REM"]).keep_last(rem_duration)
 
-    thirty_minutes = pd.to_timedelta("30m").total_seconds()
     hgs["early_rec_nrem_match"] = get_circadian_match_hypnogram(
         cons_hg,
-        start=hgs["early_rec_nrem"]["start_time"].min() - thirty_minutes,
-        end=hgs["early_rec_nrem"]["end_time"].max() + thirty_minutes,
+        start=hgs["early_rec_nrem"]["start_time"].min() - circadian_match_tolerance,
+        end=hgs["early_rec_nrem"]["end_time"].max() + circadian_match_tolerance,
     ).keep_states(["NREM"])
     hgs["early_rec_rem_match"] = get_circadian_match_hypnogram(
         cons_hg,
-        start=hgs["early_rec_rem"]["start_time"].min() - thirty_minutes,
-        end=hgs["early_rec_rem"]["end_time"].max() + thirty_minutes,
+        start=hgs["early_rec_rem"]["start_time"].min() - circadian_match_tolerance,
+        end=hgs["early_rec_rem"]["end_time"].max() + circadian_match_tolerance,
     ).keep_states(["REM"])
 
     d2dp_hg = get_day2_dark_period_hypnogram(cons_hg, experiment, sglx_subject)
