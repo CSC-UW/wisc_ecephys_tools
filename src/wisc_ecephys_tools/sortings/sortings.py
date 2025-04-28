@@ -20,8 +20,18 @@ def get_atlas(atlas_name: str = DF_ATLAS, brainglobe_dir: Pathlike = BRAINGLOBE_
     return BrainGlobeAtlas(atlas_name, brainglobe_dir=brainglobe_dir)
 
 
-def get_subject_probe_list(experiment: str, alias: str) -> list[tuple[str, str]]:
-    """Return [(<subj>, <prb>)] list of completed sortings."""
+def get_subject_probe_list(
+    experiment: str, alias: str, require_hypnogram_and_anatomy: bool = True
+) -> list[tuple[str, str]]:
+    """Return [(<subj>, <prb>)] list of sortings.
+
+    If `require_hypnogram_and_anatomy` is True (default), then the experiment-subject
+    directory wll be checked, and only subjects with a hypnogram and probes with anatomy
+    will be included.
+
+    As of 4/28/2025, sortings have only been done for `novel_objects_deprivation`
+    experiments and `full` aliases.
+    """
 
     # Get the available sortings
     s3 = projects.get_wne_project("shared")
@@ -35,6 +45,13 @@ def get_subject_probe_list(experiment: str, alias: str) -> list[tuple[str, str]]
         for subj in sortings_dir.iterdir()
         if subj.is_dir()
     }  # e.g. {'CNPIX4-Doppio': ['imec0', 'imec1], 'CNPIX9-Luigi: ['imec0], ...}
+
+    available_subject_probes = []
+    for subj, prbs in available_sortings.items():
+        available_subject_probes += [(subj, prb) for prb in prbs]
+
+    if not require_hypnogram_and_anatomy:
+        return available_subject_probes
 
     # Collect info about the various sortings, for display, and for determing parameters to use when loading
     has_hypnogram = {
@@ -54,17 +71,13 @@ def get_subject_probe_list(experiment: str, alias: str) -> list[tuple[str, str]]
         for subject, probes in available_sortings.items()
     }  # TODO: This should just be checked in the load_multiprobe_sorting function.... TB: Yes but it would require (slowish) loading of all sortings
 
-    available_subject_probes = []
-    for subj, prbs in available_sortings.items():
-        available_subject_probes += [(subj, prb) for prb in prbs]
-
-    completed_subject_probes = [
+    subject_probes_with_hypnogram_and_anatomy = [
         (subj, prb)
         for subj, prb in available_subject_probes
         if has_hypnogram[subj] and has_anatomy[subj][prb]
     ]
 
-    return completed_subject_probes
+    return subject_probes_with_hypnogram_and_anatomy
 
 
 def get_subject_probe_structure_list(
@@ -99,11 +112,11 @@ def get_subject_probe_structure_list(
             )
 
     # Get the available sortings
-    s3 = projects.get_wne_project(SHARED_PROJECT_NAME)
 
     completed_subject_probes = get_subject_probe_list(
         experiment,
         alias,
+        require_hypnogram_and_anatomy=True,
     )
 
     completed_subject_probe_structures = []
