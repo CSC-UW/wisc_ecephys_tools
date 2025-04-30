@@ -123,7 +123,9 @@ def get_subject_probe_structure_list(
     unrecognized_structs = []
     for subj, prb in completed_subject_probes:
         struct = read_htsv(
-            s3.get_experiment_subject_file(experiment, subj, f"{prb}.structures.htsv")
+            projects.get_wne_project("shared").get_experiment_subject_file(
+                experiment, subj, f"{prb}.structures.htsv"
+            )
         )
         for acronym in struct.acronym.unique():
             if acronym not in atlas.lookup_df.acronym.values:
