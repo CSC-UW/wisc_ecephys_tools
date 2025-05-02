@@ -4,7 +4,6 @@ import pickle
 import numpy as np
 import on_off_detection
 
-import ecephys.wne.sglx.siutils
 import wisc_ecephys_tools as wet
 
 # Parse experiment, alias, subjectName, probe from command line
@@ -103,7 +102,7 @@ def main():
         .select_structures([structure])
     )
 
-    hg = ecephys.wne.sglx.siutils.load_reconciled_float_hypnogram(
+    hg = wet.scoring.load_hypnogram(
         sglxProject,
         experiment,
         sglxSubject,

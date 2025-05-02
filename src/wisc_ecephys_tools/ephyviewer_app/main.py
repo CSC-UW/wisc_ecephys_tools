@@ -13,8 +13,6 @@ from ephyviewer import CsvEpochSource, EpochEncoder
 
 import ecephys.plot
 import ecephys.utils.pandas as pd_utils
-import ecephys.wne.constants as wne_constants
-import ecephys.wne.sglx.utils as wne_sglx_utils
 import wisc_ecephys_tools as wet
 from ecephys import wne
 
@@ -259,7 +257,7 @@ def run():
         wneHypnogramProject = (
             s3 if has_hypnogram[(experiment, alias)][subject] else None
         )
-        hg = wne_sglx_utils.load_reconciled_float_hypnogram(
+        hg = wet.scoring.load_hypnogram(
             wneHypnogramProject,
             experiment,
             sglxSubject,
@@ -268,8 +266,7 @@ def run():
             reconcile_ephyviewer_edits=True,
             simplify=True,
         )
-    wneAnatomyProject = s3 if has_anatomy[(experiment, alias)][subject][probe] else None
-    singleprobe_sorting = wne_sglx_utils.load_singleprobe_sorting(
+    singleprobe_sorting = wne.sglx.siutils.load_singleprobe_sorting(
         s3,
         sglxSubject,
         experiment,
@@ -616,10 +613,10 @@ def run():
     if var_hypno_encoder.get():
         print("Add hypnogram edits encoder")
         edits_fpath = s3.get_experiment_subject_file(
-            experiment, subject, wne_constants.HYPNOGRAM_EPHYVIEWER_EDITS_FNAME
+            experiment, subject, wet.constants.Files.HYPNOGRAM_EPHYVIEWER_EDITS
         )
 
-        states = wne_constants.EPHYVIEWER_STATE_ORDER
+        states = utils.EPHYVIEWER_STATE_ORDER
         source_epoch = CsvEpochSource(
             edits_fpath,
             states,

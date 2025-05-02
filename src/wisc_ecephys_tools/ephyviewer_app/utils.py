@@ -1,15 +1,28 @@
+from typing import Final, Tuple
+
 import ephyviewer
 import matplotlib.colors
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-import ecephys.hypnogram as hyp
-import ecephys.plot
-from ecephys.units import MultiSIKS, SpikeInterfaceKilosortSorting
-from ecephys.wne import constants
+from ecephys import hypnogram as hyp
+from ecephys import plot as eplt
+from ecephys import units
 
 DEPTH_STEP = 20
+
+EPHYVIEWER_STATE_ORDER: Final[Tuple[str, ...]] = tuple(
+    [
+        "Wake",
+        "NREM",
+        "REM",
+        "IS",
+        "MA",
+        "Artifact",
+        "Other",
+    ]
+)
 
 
 # TODO: Probably doesn't belong in the units subpackage, since it has nothing to do with units? Maybe our custom ephyviewer app deserves to be its own subpackage, either in ecephys or in wisc_ecephys_tools?
@@ -117,14 +130,14 @@ def add_hypnogram_view_to_window(window: ephyviewer.MainViewer, hg: hyp.FloatHyp
         hg,
         view_name="Hypnogram",
         name_column="state",
-        name_order=constants.EPHYVIEWER_STATE_ORDER,
-        color_by_name=ecephys.plot.state_colors,
+        name_order=EPHYVIEWER_STATE_ORDER,
+        color_by_name=eplt.state_colors,
     )
 
 
 def add_spiketrainviewer_to_window(
     window: ephyviewer.MainViewer,
-    sorting: SpikeInterfaceKilosortSorting,
+    sorting: units.SpikeInterfaceKilosortSorting,
     by="depth",
     probe=None,
     view_params=None,
@@ -283,7 +296,7 @@ def add_spatialoff_viewer_to_window(
 
 def add_spiketrain_views_from_sorting(
     window: ephyviewer.MainViewer,
-    sorting: SpikeInterfaceKilosortSorting,
+    sorting: units.SpikeInterfaceKilosortSorting,
     by: str = "depth",
     tgt_struct_acronyms: list[str] = None,
     group_by_structure: bool = True,
@@ -309,7 +322,7 @@ def add_spiketrain_views_from_sorting(
 
 
 def launch_interactive_raster_from_sorting(
-    sorting: SpikeInterfaceKilosortSorting,
+    sorting: units.SpikeInterfaceKilosortSorting,
     by: str = "depth",
     tgt_struct_acronyms: list[str] = None,
     hg: hyp.FloatHypnogram = None,
@@ -336,7 +349,7 @@ def launch_interactive_raster_from_sorting(
 
 def add_spiketrain_views_from_multiprobe_sorting(
     window: ephyviewer.MainViewer,
-    mps: MultiSIKS,
+    mps: units.MultiSIKS,
     by: str = "depth",
     tgt_struct_acronyms: dict[str, list] = None,
 ):
@@ -367,7 +380,7 @@ def add_spiketrain_views_from_multiprobe_sorting(
 
 
 def launch_interactive_raster_from_multiprobe_sorting(
-    mps: MultiSIKS,
+    mps: units.MultiSIKS,
     by: str = "depth",
     tgt_struct_acronyms: dict[str, list] = None,
     hg: hyp.FloatHypnogram = None,
