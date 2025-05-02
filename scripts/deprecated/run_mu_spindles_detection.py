@@ -46,7 +46,7 @@ def main():
         presence_threshold=None,
     )
 
-    hg = wne.utils.load_raw_float_hypnogram(
+    hg = wet.scoring._load_consolidated_hypnogram(
         project, experiment, subject.name, simplify=True
     )
 

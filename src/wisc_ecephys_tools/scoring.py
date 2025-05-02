@@ -215,6 +215,30 @@ def _load_bouts_to_reconcile_as_hypnogram(
     )
 
 
+# TODO: Retire this in favor of wne.utils.load_consolidated_hypnogram().
+def _load_consolidated_hypnogram(
+    project: wne.Project,
+    experiment: str,
+    subject: str,
+    simplify: bool = True,
+) -> hyp.FloatHypnogram:
+    """Load FloatHypnogram from consolidated hypnogram.htsv project file.
+
+    Important: This hypnogram might not be adequate for all use, as it does
+    not necessarily account some excluded, missing or artifactual data
+    from LF-band artifacts, AP-band artifacts, or sorting exclusions.  Consider
+    using wisc_ecephys_tools.scoring.load_hypnogram instead.
+    """
+    f = project.get_experiment_subject_file(experiment, subject, wne.Files.HYPNOGRAM)
+    hg = hyp.FloatHypnogram.from_htsv(f)
+    if simplify:
+        hg = hg.replace_states(wne.SIMPLIFIED_STATES)
+        # TODO: This clean() should not be necessary. It is already done in ecephys.wne.sglx.pipeline.consoldate_visbrain_hypnograms.do_experiment_probe().
+        # Although, it will change NaNs to NoData. Is that expected downstream somewhere?
+        hg = hyp.FloatHypnogram.clean(hg._df)
+    return hg
+
+
 # TODO: There does need to be a function somewhere in wne that reconciles a consoldiated
 # visbrain hypnogram with consolidated artifacts.
 # TODO: The sources argument dictates the sources of the NoData and artifacts.
@@ -293,7 +317,7 @@ def load_hypnogram(
         raise ValueError(
             f"Invalid value in `sources` argument. The following sources are recognized: `{SOURCES}`"
         )  # TODO: This is not true. As written, sources=[] will also pass this test. Is that intended, or a bug?
-    hg = wne.utils.load_raw_float_hypnogram(
+    hg = _load_consolidated_hypnogram(
         project,
         experiment,
         subject.name,
