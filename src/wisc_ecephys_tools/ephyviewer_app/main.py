@@ -16,6 +16,7 @@ import ecephys.utils.pandas as pd_utils
 import ecephys.wne.constants as wne_constants
 import ecephys.wne.sglx.utils as wne_sglx_utils
 import wisc_ecephys_tools as wet
+from ecephys import wne
 
 from . import utils
 
@@ -27,6 +28,9 @@ EXPERIMENT_ALIAS_LIST = [
     ("discoflow-day2", "full"),
     ("discoflow-day3", "full"),
 ]
+
+# Full fname is f"{prb}.{acronym}.{OFF_FNAME_SUFFIX}""
+DF_OFF_FNAME_SUFFIX = "global_offs_bystate_conservative_0.05.htsv"
 
 
 def get_available_sortings(experiment, alias):
@@ -40,6 +44,28 @@ def get_available_sortings(experiment, alias):
         for subj in sortings_dir.iterdir()
         if subj.is_dir()
     }  # e.g. {'CNPIX4-Doppio': ['imec0', 'imec1], 'CNPIX9-Luigi: ['imec0], ...}
+
+
+def load_offs_df(
+    project: wne.Project,
+    experiment: str,
+    subject: str,
+    probe: str,
+    off_fname_suffix: str = DF_OFF_FNAME_SUFFIX,
+):
+    """Load and aggregate off files across structures.
+
+    Loads and aggregate all files of the form
+    `<probe>.<acronym>.<off_fname_suffix>` in the `offs` subdirectory
+    of the project's experiment_subject_directory.
+    """
+    off_dir = project.get_experiment_subject_directory(experiment, subject) / "offs"
+
+    structure_offs = []
+    for f in off_dir.glob(f"{probe}.*{off_fname_suffix}"):
+        structure_offs.append(ecephys.utils.read_htsv(f))
+
+    return pd.concat(structure_offs).reset_index(drop=True)
 
 
 def run():
@@ -303,7 +329,7 @@ def run():
             checkbox = tk.Checkbutton(
                 window, text=f"Display global offs: {suffix}", variable=var_off
             )
-            if suffix == wne_constants.DF_OFF_FNAME_SUFFIX:
+            if suffix == DF_OFF_FNAME_SUFFIX:
                 checkbox.select()
             checkbox.pack()
             global_off_vars[suffix] = var_off
