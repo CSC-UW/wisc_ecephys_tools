@@ -5,8 +5,7 @@ import pandas as pd
 
 import ecephys.deprecated.spindles.mua as mu_spindles
 import wisc_ecephys_tools as wet
-from ecephys.wne.sglx.utils import load_singleprobe_sorting
-from ecephys.wne.siutils import get_quality_metric_filters
+from ecephys import wne
 
 # Parse experiment, alias, subjectName, probe from command line
 example_text = """
@@ -40,17 +39,19 @@ def main():
     project = wet.get_sglx_project("shared_s3")
     saveProject = wet.get_sglx_project(saveProjectName)
 
-    MULTI_UNIT_FILTERS = get_quality_metric_filters(
+    MULTI_UNIT_FILTERS = wne.siutils.get_quality_metric_filters(
         "permissive",
         isolation_threshold=None,
         false_negatives_threshold=None,
         presence_threshold=None,
     )
 
-    hg = project.load_float_hypnogram(experiment, subject.name, simplify=True)
+    hg = wne.utils.load_raw_float_hypnogram(
+        project, experiment, subject.name, simplify=True
+    )
 
     sorting = (
-        load_singleprobe_sorting(
+        wne.sglx.siutils.load_singleprobe_sorting(
             project,
             subject,
             experiment,
