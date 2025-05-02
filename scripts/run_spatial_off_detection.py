@@ -102,7 +102,7 @@ def main():
         .select_structures([structure])
     )
 
-    hg = wet.scoring.load_hypnogram(
+    hg = wet.rats.scoring.load_hypnogram(
         sglxProject,
         experiment,
         sglxSubject,

@@ -7,7 +7,7 @@ from ecephys import hypnogram as hyp
 from ecephys import wne
 from ecephys.wne.sglx import SGLXProject, SGLXSubject
 
-from . import constants
+from .. import constants
 
 
 def _load_ephyviewer_hypnogram_edits(

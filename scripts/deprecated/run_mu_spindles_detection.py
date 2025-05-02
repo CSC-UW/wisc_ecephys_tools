@@ -46,7 +46,7 @@ def main():
         presence_threshold=None,
     )
 
-    hg = wet.scoring._load_consolidated_hypnogram(
+    hg = wet.rats.scoring._load_consolidated_hypnogram(
         project, experiment, subject.name, simplify=True
     )
 

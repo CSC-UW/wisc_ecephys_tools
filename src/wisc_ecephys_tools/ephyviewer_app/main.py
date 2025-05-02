@@ -257,7 +257,7 @@ def run():
         wneHypnogramProject = (
             s3 if has_hypnogram[(experiment, alias)][subject] else None
         )
-        hg = wet.scoring.load_hypnogram(
+        hg = wet.rats.scoring.load_hypnogram(
             wneHypnogramProject,
             experiment,
             sglxSubject,
