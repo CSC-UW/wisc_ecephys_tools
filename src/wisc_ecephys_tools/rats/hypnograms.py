@@ -306,6 +306,7 @@ def compute_statistical_condition_hypnograms(
     dict[str, hypnogram.FloatHypnogram]
         Dictionary mapping condition names to their corresponding hypnograms
     """
+    # TODO: Use _1h, _10min
     nrem_duration: float = pd.to_timedelta("1:00:00").total_seconds()
     wake_duration: float = pd.to_timedelta("1:00:00").total_seconds()
     rem_duration: float = pd.to_timedelta("0:10:00").total_seconds()
@@ -332,6 +333,7 @@ def compute_statistical_condition_hypnograms(
     if ext_hg is None:
         ewk_hg = None
     else:
+        # TODO: Store the ext_hg object, not just the early/late_versions.
         ext_hg = cons_hg.trim(ext_hg["start_time"].min(), ext_hg["end_time"].max())
         # Scoring may be so good that local sleep was marked as NREM.
         # If you want "mixed wake", early/late_ext will include these microsleeps.
@@ -346,6 +348,9 @@ def compute_statistical_condition_hypnograms(
         hgs["early_ext_wake"] = ewk_hg.keep_first(wake_duration)
         hgs["late_ext_wake"] = ewk_hg.keep_last(wake_duration)
 
+    # TODO: It would be more accurate to use get_sleep_deprivation_period() directly.
+    # It will not change sd_wake, early_sd_wake, or late_sd_wake.
+    # Also, store the sd_hg object, not just the early/late_versions.
     sd_hg = get_sleep_deprivation_wake_hypnogram(lib_hg, experiment, sglx_subject)
     sd_hg = cons_hg.trim(sd_hg["start_time"].min(), sd_hg["end_time"].max())
     # Scoring may be so good that local sleep was marked as NREM.
@@ -360,6 +365,8 @@ def compute_statistical_condition_hypnograms(
     hgs["late_sd_wake"] = sdwk_hg.keep_last(wake_duration)
 
     if experiment in [Exps.NOD, Exps.CTN]:
+        # TODO: Store the nod_hg object, not just the wake_hg object.
+        # Also store early/late versions.
         nod_hg = get_novel_objects_hypnogram(
             cons_hg, experiment, sglx_subject
         ).keep_states(["Wake"])
