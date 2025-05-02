@@ -9,6 +9,8 @@ from wisc_ecephys_tools import core
 from wisc_ecephys_tools.rats.constants import SleepDeprivationExperiments as Exps
 
 
+# TODO: This should probably take `probe` as an argument, instead of assuming that we
+# want to use the `hypnogram_probe` from the experiment params.
 def get_light_dark_periods(
     experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True
 ):
@@ -84,6 +86,8 @@ def plot_lights_overlay(
     ax.set_xlim(xlim)
 
 
+# TODO: This should probably take `probe` as an argument, instead of assuming that we
+# want to use the `hypnogram_probe` from the experiment params.
 def get_novel_objects_period(
     experiment: str, subject: wne.sglx.SGLXSubject
 ) -> tuple[float, float]:
@@ -191,6 +195,8 @@ def get_circadian_match_hypnogram(
     return full_hg.trim(match_start, match_end)
 
 
+# TODO: This should probably take `probe` as an argument, instead of assuming that we
+# want to use the `hypnogram_probe` from the experiment params.
 def get_conveyor_over_water_period(
     experiment: str, wne_subject: wne.sglx.SGLXSubject
 ) -> tuple[float, float]:
