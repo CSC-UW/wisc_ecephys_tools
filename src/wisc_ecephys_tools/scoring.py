@@ -120,7 +120,7 @@ def _load_sglx_inclusions_and_artifacts(
 
     # Incorporate project-wide artifacts
     # Those are already in common-time base, no need for conversion
-    artifacts = wne.utils.load_consolidated_artifacts(
+    artifacts = wne.sglx.utils.load_consolidated_artifacts(
         project, experiment, sglx_subject.name, probe, stream, simplify=True
     )
 
@@ -233,8 +233,8 @@ def _load_consolidated_hypnogram(
     hg = hyp.FloatHypnogram.from_htsv(f)
     if simplify:
         hg = hg.replace_states(wne.SIMPLIFIED_STATES)
-        # TODO: This clean() should not be necessary. It is already done in ecephys.wne.sglx.pipeline.consoldate_visbrain_hypnograms.do_experiment_probe().
-        # Although, it will change NaNs to NoData. Is that expected downstream somewhere?
+        # Cleaning is already done, but becuase we are simplifying states, it might need
+        # to be done again. It will change NaNs to NoData. Is that expected downstream somewhere?
         hg = hyp.FloatHypnogram.clean(hg._df)
     return hg
 
