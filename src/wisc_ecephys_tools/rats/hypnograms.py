@@ -3,6 +3,10 @@ This module contains functions for getting hypnograms that cover different
 periods and states of interest. For example, the light/dark periods, the sleep
 deprivation period, recovery NREM sleep, etc.
 
+The `scoring` module, on the other hand, contains functions for getting a total
+experiment hypnogram, from which the hypnograms in this module are derived.
+TODO: Maybe these modules should be named `exp_hg` and `cnd_hg`.
+
 Note 1:
     Various calls to wne.SGLXSubject.dt2t pass "imec0" as the probe.
     This is a hack/shortcut, to ensure that the times returned by dt2t are in the

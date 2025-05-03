@@ -5,6 +5,7 @@ import numpy as np
 import on_off_detection
 
 import wisc_ecephys_tools as wet
+from ecephys.wne.sglx import siutils
 
 # Parse experiment, alias, subjectName, probe from command line
 example_text = """
@@ -88,7 +89,7 @@ def main():
     sglxProject = wet.get_sglx_project("shared")
 
     sorting = (
-        ecephys.wne.sglx.siutils.load_singleprobe_sorting(
+        siutils.load_singleprobe_sorting(
             sglxProject,
             sglxSubject,
             experiment,
@@ -106,9 +107,13 @@ def main():
         sglxProject,
         experiment,
         sglxSubject,
-        [probe],
-        ["sorting"],
-        reconcile_ephyviewer_edits=True,
+        probe,
+        include_ephyviewer_edits=True,
+        include_sorting_nodata=True,
+        include_lf_consolidated_artifacts=False,
+        include_ap_consolidated_artifacts=False,
+        include_lf_sglx_filetable_nodata=False,
+        include_ap_sglx_filetable_nodata=False,
         simplify=True,
     ).keep_states(pooled_states)
 
