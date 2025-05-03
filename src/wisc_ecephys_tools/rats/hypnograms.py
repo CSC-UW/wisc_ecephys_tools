@@ -1,3 +1,17 @@
+"""
+This module contains functions for getting hypnograms that cover different
+periods and states of interest. For example, the light/dark periods, the sleep
+deprivation period, recovery NREM sleep, etc.
+
+Note 1:
+    Various calls to wne.SGLXSubject.dt2t pass "imec0" as the probe.
+    This is a hack/shortcut, to ensure that the times returned by dt2t are in the
+    experiment's canonical (synced) timebase. The biggest drawback of this approach is
+    that imec0 needs to be available. If it were not, we'd have to:
+    - Take `probe` as an argument.
+    - Create a time synchronizer object, and use that to convert the output of dt2t.
+"""
+
 import itertools as it
 import warnings
 
@@ -9,8 +23,6 @@ from wisc_ecephys_tools import core
 from wisc_ecephys_tools.rats.constants import SleepDeprivationExperiments as Exps
 
 
-# TODO: This should probably take `probe` as an argument, instead of assuming that we
-# want to use the `hypnogram_probe` from the experiment params.
 def get_light_dark_periods(
     experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True
 ):
@@ -34,9 +46,8 @@ def get_light_dark_periods(
     )
     df = pd.concat([on, off]).sort_values("time").reset_index(drop=True)
     if as_float:
-        df["time"] = subject.dt2t(
-            experiment, params["hypnogram_probe"], df["time"].values
-        )
+        df["time"] = subject.dt2t(experiment, "imec0", df["time"].values)
+        # See Note 1 above.
 
     periods = list(it.pairwise(df.itertuples()))
     intervals = [(start.time, end.time) for start, end in periods]
@@ -86,20 +97,17 @@ def plot_lights_overlay(
     ax.set_xlim(xlim)
 
 
-# TODO: This should probably take `probe` as an argument, instead of assuming that we
-# want to use the `hypnogram_probe` from the experiment params.
 def get_novel_objects_period(
     experiment: str, subject: wne.sglx.SGLXSubject
 ) -> tuple[float, float]:
     s3 = core.get_shared_project()
     params = s3.load_experiment_subject_params(experiment, subject.name)
-    probe = params["hypnogram_probe"]
 
     start = pd.to_datetime(params["novel_objects_start"])
-    start = subject.dt2t(experiment, probe, start)
+    start = subject.dt2t(experiment, "imec0", start)  # See Note 1 above.
 
     end = pd.to_datetime(params["novel_objects_end"])
-    end = subject.dt2t(experiment, probe, end)
+    end = subject.dt2t(experiment, "imec0", end)  # See Note 1 above.
 
     return (start, end)
 
@@ -112,7 +120,9 @@ def get_novel_objects_hypnogram(
 
 
 def get_day1_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
+    full_hg: hypnogram.FloatHypnogram,
+    experiment: str,
+    subject: wne.sglx.SGLXSubject,
 ) -> hypnogram.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -123,7 +133,9 @@ def get_day1_hypnogram(
 
 
 def get_day2_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
+    full_hg: hypnogram.FloatHypnogram,
+    experiment: str,
+    subject: wne.sglx.SGLXSubject,
 ) -> hypnogram.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -134,7 +146,9 @@ def get_day2_hypnogram(
 
 
 def get_day1_light_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
+    full_hg: hypnogram.FloatHypnogram,
+    experiment: str,
+    subject: wne.sglx.SGLXSubject,
 ) -> hypnogram.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -145,7 +159,9 @@ def get_day1_light_period_hypnogram(
 
 
 def get_day1_dark_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
+    full_hg: hypnogram.FloatHypnogram,
+    experiment: str,
+    subject: wne.sglx.SGLXSubject,
 ) -> hypnogram.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -156,7 +172,9 @@ def get_day1_dark_period_hypnogram(
 
 
 def get_day2_light_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
+    full_hg: hypnogram.FloatHypnogram,
+    experiment: str,
+    subject: wne.sglx.SGLXSubject,
 ) -> hypnogram.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -167,7 +185,9 @@ def get_day2_light_period_hypnogram(
 
 
 def get_day2_dark_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
+    full_hg: hypnogram.FloatHypnogram,
+    experiment: str,
+    subject: wne.sglx.SGLXSubject,
 ) -> hypnogram.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -195,20 +215,17 @@ def get_circadian_match_hypnogram(
     return full_hg.trim(match_start, match_end)
 
 
-# TODO: This should probably take `probe` as an argument, instead of assuming that we
-# want to use the `hypnogram_probe` from the experiment params.
 def get_conveyor_over_water_period(
     experiment: str, wne_subject: wne.sglx.SGLXSubject
 ) -> tuple[float, float]:
     s3 = core.get_shared_project()
     params = s3.load_experiment_subject_params(experiment, wne_subject.name)
-    probe = params["hypnogram_probe"]
 
     start = pd.to_datetime(params["conveyor_over_water_start"])
-    start = wne_subject.dt2t(experiment, probe, start)
+    start = wne_subject.dt2t(experiment, "imec0", start)  # See Note 1 above.
 
     end = pd.to_datetime(params["conveyor_over_water_end"])
-    end = wne_subject.dt2t(experiment, probe, end)
+    end = wne_subject.dt2t(experiment, "imec0", end)  # See Note 1 above.
 
     return (start, end)
 
