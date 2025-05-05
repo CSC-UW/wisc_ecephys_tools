@@ -140,6 +140,42 @@ def _artifacts_as_hypnogram(artifacts: pd.DataFrame) -> hyp.FloatHypnogram:
     return hyp.FloatHypnogram(artifacts)
 
 
+def load_consolidated_hypnogram(
+    project: SGLXProject,
+    experiment: str,
+    subject: str,
+    probe: str,
+    simplify: bool = True,
+    fallback: bool = False,
+) -> hyp.FloatHypnogram:
+    try:
+        return wne.utils.load_consolidated_hypnogram(
+            project, experiment, subject, probe, simplify=simplify
+        )
+    except FileNotFoundError:
+        print(f"Consolidated hypnogram not found for {subject} {experiment} {probe}.")
+        if fallback:
+            params = project.load_experiment_subject_params(experiment, subject)
+            try:
+                fallback_probe = params["hypnogram_probe"]
+                return wne.utils.load_consolidated_hypnogram(
+                    project,
+                    experiment,
+                    subject,
+                    fallback_probe,
+                    simplify=simplify,
+                )
+            except KeyError:
+                raise ValueError(
+                    "No `hypnogram_probe` found in experiment params. Cannot fall back."
+                )
+        else:
+            raise FileNotFoundError(
+                f"Consolidated hypnogram not found for {subject} {experiment} {probe}."
+                "Set `fallback=True` to attempt to load from experiment params `hypnogram_probe`."
+            )
+
+
 # We may want a function that reconciles the output of this one for multiple probes.
 def load_hypnogram(
     project: SGLXProject,
@@ -153,6 +189,7 @@ def load_hypnogram(
     include_lf_sglx_filetable_nodata: bool = True,
     include_ap_sglx_filetable_nodata: bool = True,
     simplify: bool = True,
+    fallback: bool = False,
 ) -> hyp.FloatHypnogram:
     """Load a FloatHypnogram reconciled with EphyViewer edits, LF/AP/sorting artifacts,
      and NoData periods marked.
@@ -213,8 +250,8 @@ def load_hypnogram(
         any reconcilition with artifacts, nodata, or ephyviewer edits is attempted. Also
         determines whether ephyviewer edits will be simplified upon loading.
     """
-    hg = wne.utils.load_consolidated_hypnogram(
-        project, experiment, subject.name, probe, simplify=simplify
+    hg = load_consolidated_hypnogram(
+        project, experiment, subject.name, probe, simplify=simplify, fallback=fallback
     )
 
     # Reconcile ephyviewer edits first, so that they can't accidentally override
