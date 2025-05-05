@@ -44,6 +44,11 @@ def get_statistical_condition_hypnograms(subject: str, experiment: str, probe: s
     # disagree, then use this new hypnogram as the conservative hypnogram.
     # It won't be maximally accurate, but at least it will be consistent...
     # You could do the same for the liberal hypnogram.
+    # You could also just compute the statistical condition hypnograms
+    # in a probe-specific manner, then hope to reconcile the outputs.
+    # That's probably safer, because it'll be easier to see precisely
+    # where the discrepancies are.
+    # Hold off on implementing either for now. It may not be necessary.
     return hypnograms.compute_statistical_condition_hypnograms(
         lbrl_hg, cons_hg, experiment, subject
     )
