@@ -1,7 +1,4 @@
 """
-Experiments + aliases assumed, sessions not?
-Only projects.yaml is required to resolve paths?
-
 - project_dir/ (e.g. SPWRs/)
   - subject_dir/ (e.g. ANPIX11-Adrian/)
   - experiment_dir/ (e.g. novel_objects_deprivation/)
@@ -11,42 +8,45 @@ Only projects.yaml is required to resolve paths?
       - subalias_subject_dir/ (e.g. ANPIX11-Adrian/)
     - experiment_subject_dir/ (e.g. ANPIX11-Adrian/)
 
+You could name a project the same thing as an experiment, if you wanted to.
 """
 
 import os
+from functools import lru_cache
 from pathlib import Path
 
 from ecephys import wne
 from ecephys.wne import sglx
 
-# You could name a project the same thing as an experiment
-# You could name a project "Common" or "Scoring" or "Sorting"
 
-DEFAULT_PROJECTS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_PROJECTS_FILENAME = "projects.yaml"
-
-
-def get_projects_file(
-    filename=DEFAULT_PROJECTS_FILENAME, projects_dir=DEFAULT_PROJECTS_DIRECTORY
-):
-    return Path(os.path.join(projects_dir, filename))
+# TODO: Use importlib.resources and make YAML files hatch build artifacts.
+def get_projects_file() -> Path:
+    return Path(os.path.dirname(os.path.abspath(__file__))) / "projects.yaml"
 
 
-def get_sglx_project(
-    project_name,
-    filename=DEFAULT_PROJECTS_FILENAME,
-    projects_dir=DEFAULT_PROJECTS_DIRECTORY,
-) -> sglx.SGLXProject:
-    projects_file = get_projects_file(filename=filename, projects_dir=projects_dir)
-    projects_library = sglx.SGLXProjectLibrary(projects_file)
-    return projects_library.get_project(project_name=project_name)
+@lru_cache(maxsize=8)
+def get_sglx_project_library(projects_file: str) -> sglx.SGLXProjectLibrary:
+    # Assert type to avoid cache misses from equivalent but differently-typed paths
+    assert isinstance(projects_file, str), (
+        f"projects_file must be str, got {type(projects_file)}"
+    )
+    return sglx.SGLXProjectLibrary(projects_file)
 
 
-def get_wne_project(
-    project_name,
-    filename=DEFAULT_PROJECTS_FILENAME,
-    projects_dir=DEFAULT_PROJECTS_DIRECTORY,
-) -> wne.Project:
-    projects_file = get_projects_file(filename=filename, projects_dir=projects_dir)
-    projects_library = wne.ProjectLibrary(projects_file)
-    return projects_library.get_project(project_name=project_name)
+@lru_cache(maxsize=8)
+def get_wne_project_library(projects_file: str) -> wne.ProjectLibrary:
+    # Assert type to avoid cache misses from equivalent but differently-typed paths
+    assert isinstance(projects_file, str), (
+        f"projects_file must be str, got {type(projects_file)}"
+    )
+    return wne.ProjectLibrary(projects_file)
+
+
+def get_sglx_project(project_name: str) -> sglx.SGLXProject:
+    lib = get_sglx_project_library(str(get_projects_file()))
+    return lib.get_project(project_name=project_name)
+
+
+def get_wne_project(project_name: str) -> wne.Project:
+    lib = get_wne_project_library(str(get_projects_file()))
+    return lib.get_project(project_name=project_name)
