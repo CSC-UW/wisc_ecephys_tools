@@ -20,6 +20,7 @@ def get_atlas(atlas_name: str = DF_ATLAS, brainglobe_dir: Pathlike = BRAINGLOBE_
     return BrainGlobeAtlas(atlas_name, brainglobe_dir=brainglobe_dir)
 
 
+# TODO: This should probably rats.utils.has_sorting
 def get_subject_probe_list(
     experiment: str, alias: str, require_hypnogram_and_anatomy: bool = True
 ) -> list[tuple[str, str]]:
