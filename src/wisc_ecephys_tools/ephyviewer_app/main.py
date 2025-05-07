@@ -255,7 +255,7 @@ def run():
 
     if has_hypnogram[(experiment, alias)][subject]:
         params = s3.load_experiment_subject_params(experiment, sglxSubject)
-        hg = wet.rats.scoring.load_hypnogram(
+        hg = wet.rats.exp_hgs.load_hypnogram(
             s3,
             experiment,
             sglxSubject,

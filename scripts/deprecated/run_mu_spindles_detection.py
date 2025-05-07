@@ -46,8 +46,14 @@ def main():
         presence_threshold=None,
     )
 
-    hg = wet.rats.scoring._load_consolidated_hypnogram(
-        project, experiment, subject.name, simplify=True
+    params = project.load_experiment_subject_params(experiment, subject.name)
+    hg = wet.rats.exp_hgs.load_consolidated_hypnogram(
+        project,
+        experiment,
+        subject.name,
+        probe=params["hypnogram_probe"],
+        simplify=True,
+        fallback=False,
     )
 
     sorting = (

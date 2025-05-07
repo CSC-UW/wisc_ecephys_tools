@@ -1,11 +1,10 @@
 """
-This module contains functions for getting hypnograms that cover different
-periods and states of interest. For example, the light/dark periods, the sleep
+This module contains functions for getting hypnograms that cover different "conditions",
+i.e. periods and states of interest. For example, the light/dark periods, the sleep
 deprivation period, recovery NREM sleep, etc.
 
-The `scoring` module, on the other hand, contains functions for getting a total
+The `exp_hgs` module, on the other hand, contains functions for getting a total
 experiment hypnogram, from which the hypnograms in this module are derived.
-TODO: Maybe these modules should be named `exp_hg` and `cnd_hg`.
 
 Note 1:
     Various calls to wne.SGLXSubject.dt2t pass "imec0" as the probe.
@@ -20,9 +19,12 @@ import itertools as it
 import warnings
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
-from ecephys import hypnogram, wne
+from ecephys import hypnogram as hyp
+from ecephys import plot as eplt
+from ecephys import wne
 from wisc_ecephys_tools import core
 from wisc_ecephys_tools.rats.constants import SleepDeprivationExperiments as Exps
 
@@ -117,17 +119,17 @@ def get_novel_objects_period(
 
 
 def get_novel_objects_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
-) -> hypnogram.FloatHypnogram:
+    full_hg: hyp.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
+) -> hyp.FloatHypnogram:
     (nod_start, nod_end) = get_novel_objects_period(experiment, subject)
     return full_hg.trim(nod_start, nod_end)
 
 
 def get_day1_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     subject: wne.sglx.SGLXSubject,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return full_hg.trim(
@@ -137,10 +139,10 @@ def get_day1_hypnogram(
 
 
 def get_day2_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     subject: wne.sglx.SGLXSubject,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return full_hg.trim(
@@ -150,10 +152,10 @@ def get_day2_hypnogram(
 
 
 def get_day1_light_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     subject: wne.sglx.SGLXSubject,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return full_hg.trim(
@@ -163,10 +165,10 @@ def get_day1_light_period_hypnogram(
 
 
 def get_day1_dark_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     subject: wne.sglx.SGLXSubject,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return full_hg.trim(
@@ -176,10 +178,10 @@ def get_day1_dark_period_hypnogram(
 
 
 def get_day2_light_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     subject: wne.sglx.SGLXSubject,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return full_hg.trim(
@@ -189,10 +191,10 @@ def get_day2_light_period_hypnogram(
 
 
 def get_day2_dark_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     subject: wne.sglx.SGLXSubject,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
     return full_hg.trim(
@@ -202,18 +204,18 @@ def get_day2_dark_period_hypnogram(
 
 
 def get_post_deprivation_day2_light_period_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     subject: wne.sglx.SGLXSubject,
     sleep_deprivation_end: float,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     d2lp_hg = get_day2_light_period_hypnogram(full_hg, experiment, subject)
     return d2lp_hg.trim(sleep_deprivation_end, d2lp_hg["end_time"].max())
 
 
 def get_circadian_match_hypnogram(
-    full_hg: hypnogram.FloatHypnogram, start: float, end: float
-) -> hypnogram.FloatHypnogram:
+    full_hg: hyp.FloatHypnogram, start: float, end: float
+) -> hyp.FloatHypnogram:
     match_start = start - pd.to_timedelta("24h").total_seconds()
     match_end = end - pd.to_timedelta("24h").total_seconds()
     return full_hg.trim(match_start, match_end)
@@ -248,13 +250,13 @@ def get_sleep_deprivation_period(
 
 
 def get_extended_wake_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     wne_subject: wne.sglx.SGLXSubject,
     minimum_endpoint_bout_duration: float = 120,
     maximum_antistate_bout_duration: float = 90,
     minimum_fraction_of_final_match: float = 0.95,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     """See ecephys.hypnogram.core.Hypnogram.get_consolidated."""
     sd_start, sd_end = get_sleep_deprivation_period(experiment, wne_subject)
     five_minutes = pd.to_timedelta("5m").total_seconds()
@@ -283,31 +285,31 @@ def get_extended_wake_hypnogram(
 
 
 def get_conveyor_over_water_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     sglx_subject: wne.sglx.SGLXSubject,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     (cow_start, cow_end) = get_conveyor_over_water_period(experiment, sglx_subject)
     return full_hg.trim(cow_start, cow_end)
 
 
 def get_sleep_deprivation_hypnogram(
-    full_hg: hypnogram.FloatHypnogram,
+    full_hg: hyp.FloatHypnogram,
     experiment: str,
     wne_subject: wne.sglx.SGLXSubject,
-) -> hypnogram.FloatHypnogram:
+) -> hyp.FloatHypnogram:
     sd_start, sd_end = get_sleep_deprivation_period(experiment, wne_subject)
     return full_hg.trim(sd_start, sd_end)
 
 
 def compute_statistical_condition_hypnograms(
-    lbrl_hg: hypnogram.FloatHypnogram,
-    cons_hg: hypnogram.FloatHypnogram,
+    lbrl_hg: hyp.FloatHypnogram,
+    cons_hg: hyp.FloatHypnogram,
     experiment: str,
     sglx_subject: wne.sglx.SGLXSubject,
     extended_wake_kwargs: dict[str, float] = {},
     circadian_match_tolerance: float = pd.to_timedelta("0:30:00").total_seconds(),
-) -> dict[str, hypnogram.FloatHypnogram]:
+) -> dict[str, hyp.FloatHypnogram]:
     """Compute hypnograms for different statistical conditions.
 
     Conditions consisting of Wake and/or NREM are 1 cumulative hour in length.
@@ -315,10 +317,10 @@ def compute_statistical_condition_hypnograms(
 
     Parameters
     ----------
-    lbrl_hg : hypnogram.FloatHypnogram
+    lbrl_hg : hyp.FloatHypnogram
         Full experiment hypnogram. "Liberal" because it provides the most accurate
         representation of the animal's sleep-wake state.
-    cons_hg : hypnogram.FloatHypnogram
+    cons_hg : hyp.FloatHypnogram
         Full experiment hypnogram. "Conservative" because additional artifactual
         periods have been marked.
     experiment : str
@@ -333,7 +335,7 @@ def compute_statistical_condition_hypnograms(
 
     Returns
     -------
-    dict[str, hypnogram.FloatHypnogram]
+    dict[str, hyp.FloatHypnogram]
         Dictionary mapping condition names to their corresponding hypnograms
     """
     _1h = pd.to_timedelta("1:00:00").total_seconds()
@@ -448,3 +450,134 @@ def compute_statistical_condition_hypnograms(
     hgs["last_rec_rem"] = d2dp_hg.keep_states(["REM"]).keep_last(_10min)
 
     return hgs
+
+
+def save_statistical_condition_hypnograms(
+    hgs: dict[str, hyp.FloatHypnogram], path: str
+) -> pd.DataFrame:
+    """
+    Save a dictionary of hypnograms, keyed by condition name, to a single parquet file
+    that includes a column for the condition name.
+
+    Returns the dataframe that was saved.
+    """
+    dfs = []
+    for cond, hg in hgs.items():
+        df = hg._df.copy()
+        df["condition"] = cond
+        dfs.append(df)
+    out_df = pd.concat(dfs, ignore_index=True)
+    out_df.to_parquet(path, index=False)
+    return out_df
+
+
+def load_statistical_condition_hypnograms(path: str) -> dict[str, hyp.FloatHypnogram]:
+    df = pd.read_parquet(path)
+    conditions = df["condition"].unique()
+    hgs = {
+        cond: hyp.FloatHypnogram(
+            df[df["condition"] == cond]
+            .drop(columns=["condition"])
+            .reset_index(drop=True)
+        )
+        for cond in conditions
+    }
+    return hgs
+
+
+def plot_condition_hgs_dense(
+    hgs: dict[str, hyp.FloatHypnogram],
+    palette: dict[str, str],
+    experiment: str | None = None,
+    subject: wne.sglx.SGLXSubject | None = None,
+) -> plt.Axes:
+    """Plot each condition on the same axis, so that they can all be seen at once.
+
+    Palette keys must be the names of the conditions to plot, and values must be
+    matplotlib colors.
+
+    If both experiment and subject are provided, the light periods will be plotted.
+    """
+    # Replace `state` with condition, so that we can use the `state_colors` argument to
+    # `plot_hypnogram_overlay`.
+    hgs = {k: v.copy() for k, v in hgs.items()}
+    for condition in hgs.keys():
+        hgs[condition]["state"] = condition
+
+    # Reconcile conditions with a dummy that covers the whole experiment,
+    # to ensure that the xlim is plotted correctly.
+    hg = hyp.FloatHypnogram(pd.concat([hgs[c] for c in palette.keys()])).reconcile(
+        hyp.FloatHypnogram.get_dummy(
+            hgs["full_liberal"]["start_time"].min(),
+            hgs["full_liberal"]["end_time"].max(),
+        )
+    )
+    palette = palette.copy()
+    palette["None"] = "white"
+    ax = eplt.plot_hypnogram_overlay(
+        hg, xlim="hg", figsize=(16, 1), state_colors=palette
+    )
+    if experiment and subject:
+        plot_lights_overlay(
+            *get_light_dark_periods(experiment, subject),
+            ax=ax,
+            ymax=1.04,
+        )
+    return ax
+
+
+def get_consensus(
+    prb_hgs: dict[str, dict[str, hyp.FloatHypnogram]],
+) -> tuple[dict[str, hyp.FloatHypnogram], pd.DataFrame]:
+    """
+    Get the consensus hypnogram for each condition, and a dataframe summarizing the
+    duration of each condition in each probe.
+    """
+    # Get the set of conditions from each probe's hypnograms
+    condition_lists = [list(hgs.keys()) for hgs in prb_hgs.values()]
+    conditions = condition_lists[0]
+
+    # Assert that all probes have the same conditions
+    for cl in condition_lists[1:]:
+        assert set(cl) == set(conditions), (
+            "All probes must have the same set of conditions"
+        )
+
+    # Get the consensus hypnogram for each condition
+    consensus_hgs = {
+        condition: hyp.FloatHypnogram.get_consensus(
+            *[prb_hgs[prb][condition] for prb in prb_hgs.keys()]
+        ).drop_states(["None"])
+        for condition in conditions
+    }
+
+    # Get the duration of each condition in each probe
+    prb_durations = {
+        prb: {
+            condition: prb_hgs[prb][condition]["duration"].sum()
+            for condition in conditions
+        }
+        for prb in prb_hgs.keys()
+    }
+
+    # Get the duration of each condition in the consensus hypnogram
+    consensus_durations = {
+        condition: consensus_hgs[condition]["duration"].sum()
+        for condition in conditions
+    }
+
+    # Create a dataframe with both consensus and probe durations
+    df = pd.DataFrame(
+        {
+            "condition": conditions,
+            "consensus": list(consensus_durations.values()),
+            **{prb: list(prb_durations[prb].values()) for prb in prb_hgs.keys()},
+        }
+    )
+
+    # Calculate the approximate loss in duration for each condition
+    df["approximate_loss"] = np.round(
+        df[list(prb_hgs.keys())].min(axis=1) - df["consensus"], decimals=1
+    )
+
+    return consensus_hgs, df

@@ -158,6 +158,7 @@ def load_consolidated_hypnogram(
             params = project.load_experiment_subject_params(experiment, subject)
             try:
                 fallback_probe = params["hypnogram_probe"]
+                print(f"Falling back on the hypnogram for {fallback_probe}.")
                 return wne.utils.load_consolidated_hypnogram(
                     project,
                     experiment,
@@ -176,7 +177,6 @@ def load_consolidated_hypnogram(
             )
 
 
-# We may want a function that reconciles the output of this one for multiple probes.
 def load_hypnogram(
     project: SGLXProject,
     experiment: str,
@@ -263,8 +263,11 @@ def load_hypnogram(
         hg = hg.reconcile(edits, how="other")
 
     if include_sorting_nodata:
-        nodata = _get_nodata_from_sorting(project, subject, experiment, probe)
-        hg = hg.reconcile(nodata, how="other")
+        try:
+            nodata = _get_nodata_from_sorting(project, subject, experiment, probe)
+            hg = hg.reconcile(nodata, how="other")
+        except FileNotFoundError:
+            print(f"Sorting NoData not found for {subject} {experiment} {probe}.")
 
     if include_lf_consolidated_artifacts:
         artifacts = wne.sglx.utils.load_consolidated_artifacts(
@@ -291,3 +294,41 @@ def load_hypnogram(
         hg = hg.reconcile(nodata, how="other")
 
     return hyp.FloatHypnogram.clean(hg.reset_index(drop=True))
+
+
+def get_liberal_hypnogram(
+    project: SGLXProject, experiment: str, subject: SGLXSubject, probe: str
+) -> hyp.FloatHypnogram:
+    return load_hypnogram(
+        project,
+        experiment,
+        subject,
+        probe,
+        include_ephyviewer_edits=True,
+        include_sorting_nodata=False,
+        include_lf_consolidated_artifacts=False,
+        include_ap_consolidated_artifacts=False,
+        include_lf_sglx_filetable_nodata=False,
+        include_ap_sglx_filetable_nodata=False,
+        simplify=True,
+        fallback=True,
+    )
+
+
+def get_conservative_hypnogram(
+    project: SGLXProject, experiment: str, subject: SGLXSubject, probe: str
+) -> hyp.FloatHypnogram:
+    return load_hypnogram(
+        project,
+        experiment,
+        subject,
+        probe,
+        include_ephyviewer_edits=True,
+        include_sorting_nodata=True,
+        include_lf_consolidated_artifacts=True,
+        include_ap_consolidated_artifacts=True,
+        include_lf_sglx_filetable_nodata=True,
+        include_ap_sglx_filetable_nodata=False,  # TODO: Generate prb_sync.ap.htsv and prerequisite {prb}.ap.barcodes.htsv files for all subjects, experiments, and probes
+        simplify=True,
+        fallback=True,
+    )
