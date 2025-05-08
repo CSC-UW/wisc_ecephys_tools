@@ -53,7 +53,7 @@ def do_probe(
     )
 
 
-def do_experiment(
+def do_experiment_subject(
     sglx_subject: wne.sglx.SGLXSubject,
     experiment: str,
     probes: list[str] | None = None,

@@ -207,7 +207,7 @@ def get_post_deprivation_day2_light_period_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
     subject: wne.sglx.SGLXSubject,
-    sleep_deprivation_end: float,
+    sleep_deprivation_end: float,  # This is a bit of a misnomer. It could also be the end of extended wake.
 ) -> hyp.FloatHypnogram:
     d2lp_hg = get_day2_light_period_hypnogram(full_hg, experiment, subject)
     return d2lp_hg.trim(sleep_deprivation_end, d2lp_hg["end_time"].max())
@@ -423,11 +423,14 @@ def compute_statistical_condition_hypnograms(
         # Note that `matched_early_ext` will not be exactly 1h long, and will not be
         # exactly the same as `hgs["early_ext"]`! You have to decide what you want!
 
+    # In rare cases, ext_hg["end_time"].max() can be < sd_hg["end_time"].max(), if
+    # there was a lot of local sleep at the end of SD.
+    earliest_recovery_start = max(ext_hg["end_time"].max(), sd_hg["end_time"].max())
     pdd2lp_hg = get_post_deprivation_day2_light_period_hypnogram(
         cons_hg,
         experiment,
         sglx_subject,
-        sleep_deprivation_end=ext_hg["end_time"].max(),
+        sleep_deprivation_end=earliest_recovery_start,
     )
     hgs["early_rec_nrem"] = pdd2lp_hg.keep_states(["NREM"]).keep_first(_1h)
     hgs["early_rec_rem"] = pdd2lp_hg.keep_states(["REM"]).keep_first(_10min)
@@ -490,6 +493,7 @@ def plot_condition_hgs_dense(
     palette: dict[str, str],
     experiment: str | None = None,
     subject: wne.sglx.SGLXSubject | None = None,
+    show_ticklabels: bool = False,
 ) -> plt.Axes:
     """Plot each condition on the same axis, so that they can all be seen at once.
 
@@ -506,16 +510,17 @@ def plot_condition_hgs_dense(
 
     # Reconcile conditions with a dummy that covers the whole experiment,
     # to ensure that the xlim is plotted correctly.
-    hg = hyp.FloatHypnogram(pd.concat([hgs[c] for c in palette.keys()])).reconcile(
-        hyp.FloatHypnogram.get_dummy(
-            hgs["full_liberal"]["start_time"].min(),
-            hgs["full_liberal"]["end_time"].max(),
-        )
-    )
+    df1 = pd.concat([hgs[c] for c in palette.keys() if c in hgs])
+    df2 = hyp.FloatHypnogram.get_dummy(
+        hgs["full_liberal"]["start_time"].min(),
+        hgs["full_liberal"]["end_time"].max(),
+    )._df
+    df = hyp.reconcile_hypnograms(df1, df2)
+
     palette = palette.copy()
     palette["None"] = "white"
     ax = eplt.plot_hypnogram_overlay(
-        hg, xlim="hg", figsize=(16, 1), state_colors=palette
+        df, xlim="hg", figsize=(16, 1), state_colors=palette
     )
     if experiment and subject:
         plot_lights_overlay(
@@ -523,6 +528,9 @@ def plot_condition_hgs_dense(
             ax=ax,
             ymax=1.04,
         )
+    if not show_ticklabels:
+        ax.set_xticklabels([])
+        ax.set_yticklabels([])
     return ax
 
 
