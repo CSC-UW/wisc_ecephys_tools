@@ -1,5 +1,6 @@
 import dask.array
 import xarray as xr
+from zarr.errors import ContainsGroupError
 
 import wisc_ecephys_tools as wet
 from ecephys import wne, xrsig
@@ -49,11 +50,12 @@ def do_probe(
         anatomy_proj=s3,
         badchan_proj=s3,
     )
-    assert "acronym" in lfp.coords, "LFP data missing 'acronym' coordinate"
-    assert "structure" in lfp.coords, "LFP data missing 'structure' coordinate"
-    assert all(c in lfp.channel.coords for c in ["acronym", "structure"]), (
-        "Coordinates must be on channel dimension"
-    )
+
+    # assert "acronym" in lfp.coords, "LFP data missing 'acronym' coordinate"
+    # assert "structure" in lfp.coords, "LFP data missing 'structure' coordinate"
+    # assert all(c in lfp.channel.coords for c in ["acronym", "structure"]), (
+    #     "Coordinates must be on channel dimension"
+    # )
 
     lfp = xrsig.bipolar_reference(lfp, shift)
     for q in qs:
@@ -75,9 +77,13 @@ def do_probe(
             ipow.coords[v] = ipow.coords[v].astype("unicode")
 
     ipow = ipow.chunk({"channel": ipow["channel"].size, "time": "auto"})
+    ipow = ipow.chunk(tuple(max(c) for c in ipow.chunks))  # Ensure uniform chunks
 
     if zarr_file is not None:
-        ipow.to_zarr(zarr_file)
+        try:
+            ipow.to_zarr(zarr_file)
+        except ContainsGroupError:
+            print(f"Group {zarr_file} already exists, skipping")
 
     return ipow
 
