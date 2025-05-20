@@ -1,6 +1,5 @@
 import dask.array
 import xarray as xr
-from zarr.errors import ContainsGroupError
 
 import wisc_ecephys_tools as wet
 from ecephys import wne, xrsig
@@ -79,12 +78,7 @@ def do_probe(
     ipow = ipow.chunk({"channel": ipow["channel"].size, "time": "auto"})
     ipow = ipow.chunk(tuple(max(c) for c in ipow.chunks))  # Ensure uniform chunks
 
-    if zarr_file is not None:
-        try:
-            ipow.to_zarr(zarr_file)
-        except ContainsGroupError:
-            print(f"Group {zarr_file} already exists, skipping")
-
+    ipow.to_zarr(zarr_file)
     return ipow
 
 
@@ -102,6 +96,27 @@ def do_all_delta():
             probe,
             lowcut=0.5,
             highcut=4,
+            filter_order=2,
+            shift=10,
+            qs=[10, 2],
+            zarr_file=zarr_file,
+        )
+
+
+def do_all_eta():
+    sep = utils.get_subject_experiment_probe_tuples(
+        experiment_filter=lambda x: x in SleepDeprivationExperiments
+    )
+    nb = wet.get_sglx_project("shared_nobak")
+    for subject, exp, probe in sep:
+        zarr_file = nb.get_experiment_subject_file(exp, subject, f"{probe}.ieta.zarr")
+        print(f"Doing {subject}, {exp}, {probe}")
+        do_probe(
+            subject,
+            exp,
+            probe,
+            lowcut=2,
+            highcut=6,
             filter_order=2,
             shift=10,
             qs=[10, 2],
