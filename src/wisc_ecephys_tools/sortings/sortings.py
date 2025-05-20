@@ -16,6 +16,7 @@ DF_EXCLUDE_DESCENDANTS_OF = ["V", "wmt"]
 Pathlike = Union[Path, str]
 
 
+# TODO: This should use user atlases, and check name/version, rather than using a shared install.
 def get_atlas(atlas_name: str = DF_ATLAS, brainglobe_dir: Pathlike = BRAINGLOBE_DIR):
     return BrainGlobeAtlas(atlas_name, brainglobe_dir=brainglobe_dir)
 
@@ -88,7 +89,12 @@ def get_subject_probe_structure_list(
     exclude_descendants_of: list[str] = DF_EXCLUDE_DESCENDANTS_OF,
     atlas: BrainGlobeAtlas = None,
 ) -> list[tuple[str, str, str]]:
-    """Return [(<subj>, <prb>, <acronym>)] list of structures of interest."""
+    """Return [(<subj>, <prb>, <acronym>)] list of structures of interest.
+
+    WARNING: This has to be used with extreme caution! For example, "CA3" and "SUB" are
+    descendants of "Cx"! But setting `exclude_descendants_of=["HF"]` won't exclude
+    descendants of "V" and "wmt"! TODO: Improve.
+    """
 
     if atlas is None:
         atlas = get_atlas()
