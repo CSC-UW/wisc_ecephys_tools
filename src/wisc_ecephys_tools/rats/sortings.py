@@ -1,3 +1,5 @@
+import warnings
+
 from brainglobe_atlasapi import BrainGlobeAtlas
 
 import ecephys.utils
@@ -40,6 +42,7 @@ def get_subject_probe_list(
 # probably be handled on a project-by-project basis.
 # TODO: experiment and alias shouldn't even be accepted as arguments, or should be
 # optional.
+# TODO: Ignoring unrecognized structures should probably be an option.
 def get_subject_probe_structure_list(
     experiment: str,
     alias: str,
@@ -109,8 +112,7 @@ def get_subject_probe_structure_list(
             completed_subject_probe_structures.append((subj, prb, acronym))
 
     if unrecognized_structs:
-        import warnings
-
+        unrecognized_structs = set(unrecognized_structs)
         warnings.warn(
             f"The following structures were unrecognized and ignored across all datasets: {unrecognized_structs}"
         )
