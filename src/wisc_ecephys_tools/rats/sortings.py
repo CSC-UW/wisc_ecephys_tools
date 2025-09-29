@@ -58,7 +58,7 @@ def get_subject_probe_structure_list(
     """
 
     if atlas is None:
-        atlas = BrainGlobeAtlas("whs_sd_rat_39um")
+        atlas = BrainGlobeAtlas("whs_sd_rat_39um", check_latest=False)
 
     if select_descendants_of is not None:
         unrecognized = [
