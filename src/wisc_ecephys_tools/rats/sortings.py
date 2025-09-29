@@ -85,6 +85,7 @@ def get_subject_probe_structure_list(
         alias,
         require_hypnogram_and_anatomy=True,
     )  # TODO: We should not require the hypnogram for any of this.
+    # TODO: This is the bottleneck. Might want to cache this.
 
     completed_subject_probe_structures = []
     unrecognized_structs = []
