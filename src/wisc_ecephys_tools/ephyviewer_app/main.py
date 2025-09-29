@@ -1,20 +1,5 @@
 # TODO: Should we remove all usage of 'alias'? Is it ever not "full"?
 # TODO: This entire file is an absolute mess.
-import sys
-import tkinter as tk
-
-import ephyviewer
-import matplotlib
-import numpy as np
-import pandas as pd
-import rich
-import xarray as xr
-from ephyviewer import CsvEpochSource, EpochEncoder
-
-import ecephys.plot
-import ecephys.utils.pandas as pd_utils
-import wisc_ecephys_tools as wet
-from ecephys import wne
 
 from . import utils
 
@@ -32,6 +17,9 @@ DF_OFF_FNAME_SUFFIX = "global_offs_bystate_conservative_0.05.htsv"
 
 
 def get_available_sortings(experiment, alias):
+    # Import only when needed
+    import wisc_ecephys_tools as wet
+
     # Get the available sortings
     s3 = wet.get_sglx_project("shared")
     sortings_dir = s3.get_alias_directory(experiment, alias)
@@ -45,7 +33,7 @@ def get_available_sortings(experiment, alias):
 
 
 def load_offs_df(
-    project: wne.Project,
+    project,  # wne.Project - but we avoid the import at module level
     experiment: str,
     subject: str,
     probe: str,
@@ -57,16 +45,37 @@ def load_offs_df(
     `<probe>.<acronym>.<off_fname_suffix>` in the `offs` subdirectory
     of the project's experiment_subject_directory.
     """
+    import pandas as pd
+
+    from ecephys import utils as ecephys_utils
+
     off_dir = project.get_experiment_subject_directory(experiment, subject) / "offs"
 
     structure_offs = []
     for f in off_dir.glob(f"{probe}.*{off_fname_suffix}"):
-        structure_offs.append(ecephys.utils.read_htsv(f))
+        structure_offs.append(ecephys_utils.read_htsv(f))
 
     return pd.concat(structure_offs).reset_index(drop=True)
 
 
 def run():
+    # Import heavy libraries only when needed
+    import sys
+    import tkinter as tk
+
+    import ephyviewer
+    import matplotlib
+    import numpy as np
+    import pandas as pd
+    import rich
+    import xarray as xr
+    from ephyviewer import CsvEpochSource, EpochEncoder
+
+    import ecephys.plot
+    import ecephys.utils.pandas as pd_utils
+    import wisc_ecephys_tools as wet
+    from ecephys import wne
+
     # Get the available sortings, per experiment
     s3 = wet.get_sglx_project("shared")
     nb = wet.get_sglx_project("shared_nobak")
