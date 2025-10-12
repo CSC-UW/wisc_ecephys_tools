@@ -7,7 +7,6 @@ __all__ = [
     "core",
     "ephyviewer_app",
     "rats",
-    "scoring",
     "get_sglx_project",
     "get_wne_project",
     "get_sglx_subject",
