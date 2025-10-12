@@ -250,7 +250,7 @@ def run():
     print(f"\nLoading: {experiment}, {alias}, {subject}, {probe}\n")
 
     # Load the sorting
-    sglxSubject = wet.get_sglx_subject(subject)
+    sglx_subject = wet.get_sglx_subject(subject)
     sorting = "sorting"
     postprocessing = "postpro"
     filters = {
@@ -263,11 +263,11 @@ def run():
     }
 
     if has_hypnogram[(experiment, alias)][subject]:
-        params = s3.load_experiment_subject_params(experiment, sglxSubject)
+        params = s3.load_experiment_subject_params(experiment, sglx_subject)
         hg = wet.rats.exp_hgs.load_hypnogram(
             s3,
             experiment,
-            sglxSubject,
+            sglx_subject,
             probes=params["hypnogram_probe"],  # Possibly should just be `probe`
             include_ephyviewer_edits=True,
             include_sorting_nodata=False,
@@ -277,10 +277,10 @@ def run():
             include_ap_sglx_filetable_nodata=False,
             simplify=True,
         )  # This may fail, because it used to look for a probe-agnostic hypnogram at
-        # `s3.get_experiment_subject_file(experiment, sglxSubject, "hypnogram.htsv")`.
+        # `s3.get_experiment_subject_file(experiment, sglx_subject, "hypnogram.htsv")`.
     singleprobe_sorting = wne.sglx.siutils.load_singleprobe_sorting(
         s3,
-        sglxSubject,
+        sglx_subject,
         experiment,
         probe,
         alias=alias,

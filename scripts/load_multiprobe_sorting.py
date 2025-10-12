@@ -26,10 +26,10 @@ tgt_struct_acronyms = {"imec1": None}  # Plot only target structures, in specifi
 ### END USER
 
 sglxSubject = wet.get_sglx_subject(subjectName)
-sglxProject = wet.get_sglx_project(projectName)
+sglx_project = wet.get_sglx_project(projectName)
 
 multiprobe_sorting = load_multiprobe_sorting(
-    sglxProject,
+    sglx_project,
     sglxSubject,
     experiment,
     probes,

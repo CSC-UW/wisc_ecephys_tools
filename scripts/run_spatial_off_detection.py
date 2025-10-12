@@ -86,11 +86,11 @@ spatial_params = {
 
 def main():
     sglxSubject = wet.get_sglx_subject(subjectName)
-    sglxProject = wet.get_sglx_project("shared")
+    sglx_project = wet.get_sglx_project("shared")
 
     sorting = (
         siutils.load_singleprobe_sorting(
-            sglxProject,
+            sglx_project,
             sglxSubject,
             experiment,
             probe,
@@ -104,7 +104,7 @@ def main():
     )
 
     hg = wet.rats.exp_hgs.load_hypnogram(
-        sglxProject,
+        sglx_project,
         experiment,
         sglxSubject,
         probe,

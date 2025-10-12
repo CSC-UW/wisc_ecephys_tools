@@ -32,10 +32,10 @@ tgt_struct_acronyms = None  # Plot only target structures, in specific order. eg
 ### END USER
 
 sglxSubject = wet.get_sglx_subject(subjectName)
-sglxProject = wet.get_sglx_project(projectName)
+sglx_project = wet.get_sglx_project(projectName)
 
 si_ks_sorting = load_singleprobe_sorting(
-    sglxProject,
+    sglx_project,
     sglxSubject,
     experiment,
     probe,

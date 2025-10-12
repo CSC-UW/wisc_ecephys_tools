@@ -43,7 +43,7 @@ if __name__ == "__main__":
         subjectName, probe = subject_probe.split(",")
 
         sglxSubject = wet.get_sglx_subject(subjectName)
-        sglxProject = wet.get_sglx_project(args["--projectName"])
+        sglx_project = wet.get_sglx_project(args["--projectName"])
 
         # Output dirname from options filename
         postprocessing_name = (
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         print(hypnogram_source)
 
         postpro_pipeline = SpikeInterfacePostprocessingPipeline(
-            sglxProject,
+            sglx_project,
             sglxSubject,
             args["--experimentName"],
             args["--aliasName"],

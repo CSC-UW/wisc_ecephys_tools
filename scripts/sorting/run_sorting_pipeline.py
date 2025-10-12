@@ -38,12 +38,12 @@ if __name__ == "__main__":
         subjectName, probe = subject_probe.split(",")
 
         sglxSubject = wet.get_sglx_subject(subjectName)
-        sglxProject = wet.get_sglx_project(args["--projectName"])
+        sglx_project = wet.get_sglx_project(args["--projectName"])
         exclusionsProject = wet.get_wne_project(EXCLUSIONS_PROJECT)
 
         if not args["--from_folder"]:
             sorting_pipeline = SpikeInterfaceSortingPipeline(
-                sglxProject,
+                sglx_project,
                 sglxSubject,
                 args["--experimentName"],
                 args["--aliasName"],
@@ -60,7 +60,7 @@ if __name__ == "__main__":
                 "Should not specify '--optionsPath' argument if using '--from_folder' option."
             )
             sorting_pipeline = SpikeInterfaceSortingPipeline.load_from_folder(
-                sglxProject,
+                sglx_project,
                 sglxSubject,
                 args["--experimentName"],
                 args["--aliasName"],
