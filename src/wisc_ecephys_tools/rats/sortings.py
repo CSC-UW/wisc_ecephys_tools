@@ -1,4 +1,5 @@
 import warnings
+from typing import Optional
 
 from brainglobe_atlasapi import BrainGlobeAtlas
 
@@ -46,9 +47,9 @@ def get_subject_probe_list(
 def get_subject_probe_structure_list(
     experiment: str,
     alias: str,
-    select_descendants_of: list[str] = None,
-    exclude_descendants_of: list[str] = ["V", "wmt"],
-    atlas: BrainGlobeAtlas = None,
+    select_descendants_of: Optional[list[str]] = None,
+    exclude_descendants_of: Optional[list[str]] = ["V", "wmt"],
+    atlas: Optional[BrainGlobeAtlas] = None,
 ) -> list[tuple[str, str, str]]:
     """Return [(<subj>, <prb>, <acronym>)] list of structures of interest.
 
