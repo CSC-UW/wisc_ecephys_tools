@@ -74,7 +74,7 @@ def _get_nodata_from_sorting(
     This is not entirely accurate, because segments may have been excluded from the
     sorting for reasons other than missing data.
     """
-    segments = wne.sglx.siutils.load_segments_table_from_sorting(
+    segments = wne.sglx.legacy_sorting.load_segments_table_from_sorting(
         project,
         subject.name,
         experiment,

@@ -278,7 +278,7 @@ def run():
             simplify=True,
         )  # This may fail, because it used to look for a probe-agnostic hypnogram at
         # `s3.get_experiment_subject_file(experiment, sglx_subject, "hypnogram.htsv")`.
-    singleprobe_sorting = wne.sglx.siutils.load_singleprobe_sorting(
+    singleprobe_sorting = wne.sglx.legacy_sorting.load_singleprobe_sorting(
         s3,
         sglx_subject,
         experiment,

@@ -57,7 +57,7 @@ def main():
     )
 
     sorting = (
-        wne.sglx.siutils.load_singleprobe_sorting(
+        wne.sglx.legacy_sorting.load_singleprobe_sorting(
             project,
             subject,
             experiment,

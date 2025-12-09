@@ -5,7 +5,7 @@ import numpy as np
 import on_off_detection
 
 import wisc_ecephys_tools as wet
-from ecephys.wne.sglx import siutils
+from ecephys.wne.sglx import legacy_sorting
 
 # Parse experiment, alias, subjectName, probe from command line
 example_text = """
@@ -89,7 +89,7 @@ def main():
     sglx_project = wet.get_sglx_project("shared")
 
     sorting = (
-        siutils.load_singleprobe_sorting(
+        legacy_sorting.load_singleprobe_sorting(
             sglx_project,
             sglxSubject,
             experiment,
