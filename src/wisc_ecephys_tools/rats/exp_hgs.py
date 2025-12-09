@@ -74,14 +74,14 @@ def _get_nodata_from_sorting(
     This is not entirely accurate, because segments may have been excluded from the
     sorting for reasons other than missing data.
     """
-    segments = wne.sglx.legacy_sorting.load_segments_table_from_sorting(
+    segments = wne.sglx.legacy_sorting.load_slice_table_from_sorting_folder(
         project,
         subject.name,
         experiment,
         "full",
         probe,
         "sorting",
-        return_all_segment_types=True,
+        return_excised_slices=True,
     ).copy()
 
     # Convert from probe timebase to common timebase asap
