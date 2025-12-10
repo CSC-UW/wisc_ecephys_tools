@@ -20,14 +20,15 @@ project: seahorse
 project_directory: /Volumes/npx_nfs/nobak/seahorse
 ...
 ---
+project: offproj
+project_directory: /Volumes/npx_nfs/nobak/offproj
+...
+# Joanna's projects
+---
 project: discoflow
 project_directory: /Volumes/npx_nfs/nobak/discoflow
 ...
 # Tom's projects
----
-project: offproj
-project_directory: /Volumes/npx_nfs/nobak/offproj
-...
 ---
 project: rebooting 
 project_directory: /Volumes/npx_nfs/nobak/rebooting
