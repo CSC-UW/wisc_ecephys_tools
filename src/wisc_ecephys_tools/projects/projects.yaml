@@ -1,18 +1,20 @@
 ---
-project: shared
+project: shared # TODO: This really should be shared_s3
 project_directory: /Volumes/npx_nfs/shared_s3
-...
----
-project: shared_ssd
-project_directory: /ssd-raid0/neuropixels/shared
-...
----
-project: shared_nvme
-project_directory: /nvme/neuropixels/shared
 ...
 ---
 project: shared_nobak
 project_directory: /Volumes/npx_nfs/nobak/shared
+...
+# For easily creating temporary structures on high-performance drive arrays.
+# Do not store ever data here, these are just for convenience.
+---
+project: tmp_ssd0
+project_directory: /ssd-raid0/tmp_wne_proj
+...
+---
+project: tmp_nvme
+project_directory: /nvme/tmp_wne_proj
 ...
 # Graham's projects
 ---
@@ -31,9 +33,9 @@ project_directory: /Volumes/npx_nfs/nobak/discoflow
 # Tom's projects
 ---
 project: rebooting 
-project_directory: /Volumes/npx_nfs/nobak/rebooting
+project_directory: /Volumes/ceph-tononi/tom_bugnon_projects/rebooting
 ...
 ---
 project: homeostasis
-project_directory: /Volumes/npx_nfs/nobak/homeostasis
+project_directory: /Volumes/ceph-tononi/tom_bugnon_projects/homeostasis
 ...
