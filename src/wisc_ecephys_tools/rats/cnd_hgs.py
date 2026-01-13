@@ -17,6 +17,7 @@ Note 1:
 
 import itertools as it
 import warnings
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,7 +32,7 @@ from wisc_ecephys_tools.rats.constants import SleepDeprivationExperiments as Exp
 
 def get_light_dark_periods(
     experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True
-):
+) -> tuple[list[tuple], list[str]]:
     """Get light/dark periods in chronological order.
 
     Examples:
@@ -241,12 +242,16 @@ def get_sleep_deprivation_period(
 ) -> tuple[float, float]:
     if experiment == Exps.NOD:
         return get_novel_objects_period(experiment, wne_subject)
-    if experiment == Exps.COW:
+    elif experiment == Exps.COW:
         return get_conveyor_over_water_period(experiment, wne_subject)
-    if experiment == Exps.CTN:
+    elif experiment == Exps.CTN:
         start = min(get_conveyor_over_water_period(experiment, wne_subject))
         end = max(get_novel_objects_period(experiment, wne_subject))
         return start, end
+    else:
+        raise ValueError(
+            f"Experiment {experiment} does not have a sleep deprivation period."
+        )
 
 
 def get_extended_wake_hypnogram(
@@ -256,7 +261,7 @@ def get_extended_wake_hypnogram(
     minimum_endpoint_bout_duration: float = 120,
     maximum_antistate_bout_duration: float = 90,
     minimum_fraction_of_final_match: float = 0.95,
-) -> hyp.FloatHypnogram:
+) -> hyp.FloatHypnogram | None:
     """See ecephys.hypnogram.core.Hypnogram.get_consolidated."""
     sd_start, sd_end = get_sleep_deprivation_period(experiment, wne_subject)
     five_minutes = pd.to_timedelta("5m").total_seconds()
@@ -474,7 +479,9 @@ def save_statistical_condition_hypnograms(
     return out_df
 
 
-def load_statistical_condition_hypnograms(path: str) -> dict[str, hyp.FloatHypnogram]:
+def load_statistical_condition_hypnograms(
+    path: str | Path,
+) -> dict[str, hyp.FloatHypnogram]:
     df = pd.read_parquet(path)
     conditions = df["condition"].unique()
     hgs = {
@@ -510,7 +517,7 @@ def plot_condition_hgs_dense(
 
     # Reconcile conditions with a dummy that covers the whole experiment,
     # to ensure that the xlim is plotted correctly.
-    df1 = pd.concat([hgs[c] for c in palette.keys() if c in hgs])
+    df1 = pd.concat([hgs[c]._df for c in palette.keys() if c in hgs])
     df2 = hyp.FloatHypnogram.get_dummy(
         hgs["full_liberal"]["start_time"].min(),
         hgs["full_liberal"]["end_time"].max(),
