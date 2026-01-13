@@ -25,6 +25,10 @@ project_directory: /Volumes/npx_nfs/nobak/seahorse
 project: offproj
 project_directory: /Volumes/npx_nfs/nobak/offproj
 ...
+---
+project: samoffs
+project_directory: /Volumes/scratch/neuropixels/samoffs
+...
 # Joanna's projects
 ---
 project: discoflow
