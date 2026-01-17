@@ -14,7 +14,7 @@ project_directory: /ssd-raid0/tmp_wne_proj
 ...
 ---
 project: tmp_nvme
-project_directory: /nvme/tmp_wne_proj
+project_directory: /nvme/neuropixels/tmp # TODO: Change to /nvme/tmp_wne_proj
 ...
 # Graham's projects
 ---
