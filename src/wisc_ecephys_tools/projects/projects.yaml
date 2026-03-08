@@ -10,7 +10,7 @@ project_directory: /Volumes/npx_nfs/nobak/shared
 # Do not store ever data here, these are just for convenience.
 ---
 project: tmp_ssd0
-project_directory: /ssd-raid0/tmp_wne_proj
+project_directory: /ssd-raid0/neuropixels/tmp # TODO: Change to /ssd-raid0/tmp_wne_proj
 ...
 ---
 project: tmp_nvme
