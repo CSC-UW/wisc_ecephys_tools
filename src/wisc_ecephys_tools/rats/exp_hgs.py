@@ -1,8 +1,10 @@
 import pandas as pd
+from ecephys.wne import utils as wne_utils
+from ecephys.wne.sglx import SGLXProject, SGLXSubject, legacy_sorting
+from ecephys.wne.sglx import utils as sglx_utils
 
 from ecephys import hypnogram as hyp
 from ecephys import wne
-from ecephys.wne.sglx import SGLXProject, SGLXSubject
 from wisc_ecephys_tools import constants
 
 
@@ -74,7 +76,7 @@ def _get_nodata_from_sorting(
     This is not entirely accurate, because segments may have been excluded from the
     sorting for reasons other than missing data.
     """
-    segments = wne.sglx.legacy_sorting.load_slice_table_from_sorting_folder(
+    segments = legacy_sorting.load_slice_table_from_sorting_folder(
         project,
         subject.name,
         experiment,
@@ -85,17 +87,17 @@ def _get_nodata_from_sorting(
     ).copy()
 
     # Convert from probe timebase to common timebase asap
-    t2t = wne.sglx.utils.get_time_synchronizer(
+    t2t = sglx_utils.get_time_synchronizer(
         project, subject, experiment, probe=probe, stream="ap"
     )
     segments = pd.DataFrame(
         {
             "start_time": t2t(segments["segmentExpmtPrbAcqFirstTime"]),
             "end_time": t2t(segments["segmentExpmtPrbAcqLastTime"]),
-            "type": segments["type"],
+            "sliceType": segments["sliceType"],
         }
     )
-    has_data = segments.loc[segments["type"] == "keep"]
+    has_data = segments.loc[segments["sliceType"] == "keep"]
 
     no_data = _infer_nodata(has_data)
     return hyp.FloatHypnogram(no_data)
@@ -116,7 +118,7 @@ def _get_nodata_from_sglx_filetable(
     )
 
     # Convert from probe timebase to common timebase asap
-    t2t = wne.sglx.utils.get_time_synchronizer(
+    t2t = sglx_utils.get_time_synchronizer(
         project,
         subject,
         experiment,
@@ -149,7 +151,7 @@ def load_consolidated_hypnogram(
     fallback: bool = False,
 ) -> hyp.FloatHypnogram:
     try:
-        return wne.utils.load_consolidated_hypnogram(
+        return wne_utils.load_consolidated_hypnogram(
             project, experiment, subject, probe, simplify=simplify
         )
     except FileNotFoundError:
@@ -159,7 +161,7 @@ def load_consolidated_hypnogram(
             try:
                 fallback_probe = params["hypnogram_probe"]
                 print(f"Falling back on the hypnogram for {fallback_probe}.")
-                return wne.utils.load_consolidated_hypnogram(
+                return wne_utils.load_consolidated_hypnogram(
                     project,
                     experiment,
                     subject,
@@ -270,13 +272,13 @@ def load_hypnogram(
             print(f"Sorting NoData not found for {subject} {experiment} {probe}.")
 
     if include_lf_consolidated_artifacts:
-        artifacts = wne.sglx.utils.load_consolidated_artifacts(
+        artifacts = sglx_utils.load_consolidated_artifacts(
             project, experiment, subject.name, probe, "lf", simplify=True
         )
         hg = hg.reconcile(_artifacts_as_hypnogram(artifacts), how="other")
 
     if include_ap_consolidated_artifacts:
-        artifacts = wne.sglx.utils.load_consolidated_artifacts(
+        artifacts = sglx_utils.load_consolidated_artifacts(
             project, experiment, subject.name, probe, "ap", simplify=True
         )
         hg = hg.reconcile(_artifacts_as_hypnogram(artifacts), how="other")
@@ -328,7 +330,9 @@ def get_conservative_hypnogram(
         include_lf_consolidated_artifacts=True,
         include_ap_consolidated_artifacts=True,
         include_lf_sglx_filetable_nodata=True,
-        include_ap_sglx_filetable_nodata=False,  # TODO: Generate prb_sync.ap.htsv and prerequisite {prb}.ap.barcodes.htsv files for all subjects, experiments, and probes
+        include_ap_sglx_filetable_nodata=True,  # TODO: See note below
         simplify=True,
         fallback=True,
     )
+    # TODO: Some subjects for experiments other than "novel_objects_deprivation" do not
+    # have prb_sync.ap.htsv and the prerequisite {prb}.ap.barcodes.htsv files yet.
