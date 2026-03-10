@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from ecephys import wne
+from ecephys.wne.sglx import SGLXSubjectLibrary
 
 DEFAULT_SUBJECTS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
@@ -13,7 +13,7 @@ def get_subjects_directory():
     return Path(DEFAULT_SUBJECTS_DIRECTORY)
 
 
-def get_subject_library(force_refresh=False):
+def get_subject_library(force_refresh=False) -> SGLXSubjectLibrary:
     """Get the SGLXSubjectLibrary, using an in-memory cache.
 
     Args:
@@ -33,7 +33,7 @@ def get_subject_library(force_refresh=False):
     global _cached_library
     if _cached_library is None or force_refresh:
         subjectsDir = get_subjects_directory()
-        _cached_library = wne.sglx.SGLXSubjectLibrary(subjectsDir)
+        _cached_library = SGLXSubjectLibrary(subjectsDir)
     return _cached_library
 
 

@@ -1,6 +1,10 @@
 import re
+from typing import Literal
 
-from ecephys import wne
+import ecephys.wne.sglx.utils as sglx_utils
+from ecephys.wne.constants import FileExtensions, Files
+from ecephys.wne.sglx import SGLXProject
+
 from wisc_ecephys_tools import projects, subjects
 from wisc_ecephys_tools.rats.constants import SleepDeprivationExperiments
 
@@ -25,6 +29,15 @@ def get_subject_experiment_probe_tuples(
     )
 
 
+def get_subject_experiment_tuples(
+    experiment_filter: callable = None,
+) -> list[tuple[str, str]]:
+    tups = get_subject_experiment_probe_tuples(
+        experiment_filter=experiment_filter, expand_probes=False
+    )
+    return [tup[:2] for tup in tups]
+
+
 # The functions below here are not really rat-specific.
 # They are only used for rat data, but could in principle be used for other data,
 # such as acute mouse neuropixel data.
@@ -43,7 +56,7 @@ def has_bad_channels_marked(
     subject: str,
     experiment: str,
     probe: str,
-    params_project: wne.sglx.SGLXProject = projects.get_sglx_project("shared"),
+    params_project: SGLXProject = projects.get_sglx_project("shared"),
     verbose: bool = False,
 ) -> bool:
     params = params_project.load_experiment_subject_params(experiment, subject)
@@ -66,11 +79,11 @@ def has_lfps(
     subject: str,
     experiment: str,
     probe: str,
-    lf_project: wne.sglx.SGLXProject = projects.get_sglx_project("shared_nobak"),
+    lf_project: SGLXProject = projects.get_sglx_project("shared_nobak"),
     verbose: bool = False,
 ) -> bool:
     lf_file = lf_project.get_experiment_subject_file(
-        experiment, subject, f"{probe}{wne.constants.FileExtensions.LFP}"
+        experiment, subject, f"{probe}{FileExtensions.LFP}"
     )
     if lf_file.exists():
         if verbose:
@@ -86,16 +99,16 @@ def has_hypnogram(
     subject: str,
     experiment: str,
     probe: str | None = None,
-    hg_project: wne.sglx.SGLXProject = projects.get_sglx_project("shared"),
+    hg_project: SGLXProject = projects.get_sglx_project("shared"),
     verbose: bool = False,
 ) -> bool:
     if probe is None:
         hg_file = hg_project.get_experiment_subject_file(
-            experiment, subject, f"{wne.constants.Files.HYPNOGRAM}"
+            experiment, subject, f"{Files.HYPNOGRAM}"
         )
     else:
         hg_file = hg_project.get_experiment_subject_file(
-            experiment, subject, f"{probe}{wne.constants.FileExtensions.HYPNOGRAM}"
+            experiment, subject, f"{probe}{FileExtensions.HYPNOGRAM}"
         )
     if hg_file.exists():
         if verbose:
@@ -111,11 +124,11 @@ def has_anatomy(
     subject: str,
     experiment: str,
     probe: str,
-    project: wne.sglx.SGLXProject = projects.get_sglx_project("shared"),
+    project: SGLXProject = projects.get_sglx_project("shared"),
     verbose: bool = False,
 ) -> bool:
     anat_file = project.get_experiment_subject_file(
-        experiment, subject, f"{probe}{wne.constants.FileExtensions.STRUCTURES}"
+        experiment, subject, f"{probe}{FileExtensions.STRUCTURES}"
     )
     if anat_file.exists():
         if verbose:
@@ -127,11 +140,99 @@ def has_anatomy(
         return False
 
 
+def has_ttls(
+    subject: str,
+    experiment: str,
+    probe: str,
+    stream: Literal["ap", "lf"],
+    project: SGLXProject = projects.get_sglx_project("shared"),
+    verbose: bool = False,
+) -> bool:
+    sglx_subject = subjects.get_sglx_subject(subject)
+    sessionIDs = sglx_subject.get_experiment_session_ids(experiment)
+    any_missing = False
+    for id in sessionIDs:
+        ftab = sglx_subject.get_session_frame(id, ftype="bin", stream=stream)
+        for binfile in ftab.itertuples():
+            [ttl_file] = sglx_utils.get_sglx_file_counterparts(
+                project, sglx_subject.name, [binfile.path], FileExtensions.TTL
+            )
+            if not ttl_file.exists():
+                any_missing = True
+                if verbose:
+                    print(
+                        _red(
+                            f"{subject}, {experiment}, {probe}, {stream}: No TTL file found for {binfile.path}"
+                        )
+                    )
+    if not any_missing:
+        if verbose:
+            print(_green(f"{subject}, {experiment}, {probe}: All TTLs found"))
+        return True
+    else:
+        return False
+
+
+def has_barcodes(
+    subject: str,
+    experiment: str,
+    probe: str,
+    stream: Literal["ap", "lf"],
+    project: SGLXProject = projects.get_sglx_project("shared"),
+    verbose: bool = False,
+) -> bool:
+    sglx_subject = subjects.get_sglx_subject(subject)
+    sessionIDs = sglx_subject.get_experiment_session_ids(experiment)
+    any_missing = False
+    for id in sessionIDs:
+        ftab = sglx_subject.get_session_frame(id, ftype="bin", stream=stream)
+        for binfile in ftab.itertuples():
+            if binfile.imSyncType != "barcode":
+                print(f"{subject}, {experiment}, {probe}: Does not use barcodes.")
+                return False
+            [barcode_file] = sglx_utils.get_sglx_file_counterparts(
+                project, sglx_subject.name, [binfile.path], FileExtensions.BARCODE
+            )
+            if not barcode_file.exists():
+                any_missing = True
+                if verbose:
+                    print(
+                        _red(
+                            f"{subject}, {experiment}, {probe}, {stream}: No barcode file found for {binfile.path}"
+                        )
+                    )
+    if not any_missing:
+        if verbose:
+            print(_green(f"{subject}, {experiment}, {probe}: All barcodes found"))
+        return True
+    else:
+        return False
+
+
+def has_sync_table(
+    subject: str,
+    experiment: str,
+    stream: Literal["ap", "lf"],
+    project: SGLXProject = projects.get_sglx_project("shared"),
+    verbose: bool = False,
+) -> bool:
+    fname = {"ap": Files.AP_SYNC, "lf": Files.LF_SYNC}[stream]
+    sync_file = project.get_experiment_subject_file(experiment, subject, fname)
+    if sync_file.exists():
+        if verbose:
+            print(_green(f"{subject}, {experiment}: {stream.upper()} sync found"))
+        return True
+    else:
+        if verbose:
+            print(_red(f"{subject}, {experiment}: No {stream.upper()} sync found"))
+        return False
+
+
 def has_sorting(
     subject: str,
     experiment: str,
     probe: str,
-    sorting_project: wne.sglx.SGLXProject = projects.get_sglx_project("shared"),
+    sorting_project: SGLXProject = projects.get_sglx_project("shared"),
     verbose: bool = False,
 ) -> bool:
     assert experiment == SleepDeprivationExperiments.NOD, (
