@@ -7,7 +7,7 @@ The `exp_hgs` module, on the other hand, contains functions for getting a total
 experiment hypnogram, from which the hypnograms in this module are derived.
 
 Note 1:
-    Various calls to wne.SGLXSubject.dt2t pass "imec0" as the probe.
+    Various calls to wne.sglx.SGLXSubject.dt2t pass "imec0" as the probe.
     This is a hack/shortcut, to ensure that the times returned by dt2t are in the
     experiment's canonical (synced) timebase. The biggest drawback of this approach is
     that imec0 needs to be available. If it were not, we'd have to:
@@ -24,10 +24,10 @@ from typing import Final
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from ecephys.wne import sglx
 
 from ecephys import hypnogram as hyp
 from ecephys import plot as eplt
-from ecephys import wne
 from wisc_ecephys_tools import core
 from wisc_ecephys_tools.rats.constants import SleepDeprivationExperiments as Exps
 
@@ -98,7 +98,7 @@ _LEGACY_CONDITION_NAMES_MAP: Final[MappingProxyType[str, str]] = MappingProxyTyp
 
 
 def get_light_dark_periods(
-    experiment: str, subject: wne.sglx.SGLXSubject, as_float: bool = True
+    experiment: str, subject: sglx.SGLXSubject, as_float: bool = True
 ) -> tuple[list[tuple], list[str]]:
     """Get light/dark periods in chronological order.
 
@@ -172,7 +172,7 @@ def plot_lights_overlay(
 
 
 def get_novel_objects_period(
-    experiment: str, subject: wne.sglx.SGLXSubject
+    experiment: str, subject: sglx.SGLXSubject
 ) -> tuple[float, float]:
     s3 = core.get_shared_project()
     params = s3.load_experiment_subject_params(experiment, subject.name)
@@ -187,7 +187,7 @@ def get_novel_objects_period(
 
 
 def get_novel_objects_hypnogram(
-    full_hg: hyp.FloatHypnogram, experiment: str, subject: wne.sglx.SGLXSubject
+    full_hg: hyp.FloatHypnogram, experiment: str, subject: sglx.SGLXSubject
 ) -> hyp.FloatHypnogram:
     (nod_start, nod_end) = get_novel_objects_period(experiment, subject)
     return full_hg.trim(nod_start, nod_end)
@@ -196,7 +196,7 @@ def get_novel_objects_hypnogram(
 def get_day1_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    subject: wne.sglx.SGLXSubject,
+    subject: sglx.SGLXSubject,
 ) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -209,7 +209,7 @@ def get_day1_hypnogram(
 def get_day2_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    subject: wne.sglx.SGLXSubject,
+    subject: sglx.SGLXSubject,
 ) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -222,7 +222,7 @@ def get_day2_hypnogram(
 def get_day1_light_period_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    subject: wne.sglx.SGLXSubject,
+    subject: sglx.SGLXSubject,
 ) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -235,7 +235,7 @@ def get_day1_light_period_hypnogram(
 def get_day1_dark_period_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    subject: wne.sglx.SGLXSubject,
+    subject: sglx.SGLXSubject,
 ) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -248,7 +248,7 @@ def get_day1_dark_period_hypnogram(
 def get_day2_light_period_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    subject: wne.sglx.SGLXSubject,
+    subject: sglx.SGLXSubject,
 ) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -261,7 +261,7 @@ def get_day2_light_period_hypnogram(
 def get_day2_dark_period_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    subject: wne.sglx.SGLXSubject,
+    subject: sglx.SGLXSubject,
 ) -> hyp.FloatHypnogram:
     intervals, labels = get_light_dark_periods(experiment, subject)
     assert labels == ["on", "off", "on", "off"]
@@ -274,7 +274,7 @@ def get_day2_dark_period_hypnogram(
 def get_post_deprivation_day2_light_period_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    subject: wne.sglx.SGLXSubject,
+    subject: sglx.SGLXSubject,
     sleep_deprivation_end: float,  # This is a bit of a misnomer. It could also be the end of extended wake.
 ) -> hyp.FloatHypnogram:
     d2lp_hg = get_day2_light_period_hypnogram(full_hg, experiment, subject)
@@ -290,7 +290,7 @@ def get_circadian_match_hypnogram(
 
 
 def get_conveyor_over_water_period(
-    experiment: str, wne_subject: wne.sglx.SGLXSubject
+    experiment: str, wne_subject: sglx.SGLXSubject
 ) -> tuple[float, float]:
     s3 = core.get_shared_project()
     params = s3.load_experiment_subject_params(experiment, wne_subject.name)
@@ -305,7 +305,7 @@ def get_conveyor_over_water_period(
 
 
 def get_sleep_deprivation_period(
-    experiment: str, wne_subject: wne.sglx.SGLXSubject
+    experiment: str, wne_subject: sglx.SGLXSubject
 ) -> tuple[float, float]:
     if experiment == Exps.NOD:
         return get_novel_objects_period(experiment, wne_subject)
@@ -324,7 +324,7 @@ def get_sleep_deprivation_period(
 def get_extended_wake_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    wne_subject: wne.sglx.SGLXSubject,
+    wne_subject: sglx.SGLXSubject,
     minimum_endpoint_bout_duration: float = 120,
     maximum_antistate_bout_duration: float = 90,
     minimum_fraction_of_final_match: float = 0.95,
@@ -359,7 +359,7 @@ def get_extended_wake_hypnogram(
 def get_conveyor_over_water_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    sglx_subject: wne.sglx.SGLXSubject,
+    sglx_subject: sglx.SGLXSubject,
 ) -> hyp.FloatHypnogram:
     (cow_start, cow_end) = get_conveyor_over_water_period(experiment, sglx_subject)
     return full_hg.trim(cow_start, cow_end)
@@ -368,7 +368,7 @@ def get_conveyor_over_water_hypnogram(
 def get_sleep_deprivation_hypnogram(
     full_hg: hyp.FloatHypnogram,
     experiment: str,
-    wne_subject: wne.sglx.SGLXSubject,
+    wne_subject: sglx.SGLXSubject,
 ) -> hyp.FloatHypnogram:
     sd_start, sd_end = get_sleep_deprivation_period(experiment, wne_subject)
     return full_hg.trim(sd_start, sd_end)
@@ -378,7 +378,7 @@ def compute_statistical_condition_hypnograms(
     lbrl_hg: hyp.FloatHypnogram,
     cons_hg: hyp.FloatHypnogram,
     experiment: str,
-    sglx_subject: wne.sglx.SGLXSubject,
+    sglx_subject: sglx.SGLXSubject,
     extended_wake_kwargs: dict[str, float] = {},
     circadian_match_tolerance: float = pd.to_timedelta("0:30:00").total_seconds(),
 ) -> dict[str, hyp.FloatHypnogram]:
@@ -397,7 +397,7 @@ def compute_statistical_condition_hypnograms(
         periods have been marked.
     experiment : str
         Name of the experiment
-    sglx_subject : wne.sglx.SGLXSubject
+    sglx_subject : sglx.SGLXSubject
         The subject to compute hypnograms for.
     extended_wake_kwargs : dict[str, float]
         Keyword arguments to pass to `get_extended_wake_hypnogram`
@@ -546,7 +546,7 @@ def save_statistical_condition_hypnograms(
     return out_df
 
 
-def load_statistical_condition_hypnograms(
+def _load_statistical_condition_hypnograms(
     path: str | Path,
 ) -> dict[str, hyp.FloatHypnogram]:
     df = pd.read_parquet(path)
@@ -564,11 +564,27 @@ def load_statistical_condition_hypnograms(
     return hgs
 
 
+def load_statistical_condition_hypnograms(
+    subject: str,
+    experiment: str,
+    probe: str | None,
+    project: sglx.SGLXProject = core.get_shared_project(),
+) -> dict[str, hyp.FloatHypnogram]:
+    if probe is None:
+        fname = "consensus_condition_hypnograms.parquet"
+    else:
+        fname = f"{probe}.condition_hypnograms.parquet"
+
+    return _load_statistical_condition_hypnograms(
+        project.get_experiment_subject_file(experiment, subject, fname)
+    )
+
+
 def plot_condition_hgs_dense(
     hgs: dict[str, hyp.FloatHypnogram],
     palette: dict[str, str],
     experiment: str | None = None,
-    subject: wne.sglx.SGLXSubject | None = None,
+    subject: sglx.SGLXSubject | None = None,
     show_ticklabels: bool = False,
 ) -> plt.Axes:
     """Plot each condition on the same axis, so that they can all be seen at once.
