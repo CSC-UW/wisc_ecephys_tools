@@ -1,8 +1,8 @@
-import pandas as pd
-
 import ecephys.hypnogram as hyp
+import pandas as pd
+from ecephys.wne import sglx
+
 import wisc_ecephys_tools as wet
-from ecephys import wne
 from wisc_ecephys_tools.rats import cnd_hgs, exp_hgs
 
 EXTENDED_WAKE_KWARGS = {
@@ -25,7 +25,7 @@ CIRCADIAN_MATCH_TOLERANCE = 30 * 60  # 30 minutes
 # where the discrepancies are.
 # Hold off on implementing either for now. It may not be necessary.
 def do_probe(
-    subject: wne.sglx.SGLXSubject, experiment: str, probe: str
+    subject: sglx.SGLXSubject, experiment: str, probe: str
 ) -> dict[str, hyp.FloatHypnogram]:
     s3 = wet.get_sglx_project("shared")
 
@@ -54,7 +54,7 @@ def do_probe(
 
 
 def do_experiment_subject(
-    sglx_subject: wne.sglx.SGLXSubject,
+    sglx_subject: sglx.SGLXSubject,
     experiment: str,
     probes: list[str] | None = None,
     verbose: bool = False,
