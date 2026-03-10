@@ -18,6 +18,8 @@ Note 1:
 import itertools as it
 import warnings
 from pathlib import Path
+from types import MappingProxyType
+from typing import Final
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -28,6 +30,71 @@ from ecephys import plot as eplt
 from ecephys import wne
 from wisc_ecephys_tools import core
 from wisc_ecephys_tools.rats.constants import SleepDeprivationExperiments as Exps
+
+_LEGACY_CONDITION_NAMES_MAP: Final[MappingProxyType[str, str]] = MappingProxyType(
+    {
+        # Full experiment hypnograms
+        "full_liberal": "Full.Liberal",
+        "full_conservative": "Full.Conservative",
+        # Baseline
+        "bsl_wake": "BSL.Wake",
+        "bsl_rem": "BSL.REM",
+        "early_bsl_nrem": "Early.BSL.NREM",
+        "early_bsl_rem": "Early.BSL.REM",
+        "last_bsl_nrem": "Last.BSL.NREM",
+        "last_bsl_rem": "Last.BSL.REM",
+        # Sleep deprivation (mixed Wake+NREM)
+        "sd": "SD",
+        "early_sd": "Early.SD",
+        "late_sd": "Late.SD",
+        # Sleep deprivation (pure Wake)
+        "sd_wake": "SD.Wake",
+        "early_sd_wake": "Early.SD.Wake",
+        "late_sd_wake": "Late.SD.Wake",
+        # Novel objects deprivation (mixed Wake+NREM)
+        "nod": "NOD",
+        "early_nod": "Early.NOD",
+        "late_nod": "Late.NOD",
+        # Novel objects deprivation (pure Wake)
+        "nod_wake": "NOD.Wake",
+        "early_nod_wake": "Early.NOD.Wake",
+        "late_nod_wake": "Late.NOD.Wake",
+        # Conveyor over water (mixed Wake+NREM)
+        "cow": "COW",
+        "early_cow": "Early.COW",
+        "late_cow": "Late.COW",
+        # Conveyor over water (pure Wake)
+        "cow_wake": "COW.Wake",
+        "early_cow_wake": "Early.COW.Wake",
+        "late_cow_wake": "Late.COW.Wake",
+        # Conveyor then novelty (mixed Wake+NREM)
+        "ctn": "CTN",
+        "early_ctn": "Early.CTN",
+        "late_ctn": "Late.CTN",
+        # Conveyor then novelty (pure Wake)
+        "ctn_wake": "CTN.Wake",
+        "early_ctn_wake": "Early.CTN.Wake",
+        "late_ctn_wake": "Late.CTN.Wake",
+        # Extended wake (mixed Wake+NREM)
+        "ext": "EXT",
+        "early_ext": "Early.EXT",
+        "late_ext": "Late.EXT",
+        # Extended wake (pure Wake)
+        "ext_wake": "EXT.Wake",
+        "early_ext_wake": "Early.EXT.Wake",
+        "late_ext_wake": "Late.EXT.Wake",
+        # Recovery
+        "early_rec_nrem": "Early.REC.NREM",
+        "early_rec_rem": "Early.REC.REM",
+        "late_rec_nrem": "Late.REC.NREM",
+        "late_rec_rem": "Late.REC.REM",
+        "last_rec_nrem": "Last.REC.NREM",
+        "last_rec_rem": "Last.REC.REM",
+        # Circadian match
+        "early_rec_nrem_match": "Early.REC.NREM.Match",
+        "early_rec_rem_match": "Early.REC.REM.Match",
+    }
+)
 
 
 def get_light_dark_periods(
@@ -347,61 +414,61 @@ def compute_statistical_condition_hypnograms(
     _10min = pd.to_timedelta("0:10:00").total_seconds()
 
     hgs = dict()
-    hgs["full_liberal"] = lbrl_hg
-    hgs["full_conservative"] = cons_hg
+    hgs["Full.Liberal"] = lbrl_hg
+    hgs["Full.Conservative"] = cons_hg
 
     d1_hg = get_day1_hypnogram(cons_hg, experiment, sglx_subject)
-    hgs["bsl_wake"] = d1_hg.keep_states(["Wake"])
-    hgs["bsl_rem"] = d1_hg.keep_states(["REM"])
+    hgs["BSL.Wake"] = d1_hg.keep_states(["Wake"])
+    hgs["BSL.REM"] = d1_hg.keep_states(["REM"])
 
     d1lp_hg = get_day1_light_period_hypnogram(cons_hg, experiment, sglx_subject)
-    hgs["early_bsl_nrem"] = d1lp_hg.keep_states(["NREM"]).keep_first(_1h)
-    hgs["early_bsl_rem"] = d1lp_hg.keep_states(["REM"]).keep_first(_10min)
+    hgs["Early.BSL.NREM"] = d1lp_hg.keep_states(["NREM"]).keep_first(_1h)
+    hgs["Early.BSL.REM"] = d1lp_hg.keep_states(["REM"]).keep_first(_10min)
 
     d1dp_hg = get_day1_dark_period_hypnogram(cons_hg, experiment, sglx_subject)
-    hgs["last_bsl_nrem"] = d1dp_hg.keep_states(["NREM"]).keep_last(_1h)
-    hgs["last_bsl_rem"] = d1dp_hg.keep_states(["REM"]).keep_last(_10min)
+    hgs["Last.BSL.NREM"] = d1dp_hg.keep_states(["NREM"]).keep_last(_1h)
+    hgs["Last.BSL.REM"] = d1dp_hg.keep_states(["REM"]).keep_last(_10min)
 
     sd_hg = get_sleep_deprivation_hypnogram(cons_hg, experiment, sglx_subject)
-    hgs["sd"] = sd_hg.keep_states(["Wake", "NREM"])
-    hgs["early_sd"] = hgs["sd"].keep_first(_1h)
-    hgs["late_sd"] = hgs["sd"].keep_last(_1h)
-    # Analagous to early/late_ext.
+    hgs["SD"] = sd_hg.keep_states(["Wake", "NREM"])
+    hgs["Early.SD"] = hgs["SD"].keep_first(_1h)
+    hgs["Late.SD"] = hgs["SD"].keep_last(_1h)
+    # Analogous to Early/Late.EXT.
 
-    hgs["sd_wake"] = sd_hg.keep_states(["Wake"])
-    hgs["early_sd_wake"] = hgs["sd_wake"].keep_first(_1h)
-    hgs["late_sd_wake"] = hgs["sd_wake"].keep_last(_1h)
-    # Analagous to early/late_ext_wake.
+    hgs["SD.Wake"] = sd_hg.keep_states(["Wake"])
+    hgs["Early.SD.Wake"] = hgs["SD.Wake"].keep_first(_1h)
+    hgs["Late.SD.Wake"] = hgs["SD.Wake"].keep_last(_1h)
+    # Analogous to Early/Late.EXT.Wake.
 
     if experiment in [Exps.NOD, Exps.CTN]:
         nod_hg = get_novel_objects_hypnogram(cons_hg, experiment, sglx_subject)
-        hgs["nod"] = nod_hg.keep_states(["Wake", "NREM"])
-        hgs["early_nod"] = hgs["nod"].keep_first(_1h)
-        hgs["late_nod"] = hgs["nod"].keep_last(_1h)
+        hgs["NOD"] = nod_hg.keep_states(["Wake", "NREM"])
+        hgs["Early.NOD"] = hgs["NOD"].keep_first(_1h)
+        hgs["Late.NOD"] = hgs["NOD"].keep_last(_1h)
 
-        hgs["nod_wake"] = nod_hg.keep_states(["Wake"])
-        hgs["early_nod_wake"] = hgs["nod_wake"].keep_first(_1h)
-        hgs["late_nod_wake"] = hgs["nod_wake"].keep_last(_1h)
+        hgs["NOD.Wake"] = nod_hg.keep_states(["Wake"])
+        hgs["Early.NOD.Wake"] = hgs["NOD.Wake"].keep_first(_1h)
+        hgs["Late.NOD.Wake"] = hgs["NOD.Wake"].keep_last(_1h)
 
     if experiment in [Exps.COW, Exps.CTN]:
         cow_hg = get_conveyor_over_water_hypnogram(cons_hg, experiment, sglx_subject)
-        hgs["cow"] = cow_hg.keep_states(["Wake", "NREM"])
-        hgs["early_cow"] = hgs["cow"].keep_first(_1h)
-        hgs["late_cow"] = hgs["cow"].keep_last(_1h)
+        hgs["COW"] = cow_hg.keep_states(["Wake", "NREM"])
+        hgs["Early.COW"] = hgs["COW"].keep_first(_1h)
+        hgs["Late.COW"] = hgs["COW"].keep_last(_1h)
 
-        hgs["cow_wake"] = cow_hg.keep_states(["Wake"])
-        hgs["early_cow_wake"] = hgs["cow_wake"].keep_first(_1h)
-        hgs["late_cow_wake"] = hgs["cow_wake"].keep_last(_1h)
+        hgs["COW.Wake"] = cow_hg.keep_states(["Wake"])
+        hgs["Early.COW.Wake"] = hgs["COW.Wake"].keep_first(_1h)
+        hgs["Late.COW.Wake"] = hgs["COW.Wake"].keep_last(_1h)
 
     if experiment == Exps.CTN:
         ctn_hg = sd_hg
-        hgs["ctn"] = ctn_hg.keep_states(["Wake", "NREM"])
-        hgs["early_ctn"] = hgs["ctn"].keep_first(_1h)
-        hgs["late_ctn"] = hgs["ctn"].keep_last(_1h)
+        hgs["CTN"] = ctn_hg.keep_states(["Wake", "NREM"])
+        hgs["Early.CTN"] = hgs["CTN"].keep_first(_1h)
+        hgs["Late.CTN"] = hgs["CTN"].keep_last(_1h)
 
-        hgs["ctn_wake"] = ctn_hg.keep_states(["Wake"])
-        hgs["early_ctn_wake"] = hgs["ctn_wake"].keep_first(_1h)
-        hgs["late_ctn_wake"] = hgs["ctn_wake"].keep_last(_1h)
+        hgs["CTN.Wake"] = ctn_hg.keep_states(["Wake"])
+        hgs["Early.CTN.Wake"] = hgs["CTN.Wake"].keep_first(_1h)
+        hgs["Late.CTN.Wake"] = hgs["CTN.Wake"].keep_last(_1h)
 
     ext_hg = get_extended_wake_hypnogram(
         lbrl_hg, experiment, sglx_subject, **extended_wake_kwargs
@@ -410,23 +477,23 @@ def compute_statistical_condition_hypnograms(
         ext_hg = sd_hg
     else:
         ext_hg = cons_hg.trim(ext_hg["start_time"].min(), ext_hg["end_time"].max())
-        hgs["ext"] = ext_hg.keep_states(["Wake", "NREM"])
-        hgs["early_ext"] = hgs["ext"].keep_first(_1h)
-        hgs["late_ext"] = hgs["ext"].keep_last(_1h)
+        hgs["EXT"] = ext_hg.keep_states(["Wake", "NREM"])
+        hgs["Early.EXT"] = hgs["EXT"].keep_first(_1h)
+        hgs["Late.EXT"] = hgs["EXT"].keep_last(_1h)
         # Scoring may be so good that local sleep was marked as NREM.
-        # If you want "mixed wake", early/late_ext will include these microsleeps.
+        # If you want "mixed wake", Early/Late.EXT will include these microsleeps.
 
-        # If you want "pure wake", you can use "ext_wake" and company.
-        hgs["ext_wake"] = ext_hg.keep_states(["Wake"])
-        hgs["early_ext_wake"] = hgs["ext_wake"].keep_first(_1h)
-        hgs["late_ext_wake"] = hgs["ext_wake"].keep_last(_1h)
-        # If you want to mixed wake exactly matched to these times, use e.g.
-        # matched_early_ext = hgs["ext"].keep_states(["Wake", "NREM"]).trim(
-        #   hgs["early_ext_wake"]["start_time"].min(),
-        #   hgs["early_ext_wake"]["end_time"].max()
+        # If you want "pure wake", you can use "EXT.Wake" and company.
+        hgs["EXT.Wake"] = ext_hg.keep_states(["Wake"])
+        hgs["Early.EXT.Wake"] = hgs["EXT.Wake"].keep_first(_1h)
+        hgs["Late.EXT.Wake"] = hgs["EXT.Wake"].keep_last(_1h)
+        # If you want mixed wake exactly matched to these times, use e.g.
+        # matched_early_ext = hgs["EXT"].keep_states(["Wake", "NREM"]).trim(
+        #   hgs["Early.EXT.Wake"]["start_time"].min(),
+        #   hgs["Early.EXT.Wake"]["end_time"].max()
         # )
         # Note that `matched_early_ext` will not be exactly 1h long, and will not be
-        # exactly the same as `hgs["early_ext"]`! You have to decide what you want!
+        # exactly the same as `hgs["Early.EXT"]`! You have to decide what you want!
 
     # In rare cases, ext_hg["end_time"].max() can be < sd_hg["end_time"].max(), if
     # there was a lot of local sleep at the end of SD.
@@ -437,25 +504,25 @@ def compute_statistical_condition_hypnograms(
         sglx_subject,
         sleep_deprivation_end=earliest_recovery_start,
     )
-    hgs["early_rec_nrem"] = pdd2lp_hg.keep_states(["NREM"]).keep_first(_1h)
-    hgs["early_rec_rem"] = pdd2lp_hg.keep_states(["REM"]).keep_first(_10min)
-    hgs["late_rec_nrem"] = pdd2lp_hg.keep_states(["NREM"]).keep_last(_1h)
-    hgs["late_rec_rem"] = pdd2lp_hg.keep_states(["REM"]).keep_last(_10min)
+    hgs["Early.REC.NREM"] = pdd2lp_hg.keep_states(["NREM"]).keep_first(_1h)
+    hgs["Early.REC.REM"] = pdd2lp_hg.keep_states(["REM"]).keep_first(_10min)
+    hgs["Late.REC.NREM"] = pdd2lp_hg.keep_states(["NREM"]).keep_last(_1h)
+    hgs["Late.REC.REM"] = pdd2lp_hg.keep_states(["REM"]).keep_last(_10min)
 
-    hgs["early_rec_nrem_match"] = get_circadian_match_hypnogram(
+    hgs["Early.REC.NREM.Match"] = get_circadian_match_hypnogram(
         cons_hg,
-        start=hgs["early_rec_nrem"]["start_time"].min() - circadian_match_tolerance,
-        end=hgs["early_rec_nrem"]["end_time"].max() + circadian_match_tolerance,
+        start=hgs["Early.REC.NREM"]["start_time"].min() - circadian_match_tolerance,
+        end=hgs["Early.REC.NREM"]["end_time"].max() + circadian_match_tolerance,
     ).keep_states(["NREM"])
-    hgs["early_rec_rem_match"] = get_circadian_match_hypnogram(
+    hgs["Early.REC.REM.Match"] = get_circadian_match_hypnogram(
         cons_hg,
-        start=hgs["early_rec_rem"]["start_time"].min() - circadian_match_tolerance,
-        end=hgs["early_rec_rem"]["end_time"].max() + circadian_match_tolerance,
+        start=hgs["Early.REC.REM"]["start_time"].min() - circadian_match_tolerance,
+        end=hgs["Early.REC.REM"]["end_time"].max() + circadian_match_tolerance,
     ).keep_states(["REM"])
 
     d2dp_hg = get_day2_dark_period_hypnogram(cons_hg, experiment, sglx_subject)
-    hgs["last_rec_nrem"] = d2dp_hg.keep_states(["NREM"]).keep_last(_1h)
-    hgs["last_rec_rem"] = d2dp_hg.keep_states(["REM"]).keep_last(_10min)
+    hgs["Last.REC.NREM"] = d2dp_hg.keep_states(["NREM"]).keep_last(_1h)
+    hgs["Last.REC.REM"] = d2dp_hg.keep_states(["REM"]).keep_last(_10min)
 
     return hgs
 
@@ -483,6 +550,8 @@ def load_statistical_condition_hypnograms(
     path: str | Path,
 ) -> dict[str, hyp.FloatHypnogram]:
     df = pd.read_parquet(path)
+    # Translate legacy snake_case condition names to new Dot.PascalCase names.
+    df["condition"] = df["condition"].replace(_LEGACY_CONDITION_NAMES_MAP)
     conditions = df["condition"].unique()
     hgs = {
         cond: hyp.FloatHypnogram(
@@ -519,8 +588,8 @@ def plot_condition_hgs_dense(
     # to ensure that the xlim is plotted correctly.
     df1 = pd.concat([hgs[c]._df for c in palette.keys() if c in hgs])
     df2 = hyp.FloatHypnogram.get_dummy(
-        hgs["full_liberal"]["start_time"].min(),
-        hgs["full_liberal"]["end_time"].max(),
+        hgs["Full.Liberal"]["start_time"].min(),
+        hgs["Full.Liberal"]["end_time"].max(),
     )._df
     df = hyp.reconcile_hypnograms(df1, df2)
 
