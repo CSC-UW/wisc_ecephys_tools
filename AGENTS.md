@@ -60,7 +60,7 @@ project: offproj
 project_directory: /Volumes/npx_nfs/nobak/offproj
 ```
 
-See `gfys_workspace/docs/DATA_ORGANIZATION.md` for the full project list.
+See `gfys_workspace/docs/DATA.md` for the full project list.
 
 ### Adding a new project
 
@@ -110,5 +110,5 @@ If these are not mounted, project/subject loading will succeed but data access w
 
 - Root `AGENTS.md` — workspace overview, code style
 - `ecephys/AGENTS.md` — core library this package builds on
-- `gfys_workspace/docs/DATA_ORGANIZATION.md` — data hierarchy, project list, subject schema
+- `gfys_workspace/docs/DATA.md` — data hierarchy, project list, subject schema
 - `gfys_workspace/docs/COMPUTE_SERVERS.md` — server specs and mount points
