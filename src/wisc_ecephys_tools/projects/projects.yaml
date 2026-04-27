@@ -1,5 +1,5 @@
 ---
-project: shared # TODO: This really should be shared_s3
+project: shared # TODO: This really should be s3/shared or autobak/shared
 project_directory: /Volumes/npx_nfs/shared_s3
 ...
 ---
@@ -24,6 +24,10 @@ project_directory: /Volumes/npx_nfs/nobak/seahorse
 ---
 project: offproj
 project_directory: /Volumes/npx_nfs/nobak/offproj
+...
+---
+project: offproj_s3
+project_directory: /Volumes/npx_nfs/shared_s3/offproj
 ...
 ---
 project: samoffs
