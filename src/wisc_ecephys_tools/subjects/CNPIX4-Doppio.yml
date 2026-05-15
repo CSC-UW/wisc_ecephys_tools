@@ -8,6 +8,10 @@ recording_sessions:
     ap: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-18-2020/SpikeGLX/
     lf: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-18-2020/SpikeGLX/
     imSyncType: square_pulse
+  - id: 3-19-2020
+    ap: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-19-2020/SpikeGLX/
+    lf: /Volumes/ceph-tononi/npx_archive/CNPIX4-Doppio/3-19-2020/SpikeGLX/
+    imSyncType: square_pulse
 experiments:
   novel_objects_deprivation:
     recording_session_ids:
@@ -17,4 +21,11 @@ experiments:
       full:
         - start_file: 3-17-2020_g0_t0
           end_file: 3-18-2020_g0_t9
+  isoflurane:
+    recording_session_ids:
+      - 3-19-2020
+    aliases:
+      full:
+        - start_file: 3-19-2020_g0_t0
+          end_file: 3-19-2020_g0_t1
 ...
