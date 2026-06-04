@@ -33,6 +33,12 @@ project_directory: /Volumes/npx_nfs/shared_s3/offproj
 project: samoffs
 project_directory: /Volumes/scratch/neuropixels/samoffs
 ...
+# anpix acute-mouse dev/scratch project (outputs of the anpix sync pipeline).
+# NOT shared_s3: existing shared_s3 data must not be touched during development.
+---
+project: anpix
+project_directory: /Volumes/npx_nfs/nobak/anpix
+...
 # Joanna's projects
 ---
 project: discoflow
