@@ -1,7 +1,7 @@
 import pandas as pd
 
 import wisc_ecephys_tools.subjects as subjects
-from ecephys.wne.sglx.subjects import SGLXSubjectLibrary
+from ecephys.wne.sglx import SGLXSubjectLibrary
 
 if __name__ == "__main__":
     lib = SGLXSubjectLibrary(subjects.get_subjects_directory())
