@@ -73,8 +73,15 @@ See `gfys_workspace/docs/DATA.md` for the full project list.
 
 Each YAML defines:
 - `recording_sessions`: paths to raw SpikeGLX data on NAS
-- `experiments`: experiment definitions with aliases and probe configurations
-- Probe metadata: channel maps, internal references
+- `experiments`: experiment definitions with `recording_session_ids` and `aliases`
+
+Probes are NOT declared in the YAML — they are discovered from the SpikeGLX files
+on disk (`SGLXSubject.refresh_cache` / `get_experiment_probes`). A historical
+`probes:` block (`imec_map` / `internal_reference`) was vestigial and never read by
+code; it was removed from all YAMLs on 2026-06-05. See
+`gfys_workspace/docs/developer_notes/subject_yaml_probes_field_vestigial.md`.
+(Live per-probe metadata such as bad channels lives in `experiment_params.json`
+in project output dirs, not here.)
 
 ### Adding a new subject
 
