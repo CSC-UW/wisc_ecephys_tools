@@ -1,0 +1,12 @@
+---
+recording_sessions:
+  - id: 12-11-2025_RT
+    ap: /Volumes/NeuropixelNAS1/ANPIX68-Shi/12-11-2025_RT/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX68-Shi/12-11-2025_RT/SpikeGLX
+    imSyncType: barcode
+# Conjecture: 12-11-2025_RT (rubber-tail) -> discoflow-day3.
+# Rationale: shared_s3/discoflow-day3/ANPIX68-Shi/ exists but has no
+# prb_sync.{ap,lf}.htsv; it is the only experiment dir present, so the sole
+# session likely belongs there. Unverified.
+experiments: {}
+...

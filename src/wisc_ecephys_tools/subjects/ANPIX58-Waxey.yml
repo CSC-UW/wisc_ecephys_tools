@@ -1,0 +1,17 @@
+---
+recording_sessions:
+  - id: 11-21-2025
+    ap: /Volumes/NeuropixelNAS1/ANPIX58-Waxey/11-21-2025/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX58-Waxey/11-21-2025/SpikeGLX
+    imSyncType: barcode
+  - id: 11-21-2025_RT
+    ap: /Volumes/NeuropixelNAS1/ANPIX58-Waxey/11-21-2025_RT/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX58-Waxey/11-21-2025_RT/SpikeGLX
+    imSyncType: barcode
+# Note: 11-21-2025/sync/ holds a raw uint32 sync binary (no .h5; needs
+# repair_sync_h5); 11-21-2025_RT has a proper .h5.
+# Conjecture: 11-21-2025 -> discoflow-day1; 11-21-2025_RT (rubber-tail) -> discoflow-day3.
+# Rationale: no shared_s3/discoflow-dayN/ANPIX58-Waxey/ dir exists, so no
+# prb_sync verifies either mapping.
+experiments: {}
+...

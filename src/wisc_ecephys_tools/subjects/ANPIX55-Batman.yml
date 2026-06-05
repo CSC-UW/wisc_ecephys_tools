@@ -1,0 +1,23 @@
+---
+recording_sessions:
+  - id: 11-08-2025
+    ap: /Volumes/NeuropixelNAS1/ANPIX55-Batman/11-08-2025/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX55-Batman/11-08-2025/SpikeGLX
+    imSyncType: barcode
+  - id: 11-08-2025_RT
+    ap: /Volumes/NeuropixelNAS1/ANPIX55-Batman/11-08-2025_RT/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX55-Batman/11-08-2025_RT/SpikeGLX
+    imSyncType: barcode
+experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 11-08-2025
+    aliases:
+      full:
+        - start_file: 11-08-2025_g0_t0
+          end_file: 11-08-2025_g0_t0
+  # Conjecture: 11-08-2025_RT (rubber-tail) belongs to discoflow-day3.
+  # Rationale: shared_s3/discoflow-day3/ANPIX55-Batman/ exists but has 
+  # no prb_sync.{ap,lf}.htsv, so its experiment is unverified. It is the
+  # only unmapped session, so it likely belongs to discoflow-day3
+...

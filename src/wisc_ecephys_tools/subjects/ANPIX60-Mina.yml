@@ -1,0 +1,16 @@
+---
+recording_sessions:
+  - id: 11-27-2025
+    ap: /Volumes/NeuropixelNAS1/ANPIX60-Mina/11-27-2025/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX60-Mina/11-27-2025/SpikeGLX
+    imSyncType: barcode
+  - id: 11-27-2025_RT
+    ap: /Volumes/NeuropixelNAS1/ANPIX60-Mina/11-27-2025_RT/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX60-Mina/11-27-2025_RT/SpikeGLX
+    imSyncType: barcode
+# Note: no-imec0 subject (lowest probe present is imec3).
+# Conjecture: 11-27-2025 -> discoflow-day1; 11-27-2025_RT (rubber-tail) -> discoflow-day3.
+# Rationale: no shared_s3/discoflow-dayN/ANPIX60-Mina/ dir exists, so no
+# prb_sync verifies either mapping.
+experiments: {}
+...

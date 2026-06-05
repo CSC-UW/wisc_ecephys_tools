@@ -1,0 +1,15 @@
+---
+recording_sessions:
+  - id: 11-05-2025
+    ap: /Volumes/NeuropixelNAS1/ANPIX54-Robin/11-05-2025/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX54-Robin/11-05-2025/SpikeGLX
+    imSyncType: barcode
+  - id: 11-05-2025_RT
+    ap: /Volumes/NeuropixelNAS1/ANPIX54-Robin/11-05-2025_RT/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX54-Robin/11-05-2025_RT/SpikeGLX
+    imSyncType: barcode
+# Conjecture: 11-05-2025 -> discoflow-day1; 11-05-2025_RT (rubber-tail) -> discoflow-day3.
+# Rationale: shared_s3/discoflow-day{1,3}/ANPIX54-Robin/ both exist but contain
+# no prb_sync.{ap,lf}.htsv, so neither mapping is verified.
+experiments: {}
+...

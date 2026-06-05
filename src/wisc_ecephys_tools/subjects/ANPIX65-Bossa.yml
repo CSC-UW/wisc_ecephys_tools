@@ -1,0 +1,15 @@
+---
+recording_sessions:
+  - id: 12-06-2025_RT
+    ap: /Volumes/NeuropixelNAS1/ANPIX65-Bossa/12-06-2025_RT/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX65-Bossa/12-06-2025_RT/SpikeGLX
+    imSyncType: barcode
+experiments:
+  discoflow-day3:
+    recording_session_ids:
+      - 12-06-2025_RT
+    aliases:
+      full:
+        - start_file: 12-06-2025_RT_g0_t0
+          end_file: 12-06-2025_RT_g0_t0
+...

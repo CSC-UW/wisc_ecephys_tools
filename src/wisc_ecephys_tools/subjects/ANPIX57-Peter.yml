@@ -1,0 +1,11 @@
+---
+recording_sessions:
+  - id: 11-15-2025_RT
+    ap: /Volumes/NeuropixelNAS1/ANPIX57-Peter/11-15-2025_RT/SpikeGLX
+    lf: /Volumes/NeuropixelNAS1/ANPIX57-Peter/11-15-2025_RT/SpikeGLX
+    imSyncType: barcode
+# Conjecture: 11-15-2025_RT (rubber-tail) -> discoflow-day3.
+# Rationale: no shared_s3/discoflow-dayN/ANPIX57-Peter/ dir exists, so no
+# prb_sync verifies the mapping.
+experiments: {}
+...
