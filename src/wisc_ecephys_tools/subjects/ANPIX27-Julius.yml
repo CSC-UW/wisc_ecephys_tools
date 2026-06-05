@@ -12,24 +12,9 @@ experiments:
       full:
         - start_file: 03-03-2022_g0_t0
           end_file: 03-03-2022_g0_t0
-    probes:
-      imec0:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-        bad: [229, 311, 372]
-      imec2:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec3:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec5:
-        imec_map: Default_1shank
-        internal_reference: [191]
+    # Channel QC preserved from the former (vestigial) probes block. No code reads
+    # it. NOTE: it DISAGREES with experiment_params.json (shared_s3 / nobak /
+    # acute_mice), which records no extra bad channels for imec1 but flags
+    # imec4 badChannels [327, 328] (not listed here). Sole record of the imec1 set:
+    #   imec1 bad: [229, 311, 372]
 ...

@@ -11,22 +11,10 @@ experiments:
       full:
         - start_file: 10-13-2020_ABCDE-4_g0_t0
           end_file: 10-13-2020_ABCDE-4_g0_t0
-    probes:
-      imec0:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-        bad: [229, 311, 372]
-        suspicious: [23, 47, 71, 95, 119, 143, 167, 215, 239, 263, 287, 383] # Looks like a bad ADC - every 24th channel.
-      imec2:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec3:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
+    # Channel QC preserved from the former (vestigial) probes block. No code reads
+    # it, and it is NOT recorded in any experiment_params.json for this subject
+    # (none exists anywhere), so this comment is the sole surviving record:
+    #   imec1 bad: [229, 311, 372]
+    #   imec1 suspicious: [23, 47, 71, 95, 119, 143, 167, 215, 239, 263, 287, 383]
+    #     -> looks like a bad ADC - every 24th channel
 ...

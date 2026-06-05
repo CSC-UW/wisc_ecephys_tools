@@ -16,16 +16,6 @@ experiments:
       full:
         - start_file: 03-29-2022_g0_t0
           end_file: 03-29-2022_g0_t0
-    probes:
-      imec0:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
   discoflow-day3:
     recording_session_ids:
       - 03-31-2022
@@ -33,22 +23,6 @@ experiments:
       full:
         - start_file: 03-31-2022_g0_t0
           end_file: 03-31-2022_g0_t0
-    probes:
-      imec0:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec2:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec5:
-        imec_map: Default_1shank
-        internal_reference: [191]
   discoflow-day2:
     recording_session_ids:
       - 03-30-2022
@@ -56,14 +30,4 @@ experiments:
       full:
         - start_file: 03-30-2022_g0_t0
           end_file: 03-30-2022_g0_t0
-    probes:
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec5:
-        imec_map: Default_1shank
-        internal_reference: [191]
 ...

@@ -16,25 +16,6 @@ experiments:
       full:
         - start_file: 06-02-2022_g0_t0
           end_file: 06-02-2022_g0_t0
-    probes: &probes
-      imec0:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec1:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec2:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec3:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec4:
-        imec_map: Default_1shank
-        internal_reference: [191]
-      imec5:
-        imec_map: Default_1shank
-        internal_reference: [191]
   discoflow-day2:
     recording_session_ids:
       - 06-03-2022
@@ -42,5 +23,4 @@ experiments:
       full:
         - start_file: 06-03-2022_g0_t0
           end_file: 06-03-2022_g0_t0
-    probes: *probes
 ...
