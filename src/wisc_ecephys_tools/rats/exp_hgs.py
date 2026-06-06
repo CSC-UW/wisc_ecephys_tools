@@ -125,6 +125,12 @@ def _get_nodata_from_sglx_filetable(
         probe=probe,
         stream=stream,
     )
+    if ftable["expmtPrbAcqFirstTime"].isna().any():
+        raise sglx_utils.UnfinalizedRecordingError(
+            "exp_hgs: ftable has unknown acquisition offsets (NaN "
+            "expmtPrbAcqFirstTime) from an un-finalized recording; re-finalize the "
+            "metas (ecephys.sglx.repair_metadata) or exclude the session."
+        )
     has_data = pd.DataFrame(
         {
             "start_time": t2t(ftable["expmtPrbAcqFirstTime"]),
