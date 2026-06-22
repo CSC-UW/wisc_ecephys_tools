@@ -374,6 +374,7 @@ def get_sleep_deprivation_hypnogram(
     return full_hg.trim(sd_start, sd_end)
 
 
+# TODO: Add BSL.NREM
 def compute_statistical_condition_hypnograms(
     lbrl_hg: hyp.FloatHypnogram,
     cons_hg: hyp.FloatHypnogram,
