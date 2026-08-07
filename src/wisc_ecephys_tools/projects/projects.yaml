@@ -17,6 +17,13 @@ project: tmp_nvme
 project_directory: /nvme/neuropixels/tmp # TODO: Change to /nvme/tmp_wne_proj
 ...
 # Graham's projects
+# Project-agnostic derived products for the CNPIX chronic rat dataset (unit
+# quality tiers, ACG metrics, cell-type labels). Deliberately NOT scoped to any
+# one paper's project directory, so every analysis can share one set of labels.
+---
+project: cnpix
+project_directory: /Volumes/npx_nfs/nobak/cnpix
+...
 ---
 project: seahorse
 project_directory: /Volumes/npx_nfs/nobak/seahorse
