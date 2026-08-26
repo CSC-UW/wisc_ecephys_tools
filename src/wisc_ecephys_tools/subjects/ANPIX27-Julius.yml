@@ -1,8 +1,16 @@
 ---
+# All of Julius' surviving data were consolidated under
+# /Volumes/neuropixel_archive/Data/acute_mice/ANPIX27-Julius/ on 2026-08-26
+# (sync/, psychopy/, e3vision/ copied from /Volumes/scratch/Acute_Data; cv3d from
+# NAS1). The imec SpikeGLX bins/metas (6 probes, ~1.2 TB) are NOT here yet:
+# SpikeGLX/ holds only 03-03-2022_g0_t0.nidq.bin. They were absent from every
+# mount and from the acquisition PC (their last confirmed location, E:/ per the
+# sorting segments.htsv); the user located them 2026-08-26 and they are to be
+# moved into this SpikeGLX/ dir next. No sync/regeneration until then.
 recording_sessions:
   - id: 03-03-2022
-    ap: /Volumes/NeuropixelNAS1/ANPIX27-Julius/03-03-2022/SpikeGLX/
-    lf: /Volumes/NeuropixelNAS1/ANPIX27-Julius/03-03-2022/SpikeGLX/
+    ap: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX27-Julius/03-03-2022/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX27-Julius/03-03-2022/SpikeGLX/
     imSyncType: barcode
 experiments:
   discoflow-day1:
