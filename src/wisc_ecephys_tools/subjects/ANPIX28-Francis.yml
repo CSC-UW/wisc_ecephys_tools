@@ -1,12 +1,16 @@
----
+# Canonical home of all Francis data since 2026-08-27 (S3 copy is MD5/SHA1-verified identical); see anpix/docs/ANOMALIES.md.
 recording_sessions:
-  - id: 03-31-2022
-    ap: /Volumes/NeuropixelNAS1/ANPIX28-Francis/03-31-2022/SpikeGLX/
-    lf: /Volumes/NeuropixelNAS1/ANPIX28-Francis/03-31-2022/SpikeGLX/
-    imSyncType: barcode
   - id: 03-29-2022
-    ap: /Volumes/NeuropixelNAS1/ANPIX28-Francis/03-29-2022/SpikeGLX/
-    lf: /Volumes/NeuropixelNAS1/ANPIX28-Francis/03-29-2022/SpikeGLX/
+    ap: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX28-Francis/03-29-2022/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX28-Francis/03-29-2022/SpikeGLX/
+    imSyncType: barcode
+  - id: 03-30-2022
+    ap: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX28-Francis/03-30-2022/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX28-Francis/03-30-2022/SpikeGLX/
+    imSyncType: barcode
+  - id: 03-31-2022
+    ap: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX28-Francis/03-31-2022/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX28-Francis/03-31-2022/SpikeGLX/
     imSyncType: barcode
 experiments:
   discoflow-day1:
@@ -16,13 +20,6 @@ experiments:
       full:
         - start_file: 03-29-2022_g0_t0
           end_file: 03-29-2022_g0_t0
-  discoflow-day3:
-    recording_session_ids:
-      - 03-31-2022
-    aliases:
-      full:
-        - start_file: 03-31-2022_g0_t0
-          end_file: 03-31-2022_g0_t0
   discoflow-day2:
     recording_session_ids:
       - 03-30-2022
@@ -30,4 +27,10 @@ experiments:
       full:
         - start_file: 03-30-2022_g0_t0
           end_file: 03-30-2022_g0_t0
-...
+  discoflow-day3:
+    recording_session_ids:
+      - 03-31-2022
+    aliases:
+      full:
+        - start_file: 03-31-2022_g0_t0
+          end_file: 03-31-2022_g0_t0
