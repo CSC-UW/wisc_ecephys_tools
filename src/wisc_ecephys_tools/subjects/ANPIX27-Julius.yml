@@ -1,13 +1,6 @@
 ---
-# All of Julius' surviving data were consolidated under
-# /Volumes/neuropixel_archive/Data/acute_mice/ANPIX27-Julius/ on 2026-08-26
-# (sync/, psychopy/, e3vision/, cv3d/, histology and the full SpikeGLX/ tree,
-# copied from Giulio's S3 bucket gtononi-bucket-01:Acute_Data/ANPIX27-Julius;
-# see anpix/docs/DATA_LOCATIONS.md). The six imec .ap.bin are SHA1-identical to
-# the files the discoflow-day1 sortings were run on (sorting.imec*/segments.htsv).
-# Before 2026-08-26 the bins were absent from every mount and from the
-# acquisition PC (E:/, their last recorded location), and the acute_mice copy of
-# nidq.bin was truncated (1.7 of 8.8 GB).
+# Canonical home of all Julius data since 2026-08-26 (copied from Giulio's S3
+# bucket, SHA1-verified against the sortings); see anpix/docs/ANOMALIES.md.
 recording_sessions:
   - id: 03-03-2022
     ap: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX27-Julius/03-03-2022/SpikeGLX/
