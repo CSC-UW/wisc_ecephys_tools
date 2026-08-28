@@ -10,6 +10,9 @@ EXPERIMENT_ALIAS_LIST = [
     ("discoflow-day1", "full"),
     ("discoflow-day2", "full"),
     ("discoflow-day3", "full"),
+    ("rubber_tail", "full"),
+    ("rubber_tail-day1", "full"),
+    ("rubber_tail-day2", "full"),
 ]
 
 # Full fname is f"{prb}.{acronym}.{OFF_FNAME_SUFFIX}""

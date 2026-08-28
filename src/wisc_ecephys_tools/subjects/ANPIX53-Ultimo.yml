@@ -32,7 +32,7 @@ experiments:
       full:
         - start_file: 04-29-2024_g0_t0
           end_file: 04-29-2024_SP_g0_t0
-  discoflow-day3:
+  rubber_tail:
     recording_session_ids:
       - 04-29-2024_RT
     aliases:

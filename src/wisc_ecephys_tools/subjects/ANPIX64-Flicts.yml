@@ -5,7 +5,7 @@ recording_sessions:
     lf: /Volumes/NeuropixelNAS1/ANPIX64-Flicts/12-04-2025_RT/SpikeGLX
     imSyncType: barcode
 experiments:
-  discoflow-day3:
+  rubber_tail:
     recording_session_ids:
       - 12-04-2025_RT
     aliases:

@@ -144,7 +144,7 @@ The alias (always "`full`" by default) lets one subset specific files within thi
 
 ## Subject cache
 
-Because indexing of the archive drives might be slow, the experiment tables are by default pulled from a cache file (`wisc_ecephys_tools/subjects/wne_sglx_cache.gz`). This means that **after adding or modifying a subject file, you need to update the cache**, by running ```python wisc_ecephys_tools/subjects/refresh_cache.py```.
+Because indexing of the archive drives might be slow, the experiment tables are by default pulled from a cache file (`wisc_ecephys_tools/subjects/wne_sglx_cache.pqt`). This means that **after adding or modifying a subject file, you need to update the cache**, by running ```python wisc_ecephys_tools/subjects/refresh_cache.py```.
 
 Make sure to double check the output of this command
 
