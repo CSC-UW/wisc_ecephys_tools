@@ -1,8 +1,8 @@
 ---
 recording_sessions:
   - id: 11-16-2023
-    ap: /Volumes/NeuropixelNAS1/ANPIX37-Humphrey/11-16-2023/SpikeGLX
-    lf: /Volumes/NeuropixelNAS1/ANPIX37-Humphrey/11-16-2023/SpikeGLX
+    ap: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX37-Humphrey/11-16-2023/SpikeGLX
+    lf: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX37-Humphrey/11-16-2023/SpikeGLX
     imSyncType: barcode
   - id: 11-17-2023
     ap: /Volumes/NeuropixelNAS1/ANPIX37-Humphrey/11-17-2023/SpikeGLX
