@@ -1,12 +1,13 @@
+# Canonical home of all Madoc data since 2026-08-28 (copied from Giulio's S3 bucket, MD5/SHA1-verified); see anpix/docs/ANOMALIES.md.
 ---
 recording_sessions:
   - id: 04-18-2022
-    ap: /Volumes/NeuropixelNAS1/ANPIX29-Madoc/04-18-2022/SpikeGLX/
-    lf: /Volumes/NeuropixelNAS1/ANPIX29-Madoc/04-18-2022/SpikeGLX/
+    ap: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX29-Madoc/04-18-2022/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX29-Madoc/04-18-2022/SpikeGLX/
     imSyncType: barcode
   - id: 04-19-2022
-    ap: /Volumes/NeuropixelNAS1/ANPIX29-Madoc/04-19-2022/SpikeGLX/
-    lf: /Volumes/NeuropixelNAS1/ANPIX29-Madoc/04-19-2022/SpikeGLX/
+    ap: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX29-Madoc/04-19-2022/SpikeGLX/
+    lf: /Volumes/neuropixel_archive/Data/acute_mice/ANPIX29-Madoc/04-19-2022/SpikeGLX/
     imSyncType: barcode
 experiments:
   discoflow-day1:
