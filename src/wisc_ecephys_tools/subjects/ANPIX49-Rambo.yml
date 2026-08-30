@@ -1,9 +1,5 @@
 ---
 recording_sessions:
-  - id: 03-21-2024
-    ap: /Volumes/NeuropixelNAS1/ANPIX49-Rambo/03-21-2024/SpikeGLX
-    lf: /Volumes/NeuropixelNAS1/ANPIX49-Rambo/03-21-2024/SpikeGLX
-    imSyncType: barcode
   - id: 03-22-2024
     ap: /Volumes/NeuropixelNAS1/ANPIX49-Rambo/03-22-2024/SpikeGLX
     lf: /Volumes/NeuropixelNAS1/ANPIX49-Rambo/03-22-2024/SpikeGLX
@@ -13,13 +9,6 @@ recording_sessions:
     lf: /Volumes/NeuropixelNAS1/ANPIX49-Rambo/03-22-2024_SP/SpikeGLX
     imSyncType: barcode
 experiments:
-  discoflow-day1:
-    recording_session_ids:
-      - 03-21-2024
-    aliases:
-      full:
-        - start_file: 03-21-2024_g0_t0
-          end_file: 03-21-2024_g0_t0
   discoflow-day2:
     recording_session_ids:
       - 03-22-2024
