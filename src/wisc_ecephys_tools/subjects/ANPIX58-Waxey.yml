@@ -8,9 +8,14 @@ recording_sessions:
     ap: /Volumes/NeuropixelNAS1/ANPIX58-Waxey/11-21-2025_RT/SpikeGLX
     lf: /Volumes/NeuropixelNAS1/ANPIX58-Waxey/11-21-2025_RT/SpikeGLX
     imSyncType: barcode
-# Note: 11-21-2025/sync/ holds a raw uint32 sync binary (no .h5; needs
-# repair_sync_h5); 11-21-2025_RT has a proper .h5.
 experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 11-21-2025
+    aliases:
+      full:
+        - start_file: 11-21-2025_g0_t0
+          end_file: 11-21-2025_g0_t0
   rubber_tail:
     recording_session_ids:
       - 11-21-2025_RT

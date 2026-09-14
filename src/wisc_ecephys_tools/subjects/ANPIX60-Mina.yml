@@ -10,6 +10,13 @@ recording_sessions:
     imSyncType: barcode
 # Note: no-imec0 subject (lowest probe present is imec3).
 experiments:
+  discoflow-day1:
+    recording_session_ids:
+      - 11-27-2025
+    aliases:
+      full:
+        - start_file: 11-27-2025_g0_t0
+          end_file: 11-27-2025_g0_t0
   rubber_tail:
     recording_session_ids:
       - 11-27-2025_RT
