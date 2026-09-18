@@ -36,9 +36,15 @@ project_directory: /Volumes/npx_nfs/nobak/offproj
 project: offproj_s3
 project_directory: /Volumes/npx_nfs/shared_s3/offproj
 ...
+# SAM3 OFF-period work: image stacks, model predictions, trained models.
 ---
 project: samoffs
-project_directory: /Volumes/scratch/neuropixels/samoffs
+project_directory: /Volumes/npx_nfs/nobak/samoffs
+...
+# Manual (human) OFF labels for the SAM3 work. Backed up; not regenerable.
+---
+project: samoffs_s3
+project_directory: /Volumes/npx_nfs/shared_s3/samoffs
 ...
 # anpix acute-mouse dev/scratch project (outputs of the anpix sync pipeline).
 # NOT shared_s3: existing shared_s3 data must not be touched during development.

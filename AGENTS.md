@@ -106,9 +106,9 @@ Specialized utilities for CNPIX chronic Neuropixels subjects in sleep deprivatio
 
 Most operations require NFS mounts to be active:
 
-- `/Volumes/npx_nfs/` — primary NFS (shared, shared_nobak, offproj, seahorse)
+- `/Volumes/npx_nfs/` — primary NFS (shared, shared_nobak, offproj, offproj_s3, seahorse, samoffs, samoffs_s3)
 - `/Volumes/ceph-tononi/` — CephFS (Tom's projects)
-- `/Volumes/scratch/` — scratch space (samoffs)
+- `/Volumes/scratch/` — scratch space
 - `NeuropixelNAS1`, `NeuropixelNAS2` — raw recording archives
 
 If these are not mounted, project/subject loading will succeed but data access will fail with `FileNotFoundError`.
