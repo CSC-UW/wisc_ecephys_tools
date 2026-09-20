@@ -32,10 +32,6 @@ project_directory: /Volumes/npx_nfs/nobak/seahorse
 project: offproj
 project_directory: /Volumes/npx_nfs/nobak/offproj
 ...
----
-project: offproj_s3
-project_directory: /Volumes/npx_nfs/shared_s3/offproj
-...
 # SAM3 OFF-period work: image stacks, model predictions, trained models.
 ---
 project: samoffs
