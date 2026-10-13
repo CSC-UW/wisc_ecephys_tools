@@ -56,6 +56,7 @@ def do_probe(
     #     "Coordinates must be on channel dimension"
     # )
 
+    lfp = lfp.chunk({"channel": lfp["channel"].size, "time": int(lfp.fs * 600)})
     lfp = xrsig.bipolar_reference(lfp, shift)
     for q in qs:
         lfp = xrsig.decimate_timeseries(lfp, q)
