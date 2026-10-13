@@ -9,7 +9,7 @@ readme = "README.md"
 requires-python = ">=3.9,<4.0"
 dependencies = [
     "docopt",
-    "brainglobe-atlasapi",
+    "brainglobe-atlasapi>=3.0.2",
     "altair",
     "thefuzz",
     "ecephys @ git+https://github.com/CSC-UW/ecephys.git@develop",
