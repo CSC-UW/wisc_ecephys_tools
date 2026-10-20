@@ -123,3 +123,24 @@ def do_all_eta():
             qs=[10, 2],
             zarr_file=zarr_file,
         )
+
+
+def do_all_theta():
+    sep = utils.get_subject_experiment_probe_tuples(
+        experiment_filter=lambda x: x in SleepDeprivationExperiments
+    )
+    nb = wet.get_sglx_project("shared_nobak")
+    for subject, exp, probe in sep:
+        zarr_file = nb.get_experiment_subject_file(exp, subject, f"{probe}.itheta.zarr")
+        print(f"Doing {subject}, {exp}, {probe}")
+        do_probe(
+            subject,
+            exp,
+            probe,
+            lowcut=5,
+            highcut=10,
+            filter_order=2,
+            shift=10,
+            qs=[10, 2],
+            zarr_file=zarr_file,
+        )
